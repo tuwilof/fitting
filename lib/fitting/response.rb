@@ -8,7 +8,7 @@ module Fitting
     def initialize(env_response, expect_request)
       @status = env_response.status
       @body = env_response.body
-      @schemas = expect_request.find_responses(status: @status)
+      @schemas = expect_request.find_responses(status: @status) if expect_request
       raise Response::NotDocumented unless (@schemas&.first) || Fitting.configuration.skip_not_documented
       self
     end

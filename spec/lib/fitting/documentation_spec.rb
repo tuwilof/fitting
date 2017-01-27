@@ -100,6 +100,10 @@ RSpec.describe Fitting::Documentation do
     context 'request is not documented' do
       let(:request_path) { '/pokemons' }
 
+      it 'does not return an error' do
+        expect { subject.try_on(request, response) }.not_to raise_exception
+      end
+
       context 'but be sure to document' do
         let(:skip_not_documented) { false }
 
