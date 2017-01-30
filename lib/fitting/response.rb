@@ -9,8 +9,16 @@ module Fitting
       @status = env_response.status
       @body = env_response.body
       @schemas = expect_request.find_responses(status: @status) if expect_request
+      valid
       raise Response::NotDocumented unless (@schemas&.first) || Fitting.configuration.skip_not_documented
       self
+    end
+
+    def valid
+      @schemas = @schemas.map do |doc_response|
+        fully_validate = JSON::Validator.fully_validate(doc_response['body'], @body)
+        doc_response.merge('fully_validate' => fully_validate)
+      end
     end
 
     def valid!
