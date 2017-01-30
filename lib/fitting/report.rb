@@ -7,14 +7,19 @@ module Fitting
         if test['request']['schema'].nil?
           not_documented["#{test['request']['method']} #{test['request']['path']}"] = {}
         else
+          code = test['response']['status'].to_s
           valid = test['response']['valid']
           status = "#{test['request']['schema']['method']} #{test['request']['schema']['path']}"
           local_tests = {}
           if documented[status]
-            local_tests = documented[status]['responses']['tests']
+            local_tests = documented[status]['responses'][code]['tests']
           end
           unless valid
-            local_tests[location] = {}
+            local_tests[location] = {
+              'reality' => {
+                'body' => test['response']['body']
+              }
+            }
           end
 
           if local_tests.present?
@@ -23,13 +28,16 @@ module Fitting
 
           documented[status] = {
             'responses' => {
-              'valid' => valid,
-              'tests' => local_tests
+              code => {
+                'valid' => valid,
+                'tests' => local_tests
+              }
             }
           }
         end
       end
       @json = {
+        'tests' => tests,
         'requests' => {
           'documented' => documented,
           'not_documented' => not_documented
