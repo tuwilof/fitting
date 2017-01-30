@@ -28,7 +28,7 @@ module Fitting
         'method' => @method,
         'path' => @path,
         'body' => @body,
-        'schemas' => @schemas
+        'schema' => @schema
       }
     end
   end
