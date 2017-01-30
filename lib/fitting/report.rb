@@ -14,8 +14,15 @@ module Fitting
             valid = true
           end
 
+          local_tests = []
+          if documented[status]
+            local_tests = documented[status]['tests']
+          end
+          local_tests.push(location)
+
           documented[status] = {
-            'valid' => valid
+            'valid' => valid,
+            'tests' => local_tests
           }
         end
       end
