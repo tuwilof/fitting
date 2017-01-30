@@ -22,6 +22,7 @@ module Fitting
         if fully_validate == []
           @valid = true
         end
+        doc_response
       end
     end
 
