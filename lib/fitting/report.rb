@@ -28,7 +28,6 @@ module Fitting
         end
       end
       @json = {
-        'tests' => tests,
         'requests' => {
           'documented' => documented,
           'not_documented' => not_documented
