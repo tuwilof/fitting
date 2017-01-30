@@ -11,7 +11,7 @@ module Fitting
           status = "#{test['request']['schema']['method']} #{test['request']['schema']['path']}"
           local_tests = {}
           if documented[status]
-            local_tests = documented[status]['tests']
+            local_tests = documented[status]['responses']['tests']
           end
           unless valid
             local_tests[location] = {}
@@ -22,8 +22,10 @@ module Fitting
           end
 
           documented[status] = {
-            'valid' => valid,
-            'tests' => local_tests
+            'responses' => {
+              'valid' => valid,
+              'tests' => local_tests
+            }
           }
         end
       end
