@@ -10,6 +10,7 @@ module Fitting
         Fitting::JsonFile.push(
           location(date),
           {
+            'request' => request.to_hash,
             'response' => response.to_hash,
             'status' => 'valid'
           }
