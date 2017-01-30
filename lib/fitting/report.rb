@@ -3,6 +3,13 @@ module Fitting
     def initialize(tests)
       documented = {}
       not_documented = {}
+      statistics = {
+        'responses' => {
+          'valid' => 0,
+          'invalid' => 0,
+          'all' => 0
+        }
+      }
       tests.map do |location, test|
         if test['request']['schema'].nil?
           not_documented["#{test['request']['method']} #{test['request']['path']}"] = {}
@@ -41,7 +48,20 @@ module Fitting
           }
         end
       end
+
+      documented.map do |request|
+        request.last['responses'].map do |response|
+          if response.last['valid']
+            statistics['responses']['valid'] += 1
+          else
+            statistics['responses']['invalid'] += 1
+          end
+          statistics['responses']['all'] += 1
+        end
+      end
+
       @json = {
+        'statistics' => statistics,
         'requests' => {
           'documented' => documented,
           'not_documented' => not_documented
