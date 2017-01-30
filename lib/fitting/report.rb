@@ -9,12 +9,12 @@ module Fitting
         else
           valid = test['response']['valid']
           status = "#{test['request']['schema']['method']} #{test['request']['schema']['path']}"
-          local_tests = []
+          local_tests = {}
           if documented[status]
             local_tests = documented[status]['tests']
           end
           unless valid
-            local_tests.push(location)
+            local_tests[location] = {}
           end
 
           if local_tests.present?
