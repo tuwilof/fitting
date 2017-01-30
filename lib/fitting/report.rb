@@ -7,7 +7,16 @@ module Fitting
         if test['request']['schema'].nil?
           not_documented["#{test['request']['method']} #{test['request']['path']}"] = {}
         else
-          documented["#{test['request']['schema']['method']} #{test['request']['schema']['path']}"] = {}
+          valid = test['response']['valid']
+          status = "#{test['request']['schema']['method']} #{test['request']['schema']['path']}"
+
+          if documented[status] && documented[status]['valid'] && !valid
+            valid = true
+          end
+
+          documented[status] = {
+            'valid' => valid
+          }
         end
       end
       @json = {
