@@ -12,10 +12,12 @@ module Fitting
 
     def self.push(key, value)
       save('tests' => tests.merge(key => value))
+    rescue
     end
 
     def self.tests
       MultiJson.load(File.read(NAME))['tests']
+    rescue
     end
 
     def self.destroy
