@@ -3,6 +3,9 @@ require 'fitting/documentation'
 require 'fitting/request'
 require 'fitting/response'
 require 'fitting/configuration'
+require 'fitting/json_file'
+require 'fitting/rspec_json_formatter'
+require 'fitting/report'
 require 'tomogram_routing'
 
 module Fitting
