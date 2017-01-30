@@ -9,7 +9,7 @@ module Fitting
       @status = env_response.status
       @body = env_response.body
       @schemas = expect_request.find_responses(status: @status) if expect_request
-      valid
+      valid if @schemas
       raise Response::NotDocumented unless (@schemas&.first) || Fitting.configuration.skip_not_documented
       self
     end
