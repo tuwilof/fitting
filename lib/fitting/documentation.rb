@@ -4,13 +4,15 @@ module Fitting
   class Documentation
     class << self
       def try_on(date, env_request, env_response)
-        Fitting::JsonFile.push(
-          location(date),
-          {}
-        )
         request = Request.new(env_request, tomogram)
         request.valid! if request.validate?
         response = Response.new(env_response, request.schema)
+        Fitting::JsonFile.push(
+          location(date),
+          {
+            'response' => response.to_hash
+          }
+        )
         response.valid! if response.validate?
       end
 

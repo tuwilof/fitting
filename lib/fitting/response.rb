@@ -23,5 +23,13 @@ module Fitting
     def validate?
       @schemas&.first && Fitting.configuration.validation_response
     end
+
+    def to_hash
+      {
+        'status' => @status,
+        'body' => @body,
+        'schemas' => @schemas
+      }
+    end
   end
 end
