@@ -11,8 +11,7 @@ module Fitting
           location(date),
           {
             'request' => request.to_hash,
-            'response' => response.to_hash,
-            'status' => 'valid'
+            'response' => response.to_hash
           }
         )
         response.valid! if response.validate?
