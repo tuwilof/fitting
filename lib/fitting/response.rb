@@ -18,7 +18,7 @@ module Fitting
       @valid = false
       @schemas = @schemas.map do |doc_response|
         fully_validate = JSON::Validator.fully_validate(doc_response['body'], @body)
-        doc_response.merge('fully_validate' => fully_validate)
+        doc_response = doc_response.merge('fully_validate' => fully_validate)
         if fully_validate == []
           @valid = true
         end
