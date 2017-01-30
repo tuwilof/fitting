@@ -15,7 +15,7 @@ module Fitting
       tests = Fitting::JsonFile.tests
       Fitting::JsonFile.destroy
 
-      report = Report.new.to_hash
+      report = Report.new(tests).to_hash
       craft_json(report)
     end
 

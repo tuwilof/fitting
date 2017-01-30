@@ -1,9 +1,8 @@
 module Fitting
   class Report
-    def initialize
-      after_json = {}
+    def initialize(tests)
       @json = {
-        'tests' => after_json
+        'tests' => tests
       }
     end
 
