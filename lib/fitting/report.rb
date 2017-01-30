@@ -15,10 +15,15 @@ module Fitting
             local_tests = documented[status]['responses'][code]['tests']
           end
           unless valid
+            fully_validates = test['response']['schemas'].map do |schema|
+              schema['fully_validate']
+            end
+
             local_tests[location] = {
               'reality' => {
                 'body' => test['response']['body']
-              }
+              },
+              'fully_validates' => fully_validates.first
             }
           end
 
@@ -37,7 +42,6 @@ module Fitting
         end
       end
       @json = {
-        'tests' => tests,
         'requests' => {
           'documented' => documented,
           'not_documented' => not_documented
