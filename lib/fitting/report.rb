@@ -11,24 +11,26 @@ module Fitting
         }
       }
       tests.map do |location, test|
-        if test['request']['schema'].nil?
-          not_documented["#{test['request']['method']} #{test['request']['path']}"] = {}
+        request = MultiJson.load(test['request'])
+        response = MultiJson.load(test['response'])
+        if request['schema'].nil?
+          not_documented["#{request['method']} #{request['path']}"] = {}
         else
-          code = test['response']['status'].to_s
-          valid = test['response']['valid']
-          status = "#{test['request']['schema']['method']} #{test['request']['schema']['path']}"
+          code = response['status'].to_s
+          valid = response['valid']
+          status = "#{request['schema']['method']} #{request['schema']['path']}"
           local_tests = {}
           if documented[status]
             local_tests = documented[status]['responses'][code]['tests']
           end
           unless valid
-            fully_validates = test['response']['schemas'].map do |schema|
+            fully_validates = response['schemas'].map do |schema|
               schema['fully_validate']
             end
 
             local_tests[location] = {
               'reality' => {
-                'body' => test['response']['body']
+                'body' => response['body']
               },
               'fully_validates' => fully_validates.first
             }
