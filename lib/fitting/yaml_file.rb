@@ -5,23 +5,27 @@ module Fitting
     NAME = 'storage.yaml'.freeze
 
     def self.craft
-      save({})
+      save("---\n")
     end
 
     def self.save(json)
       File.open(NAME, 'w') do |file|
-        file.write(YAML.dump(json))
+        file.write(json)
       end
     end
 
     def self.push(key, value)
-      save(tests.merge(key => value))
+      save(tests + YAML.dump(key => value)[4..-1])
     rescue
     end
 
     def self.tests
-      YAML.load(File.read(NAME))
+      File.read(NAME)
     rescue
+    end
+
+    def self.load
+      YAML.load(File.read(NAME))
     end
 
     def self.destroy

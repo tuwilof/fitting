@@ -12,7 +12,7 @@ module Fitting
     end
 
     def stop(_notification)
-      tests = Fitting::YamlFile.tests
+      tests = Fitting::YamlFile.load
       Fitting::YamlFile.destroy
 
       report = Report.new(tests).to_hash

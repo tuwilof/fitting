@@ -24,6 +24,10 @@ module Fitting
     rescue
     end
 
+    def self.load
+      MultiJson.load(File.read(NAME))
+    end
+
     def self.destroy
       File.delete(NAME)
     end
