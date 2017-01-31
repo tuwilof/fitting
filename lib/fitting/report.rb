@@ -34,9 +34,7 @@ module Fitting
             }
           end
 
-          if local_tests.present?
-            valid = false
-          end
+          valid = false if local_tests.present?
 
           documented[status] = {
             'responses' => {

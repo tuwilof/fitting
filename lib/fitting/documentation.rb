@@ -9,10 +9,8 @@ module Fitting
         response = Response.new(env_response, request.schema)
         Fitting::JsonFile.push(
           location(date),
-          {
-            'request' => request.to_hash,
-            'response' => response.to_hash
-          }
+          'request' => request.to_hash,
+          'response' => response.to_hash
         )
         response.valid! if response.validate?
       end

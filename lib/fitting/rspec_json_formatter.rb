@@ -11,7 +11,7 @@ module Fitting
       Fitting::JsonFile.save(Report.blank)
     end
 
-    def stop(notification)
+    def stop(_notification)
       tests = Fitting::JsonFile.tests
       Fitting::JsonFile.destroy
 
