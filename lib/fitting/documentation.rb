@@ -7,7 +7,7 @@ module Fitting
         request = Request.new(env_request, tomogram)
         request.valid! if request.validate?
         response = Response.new(env_response, request.schema)
-        Fitting::JsonFile.push(
+        Fitting::YamlFile.push(
           location(date),
           'request' => MultiJson.dump(request.to_hash),
           'response' => MultiJson.dump(response.to_hash)

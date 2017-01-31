@@ -8,12 +8,12 @@ module Fitting
     RSpec::Core::Formatters.register self, :start, :stop
 
     def start(_notification)
-      Fitting::JsonFile.save(Report.blank)
+      Fitting::YamlFile.save(Report.blank)
     end
 
     def stop(_notification)
-      tests = Fitting::JsonFile.tests
-      Fitting::JsonFile.destroy
+      tests = Fitting::YamlFile.tests
+      Fitting::YamlFile.destroy
 
       report = Report.new(tests).to_hash
       craft_json(report)
