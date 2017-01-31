@@ -35,14 +35,19 @@ module Fitting
       end
       unless valid
         fully_validates = response['schemas'].map do |schema|
-          schema['fully_validate']
+          MultiJson.dump(schema['fully_validate'])
+        end
+
+        schemas = response['schemas'].map do |schema|
+          MultiJson.dump(schema['body'])
         end
 
         local_tests[location] = {
           'reality' => {
             'body' => response['body']
           },
-          'fully_validates' => fully_validates.first
+          'fully_validates' => fully_validates,
+          'schemas' => schemas
         }
       end
 
