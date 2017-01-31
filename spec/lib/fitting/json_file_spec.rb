@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe Fitting::JsonFile do
+  describe '.craft' do
+    after { described_class.destroy }
+
+    it 'not raise exception' do
+      expect { described_class.craft }.not_to raise_exception
+    end
+  end
+
   describe '.save' do
     after { described_class.destroy }
 
@@ -10,7 +18,7 @@ describe Fitting::JsonFile do
   end
 
   describe '.push' do
-    before { described_class.save('tests' => {}) }
+    before { described_class.craft }
     after { described_class.destroy }
 
     it 'not raise exception' do
@@ -19,7 +27,7 @@ describe Fitting::JsonFile do
   end
 
   describe '.tests' do
-    before { described_class.save('tests' => {}) }
+    before { described_class.craft }
     after { described_class.destroy }
 
     it 'not raise exception' do
@@ -32,7 +40,7 @@ describe Fitting::JsonFile do
   end
 
   describe '.destroy' do
-    before { described_class.save('tests' => {}) }
+    before { described_class.craft }
 
     it 'not raise exception' do
       expect { described_class.destroy }.not_to raise_exception
