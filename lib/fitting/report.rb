@@ -43,11 +43,9 @@ module Fitting
         end
 
         local_tests[location] = {
-          'reality' => {
-            'body' => response['body']
-          },
-          'fully_validates' => fully_validates,
-          'schemas' => schemas
+          'got' =>  response['body'],
+          'diff' => fully_validates,
+          'expected' => schemas
         }
       end
 
