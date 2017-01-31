@@ -39,6 +39,19 @@ describe Fitting::JsonFile do
     end
   end
 
+  describe '.load' do
+    before { described_class.craft }
+    after { described_class.destroy }
+
+    it 'not raise exception' do
+      expect { described_class.load }.not_to raise_exception
+    end
+
+    it 'get tests' do
+      expect(described_class.load).to eq({})
+    end
+  end
+
   describe '.destroy' do
     before { described_class.craft }
 
