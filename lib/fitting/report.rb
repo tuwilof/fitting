@@ -8,10 +8,11 @@ module Fitting
         request = MultiJson.load(test['request'])
         response = MultiJson.load(test['response'])
         if request['schema'].nil?
-          not_documented["#{request['method']} #{request['path']}"] = {}
+          url = "#{request['method']} #{request['path']}"
+          not_documented[url] = {}
         else
-          status = "#{request['schema']['method']} #{request['schema']['path']}"
-          documented[status] = not_doc(request, response, documented, location)
+          url = "#{request['schema']['method']} #{request['schema']['path']}"
+          documented[url] = not_doc(request, response, documented, location)
         end
       end
 
@@ -27,10 +28,10 @@ module Fitting
     def not_doc(request, response, documented, location)
       code = response['status'].to_s
       valid = response['valid']
-      status = "#{request['schema']['method']} #{request['schema']['path']}"
+      url = "#{request['schema']['method']} #{request['schema']['path']}"
       local_tests = {}
-      if documented[status]
-        local_tests = documented[status]['responses'][code]['tests']
+      if documented[url]
+        local_tests = documented[url]['responses'][code]['tests']
       end
       unless valid
         fully_validates = response['schemas'].map do |schema|
