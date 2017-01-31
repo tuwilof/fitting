@@ -4,6 +4,10 @@ module Fitting
   class YamlFile
     NAME = 'storage.yaml'.freeze
 
+    def self.craft
+      save({})
+    end
+
     def self.save(json)
       File.open(NAME, 'w') do |file|
         file.write(YAML.dump(json))

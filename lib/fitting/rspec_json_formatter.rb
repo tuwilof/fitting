@@ -8,7 +8,7 @@ module Fitting
     RSpec::Core::Formatters.register self, :start, :stop
 
     def start(_notification)
-      Fitting::YamlFile.save(Report.blank)
+      Fitting::YamlFile.craft
     end
 
     def stop(_notification)

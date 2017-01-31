@@ -4,6 +4,10 @@ module Fitting
   class JsonFile
     NAME = 'storage.json'.freeze
 
+    def self.craft
+      save({})
+    end
+
     def self.save(json)
       File.open(NAME, 'w') do |file|
         file.write(MultiJson.dump(json))

@@ -69,10 +69,6 @@ module Fitting
       }
     end
 
-    def self.blank
-      {}
-    end
-
     def to_hash
       @json
     end
