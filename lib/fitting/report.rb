@@ -70,9 +70,7 @@ module Fitting
     end
 
     def self.blank
-      {
-        'tests' => {}
-      }
+      {}
     end
 
     def to_hash

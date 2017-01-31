@@ -11,12 +11,12 @@ module Fitting
     end
 
     def self.push(key, value)
-      save('tests' => tests.merge(key => value))
+      save(tests.merge(key => value))
     rescue
     end
 
     def self.tests
-      YAML.load(File.read(NAME))['tests']
+      YAML.load(File.read(NAME))
     rescue
     end
 
