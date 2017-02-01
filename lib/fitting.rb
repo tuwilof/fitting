@@ -6,7 +6,7 @@ require 'fitting/configuration'
 require 'fitting/json_file'
 require 'fitting/yaml_file'
 require 'fitting/rspec_json_formatter'
-require 'fitting/report'
+require 'fitting/report/test'
 require 'tomogram_routing'
 
 module Fitting

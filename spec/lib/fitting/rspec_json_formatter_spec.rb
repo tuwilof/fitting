@@ -13,7 +13,7 @@ describe Fitting::RspecJsonFormatter do
   describe '#stop' do
     let(:report) { double(to_hash: {}) }
 
-    before { allow(Fitting::Report).to receive(:new).and_return(report) }
+    before { allow(Fitting::Report::Test).to receive(:new).and_return(report) }
 
     it 'not raise exception' do
       expect { subject.stop(nil) }.not_to raise_exception
