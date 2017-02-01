@@ -31,17 +31,17 @@ module Fitting
 
       def responses_documented(location, valid, data, name)
         if valid
-          if data['valid'][name]
-            data['valid'] = data['valid'].merge(name =>  data['valid'][name] + [location])
-          else
-            data['valid'] = data['valid'].merge(name => [location])
-          end
+          push('valid', data, name, location)
         else
-          if data['invalid'][name]
-            data['invalid'] = data['invalid'].merge(name =>  data['invalid'][name] + [location])
-          else
-            data['invalid'] = data['invalid'].merge(name => [location])
-          end
+          push('invalid', data, name, location)
+        end
+      end
+
+      def push(key, data, name, location)
+        if data[key][name]
+          data[key] = data[key].merge(name =>  data[key][name] + [location])
+        else
+          data[key] = data[key].merge(name => [location])
         end
       end
 
