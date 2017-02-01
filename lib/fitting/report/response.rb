@@ -8,7 +8,8 @@ module Fitting
       def responses(tests)
         data = {
           'not_documented' => {},
-          'documented' => {}
+          'invalid' => {},
+          'valid' => {}
         }
 
         tests.map do |location, test|
@@ -20,15 +21,7 @@ module Fitting
             if response["schemas"].nil?
               data['not_documented'][response_key(request['schema'], response)] = {}
             else
-              if data['documented'][response_key(request['schema'], response)]
-                before = data['documented'][response_key(request['schema'], response)]
-              else
-                before = {
-                  'invalid' => {},
-                  'valid' => {}
-                }
-              end
-              data['documented'][response_key(request['schema'], response)] = responses_documented(location, response['valid'], before)
+              responses_documented(location, response['valid'], data, response_key(request['schema'], response))
             end
           end
         end
@@ -36,17 +29,19 @@ module Fitting
         data
       end
 
-      def responses_documented(location, valid, before)
+      def responses_documented(location, valid, data, name)
         if valid
-          {
-            'invalid' => before['invalid'],
-            'valid' => before['valid'].merge(location => {})
-          }
+          if data['valid'][name]
+            data['valid'] = data['valid'].merge(name =>  data['valid'][name].merge(location => {}))
+          else
+            data['valid'] = data['valid'].merge(name => {location => {}})
+          end
         else
-          {
-            'invalid' => before['invalid'].merge(location => {}),
-            'valid' => before['valid']
-          }
+          if data['invalid'][name]
+            data['invalid'] = data['invalid'].merge(name =>  data['invalid'][name].merge(location => {}))
+          else
+            data['invalid'] = data['invalid'].merge(name => {location => {}})
+          end
         end
       end
 
