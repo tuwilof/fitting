@@ -1,3 +1,5 @@
+require 'multi_json'
+
 module Fitting
   module Report
     class TestResponse
@@ -27,9 +29,16 @@ module Fitting
 
       def responses_documented(location, data, response)
         if response['valid']
+          expect_body = {}
+          response['schemas'].map do |schema|
+            if schema['fully_validate'] == []
+              expect_body = schema['body']
+            end
+          end
           data[location] = {
             'status' => 'valid',
-            'got' => response["body"]
+            'got' => response["body"],
+            'expect' => MultiJson.dump(expect_body)
           }
         else
           data[location] = {
