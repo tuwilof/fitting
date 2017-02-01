@@ -10,6 +10,7 @@ require 'fitting/response_yaml_formatter'
 require 'fitting/report/test'
 require 'fitting/report/request'
 require 'fitting/report/response'
+require 'fitting/report/test_response'
 require 'tomogram_routing'
 
 module Fitting
