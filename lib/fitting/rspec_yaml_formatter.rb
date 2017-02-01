@@ -1,10 +1,10 @@
 require 'rspec/core/formatters/base_formatter'
-require 'multi_json'
+require 'yaml'
 require 'fitting/json_file'
 require 'fitting/report/test'
 
 module Fitting
-  class RspecJsonFormatter < RSpec::Core::Formatters::BaseFormatter
+  class RspecYamlFormatter < RSpec::Core::Formatters::BaseFormatter
     RSpec::Core::Formatters.register self, :start, :stop
 
     def start(_notification)
@@ -20,8 +20,8 @@ module Fitting
     end
 
     def craft_json(report)
-      File.open('report.json', 'w') do |file|
-        file.write(MultiJson.dump(report))
+      File.open('report.yaml', 'w') do |file|
+        file.write(YAML.dump(report))
       end
     end
   end

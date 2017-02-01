@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'fitting/rspec_json_formatter'
+require 'fitting/rspec_yaml_formatter'
 
-describe Fitting::RspecJsonFormatter do
+describe Fitting::RspecYamlFormatter do
   subject { described_class.new(nil) }
 
   describe '#start' do
