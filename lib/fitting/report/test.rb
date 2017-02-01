@@ -18,7 +18,6 @@ module Fitting
         end
 
         @json = {
-          'statistics' => statistics(documented),
           'requests' => {
             'documented' => documented,
             'not_documented' => not_documented
@@ -60,27 +59,6 @@ module Fitting
             }
           }
         }
-      end
-
-      def statistics(documented)
-        sttstcs = {
-          'responses' => {
-            'valid' => 0,
-            'invalid' => 0,
-            'all' => 0
-          }
-        }
-        documented.map do |request|
-          request.last['responses'].map do |response|
-            if response.last['valid']
-              sttstcs['responses']['valid'] += 1
-            else
-              sttstcs['responses']['invalid'] += 1
-            end
-            sttstcs['responses']['all'] += 1
-          end
-        end
-        sttstcs
       end
 
       def to_hash
