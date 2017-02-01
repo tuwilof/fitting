@@ -7,15 +7,15 @@ module Fitting
 
       def responses(tests)
         data = {
-          'documented' => {},
-          'not_documented' => {}
+          'not_documented' => {},
+          'documented' => {}
         }
 
         tests.map do |location, test|
           request = MultiJson.load(test['request'])
           response = MultiJson.load(test['response'])
           if request['schema'].nil?
-            data['not_documented'][response_key(request, response)] = {}
+            data['not_documented'][response_key(request, response)] = location
           else
             if response["schemas"].nil?
               data['not_documented'][response_key(request['schema'], response)] = {}
@@ -24,8 +24,8 @@ module Fitting
                 before = data['documented'][response_key(request['schema'], response)]
               else
                 before = {
-                  'valid' => {},
-                  'invalid' => {}
+                  'invalid' => {},
+                  'valid' => {}
                 }
               end
               data['documented'][response_key(request['schema'], response)] = responses_documented(location, response['valid'], before)
@@ -39,13 +39,13 @@ module Fitting
       def responses_documented(location, valid, before)
         if valid
           {
-            'valid' => before['valid'].merge(location => {}),
-            'invalid' => before['invalid']
+            'invalid' => before['invalid'],
+            'valid' => before['valid'].merge(location => {})
           }
         else
           {
-            'valid' => before['valid'],
-            'invalid' => before['invalid'].merge(location => {})
+            'invalid' => before['invalid'].merge(location => {}),
+            'valid' => before['valid']
           }
         end
       end
