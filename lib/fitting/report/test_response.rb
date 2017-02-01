@@ -12,10 +12,10 @@ module Fitting
           request = MultiJson.load(test['request'])
           response = MultiJson.load(test['response'])
           if request['schema'].nil?
-            data[location] = {}
+            data[location] = {'status' => 'not_documented'}
           else
             if response["schemas"].nil?
-              data[location] = {}
+              data[location] = {'status' => 'not_documented'}
             else
               responses_documented(location, response['valid'], data)
             end
@@ -27,9 +27,9 @@ module Fitting
 
       def responses_documented(location, valid, data)
         if valid
-          data[location] = {}
+          data[location] = {'status' => 'valid'}
         else
-          data[location] = {}
+          data[location] = {'status' => 'invalid'}
         end
       end
 
