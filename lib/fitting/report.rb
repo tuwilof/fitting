@@ -27,34 +27,50 @@ module Fitting
 
     def requests_responses(tests)
       data = {
-        'request' => {
-          'documented' => {},
-          'not_documented' => {}
-        },
-        'response' => {
-          'documented' => {},
-          'not_documented' => {}
-        }
+        'request' => requests(tests),
+        'response' => responses(tests)
+      }
+      data
+    end
+
+    def requests(tests)
+      data = {
+        'documented' => {},
+        'not_documented' => {}
       }
 
-      tests.map do |location, test|
+      tests.map do |_location, test|
+        request = MultiJson.load(test['request'])
+        if request['schema'].nil?
+          request_key = "#{request['method']} #{request['path']}"
+          data['not_documented'][request_key] = {}
+        else
+          request_key = "#{request['schema']['method']} #{request['schema']['path']}"
+          data['documented'][request_key] = {}
+        end
+      end
+
+      data
+    end
+
+    def responses(tests)
+      data = {
+        'documented' => {},
+        'not_documented' => {}
+      }
+
+      tests.map do |_location, test|
         request = MultiJson.load(test['request'])
         response = MultiJson.load(test['response'])
         if request['schema'].nil?
-          request_key = "#{request['method']} #{request['path']}"
-          response_key = "#{request_key} #{response["status"]}"
-
-          data['request']['not_documented'][request_key] = {}
-          data['response']['not_documented'][response_key] = {}
+          response_key = "#{request['method']} #{request['path']} #{response["status"]}"
+          data['not_documented'][response_key] = {}
         else
-          request_key = "#{request['schema']['method']} #{request['schema']['path']}"
-          response_key = "#{request_key} #{response["status"]}"
-
-          data['request']['documented'][request_key] = {}
+          response_key = "#{request['schema']['method']} #{request['schema']['path']} #{response["status"]}"
           if response["schemas"].nil?
-            data['response']['not_documented'][response_key] = {}
+            data['not_documented'][response_key] = {}
           else
-            data['response']['documented'][response_key] = {}
+            data['documented'][response_key] = {}
           end
         end
       end
