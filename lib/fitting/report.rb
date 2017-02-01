@@ -42,11 +42,9 @@ module Fitting
       tests.map do |_location, test|
         request = MultiJson.load(test['request'])
         if request['schema'].nil?
-          request_key = "#{request['method']} #{request['path']}"
-          data['not_documented'][request_key] = {}
+          data['not_documented'][request_key(request)] = {}
         else
-          request_key = "#{request['schema']['method']} #{request['schema']['path']}"
-          data['documented'][request_key] = {}
+          data['documented'][request_key(request['schema'])] = {}
         end
       end
 
@@ -63,19 +61,25 @@ module Fitting
         request = MultiJson.load(test['request'])
         response = MultiJson.load(test['response'])
         if request['schema'].nil?
-          response_key = "#{request['method']} #{request['path']} #{response["status"]}"
-          data['not_documented'][response_key] = {}
+          data['not_documented'][response_key(request, response)] = {}
         else
-          response_key = "#{request['schema']['method']} #{request['schema']['path']} #{response["status"]}"
           if response["schemas"].nil?
-            data['not_documented'][response_key] = {}
+            data['not_documented'][response_key(request['schema'], response)] = {}
           else
-            data['documented'][response_key] = {}
+            data['documented'][response_key(request['schema'], response)] = {}
           end
         end
       end
 
       data
+    end
+
+    def request_key(request_data)
+      "#{request_data['method']} #{request_data['path']}"
+    end
+
+    def response_key(request_data, response_data)
+      "#{request_key(request_data)} #{response_data["status"]}"
     end
 
     def not_doc(request, response, documented, location)
