@@ -41,9 +41,19 @@ module Fitting
             'expect' => MultiJson.dump(expect_body)
           }
         else
+          fully_validates = response['schemas'].map do |schema|
+            MultiJson.dump(schema['fully_validate'])
+          end
+
+          schemas = response['schemas'].map do |schema|
+            MultiJson.dump(schema['body'])
+          end
+
           data[location] = {
             'status' => 'invalid',
-            'got' => response["body"]
+            'got' => response["body"],
+            'diff' => fully_validates,
+            'expected' => schemas
           }
         end
       end
