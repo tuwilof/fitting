@@ -6,22 +6,18 @@ module Fitting
       end
 
       def responses(tests)
-        data = {
-          'not_documented' => {},
-          'invalid' => {},
-          'valid' => {}
-        }
+        data = {}
 
         tests.map do |location, test|
           request = MultiJson.load(test['request'])
           response = MultiJson.load(test['response'])
           if request['schema'].nil?
-            data['not_documented'][response_key(request, response)] = [location]
+            data[location] = {}
           else
             if response["schemas"].nil?
-              data['not_documented'][response_key(request['schema'], response)] = [location]
+              data[location] = {}
             else
-              responses_documented(location, response['valid'], data, response_key(request['schema'], response))
+              responses_documented(location, response['valid'], data)
             end
           end
         end
@@ -29,28 +25,12 @@ module Fitting
         data
       end
 
-      def responses_documented(location, valid, data, name)
+      def responses_documented(location, valid, data)
         if valid
-          push('valid', data, name, location)
+          data[location] = {}
         else
-          push('invalid', data, name, location)
+          data[location] = {}
         end
-      end
-
-      def push(key, data, name, location)
-        if data[key][name]
-          data[key] = data[key].merge(name =>  data[key][name] + [location])
-        else
-          data[key] = data[key].merge(name => [location])
-        end
-      end
-
-      def request_key(request_data)
-        "#{request_data['method']} #{request_data['path']}"
-      end
-
-      def response_key(request_data, response_data)
-        "#{request_key(request_data)} #{response_data["status"]}"
       end
 
       def to_hash
