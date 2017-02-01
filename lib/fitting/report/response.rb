@@ -16,10 +16,10 @@ module Fitting
           request = MultiJson.load(test['request'])
           response = MultiJson.load(test['response'])
           if request['schema'].nil?
-            data['not_documented'][response_key(request, response)] = location
+            data['not_documented'][response_key(request, response)] = [location]
           else
             if response["schemas"].nil?
-              data['not_documented'][response_key(request['schema'], response)] = {}
+              data['not_documented'][response_key(request['schema'], response)] = [location]
             else
               responses_documented(location, response['valid'], data, response_key(request['schema'], response))
             end
@@ -32,15 +32,15 @@ module Fitting
       def responses_documented(location, valid, data, name)
         if valid
           if data['valid'][name]
-            data['valid'] = data['valid'].merge(name =>  data['valid'][name].merge(location => {}))
+            data['valid'] = data['valid'].merge(name =>  data['valid'][name] + [location])
           else
-            data['valid'] = data['valid'].merge(name => {location => {}})
+            data['valid'] = data['valid'].merge(name => [location])
           end
         else
           if data['invalid'][name]
-            data['invalid'] = data['invalid'].merge(name =>  data['invalid'][name].merge(location => {}))
+            data['invalid'] = data['invalid'].merge(name =>  data['invalid'][name] + [location])
           else
-            data['invalid'] = data['invalid'].merge(name => {location => {}})
+            data['invalid'] = data['invalid'].merge(name => [location])
           end
         end
       end
