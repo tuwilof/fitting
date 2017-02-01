@@ -17,7 +17,7 @@ module Fitting
             if response["schemas"].nil?
               data[location] = {'status' => 'not_documented'}
             else
-              responses_documented(location, response['valid'], data)
+              responses_documented(location, data, response)
             end
           end
         end
@@ -25,11 +25,17 @@ module Fitting
         data
       end
 
-      def responses_documented(location, valid, data)
-        if valid
-          data[location] = {'status' => 'valid'}
+      def responses_documented(location, data, response)
+        if response['valid']
+          data[location] = {
+            'status' => 'valid',
+            'got' => response["body"]
+          }
         else
-          data[location] = {'status' => 'invalid'}
+          data[location] = {
+            'status' => 'invalid',
+            'got' => response["body"]
+          }
         end
       end
 
