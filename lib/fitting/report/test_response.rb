@@ -14,10 +14,16 @@ module Fitting
           request = MultiJson.load(test['request'])
           response = MultiJson.load(test['response'])
           if request['schema'].nil?
-            data[location] = {'status' => 'not_documented'}
+            data[location] = {
+              'status' => 'not_documented',
+              'got' => response["body"],
+            }
           else
             if response["schemas"].nil?
-              data[location] = {'status' => 'not_documented'}
+              data[location] = {
+                'status' => 'not_documented',
+                'got' => response["body"],
+              }
             else
               responses_documented(location, data, response)
             end
