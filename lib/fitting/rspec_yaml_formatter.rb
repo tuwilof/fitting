@@ -1,7 +1,7 @@
 require 'rspec/core/formatters/base_formatter'
 require 'yaml'
 require 'fitting/json_file'
-require 'fitting/report/test_response'
+require 'fitting/report/response/micro'
 
 module Fitting
   class RspecYamlFormatter < RSpec::Core::Formatters::BaseFormatter
@@ -15,7 +15,7 @@ module Fitting
       tests = Fitting::YamlFile.load
       Fitting::YamlFile.destroy
 
-      report = Report::TestResponse.new(tests).to_hash
+      report = Report::Response::Micro.new(tests).to_hash
       craft_json(report)
     end
 

@@ -7,8 +7,8 @@ require 'fitting/json_file'
 require 'fitting/yaml_file'
 require 'fitting/rspec_yaml_formatter'
 require 'fitting/response_yaml_formatter'
-require 'fitting/report/response'
-require 'fitting/report/test_response'
+require 'fitting/report/response/macro'
+require 'fitting/report/response/micro'
 require 'tomogram_routing'
 
 module Fitting
