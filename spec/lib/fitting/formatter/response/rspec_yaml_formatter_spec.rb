@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'fitting/rspec_yaml_formatter'
+require 'fitting/formatter/response/micro_yaml'
 
-describe Fitting::RspecYamlFormatter do
+describe Fitting::Formatter::Response::MicroYaml do
   subject { described_class.new(nil) }
 
   describe '#start' do
