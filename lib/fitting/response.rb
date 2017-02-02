@@ -14,24 +14,19 @@ module Fitting
       self
     end
 
+    def valid!
+      raise Unsuitable unless @valid
+    end
+
     def set_fully_validate
       @valid = false
       fully_validates = []
       @schemas.map do |old_schema|
         fully_validate = JSON::Validator.fully_validate(old_schema, @body)
         fully_validates.push(fully_validate)
-        if fully_validate == []
-          @valid = true
-        end
+        @valid = true if fully_validate == []
       end
       fully_validates
-    end
-
-    def valid!
-      flag = @schemas.any? do |doc_response|
-        JSON::Validator.fully_validate(doc_response, @body) == []
-      end
-      raise Unsuitable unless flag
     end
 
     def validate?
