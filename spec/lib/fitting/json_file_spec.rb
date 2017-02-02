@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Fitting::JsonFile do
+describe Fitting::Storage::JsonFile do
   describe '.craft' do
     after { described_class.destroy }
 

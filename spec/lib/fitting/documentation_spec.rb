@@ -7,7 +7,7 @@ RSpec.describe Fitting::Documentation do
   end
 
   before do
-    allow(Fitting::JsonFile).to receive(:push)
+    allow(Fitting::Storage::JsonFile).to receive(:push)
     allow(Fitting).to receive(:configuration).and_return(
       double(
         tomogram: tomogram,

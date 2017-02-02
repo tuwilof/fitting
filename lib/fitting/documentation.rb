@@ -14,7 +14,7 @@ module Fitting
       private
 
       def add_storage(location, request, response)
-        Fitting::YamlFile.push(
+        Fitting::Storage::YamlFile.push(
           location,
           'request' => MultiJson.dump(request.to_hash),
           'response' => MultiJson.dump(response.to_hash)

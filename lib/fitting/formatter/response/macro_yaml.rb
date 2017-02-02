@@ -1,6 +1,6 @@
 require 'rspec/core/formatters/base_formatter'
 require 'yaml'
-require 'fitting/json_file'
+require 'fitting/storage/yaml_file'
 require 'fitting/report/response/macro'
 
 module Fitting
@@ -10,12 +10,12 @@ module Fitting
         RSpec::Core::Formatters.register self, :start, :stop
 
         def start(_notification)
-          Fitting::YamlFile.craft
+          Fitting::Storage::YamlFile.craft
         end
 
         def stop(_notification)
-          tests = Fitting::YamlFile.load
-          Fitting::YamlFile.destroy
+          tests = Fitting::Storage::YamlFile.load
+          Fitting::Storage::YamlFile.destroy
 
           report = Report::Response::Macro.new(tests).to_hash
           craft_json(report)
