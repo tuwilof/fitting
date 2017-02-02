@@ -37,17 +37,21 @@ module Fitting
         def responses_documented(location, data, response)
           if response['valid']
             expect_body = {}
-            response['schemas'].map do |schema|
-              expect_body = schema['body'] if schema['fully_validate'] == []
+
+            response['schemas'].size.times do |i|
+              if response['fully_validates'][i] == []
+                expect_body = response['schemas'][i]['body']
+              end
             end
+
             data[location] = {
               'status' => 'valid',
               'got' => response['body'],
               'expect' => MultiJson.dump(expect_body)
             }
           else
-            fully_validates = response['schemas'].map do |schema|
-              MultiJson.dump(schema['fully_validate'])
+            fully_validates = response['fully_validates'].map do |fully_validate|
+              MultiJson.dump(fully_validate)
             end
 
             schemas = response['schemas'].map do |schema|

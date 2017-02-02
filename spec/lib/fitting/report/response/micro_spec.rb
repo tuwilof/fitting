@@ -18,7 +18,7 @@ RSpec.describe Fitting::Report::Response::Micro do
             },
             'location3' => {
               'request' => MultiJson.dump({'schema' => {}}),
-              'response' => MultiJson.dump({'schemas' => {}})
+              'response' => MultiJson.dump({'schemas' => {}, 'fully_validates' => {}})
             }
           }
         )
@@ -34,7 +34,8 @@ RSpec.describe Fitting::Report::Response::Micro do
             'fully_validate' => {},
             'body' => {}
           }
-        ]
+        ],
+        'fully_validates' => {}
       }
       expect do
         described_class.new({}).responses_documented('location', {}, response)
@@ -49,7 +50,8 @@ RSpec.describe Fitting::Report::Response::Micro do
             'fully_validate' => {},
             'body' => {}
           }
-        ]
+        ],
+        'fully_validates' => {}
       }
       expect do
         described_class.new({}).responses_documented('location', {}, response)

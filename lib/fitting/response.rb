@@ -9,21 +9,22 @@ module Fitting
       @status = env_response.status
       @body = env_response.body
       @schemas = expect_request.find_responses(status: @status) if expect_request
-      @schemas = set_fully_validate if @schemas
+      @fully_validates = set_fully_validate if @schemas
       raise Response::NotDocumented unless (@schemas&.first) || Fitting.configuration.skip_not_documented
       self
     end
 
     def set_fully_validate
       @valid = false
+      fully_validates = []
       @schemas.map do |old_schema|
         fully_validate = JSON::Validator.fully_validate(old_schema['body'], @body)
-        new_schema = old_schema.merge('fully_validate' => fully_validate)
+        fully_validates.push(fully_validate)
         if fully_validate == []
           @valid = true
         end
-        new_schema
       end
+      fully_validates
     end
 
     def valid!
@@ -42,6 +43,7 @@ module Fitting
         'status' => @status,
         'body' => @body,
         'schemas' => @schemas,
+        'fully_validates' => @fully_validates,
         'valid' => @valid
       }
     end
