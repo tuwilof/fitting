@@ -1,4 +1,8 @@
+require 'tomogram_routing'
 require 'json-schema'
+require 'fitting/storage/yaml_file'
+require 'fitting/request'
+require 'fitting/response'
 
 module Fitting
   class Documentation

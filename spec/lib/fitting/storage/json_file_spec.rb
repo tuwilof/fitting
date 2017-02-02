@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fitting/storage/json_file'
 
 describe Fitting::Storage::JsonFile do
   describe '.craft' do
