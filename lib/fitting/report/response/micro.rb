@@ -17,13 +17,13 @@ module Fitting
             if request['schema'].nil?
               data[location] = {
                 'status' => 'not_documented',
-                'got' => response["body"],
+                'got' => response['body']
               }
             else
-              if response["schemas"].nil?
+              if response['schemas'].nil?
                 data[location] = {
                   'status' => 'not_documented',
-                  'got' => response["body"],
+                  'got' => response['body']
                 }
               else
                 responses_documented(location, data, response)
@@ -38,13 +38,11 @@ module Fitting
           if response['valid']
             expect_body = {}
             response['schemas'].map do |schema|
-              if schema['fully_validate'] == []
-                expect_body = schema['body']
-              end
+              expect_body = schema['body'] if schema['fully_validate'] == []
             end
             data[location] = {
               'status' => 'valid',
-              'got' => response["body"],
+              'got' => response['body'],
               'expect' => MultiJson.dump(expect_body)
             }
           else
@@ -58,7 +56,7 @@ module Fitting
 
             data[location] = {
               'status' => 'invalid',
-              'got' => response["body"],
+              'got' => response['body'],
               'diff' => fully_validates,
               'expected' => schemas
             }

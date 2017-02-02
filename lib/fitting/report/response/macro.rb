@@ -19,7 +19,7 @@ module Fitting
             if request['schema'].nil?
               data['not_documented'][response_key(request, response)] = [location]
             else
-              if response["schemas"].nil?
+              if response['schemas'].nil?
                 data['not_documented'][response_key(request['schema'], response)] = [location]
               else
                 responses_documented(location, response['valid'], data, response_key(request['schema'], response))
@@ -39,11 +39,11 @@ module Fitting
         end
 
         def push(key, data, name, location)
-          if data[key][name]
-            data[key] = data[key].merge(name => data[key][name] + [location])
-          else
-            data[key] = data[key].merge(name => [location])
-          end
+          data[key] = if data[key][name]
+                        data[key].merge(name => data[key][name] + [location])
+                      else
+                        data[key].merge(name => [location])
+                      end
         end
 
         def request_key(request_data)
@@ -51,7 +51,7 @@ module Fitting
         end
 
         def response_key(request_data, response_data)
-          "#{request_key(request_data)} #{response_data["status"]}"
+          "#{request_key(request_data)} #{response_data['status']}"
         end
 
         def to_hash
