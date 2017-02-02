@@ -40,7 +40,7 @@ module Fitting
 
             response['schemas'].size.times do |i|
               if response['fully_validates'][i] == []
-                expect_body = response['schemas'][i]['body']
+                expect_body = response['schemas'][i]
               end
             end
 
@@ -55,7 +55,7 @@ module Fitting
             end
 
             schemas = response['schemas'].map do |schema|
-              MultiJson.dump(schema['body'])
+              MultiJson.dump(schema)
             end
 
             data[location] = {

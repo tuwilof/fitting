@@ -8,7 +8,7 @@ module Fitting
     def initialize(env_response, expect_request)
       @status = env_response.status
       @body = env_response.body
-      @schemas = expect_request.find_responses(status: @status) if expect_request
+      @schemas = expect_request.find_responses(status: @status).map{|response|response['body']} if expect_request
       @fully_validates = set_fully_validate if @schemas
       raise Response::NotDocumented unless (@schemas&.first) || Fitting.configuration.skip_not_documented
       self
@@ -18,7 +18,7 @@ module Fitting
       @valid = false
       fully_validates = []
       @schemas.map do |old_schema|
-        fully_validate = JSON::Validator.fully_validate(old_schema['body'], @body)
+        fully_validate = JSON::Validator.fully_validate(old_schema, @body)
         fully_validates.push(fully_validate)
         if fully_validate == []
           @valid = true
@@ -29,7 +29,7 @@ module Fitting
 
     def valid!
       flag = @schemas.any? do |doc_response|
-        JSON::Validator.fully_validate(doc_response['body'], @body) == []
+        JSON::Validator.fully_validate(doc_response, @body) == []
       end
       raise Unsuitable unless flag
     end
