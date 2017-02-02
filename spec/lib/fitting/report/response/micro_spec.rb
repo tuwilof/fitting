@@ -30,12 +30,9 @@ RSpec.describe Fitting::Report::Response::Micro do
     it 'not raise exception' do
       response = {
         'schemas' => [
-          {
-            'fully_validate' => {},
-            'body' => {}
-          }
+          {}
         ],
-        'fully_validates' => {}
+        'fully_validates' => [[]]
       }
       expect do
         described_class.new({}).responses_documented('location', {}, response)
@@ -46,12 +43,9 @@ RSpec.describe Fitting::Report::Response::Micro do
       response = {
         'valid' => true,
         'schemas' => [
-          {
-            'fully_validate' => {},
-            'body' => {}
-          }
+          {}
         ],
-        'fully_validates' => {}
+        'fully_validates' => [[]]
       }
       expect do
         described_class.new({}).responses_documented('location', {}, response)
