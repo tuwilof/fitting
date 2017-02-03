@@ -29,7 +29,7 @@ RSpec.describe Fitting::Report::Response::Macro do
   describe '#responses_documented' do
     it 'not raise exception' do
       expect do
-        described_class.new({}).responses_documented(nil, true, {'valid' => {}, 'invalid' => {}}, nil)
+        described_class.new({}).responses_documented(nil, true, {'valid' => {}, 'invalid' => {}}, nil, {}, {'schemas'=>{}})
       end.not_to raise_exception
     end
   end
