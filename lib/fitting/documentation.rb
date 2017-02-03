@@ -30,7 +30,12 @@ module Fitting
       end
 
       def location(date)
-        date.inspect.to_s.split('(').last.split(')').first
+        name = date.inspect.to_s
+        if name.split('(').size > 1
+          name.split('(').last.split(')').first[2..-1]
+        else
+          name.split(' ')[3][2..-3]
+        end
       end
     end
   end
