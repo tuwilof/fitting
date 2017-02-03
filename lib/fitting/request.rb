@@ -22,5 +22,14 @@ module Fitting
     def validate?
       @schema && Fitting.configuration.validation_requests
     end
+
+    def to_hash
+      {
+        'method' => @method,
+        'path' => @path,
+        'body' => @body,
+        'schema' => @schema
+      }
+    end
   end
 end

@@ -33,6 +33,20 @@ config.after(:each, :type => :controller) do
 end
 ```
 
+### Formatting
+
+```
+bundle exec rspec --format Fitting::Formatter::Response::MacroYaml
+```
+
+or
+
+```
+bundle exec rspec --format Fitting::Formatter::Response::MicroYaml
+```
+
+After that you can find the report in `rreport_response_macro.yaml` or `report_response_micro.yaml`.
+
 ## Config
 
 ### tomogram

@@ -3,10 +3,11 @@ require 'multi_json'
 
 RSpec.describe Fitting::Documentation do
   subject do
-    described_class
+    described_class.try_on(double(inspect: '(lol)'), request, response)
   end
 
   before do
+    allow(Fitting::Storage::JsonFile).to receive(:push)
     allow(Fitting).to receive(:configuration).and_return(
       double(
         tomogram: tomogram,
@@ -92,7 +93,7 @@ RSpec.describe Fitting::Documentation do
         let(:validation_response) { false }
 
         it 'does not return an error' do
-          expect { subject.try_on(request, response) }.not_to raise_exception
+          expect { subject }.not_to raise_exception
         end
       end
     end
@@ -100,11 +101,15 @@ RSpec.describe Fitting::Documentation do
     context 'request is not documented' do
       let(:request_path) { '/pokemons' }
 
+      it 'does not return an error' do
+        expect { subject }.not_to raise_exception
+      end
+
       context 'but be sure to document' do
         let(:skip_not_documented) { false }
 
         it 'returns an error Request::NotDocumented' do
-          expect { subject.try_on(request, response) }.to raise_exception(Fitting::Request::NotDocumented)
+          expect { subject }.to raise_exception(Fitting::Request::NotDocumented)
         end
       end
     end
@@ -113,7 +118,7 @@ RSpec.describe Fitting::Documentation do
       let(:body_request) { '{}' }
 
       it 'returns an error Request::Unsuitable' do
-        expect { subject.try_on(request, response) }.to raise_exception(Fitting::Request::Unsuitable)
+        expect { subject }.to raise_exception(Fitting::Request::Unsuitable)
       end
     end
 
@@ -124,7 +129,7 @@ RSpec.describe Fitting::Documentation do
         let(:validation_response) { false }
 
         it 'does not return an error' do
-          expect { subject.try_on(request, response) }.not_to raise_exception
+          expect { subject }.not_to raise_exception
         end
       end
     end
@@ -136,7 +141,7 @@ RSpec.describe Fitting::Documentation do
         let(:skip_not_documented) { false }
 
         it 'returns an error Response::NotDocumented' do
-          expect { subject.try_on(request, response) }.to raise_exception(Fitting::Response::NotDocumented)
+          expect { subject }.to raise_exception(Fitting::Response::NotDocumented)
         end
       end
     end
@@ -145,12 +150,12 @@ RSpec.describe Fitting::Documentation do
       let(:body_response) { '{}' }
 
       it 'returns an error Response::Unsuitable' do
-        expect { subject.try_on(request, response) }.to raise_exception(Fitting::Response::Unsuitable)
+        expect { subject }.to raise_exception(Fitting::Response::Unsuitable)
       end
     end
 
     it 'does not return an error' do
-      expect { subject.try_on(request, response) }.not_to raise_exception
+      expect { subject }.not_to raise_exception
     end
   end
 end

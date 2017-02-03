@@ -1,9 +1,8 @@
 require 'fitting/version'
 require 'fitting/documentation'
-require 'fitting/request'
-require 'fitting/response'
 require 'fitting/configuration'
-require 'tomogram_routing'
+require 'fitting/formatter/response/macro_yaml'
+require 'fitting/formatter/response/micro_yaml'
 
 module Fitting
   class << self
