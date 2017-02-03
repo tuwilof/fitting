@@ -17,7 +17,11 @@ module Fitting
           tests = Fitting::Storage::YamlFile.load
           Fitting::Storage::YamlFile.destroy
 
-          report = Report::Response::Macro.new(tests).to_hash
+          if tests
+            report = Report::Response::Macro.new(tests).to_hash
+          else
+            report = 'no tests controllers'
+          end
           craft_json(report)
         end
 
