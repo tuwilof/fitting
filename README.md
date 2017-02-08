@@ -45,7 +45,7 @@ or
 bundle exec rspec --format Fitting::Formatter::Response::MicroYaml
 ```
 
-After that you can find the report in `rreport_response_macro.yaml` or `report_response_micro.yaml`.
+After that you can find the report in `report_response_macro.yaml` or `report_response_micro.yaml`.
 
 ## Config
 
