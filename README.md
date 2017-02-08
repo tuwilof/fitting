@@ -29,7 +29,7 @@ rails_helper.rb
 ```ruby
 require 'fitting'
 config.after(:each, :type => :controller) do
-  Fitting::Documentation.try_on(request, response)
+  Fitting::Documentation.try_on(self, request, response)
 end
 ```
 
