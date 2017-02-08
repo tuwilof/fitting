@@ -53,7 +53,7 @@ After that you can find the report in `rreport_response_macro.yaml` or `report_r
 
 This gem takes a simplified format json convert from API Blueprint which we have called API Tomogram.
 
-Use gem tomograph.
+Use gem [tomograph](https://github.com/funbox/tomograph)
 
 ```ruby
   Fitting.configure do |config|
