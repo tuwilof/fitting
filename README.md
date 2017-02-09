@@ -1,5 +1,7 @@
 # Fitting
 
+[![Build Status](https://travis-ci.org/funbox/fitting.svg?branch=master)](https://travis-ci.org/funbox/fitting)
+
 This gem will help to make your tests according to the documentation for the API.
 
 When writing tests, you can be sure that the implement API in accordance with documentation on API Blueprint.
