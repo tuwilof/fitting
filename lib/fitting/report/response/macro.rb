@@ -28,16 +28,18 @@ module Fitting
             end
           end
 
-          tests.map do |location, test|
-            request = MultiJson.load(test['request'])
-            response = MultiJson.load(test['response'])
-            if request['schema'].nil?
-              data['not_documented'][response_key(request, response)] = [location]
-            else
-              if response['schemas'].nil?
-                data['not_documented'][response_key(request['schema'], response)] = [location]
+          if tests
+            tests.map do |location, test|
+              request = MultiJson.load(test['request'])
+              response = MultiJson.load(test['response'])
+              if request['schema'].nil?
+                data['not_documented'][response_key(request, response)] = [location]
               else
-                responses_documented(location, response['valid'], data, response_key(request['schema'], response), full_responses, response)
+                if response['schemas'].nil?
+                  data['not_documented'][response_key(request['schema'], response)] = [location]
+                else
+                  responses_documented(location, response['valid'], data, response_key(request['schema'], response), full_responses, response)
+                end
               end
             end
           end
