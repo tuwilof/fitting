@@ -12,9 +12,8 @@ module Fitting
             'invalid' => {},
             'valid' => {}
           }
-          full_responses = {}
 
-          not_cover = {}
+          full_responses = {}
           MultiJson.load(Fitting.configuration.tomogram).map do |request|
             responses = {}
             request['responses'].map do |response|
@@ -25,9 +24,7 @@ module Fitting
             end
 
             responses.map do |response|
-              response.last.times do |index|
-                puts "#{request['method']} #{request['path']} #{response.first} #{index}"
-              end
+              full_responses["#{request['method']} #{request['path']} #{response.first}"] = (0..response.last-1).to_a
             end
           end
 
@@ -47,12 +44,8 @@ module Fitting
 
           not_cover = {}
           full_responses.map do |response, date|
-            date['cases'].map do |one_case|
-              if not_cover["#{response} #{one_case}"]
-                not_cover["#{response} #{one_case}"] = not_cover["#{response} #{one_case}"] + [date['test']]
-              else
-                not_cover["#{response} #{one_case}"] = [date['test']]
-              end
+            date.map do |index|
+              not_cover["#{response} #{index}"] = nil
             end
           end
           data['not_cover_where_either'] = not_cover
@@ -61,12 +54,7 @@ module Fitting
 
         def responses_documented(location, valid, data, name, full_responses, response)
           if valid
-            unless full_responses[name]
-              full_responses[name] = {}
-              full_responses[name]['cases'] = (0..response['schemas'].size-1).to_a
-            end
-            full_responses[name]['test'] = location
-            full_responses[name]['cases'].delete(find_index(response))
+            full_responses[name].delete(find_index(response))
             push('valid', data, "#{name} #{find_index(response)}", location)
           else
             push('invalid', data, name, location)
