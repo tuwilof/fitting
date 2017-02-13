@@ -14,6 +14,23 @@ module Fitting
           }
           full_responses = {}
 
+          not_cover = {}
+          MultiJson.load(Fitting.configuration.tomogram).map do |request|
+            responses = {}
+            request['responses'].map do |response|
+              unless responses[response['status']]
+                responses[response['status']] = 0
+              end
+              responses[response['status']] += 1
+            end
+
+            responses.map do |response|
+              response.last.times do |index|
+                puts "#{request['method']} #{request['path']} #{response.first} #{index}"
+              end
+            end
+          end
+
           tests.map do |location, test|
             request = MultiJson.load(test['request'])
             response = MultiJson.load(test['response'])
