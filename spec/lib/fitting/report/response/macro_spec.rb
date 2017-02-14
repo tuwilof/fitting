@@ -3,6 +3,15 @@ require 'fitting/report/response/macro'
 require 'multi_json'
 
 RSpec.describe Fitting::Report::Response::Macro do
+  let(:tomogram) { MultiJson.dump([]) }
+  before do
+    allow(Fitting).to receive(:configuration).and_return(
+      double(
+        tomogram: tomogram
+      )
+    )
+  end
+
   describe '.new' do
     it 'not raise exception' do
       expect do

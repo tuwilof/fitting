@@ -55,11 +55,13 @@ module Fitting
         end
 
         def responses_documented(location, valid, data, name, full_responses, response)
-          if valid
-            full_responses[name].delete(find_index(response))
-            push('valid', data, "#{name} #{find_index(response)}", location)
-          else
-            push('invalid', data, name, location)
+          if full_responses[name]
+            if valid
+              full_responses[name].delete(find_index(response))
+              push('valid', data, "#{name} #{find_index(response)}", location)
+            else
+              push('invalid', data, name, location)
+            end
           end
         end
 
