@@ -13,3 +13,17 @@ module Fitting
     end
   end
 end
+
+module ActionController
+  class TestCase
+    module Behavior
+      alias origin_process process
+
+      def process(action, *args)
+        response = origin_process(action, *args)
+        puts 'fitting here'
+        response
+      end
+    end
+  end
+end
