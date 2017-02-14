@@ -22,19 +22,6 @@ Or install it yourself as:
 
     $ gem install fitting
 
-## Usage
-
-### rspec-rails
-
-rails_helper.rb
-
-```ruby
-require 'fitting'
-config.after(:each, :type => :controller) do
-  Fitting::Documentation.try_on(self, request, response)
-end
-```
-
 ### Formatting
 
 ```

@@ -7,4 +7,5 @@ SimpleCov.start
 
 require 'json-schema'
 require 'byebug'
+require 'action_controller'
 require 'fitting'
