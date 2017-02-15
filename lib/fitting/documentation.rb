@@ -15,6 +15,13 @@ module Fitting
         add_storage(location(date), request, response)
       end
 
+      def response_valid?(env_request, env_response)
+        request = Request.new(env_request, tomogram)
+        request.valid! if request.validate?
+        response = Response.new(env_response, request.schema)
+        response.valid?
+      end
+
       private
 
       def add_storage(location, request, response)
@@ -38,5 +45,22 @@ module Fitting
         end
       end
     end
+  end
+end
+
+RSpec::Matchers.define :be_a_multiple_of do |expected|
+  match do |actual|
+    actual == true
+  end
+  failure_message do |actual|
+    "response not valid json-schema"
+  end
+end
+
+RSpec.configure do |config|
+  config.after(:each, :type => :controller) do
+    response.body = MultiJson.dump(CamelCase.hash(MultiJson.load(response.body)))
+    valid = Fitting::Documentation.response_valid?(request, response)
+    expect(valid).to be_a_multiple_of
   end
 end

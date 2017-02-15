@@ -18,6 +18,10 @@ module Fitting
       raise Unsuitable unless @valid
     end
 
+    def valid?
+      @valid
+    end
+
     def set_fully_validate
       @valid = false
       fully_validates = []
