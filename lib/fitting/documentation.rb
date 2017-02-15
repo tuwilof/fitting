@@ -19,7 +19,7 @@ module Fitting
         request = Request.new(env_request, tomogram)
         request.valid! if request.validate?
         response = Response.new(env_response, request.schema)
-        response.valid?
+        response.to_hash
       end
 
       private
@@ -50,10 +50,17 @@ end
 
 RSpec::Matchers.define :be_a_multiple_of do |expected|
   match do |actual|
-    actual == true
+    actual["valid"] == true
   end
   failure_message do |actual|
-    "response not valid json-schema"
+    fvs = ""
+    actual["fully_validates"].map{|fv| fvs += "#{fv}\n"}
+    shcs = ""
+    actual["schemas"].map{|shc| shcs += "#{shc}\n"}
+    "response not valid json-schema\n"\
+    "got: #{actual["body"]}\n"\
+    "diff: \n#{fvs}"\
+    "expected: \n#{shcs}\n"
   end
 end
 
