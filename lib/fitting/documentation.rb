@@ -48,12 +48,3 @@ module Fitting
     end
   end
 end
-
-RSpec.configure do |config|
-  config.include Fitting::Matchers
-
-  config.after(:each, :type => :controller) do
-    response.body = MultiJson.dump(CamelCase.hash(MultiJson.load(response.body)))
-    expect([request, response]).to match_response
-  end
-end
