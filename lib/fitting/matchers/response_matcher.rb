@@ -2,8 +2,8 @@ module Fitting
   module Matchers
     class Response
       def matches?(actual)
-        @data = Fitting::Documentation.response(actual[0], actual[1])
-        @data["valid"] == true
+        @request, @response = Fitting::Documentation.try_on(actual[0], actual[1], actual[2])
+        @response["valid"] == true
       end
 
       def ===(other)
@@ -11,15 +11,15 @@ module Fitting
       end
 
       def failure_message
-        if @data["valid"].nil?
+        if @response["valid"].nil?
           "response not documented\n"
         else
           fvs = ""
-          @data["fully_validates"].map { |fv| fvs += "#{fv}\n" }
+          @response["fully_validates"].map { |fv| fvs += "#{fv}\n" }
           shcs = ""
-          @data["schemas"].map { |shc| shcs += "#{shc}\n" }
+          @response["schemas"].map { |shc| shcs += "#{shc}\n" }
           "response not valid json-schema\n"\
-        "got: #{@data["body"]}\n"\
+        "got: #{@response["body"]}\n"\
         "diff: \n#{fvs}"\
         "expected: \n#{shcs}\n"
         end

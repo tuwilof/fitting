@@ -18,20 +18,6 @@ module Fitting
   end
 end
 
-module ActionController
-  class TestCase
-    module Behavior
-      alias origin_process process
-
-      def process(action, *args)
-        response = origin_process(action, *args)
-        Fitting::Documentation.try_on(self, request, response)
-        response
-      end
-    end
-  end
-end
-
 module RSpec
   module Core
     # Provides the main entry point to run a suite of RSpec examples.

@@ -114,14 +114,6 @@ RSpec.describe Fitting::Documentation do
       end
     end
 
-    context 'request is not valid' do
-      let(:body_request) { '{}' }
-
-      it 'returns an error Request::Unsuitable' do
-        expect { subject }.to raise_exception(Fitting::Request::Unsuitable)
-      end
-    end
-
     context 'response is not valid ' do
       let(:body_response) { '{}' }
 
@@ -143,14 +135,6 @@ RSpec.describe Fitting::Documentation do
         it 'returns an error Response::NotDocumented' do
           expect { subject }.to raise_exception(Fitting::Response::NotDocumented)
         end
-      end
-    end
-
-    context 'response is not valid' do
-      let(:body_response) { '{}' }
-
-      it 'returns an error Response::Unsuitable' do
-        expect { subject }.to raise_exception(Fitting::Response::Unsuitable)
       end
     end
 
