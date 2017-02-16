@@ -11,14 +11,18 @@ module Fitting
       end
 
       def failure_message
-        fvs = ""
-        @data["fully_validates"].map { |fv| fvs += "#{fv}\n" }
-        shcs = ""
-        @data["schemas"].map { |shc| shcs += "#{shc}\n" }
-        "response not valid json-schema\n"\
+        if @data["valid"].nil?
+          "response not documented\n"
+        else
+          fvs = ""
+          @data["fully_validates"].map { |fv| fvs += "#{fv}\n" }
+          shcs = ""
+          @data["schemas"].map { |shc| shcs += "#{shc}\n" }
+          "response not valid json-schema\n"\
         "got: #{@data["body"]}\n"\
         "diff: \n#{fvs}"\
         "expected: \n#{shcs}\n"
+        end
       end
     end
 
