@@ -1,11 +1,8 @@
 module Fitting
   module Matchers
     class Response
-      def initialize(data)
-        @data = data
-      end
-
       def matches?(actual)
+        @data = actual
         actual["valid"] == true
       end
 
@@ -25,8 +22,8 @@ module Fitting
       end
     end
 
-    def match_response(date)
-      Response.new(date)
+    def match_response
+      Response.new
     end
   end
 end
