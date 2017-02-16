@@ -3,6 +3,7 @@ require 'json-schema'
 require 'fitting/storage/yaml_file'
 require 'fitting/request'
 require 'fitting/response'
+require 'fitting/matchers/response_matcher'
 
 module Fitting
   class Documentation
@@ -48,26 +49,12 @@ module Fitting
   end
 end
 
-RSpec::Matchers.define :be_a_multiple_of do |expected|
-  match do |actual|
-    actual["valid"] == true
-  end
-  failure_message do |actual|
-    fvs = ""
-    actual["fully_validates"].map{|fv| fvs += "#{fv}\n"}
-    shcs = ""
-    actual["schemas"].map{|shc| shcs += "#{shc}\n"}
-    "response not valid json-schema\n"\
-    "got: #{actual["body"]}\n"\
-    "diff: \n#{fvs}"\
-    "expected: \n#{shcs}\n"
-  end
-end
-
 RSpec.configure do |config|
+  config.include Fitting::Matchers
+
   config.after(:each, :type => :controller) do
     response.body = MultiJson.dump(CamelCase.hash(MultiJson.load(response.body)))
-    valid = Fitting::Documentation.response_valid?(request, response)
-    expect(valid).to be_a_multiple_of
+    data = Fitting::Documentation.response_valid?(request, response)
+    expect(data).to match_response(data)
   end
 end
