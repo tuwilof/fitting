@@ -16,7 +16,7 @@ module Fitting
         add_storage(location(date), request, response)
       end
 
-      def response_valid?(env_request, env_response)
+      def response(env_request, env_response)
         request = Request.new(env_request, tomogram)
         request.valid! if request.validate?
         response = Response.new(env_response, request.schema)
