@@ -32,7 +32,7 @@ module RSpec
         tests = Fitting::Storage::YamlFile.load
         Fitting::Storage::YamlFile.destroy
 
-        report = Fitting::Report::Response::Macro.new(tests).to_hash
+        report = Fitting::Report::LegacyResponse::Macro.new(tests).to_hash
         File.open('report_response_macro.yaml', 'w') do |file|
           file.write(YAML.dump(report))
         end

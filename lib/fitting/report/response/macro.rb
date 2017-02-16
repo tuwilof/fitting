@@ -1,6 +1,6 @@
 module Fitting
   module Report
-    module Response
+    module LegacyResponse
       class Macro
         def initialize(tests)
           @json = responses(tests)

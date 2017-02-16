@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'fitting/report/response/macro'
 require 'multi_json'
 
-RSpec.describe Fitting::Report::Response::Macro do
+RSpec.describe Fitting::Report::LegacyResponse::Macro do
   let(:tomogram) { MultiJson.dump([]) }
   before do
     allow(Fitting).to receive(:configuration).and_return(
