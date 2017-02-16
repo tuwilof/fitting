@@ -8,10 +8,10 @@ require 'fitting/matchers/response_matcher'
 module Fitting
   class Documentation
     class << self
-      def try_on(date, env_request, env_response)
-        request = Request.new(env_request, tomogram)
-        response = Response.new(env_response, request.schema)
-        add_storage(location(date), request, response)
+      def try_on(it)
+        request = Request.new(it.request, tomogram)
+        response = Response.new(it.response, request.schema)
+        add_storage(location(it), request, response)
         [request.to_hash, response.to_hash]
       end
 

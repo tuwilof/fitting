@@ -2,7 +2,7 @@ module Fitting
   module Matchers
     class Response
       def matches?(actual)
-        @request, @response = Fitting::Documentation.try_on(actual[0], actual[1], actual[2])
+        @request, @response = Fitting::Documentation.try_on(actual)
         @response["valid"] == true
       end
 
