@@ -54,6 +54,6 @@ RSpec.configure do |config|
 
   config.after(:each, :type => :controller) do
     response.body = MultiJson.dump(CamelCase.hash(MultiJson.load(response.body)))
-    expect(Fitting::Documentation.response_valid?(request, response)).to match_response
+    expect([request, response]).to match_response
   end
 end

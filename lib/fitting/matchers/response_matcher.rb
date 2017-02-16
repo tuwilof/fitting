@@ -2,8 +2,8 @@ module Fitting
   module Matchers
     class Response
       def matches?(actual)
-        @data = actual
-        actual["valid"] == true
+        @data = Fitting::Documentation.response_valid?(actual[0], actual[1])
+        @data["valid"] == true
       end
 
       def ===(other)
