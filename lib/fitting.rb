@@ -6,6 +6,7 @@ require 'yaml'
 require 'fitting/storage/yaml_file'
 require 'fitting/report/response/macro'
 require 'fitting/report/response'
+require 'fitting/storage/tests'
 
 module Fitting
   class << self
@@ -44,5 +45,11 @@ module RSpec
         end
       end
     end
+  end
+end
+
+RSpec.configure do |config|
+  config.after(:each, :type => :controller) do
+    Fitting::Storage::Tests.push(self)
   end
 end
