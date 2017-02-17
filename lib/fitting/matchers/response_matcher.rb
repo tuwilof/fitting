@@ -3,8 +3,8 @@ require 'fitting/storage/trying_tests'
 module Fitting
   module Matchers
     class Response
-      def matches?(actual)
-        @request, @response = Fitting::Documentation.try_on(actual)
+      def matches?(response)
+        @request, @response = Fitting::Documentation.try_on(response)
         Fitting::Storage::TryingTests.push(
           {
             'request' => @request,
