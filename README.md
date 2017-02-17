@@ -22,14 +22,6 @@ Or install it yourself as:
 
     $ gem install fitting
 
-### Formatting
-
-```
-bundle exec rspec --format Fitting::Formatter::Response::MacroYaml
-```
-
-After that you can find the report in `report_response_macro.yaml`.
-
 ## Config
 
 ### tomogram

@@ -4,7 +4,6 @@ require 'fitting/configuration'
 
 require 'yaml'
 require 'fitting/storage/yaml_file'
-require 'fitting/report/response/macro'
 require 'fitting/report/response'
 require 'fitting/storage/tests'
 
@@ -33,11 +32,6 @@ module RSpec
 
         tests = Fitting::Storage::YamlFile.load
         Fitting::Storage::YamlFile.destroy
-
-        report = Fitting::Report::LegacyResponse::Macro.new(tests).to_hash
-        File.open('report_response_macro.yaml', 'w') do |file|
-          file.write(YAML.dump(report))
-        end
 
         report = Fitting::Report::Response.new(tests).to_hash
         File.open('report_response.yaml', 'w') do |file|
