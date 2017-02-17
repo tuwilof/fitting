@@ -5,7 +5,6 @@ module Fitting
     class Response
       def initialize(tests)
         @json = {
-          'performed_tests_controllers_match_response' => performed_tests_for_controllers_with_match_response(tests),
           'convert_responses' => responses_performed_in_tests(tests),
           'have documentation' => responses_performed_in_tests_and_documentation(tests),
           'convert_routes' => route_responses_in_documentation_and_performed_test(tests),
@@ -23,14 +22,6 @@ module Fitting
 
         invalid_routes = route_responses_in_documentation_and_performed_test(tests).size - valid(tests).size
         puts "invalid routes: #{invalid_routes}"
-      end
-
-      def performed_tests_for_controllers_with_match_response(tests)
-        test_with_location = {}
-        tests.map do |location, test|
-          test_with_location[location] = nil
-        end
-        test_with_location
       end
 
       def responses_performed_in_tests(tests)
