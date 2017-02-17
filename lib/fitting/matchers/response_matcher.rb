@@ -4,8 +4,13 @@ module Fitting
   module Matchers
     class Response
       def matches?(actual)
-        Fitting::Storage::TryingTests.push(actual)
         @request, @response = Fitting::Documentation.try_on(actual)
+        Fitting::Storage::TryingTests.push(
+          {
+            'request' => @request,
+            'response' => @response
+          }
+        )
         @response["valid"] == true
       end
 

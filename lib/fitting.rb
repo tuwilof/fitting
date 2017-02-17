@@ -3,9 +3,9 @@ require 'fitting/documentation'
 require 'fitting/configuration'
 
 require 'yaml'
-require 'fitting/storage/yaml_file'
 require 'fitting/report/response'
 require 'fitting/storage/tests'
+require 'fitting/storage/trying_tests'
 
 module Fitting
   class << self
@@ -26,12 +26,9 @@ module RSpec
       alias origin_run_specs run_specs
 
       def run_specs(example_groups)
-        Fitting::Storage::YamlFile.craft
-
         origin_run_specs(example_groups)
 
-        tests = Fitting::Storage::YamlFile.load
-        Fitting::Storage::YamlFile.destroy
+        tests = Fitting::Storage::TryingTests.all
 
         report = Fitting::Report::Response.new(tests).to_hash
         File.open('report_response.yaml', 'w') do |file|
