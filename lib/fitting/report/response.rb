@@ -22,7 +22,7 @@ module Fitting
         routes = {}
         tests.map do |response|
           request = response.request
-          if request.schema && response.schemas
+          if response.documented?
             routes["#{response_key(request_key(request.schema['method'], request.schema['path']), response.status)} #{find_index(response)}"] = nil
           end
         end
@@ -53,7 +53,7 @@ module Fitting
         routes = {}
         tests.map do |response|
           request = response.request
-          if request.schema && response.schemas && response.valid
+          if response.documented? && response.valid?
             routes["#{response_key(request_key(request.schema['method'], request.schema['path']), response.status)} #{find_index(response)}"] = nil
           end
         end

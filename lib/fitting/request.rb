@@ -2,7 +2,7 @@ require 'json-schema'
 
 module Fitting
   class Request
-    attr_accessor :path, :method, :body, :schema, :fully_validate, :valid
+    attr_accessor :path, :method, :body, :schema, :fully_validate
 
     def initialize(env_request, tomogram)
       @method = env_request.request_method

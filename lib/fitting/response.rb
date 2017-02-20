@@ -3,7 +3,7 @@ require 'json-schema'
 
 module Fitting
   class Response
-    attr_accessor :status, :body, :schemas, :fully_validates, :valid, :request
+    attr_accessor :status, :body, :schemas, :fully_validates, :request
 
     def initialize(env_response, tomogram)
       @request = Request.new(env_response.request, tomogram)
@@ -23,6 +23,14 @@ module Fitting
         @valid = true if fully_validate == []
       end
       fully_validates
+    end
+
+    def documented?
+      @schemas.present?
+    end
+
+    def valid?
+      @valid == true
     end
   end
 end

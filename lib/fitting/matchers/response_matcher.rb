@@ -7,7 +7,7 @@ module Fitting
       def matches?(response)
         @response = Fitting::Response.new(response, Fitting::Documentation.tomogram)
         Fitting::Storage::TryingTests.push(@response)
-        @response.valid == true
+        @response.valid?
       end
 
       def ===(other)
@@ -15,17 +15,19 @@ module Fitting
       end
 
       def failure_message
-        if @response.valid.nil?
-          "response not documented\n"
-        else
+        unless @response.documented?
+          return "response not documented\n"
+        end
+
+        unless @response.valid?
           fvs = ""
           @response.fully_validates.map { |fv| fvs += "#{fv}\n" }
           shcs = ""
           @response.schemas.map { |shc| shcs += "#{shc}\n" }
           "response not valid json-schema\n"\
-        "got: #{@response.body}\n"\
-        "diff: \n#{fvs}"\
-        "expected: \n#{shcs}\n"
+          "got: #{@response.body}\n"\
+          "diff: \n#{fvs}"\
+          "expected: \n#{shcs}\n"
         end
       end
     end
