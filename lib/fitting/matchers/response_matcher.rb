@@ -1,13 +1,14 @@
 require 'fitting/storage/trying_tests'
+require 'fitting/response'
 
 module Fitting
   module Matchers
     class Response
       def matches?(response)
-        @request, @response = Fitting::Documentation.try_on(response)
+        @response = Fitting::Response.new(response, Fitting::Documentation.tomogram)
         Fitting::Storage::TryingTests.push(
           {
-            'request' => @request,
+            'request' => @response.request,
             'response' => @response
           }
         )

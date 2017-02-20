@@ -1,4 +1,5 @@
 require 'fitting/request'
+require 'json-schema'
 
 module Fitting
   class Response

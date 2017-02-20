@@ -1,3 +1,5 @@
+require 'json-schema'
+
 module Fitting
   class Request
     attr_accessor :path, :method, :body, :schema, :fully_validate, :valid

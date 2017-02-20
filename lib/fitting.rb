@@ -6,6 +6,7 @@ require 'yaml'
 require 'fitting/report/response'
 require 'fitting/storage/tests'
 require 'fitting/storage/trying_tests'
+require 'fitting/matchers/response_matcher'
 
 module Fitting
   class << self
