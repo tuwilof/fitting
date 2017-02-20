@@ -10,7 +10,7 @@ module Fitting
       def try_on(response)
         request = Request.new(response.request, tomogram)
         response = Response.new(response, request.schema)
-        [request.to_hash, response.to_hash]
+        [request, response]
       end
 
       private

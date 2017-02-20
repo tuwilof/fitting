@@ -11,7 +11,7 @@ module Fitting
             'response' => @response
           }
         )
-        @response["valid"] == true
+        @response.valid == true
       end
 
       def ===(other)
@@ -19,15 +19,15 @@ module Fitting
       end
 
       def failure_message
-        if @response["valid"].nil?
+        if @response.valid.nil?
           "response not documented\n"
         else
           fvs = ""
-          @response["fully_validates"].map { |fv| fvs += "#{fv}\n" }
+          @response.fully_validates.map { |fv| fvs += "#{fv}\n" }
           shcs = ""
-          @response["schemas"].map { |shc| shcs += "#{shc}\n" }
+          @response.schemas.map { |shc| shcs += "#{shc}\n" }
           "response not valid json-schema\n"\
-        "got: #{@response["body"]}\n"\
+        "got: #{@response.body}\n"\
         "diff: \n#{fvs}"\
         "expected: \n#{shcs}\n"
         end

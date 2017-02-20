@@ -25,7 +25,7 @@ module Fitting
         tests.map do |test|
           request = test['request']
           response = test['response']
-          responses["#{response_key(request_key(request['method'], request['path']), response['status'])} #{response['body'].sum}"] = nil
+          responses["#{response_key(request_key(request.method, request.path), response.status)} #{response.body.sum}"] = nil
         end
         responses
       end
@@ -35,8 +35,8 @@ module Fitting
         tests.map do |test|
           request = test['request']
           response = test['response']
-          if request['schema'] && response['schemas']
-            responses["#{response_key(request_key(request['method'], request['path']), response['status'])} #{response['body'].sum}"] = nil
+          if request.schema && response.schemas
+            responses["#{response_key(request_key(request.method, request.path), response.status)} #{response.body.sum}"] = nil
           end
         end
         responses
@@ -47,8 +47,8 @@ module Fitting
         tests.map do |test|
           request = test['request']
           response = test['response']
-          if request['schema'] && response['schemas']
-            routes["#{response_key(request_key(request['schema']['method'], request['schema']['path']), response['status'])} #{find_index(response)}"] = nil
+          if request.schema && response.schemas
+            routes["#{response_key(request_key(request.schema['method'], request.schema['path']), response.status)} #{find_index(response)}"] = nil
           end
         end
         routes
@@ -79,8 +79,8 @@ module Fitting
         tests.map do |test|
           request = test['request']
           response = test['response']
-          if request['schema'] && response['schemas'] && response['valid']
-            routes["#{response_key(request_key(request['schema']['method'], request['schema']['path']), response['status'])} #{find_index(response)}"] = nil
+          if request.schema && response.schemas && response.valid
+            routes["#{response_key(request_key(request.schema['method'], request.schema['path']), response.status)} #{find_index(response)}"] = nil
           end
         end
         routes
@@ -95,8 +95,8 @@ module Fitting
       end
 
       def find_index(response)
-        response['schemas'].size.times do |i|
-          if response['fully_validates'][i] == []
+        response.schemas.size.times do |i|
+          if response.fully_validates[i] == []
             return i
           end
         end

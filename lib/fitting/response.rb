@@ -20,15 +20,5 @@ module Fitting
       end
       fully_validates
     end
-
-    def to_hash
-      {
-        'status' => @status,
-        'body' => @body,
-        'schemas' => @schemas,
-        'fully_validates' => @fully_validates,
-        'valid' => @valid
-      }
-    end
   end
 end

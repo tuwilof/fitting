@@ -12,14 +12,5 @@ module Fitting
       @valid = true if @fully_validate == []
       self
     end
-
-    def to_hash
-      {
-        'method' => @method,
-        'path' => @path,
-        'body' => @body,
-        'schema' => @schema
-      }
-    end
   end
 end
