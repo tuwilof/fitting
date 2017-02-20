@@ -4,7 +4,6 @@ require 'fitting/configuration'
 
 require 'yaml'
 require 'fitting/report/response'
-require 'fitting/storage/tests'
 require 'fitting/storage/trying_tests'
 require 'fitting/matchers/response_matcher'
 
@@ -37,11 +36,5 @@ module RSpec
         end
       end
     end
-  end
-end
-
-RSpec.configure do |config|
-  config.after(:each, :type => :controller) do
-    Fitting::Storage::Tests.push(self)
   end
 end
