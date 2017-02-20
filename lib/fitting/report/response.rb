@@ -3,13 +3,13 @@ require 'fitting/storage/trying_tests'
 module Fitting
   module Report
     class Response
-      def initialize(tests)
-        coverage = valid(tests)
+      def initialize(responses)
+        coverage = coverage_routes(responses)
         @json = {
-          'coverage' => coverage.keys,
-          'not coverage' => route_responses_in_documentation.keys - coverage.keys
+          'coverage' => coverage,
+          'not coverage' => route_responses_in_documentation.keys - coverage
         }
-        puts "Coverage documentations API by RSpec tests: #{percent_covered(tests)}%"
+        puts "Coverage documentations API by RSpec tests: #{percent_covered(responses)}%"
       end
 
       def percent_covered(tests)
@@ -49,23 +49,24 @@ module Fitting
         full_responses
       end
 
-      def valid(tests)
+      def coverage_routes(responses)
         routes = {}
-        tests.map do |response|
-          request = response.request
+        responses.map do |response|
           if response.documented? && response.valid?
-            routes["#{response_key(request_key(request.schema['method'], request.schema['path']), response.status)} #{find_index(response)}"] = nil
+            key_request = request_key(response.request.schema['method'], response.request.schema['path'])
+            key_response = response_key(key_request, response.status)
+            routes["#{key_response} #{find_index(response)}"] = nil
           end
         end
-        routes
+        routes.keys
       end
 
       def request_key(request_method, request_path)
         "#{request_method} #{request_path}"
       end
 
-      def response_key(request_data, response_status)
-        "#{request_data} #{response_status}"
+      def response_key(key_request, response_status)
+        "#{key_request} #{response_status}"
       end
 
       def find_index(response)
