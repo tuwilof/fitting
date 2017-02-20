@@ -11,17 +11,13 @@ module Fitting
           'valid' => valid(tests),
           'route_responses_in_documentation' => route_responses_in_documentation
         }
-        num_tests_without_auto_check_responses = (Fitting::Storage::Tests.all - Fitting::Storage::TryingTests.all).size
-        puts "number tests without auto check responses: #{num_tests_without_auto_check_responses}"
+        puts "Coverage documentations API by RSpec tests: #{percent_covered(tests)}%"
+      end
 
-        not_documentated_responses = responses_performed_in_tests(tests).size - responses_performed_in_tests_and_documentation(tests).size
-        puts "not documentated responses: #{not_documentated_responses}"
-
-        not_cover_routes = route_responses_in_documentation.size - route_responses_in_documentation_and_performed_test(tests).size
-        puts "not cover routes: #{not_cover_routes}"
-
-        invalid_routes = route_responses_in_documentation_and_performed_test(tests).size - valid(tests).size
-        puts "invalid routes: #{invalid_routes}"
+      def percent_covered(tests)
+        covered = route_responses_in_documentation_and_performed_test(tests).size.to_f
+        all = route_responses_in_documentation.size.to_f
+        (covered / all * 100.0).round(2)
       end
 
       def responses_performed_in_tests(tests)
