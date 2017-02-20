@@ -7,14 +7,14 @@ module Fitting
         coverage = coverage_routes(responses)
         @json = {
           'coverage' => coverage,
-          'not coverage' => route_responses_in_documentation.keys - coverage
+          'not coverage' => documented - coverage
         }
         puts "Coverage documentations API by RSpec tests: #{percent_covered(responses)}%"
       end
 
       def percent_covered(tests)
         covered = route_responses_in_documentation_and_performed_test(tests).size.to_f
-        all = route_responses_in_documentation.size.to_f
+        all = documented.size.to_f
         (covered / all * 100.0).round(2)
       end
 
@@ -29,8 +29,8 @@ module Fitting
         routes
       end
 
-      def route_responses_in_documentation
-        full_responses = {}
+      def documented
+        routes = {}
         MultiJson.load(Fitting.configuration.tomogram).map do |request|
           responses = {}
           request['responses'].map do |response|
@@ -42,11 +42,11 @@ module Fitting
 
           responses.map do |response|
             response.last.times do |index|
-              full_responses["#{request['method']} #{request['path']} #{response.first} #{index}"] = nil
+              routes["#{request['method']} #{request['path']} #{response.first} #{index}"] = nil
             end
           end
         end
-        full_responses
+        routes.keys
       end
 
       def coverage_routes(responses)
