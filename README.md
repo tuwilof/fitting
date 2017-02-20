@@ -37,18 +37,6 @@ Use gem [tomograph](https://github.com/funbox/tomograph)
 
 ```
 
-### skip_not_documented
-
-Default true.
-
-### validation_requests
-
-Default true.
-
-### validation_response
-
-Default true.
-
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/funbox/fitting. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.

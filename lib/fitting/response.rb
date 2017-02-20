@@ -10,7 +10,7 @@ module Fitting
       @body = env_response.body
       @schemas = expect_request.find_responses(status: @status).map{|response|response['body']} if expect_request
       @fully_validates = set_fully_validate if @schemas
-      raise Response::NotDocumented unless (@schemas && @schemas.first) || Fitting.configuration.skip_not_documented
+      raise Response::NotDocumented unless (@schemas && @schemas.first)
       self
     end
 
@@ -30,7 +30,7 @@ module Fitting
     end
 
     def validate?
-      @schemas && @schemas.first && Fitting.configuration.validation_response
+      @schemas && @schemas.first
     end
 
     def to_hash

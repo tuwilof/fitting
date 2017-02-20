@@ -10,7 +10,7 @@ module Fitting
       @path = env_request.env['PATH_INFO']
       @body = env_request.env['action_dispatch.request.request_parameters']
       @schema = tomogram.find_request(method: @method, path: @path)
-      raise NotDocumented unless @schema || Fitting.configuration.skip_not_documented
+      raise NotDocumented unless @schema
       self
     end
 
@@ -20,7 +20,7 @@ module Fitting
     end
 
     def validate?
-      @schema && Fitting.configuration.validation_requests
+      @schema.present?
     end
 
     def to_hash
