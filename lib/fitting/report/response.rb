@@ -4,12 +4,10 @@ module Fitting
   module Report
     class Response
       def initialize(tests)
+        coverage = valid(tests)
         @json = {
-          'convert_responses' => responses_performed_in_tests(tests),
-          'have documentation' => responses_performed_in_tests_and_documentation(tests),
-          'convert_routes' => route_responses_in_documentation_and_performed_test(tests),
-          'valid' => valid(tests),
-          'route_responses_in_documentation' => route_responses_in_documentation
+          'coverage' => coverage.keys,
+          'not coverage' => route_responses_in_documentation.keys - coverage.keys
         }
         puts "Coverage documentations API by RSpec tests: #{percent_covered(tests)}%"
       end
@@ -18,26 +16,6 @@ module Fitting
         covered = route_responses_in_documentation_and_performed_test(tests).size.to_f
         all = route_responses_in_documentation.size.to_f
         (covered / all * 100.0).round(2)
-      end
-
-      def responses_performed_in_tests(tests)
-        responses = {}
-        tests.map do |response|
-          request = response.request
-          responses["#{response_key(request_key(request.method, request.path), response.status)} #{response.body.sum}"] = nil
-        end
-        responses
-      end
-
-      def responses_performed_in_tests_and_documentation(tests)
-        responses = {}
-        tests.map do |response|
-          request = response.request
-          if request.schema && response.schemas
-            responses["#{response_key(request_key(request.method, request.path), response.status)} #{response.body.sum}"] = nil
-          end
-        end
-        responses
       end
 
       def route_responses_in_documentation_and_performed_test(tests)
