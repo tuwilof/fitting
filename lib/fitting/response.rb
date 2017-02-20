@@ -1,11 +1,14 @@
+require 'fitting/request'
+
 module Fitting
   class Response
-    attr_accessor :status, :body, :schemas, :fully_validates, :valid
+    attr_accessor :status, :body, :schemas, :fully_validates, :valid, :request
 
-    def initialize(env_response, expect_request)
+    def initialize(env_response, tomogram)
+      @request = Request.new(env_response.request, tomogram)
       @status = env_response.status
       @body = env_response.body
-      @schemas = expect_request.find_responses(status: @status).map{|response|response['body']} if expect_request
+      @schemas = @request.schema.find_responses(status: @status).map{|response|response['body']} if @request.schema
       @fully_validates = set_fully_validate if @schemas
       self
     end
