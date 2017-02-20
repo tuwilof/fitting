@@ -25,7 +25,7 @@ module Fitting
         tests.map do |test|
           request = test['request']
           response = test['response']
-          responses["#{response_key(request_key(request), response)} #{response['body'].sum}"] = nil
+          responses["#{response_key(request_key(request['method'], request['path']), response['status'])} #{response['body'].sum}"] = nil
         end
         responses
       end
@@ -36,7 +36,7 @@ module Fitting
           request = test['request']
           response = test['response']
           if request['schema'] && response['schemas']
-            responses["#{response_key(request_key(request), response)} #{response['body'].sum}"] = nil
+            responses["#{response_key(request_key(request['method'], request['path']), response['status'])} #{response['body'].sum}"] = nil
           end
         end
         responses
@@ -48,7 +48,7 @@ module Fitting
           request = test['request']
           response = test['response']
           if request['schema'] && response['schemas']
-            routes["#{response_key(request_key(request['schema']), response)} #{find_index(response)}"] = nil
+            routes["#{response_key(request_key(request['schema']['method'], request['schema']['path']), response['status'])} #{find_index(response)}"] = nil
           end
         end
         routes
@@ -80,18 +80,18 @@ module Fitting
           request = test['request']
           response = test['response']
           if request['schema'] && response['schemas'] && response['valid']
-            routes["#{response_key(request_key(request['schema']), response)} #{find_index(response)}"] = nil
+            routes["#{response_key(request_key(request['schema']['method'], request['schema']['path']), response['status'])} #{find_index(response)}"] = nil
           end
         end
         routes
       end
 
-      def request_key(request_data)
-        "#{request_data['method']} #{request_data['path']}"
+      def request_key(request_method, request_path)
+        "#{request_method} #{request_path}"
       end
 
-      def response_key(request_data, response_data)
-        "#{request_data} #{response_data['status']}"
+      def response_key(request_data, response_status)
+        "#{request_data} #{response_status}"
       end
 
       def find_index(response)
