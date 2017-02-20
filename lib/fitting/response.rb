@@ -1,6 +1,6 @@
 module Fitting
   class Response
-    attr_accessor :status, :body, :schemas
+    attr_accessor :status, :body, :schemas, :fully_validates, :valid
 
     def initialize(env_response, expect_request)
       @status = env_response.status
