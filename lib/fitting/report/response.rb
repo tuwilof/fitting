@@ -22,9 +22,8 @@ module Fitting
 
       def responses_performed_in_tests(tests)
         responses = {}
-        tests.map do |test|
-          request = test['request']
-          response = test['response']
+        tests.map do |response|
+          request = response.request
           responses["#{response_key(request_key(request.method, request.path), response.status)} #{response.body.sum}"] = nil
         end
         responses
@@ -32,9 +31,8 @@ module Fitting
 
       def responses_performed_in_tests_and_documentation(tests)
         responses = {}
-        tests.map do |test|
-          request = test['request']
-          response = test['response']
+        tests.map do |response|
+          request = response.request
           if request.schema && response.schemas
             responses["#{response_key(request_key(request.method, request.path), response.status)} #{response.body.sum}"] = nil
           end
@@ -44,9 +42,8 @@ module Fitting
 
       def route_responses_in_documentation_and_performed_test(tests)
         routes = {}
-        tests.map do |test|
-          request = test['request']
-          response = test['response']
+        tests.map do |response|
+          request = response.request
           if request.schema && response.schemas
             routes["#{response_key(request_key(request.schema['method'], request.schema['path']), response.status)} #{find_index(response)}"] = nil
           end
@@ -76,9 +73,8 @@ module Fitting
 
       def valid(tests)
         routes = {}
-        tests.map do |test|
-          request = test['request']
-          response = test['response']
+        tests.map do |response|
+          request = response.request
           if request.schema && response.schemas && response.valid
             routes["#{response_key(request_key(request.schema['method'], request.schema['path']), response.status)} #{find_index(response)}"] = nil
           end

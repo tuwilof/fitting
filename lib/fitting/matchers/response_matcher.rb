@@ -6,12 +6,7 @@ module Fitting
     class Response
       def matches?(response)
         @response = Fitting::Response.new(response, Fitting::Documentation.tomogram)
-        Fitting::Storage::TryingTests.push(
-          {
-            'request' => @response.request,
-            'response' => @response
-          }
-        )
+        Fitting::Storage::TryingTests.push(@response)
         @response.valid == true
       end
 
