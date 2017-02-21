@@ -7,7 +7,7 @@ module Fitting
       @request = Request.new(env_response.request, tomogram)
       @status = env_response.status
       @body = env_response.body
-      @schemas = @request.schema.find_responses(status: @status).map{|response|response['body']} if @request.schema
+      @schemas = @request.where_schema(status: @status)
       @fully_validates = set_fully_validate if @schemas
       self
     end

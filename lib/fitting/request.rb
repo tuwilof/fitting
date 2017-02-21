@@ -2,8 +2,6 @@ require 'json-schema'
 
 module Fitting
   class Request
-    attr_accessor :path, :method, :body, :schema, :fully_validate
-
     def initialize(env_request, tomogram)
       @method = env_request.request_method
       @path = env_request.env['PATH_INFO']
@@ -17,6 +15,14 @@ module Fitting
 
     def route
       "#{@schema['method']} #{@schema['path']}"
+    end
+
+    def where_schema(status:)
+      if @schema
+        @schema.find_responses(status: status).map do |response|
+          response['body']
+        end
+      end
     end
   end
 end
