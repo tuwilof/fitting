@@ -3,29 +3,18 @@ require 'fitting/storage/trying_tests'
 module Fitting
   module Report
     class Response
-      def initialize(responses)
-        coverage = coverage_routes(responses)
+      def initialize
+        all = Fitting::Documentation.routes
+        coverage = Fitting::Storage::TryingTests.routes
         @json = {
           'coverage' => coverage,
-          'not coverage' => Fitting::Documentation.routes - coverage
+          'not coverage' => all - coverage
         }
-        puts "Coverage documentations API by RSpec tests: #{percent_covered(responses)}%"
+        puts "Coverage documentations API by RSpec tests: #{percent_covered(all, coverage)}%"
       end
 
-      def percent_covered(tests)
-        covered = coverage_routes(tests).size.to_f
-        all = Fitting::Documentation.routes.size.to_f
-        (covered / all * 100.0).round(2)
-      end
-
-      def coverage_routes(responses)
-        routes = {}
-        responses.map do |response|
-          if response.documented? && response.valid?
-            routes[response.route] = nil
-          end
-        end
-        routes.keys
+      def percent_covered(all, coverage)
+        (coverage.size.to_f / all.size.to_f * 100.0).round(2)
       end
 
       def to_hash

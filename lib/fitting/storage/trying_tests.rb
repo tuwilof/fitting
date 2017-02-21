@@ -11,6 +11,16 @@ module Fitting
           @tests ||= []
           @tests.uniq
         end
+
+        def routes
+          routes = {}
+          all.map do |response|
+            if response.documented? && response.valid?
+              routes[response.route] = nil
+            end
+          end
+          routes.keys
+        end
       end
     end
   end

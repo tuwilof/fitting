@@ -28,9 +28,7 @@ module RSpec
       def run_specs(example_groups)
         origin_run_specs(example_groups)
 
-        tests = Fitting::Storage::TryingTests.all
-
-        report = Fitting::Report::Response.new(tests).to_hash
+        report = Fitting::Report::Response.new.to_hash
         File.open('report_response.yaml', 'w') do |file|
           file.write(YAML.dump(report))
         end
