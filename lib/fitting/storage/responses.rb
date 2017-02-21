@@ -3,23 +3,19 @@ module Fitting
     module Responses
       class << self
         def push(test)
-          @tests ||= []
-          @tests.push(test)
+          @responses ||= []
+          @responses.push(test)
         end
 
         def all
-          @tests ||= []
-          @tests.uniq
+          @responses ||= []
+          @responses.uniq
         end
 
         def routes
-          routes = {}
           all.map do |response|
-            if response.documented? && response.valid?
-              routes[response.route] = nil
-            end
-          end
-          routes.keys
+            response.route if response.documented? && response.valid?
+          end.compact.uniq
         end
       end
     end

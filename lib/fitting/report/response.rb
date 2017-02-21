@@ -4,11 +4,9 @@ module Fitting
   module Report
     class Response
       def initialize
-        all = Fitting::Documentation.routes
-        coverage = Fitting::Storage::Responses.routes
         @json = {
-          'coverage' => coverage,
-          'not coverage' => all - coverage
+          'coverage' => Fitting::Storage::Responses.routes,
+          'not coverage' => Fitting::Documentation.routes - Fitting::Storage::Responses.routes
         }
       end
 
