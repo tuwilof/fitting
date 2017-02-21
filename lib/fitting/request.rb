@@ -6,7 +6,7 @@ module Fitting
       @method = env_request.request_method
       @path = env_request.env['PATH_INFO']
       @body = env_request.env['action_dispatch.request.request_parameters']
-      @schema = Fitting::Documentation.tomogram.find_request(method: @method, path: @path)
+      @schema = Fitting::Storage::Documentation.tomogram.find_request(method: @method, path: @path)
       @fully_validate = JSON::Validator.fully_validate(@schema['request'], @body) if @schema
       @valid = false
       @valid = true if @fully_validate == []

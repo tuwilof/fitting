@@ -6,7 +6,7 @@ module Fitting
       def initialize
         @json = {
           'coverage' => Fitting::Storage::Responses.routes,
-          'not coverage' => Fitting::Documentation.routes - Fitting::Storage::Responses.routes
+          'not coverage' => Fitting::Storage::Documentation.routes - Fitting::Storage::Responses.routes
         }
       end
 
