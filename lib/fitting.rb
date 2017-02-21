@@ -28,10 +28,8 @@ module RSpec
       def run_specs(example_groups)
         origin_run_specs(example_groups)
 
-        report = Fitting::Report::Response.new.to_hash
-        File.open('report_response.yaml', 'w') do |file|
-          file.write(YAML.dump(report))
-        end
+        puts "Coverage documentations API by RSpec tests: #{Fitting::Documentation.coverage}%"
+        Fitting::Report::Response.new.save
       end
     end
   end

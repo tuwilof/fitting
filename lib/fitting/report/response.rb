@@ -10,15 +10,16 @@ module Fitting
           'coverage' => coverage,
           'not coverage' => all - coverage
         }
-        puts "Coverage documentations API by RSpec tests: #{percent_covered(all, coverage)}%"
-      end
-
-      def percent_covered(all, coverage)
-        (coverage.size.to_f / all.size.to_f * 100.0).round(2)
       end
 
       def to_hash
         @json
+      end
+
+      def save
+        File.open('report_response.yaml', 'w') do |file|
+          file.write(YAML.dump(to_hash))
+        end
       end
     end
   end
