@@ -1,11 +1,11 @@
-require 'fitting/storage/trying_tests'
+require 'fitting/storage/responses'
 
 module Fitting
   module Report
     class Response
       def initialize
         all = Fitting::Documentation.routes
-        coverage = Fitting::Storage::TryingTests.routes
+        coverage = Fitting::Storage::Responses.routes
         @json = {
           'coverage' => coverage,
           'not coverage' => all - coverage

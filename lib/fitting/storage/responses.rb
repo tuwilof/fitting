@@ -1,6 +1,6 @@
 module Fitting
   module Storage
-    module TryingTests
+    module Responses
       class << self
         def push(test)
           @tests ||= []

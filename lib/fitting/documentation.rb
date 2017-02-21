@@ -29,7 +29,7 @@ module Fitting
       end
 
       def coverage
-        (Fitting::Storage::TryingTests.routes.size.to_f / routes.size.to_f * 100.0).round(2)
+        (Fitting::Storage::Responses.routes.size.to_f / routes.size.to_f * 100.0).round(2)
       end
     end
   end

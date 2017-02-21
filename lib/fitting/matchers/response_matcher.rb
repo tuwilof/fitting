@@ -1,4 +1,4 @@
-require 'fitting/storage/trying_tests'
+require 'fitting/storage/responses'
 require 'fitting/response'
 
 module Fitting
@@ -6,7 +6,6 @@ module Fitting
     class Response
       def matches?(response)
         @response = Fitting::Response.new(response)
-        Fitting::Storage::TryingTests.push(@response)
         @response.valid?
       end
 

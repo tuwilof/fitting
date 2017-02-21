@@ -9,6 +9,7 @@ module Fitting
       @body = env_response.body
       @schemas = @request.where_schema(status: @status)
       @fully_validates = set_fully_validate if @schemas
+      Fitting::Storage::Responses.push(self)
       self
     end
 

@@ -4,7 +4,7 @@ require 'fitting/configuration'
 
 require 'yaml'
 require 'fitting/report/response'
-require 'fitting/storage/trying_tests'
+require 'fitting/storage/responses'
 require 'fitting/matchers/response_matcher'
 
 module Fitting
