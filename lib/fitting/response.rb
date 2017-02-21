@@ -3,8 +3,6 @@ require 'json-schema'
 
 module Fitting
   class Response
-    attr_accessor :status, :body, :schemas, :fully_validates, :request
-
     def initialize(env_response, tomogram)
       @request = Request.new(env_response.request, tomogram)
       @status = env_response.status
@@ -34,8 +32,8 @@ module Fitting
     end
 
     def route
-      key_request = "#{request.schema['method']} #{request.schema['path']}"
-      key_response = "#{key_request} #{status}"
+      key_request = "#{@request.schema['method']} #{@request.schema['path']}"
+      key_response = "#{key_request} #{@status}"
       "#{key_response} #{index}"
     end
 
@@ -58,8 +56,8 @@ module Fitting
     private
 
     def index
-      schemas.size.times do |i|
-        if fully_validates[i] == []
+      @schemas.size.times do |i|
+        if @fully_validates[i] == []
           return i
         end
       end
