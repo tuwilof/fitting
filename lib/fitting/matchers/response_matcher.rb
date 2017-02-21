@@ -20,14 +20,10 @@ module Fitting
         end
 
         unless @response.valid?
-          fvs = ""
-          @response.fully_validates.map { |fv| fvs += "#{fv}\n" }
-          shcs = ""
-          @response.schemas.map { |shc| shcs += "#{shc}\n" }
           "response not valid json-schema\n"\
-          "got: #{@response.body}\n"\
-          "diff: \n#{fvs}"\
-          "expected: \n#{shcs}\n"
+          "got: #{@response.got}\n"\
+          "diff: \n#{@response.diff}"\
+          "expected: \n#{@response.expected}\n"
         end
       end
     end

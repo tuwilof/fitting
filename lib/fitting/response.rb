@@ -39,6 +39,22 @@ module Fitting
       "#{key_response} #{index}"
     end
 
+    def got
+      @body
+    end
+
+    def diff
+      @fully_validates.inject("") do |res, fully_validate|
+        res + "#{fully_validate}\n"
+      end
+    end
+
+    def expected
+      @schemas.inject("") do |res, schema|
+        res + "#{schema}\n"
+      end
+    end
+
     private
 
     def index
