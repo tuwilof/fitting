@@ -17,6 +17,10 @@ module Fitting
       "#{@schema['method']} #{@schema['path']}"
     end
 
+    def real
+      "#{@method} #{@path}"
+    end
+
     def where_schema(status:)
       if @schema
         @schema.find_responses(status: status).map do |response|

@@ -16,7 +16,8 @@ module Fitting
 
       def failure_message
         unless @response.documented?
-          return "response not documented\n"
+          return "response not documented\n"\
+                 "got: #{@response.real}"
         end
 
         unless @response.valid?

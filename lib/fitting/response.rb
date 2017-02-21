@@ -35,6 +35,10 @@ module Fitting
       "#{@request.route} #{@status} #{index}"
     end
 
+    def real
+      "#{@request.real} #{@status}"
+    end
+
     def got
       @body
     end
