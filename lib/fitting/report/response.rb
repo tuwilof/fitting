@@ -13,20 +13,9 @@ module Fitting
       end
 
       def percent_covered(tests)
-        covered = route_responses_in_documentation_and_performed_test(tests).size.to_f
+        covered = coverage_routes(tests).size.to_f
         all = documented.size.to_f
         (covered / all * 100.0).round(2)
-      end
-
-      def route_responses_in_documentation_and_performed_test(tests)
-        routes = {}
-        tests.map do |response|
-          request = response.request
-          if response.documented?
-            routes["#{response_key(request_key(request.schema['method'], request.schema['path']), response.status)} #{find_index(response)}"] = nil
-          end
-        end
-        routes
       end
 
       def documented
@@ -53,28 +42,10 @@ module Fitting
         routes = {}
         responses.map do |response|
           if response.documented? && response.valid?
-            key_request = request_key(response.request.schema['method'], response.request.schema['path'])
-            key_response = response_key(key_request, response.status)
-            routes["#{key_response} #{find_index(response)}"] = nil
+            routes[response.route] = nil
           end
         end
         routes.keys
-      end
-
-      def request_key(request_method, request_path)
-        "#{request_method} #{request_path}"
-      end
-
-      def response_key(key_request, response_status)
-        "#{key_request} #{response_status}"
-      end
-
-      def find_index(response)
-        response.schemas.size.times do |i|
-          if response.fully_validates[i] == []
-            return i
-          end
-        end
       end
 
       def to_hash

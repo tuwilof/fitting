@@ -32,5 +32,21 @@ module Fitting
     def valid?
       @valid == true
     end
+
+    def route
+      key_request = "#{request.schema['method']} #{request.schema['path']}"
+      key_response = "#{key_request} #{status}"
+      "#{key_response} #{index}"
+    end
+
+    private
+
+    def index
+      schemas.size.times do |i|
+        if fully_validates[i] == []
+          return i
+        end
+      end
+    end
   end
 end
