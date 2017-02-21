@@ -3,8 +3,8 @@ require 'json-schema'
 
 module Fitting
   class Response
-    def initialize(env_response, tomogram)
-      @request = Request.new(env_response.request, tomogram)
+    def initialize(env_response)
+      @request = Request.new(env_response.request)
       @status = env_response.status
       @body = env_response.body
       @schemas = @request.where_schema(status: @status)

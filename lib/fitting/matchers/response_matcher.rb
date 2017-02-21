@@ -5,7 +5,7 @@ module Fitting
   module Matchers
     class Response
       def matches?(response)
-        @response = Fitting::Response.new(response, Fitting::Documentation.tomogram)
+        @response = Fitting::Response.new(response)
         Fitting::Storage::TryingTests.push(@response)
         @response.valid?
       end
