@@ -32,9 +32,7 @@ module Fitting
     end
 
     def route
-      key_request = "#{@request.schema['method']} #{@request.schema['path']}"
-      key_response = "#{key_request} #{@status}"
-      "#{key_response} #{index}"
+      "#{@request.route} #{@status} #{index}"
     end
 
     def got

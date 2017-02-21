@@ -14,5 +14,9 @@ module Fitting
       @valid = true if @fully_validate == []
       self
     end
+
+    def route
+      "#{@schema['method']} #{@schema['path']}"
+    end
   end
 end
