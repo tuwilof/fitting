@@ -6,6 +6,7 @@ require 'yaml'
 require 'fitting/report/response'
 require 'fitting/storage/responses'
 require 'fitting/matchers/response_matcher'
+require 'fitting/documentation/response/route'
 
 module Fitting
   class << self
@@ -28,8 +29,12 @@ module RSpec
       def run_specs(example_groups)
         origin_run_specs(example_groups)
 
-        puts "Coverage documentations API by RSpec tests: #{Fitting::Storage::Documentation.coverage}%"
-        Fitting::Report::Response.new.save
+        routes = Fitting::Documentation::Response::Route.new(
+          Fitting::Storage::Documentation.hash,
+          Fitting::Storage::Responses.all
+        )
+        puts "Coverage documentations API by RSpec tests: #{routes.cover_ratio}%"
+        Fitting::Report::Response.new(routes).save
       end
     end
   end
