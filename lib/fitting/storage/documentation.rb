@@ -5,7 +5,7 @@ module Fitting
     module Documentation
       class << self
         def tomogram
-          @tomogram ||= TomogramRouting::Tomogram.craft(Fitting.configuration.tomogram)
+          @tomogram ||= TomogramRouting::Tomogram.craft(hash)
         end
 
         def hash

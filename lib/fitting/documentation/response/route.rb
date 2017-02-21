@@ -8,38 +8,33 @@ module Fitting
         end
 
         def coverage
-          @coverage_responses.map do |response|
+          @coverage ||= @coverage_responses.map do |response|
             response.route if response.documented? && response.valid?
           end.compact.uniq
         end
 
         def not_coverage
-          all - coverage
-        end
-
-        def cover_ratio
-          (coverage.size.to_f / all.size.to_f * 100.0).round(2)
+          @not_coverage ||= all - coverage
         end
 
         def all
-          routes = {}
-          MultiJson.load(@tomogram).map do |request|
-            responses = {}
-            request['responses'].map do |response|
-              unless responses[response['status']]
-                responses[response['status']] = 0
-              end
+          @all ||= MultiJson.load(@tomogram).inject([]) do |routes, request|
+            request['responses'].inject({}) do |responses, response|
+              responses[response['status']] ||= 0
               responses[response['status']] += 1
-            end
-
-            responses.map do |response|
-              response.last.times do |index|
-                route = "#{request['method']} #{request['path']} #{response.first} #{index}"
-                routes[route] = nil
+              responses
+            end.map do |status, indexes|
+              indexes.times do |index|
+                route = "#{request['method']} #{request['path']} #{status} #{index}"
+                routes.push(route)
               end
             end
-          end
-          routes.keys
+            routes
+          end.uniq
+        end
+
+        def cover_ratio
+          @cover_ratio ||= (coverage.size.to_f / all.size.to_f * 100.0).round(2)
         end
       end
     end
