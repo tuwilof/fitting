@@ -33,7 +33,7 @@ module RSpec
           Fitting::Storage::Documentation.hash,
           Fitting::Storage::Responses.all
         )
-        puts "Coverage documentations API by RSpec tests: #{routes.cover_ratio}%"
+        puts "Coverage documentation API (responses) by RSpec tests: #{routes.cover_ratio}%"
         Fitting::Report::Response.new(routes).save
       end
     end
