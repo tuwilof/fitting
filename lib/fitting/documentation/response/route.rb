@@ -38,6 +38,13 @@ module Fitting
         def cover_ratio
           @cover_ratio ||= (coverage.size.to_f / all.size.to_f * 100.0).round(2)
         end
+
+        def to_hash
+          {
+            'coverage' => coverage,
+            'not coverage' => not_coverage
+          }
+        end
       end
     end
   end
