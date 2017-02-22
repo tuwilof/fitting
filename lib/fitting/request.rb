@@ -22,7 +22,7 @@ module Fitting
       "#{@method} #{@path}"
     end
 
-    def where_schema(status:)
+    def schemas_of_possible_responses(status:)
       if @schema
         @schema.find_responses(status: status).map do |response|
           response['body']

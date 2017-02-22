@@ -8,7 +8,7 @@ module Fitting
       @request = Request.new(env_response.request)
       @status = env_response.status
       @body = env_response.body
-      @schemas = @request.where_schema(status: @status)
+      @schemas = @request.schemas_of_possible_responses(status: @status)
       @fully_validates = set_fully_validate if @schemas
       Fitting::Storage::Responses.push(self)
       self
