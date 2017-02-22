@@ -1,16 +1,14 @@
 require 'fitting/request'
-require 'fitting/storage/documentation'
 require 'json-schema'
 
 module Fitting
   class Response
-    def initialize(env_response)
-      @request = Request.new(env_response.request)
+    def initialize(env_response, tomogram)
+      @request = Request.new(env_response.request, tomogram)
       @status = env_response.status
       @body = env_response.body
       @schemas = @request.schemas_of_possible_responses(status: @status)
       @fully_validates = set_fully_validate if @schemas
-      Fitting::Storage::Responses.push(self)
       self
     end
 

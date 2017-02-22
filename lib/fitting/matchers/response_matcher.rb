@@ -1,10 +1,16 @@
 require 'fitting/response'
+require 'fitting/storage/responses'
+require 'fitting/storage/documentation'
 
 module Fitting
   module Matchers
     class Response
       def matches?(response)
-        @response = Fitting::Response.new(response)
+        @response = Fitting::Response.new(
+          response,
+          Fitting::Storage::Documentation.tomogram
+        )
+        Fitting::Storage::Responses.push(@response)
         @response.valid?
       end
 
