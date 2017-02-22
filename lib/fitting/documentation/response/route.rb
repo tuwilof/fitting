@@ -1,3 +1,5 @@
+require 'multi_json'
+
 module Fitting
   module Documentation
     module Response

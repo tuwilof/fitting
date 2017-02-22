@@ -1,4 +1,3 @@
-require 'fitting/storage/responses'
 require 'fitting/response'
 
 module Fitting

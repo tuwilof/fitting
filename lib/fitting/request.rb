@@ -1,4 +1,5 @@
 require 'json-schema'
+require 'fitting/storage/documentation'
 
 module Fitting
   class Request

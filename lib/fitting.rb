@@ -1,12 +1,10 @@
 require 'fitting/version'
-require 'fitting/storage/documentation'
 require 'fitting/configuration'
-
-require 'yaml'
-require 'fitting/report/response'
-require 'fitting/storage/responses'
-require 'fitting/matchers/response_matcher'
 require 'fitting/documentation/response/route'
+require 'fitting/storage/responses'
+require 'fitting/storage/documentation'
+require 'fitting/report/response'
+require 'fitting/matchers/response_matcher'
 
 module Fitting
   class << self

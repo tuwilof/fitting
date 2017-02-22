@@ -1,4 +1,4 @@
-require 'fitting/storage/responses'
+require 'yaml'
 
 module Fitting
   module Report
