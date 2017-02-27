@@ -11,6 +11,10 @@ module Fitting
           @responses ||= []
           @responses.uniq
         end
+
+        def nil?
+          @responses.nil?
+        end
       end
     end
   end

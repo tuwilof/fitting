@@ -26,6 +26,7 @@ module RSpec
 
       def run_specs(example_groups)
         origin_run_specs(example_groups)
+        return if Fitting::Storage::Responses.nil?
 
         routes = Fitting::Documentation::Response::Route.new(
           Fitting::Storage::Documentation.hash,
