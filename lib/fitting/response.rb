@@ -9,7 +9,6 @@ module Fitting
       @body = env_response.body
       @schemas = @request.schemas_of_possible_responses(status: @status)
       @fully_validates = set_fully_validate if @schemas
-      self
     end
 
     def set_fully_validate
@@ -24,7 +23,7 @@ module Fitting
     end
 
     def documented?
-      @schemas.present?
+      @schemas && @schemas.present?
     end
 
     def valid?
