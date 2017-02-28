@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe Fitting::Report::Response do
-  subject { described_class.new(double(to_hash: nil)) }
+  let(:name) { 'name' }
+
+  subject { described_class.new(name, double(to_hash: nil)) }
 
   describe '.new' do
     it 'returns described class object' do
@@ -12,7 +14,7 @@ RSpec.describe Fitting::Report::Response do
   describe '#save' do
     it 'does not return error' do
       expect { subject.save }.not_to raise_error
-      File.delete(described_class::NAME)
+      File.delete(name)
     end
   end
 end

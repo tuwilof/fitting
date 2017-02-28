@@ -1,6 +1,7 @@
 require 'fitting/version'
 require 'fitting/configuration'
 require 'fitting/documentation/response/route'
+require 'fitting/documentation/request/route'
 require 'fitting/storage/responses'
 require 'fitting/storage/documentation'
 require 'fitting/report/response'
@@ -28,12 +29,14 @@ module RSpec
         origin_run_specs(example_groups)
         return if Fitting::Storage::Responses.nil?
 
-        routes = Fitting::Documentation::Response::Route.new(
+        response_routes = Fitting::Documentation::Response::Route.new(
           Fitting::Storage::Documentation.hash,
           Fitting::Storage::Responses.all
         )
-        puts "Coverage documentation API (responses) by RSpec tests: #{routes.cover_ratio}%"
-        Fitting::Report::Response.new(routes).save
+        request_routes = Fitting::Documentation::Request::Route.new(response_routes)
+        puts "Coverage documentation API (responses) by RSpec tests: #{response_routes.cover_ratio}%"
+        Fitting::Report::Response.new('report_response.yaml', response_routes).save
+        Fitting::Report::Response.new('report_request.yaml', request_routes).save
       end
     end
   end
