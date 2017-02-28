@@ -11,23 +11,27 @@ module Fitting
         def coverage_statistic
           stat = {}
           @response_routes.coverage.map do |route|
-            key = route.split(' ')[0..1].join(' ')
-            stat[key] ||= {}
-            stat[key]['cover'] ||= 0
-            stat[key]['not_cover'] ||= 0
-            stat[key]['cover'] += 1
+            macro_key = route.split(' ')[0..1].join(' ')
+            micro_key = route.split(' ')[2..3].join(' ')
+            stat[macro_key] ||= {}
+            stat[macro_key]['cover'] ||= []
+            stat[macro_key]['not_cover'] ||= []
+            stat[macro_key]['cover'].push(micro_key)
           end
           @response_routes.not_coverage.map do |route|
-            key = route.split(' ')[0..1].join(' ')
-            stat[key] ||= {}
-            stat[key]['cover'] ||= 0
-            stat[key]['not_cover'] ||= 0
-            stat[key]['not_cover'] += 1
+            macro_key = route.split(' ')[0..1].join(' ')
+            micro_key = route.split(' ')[2..3].join(' ')
+            stat[macro_key] ||= {}
+            stat[macro_key]['cover'] ||= []
+            stat[macro_key]['not_cover'] ||= []
+            stat[macro_key]['not_cover'].push(micro_key)
           end
           @stat = stat.inject({}) do |res, date|
-            key = date.last['cover_ratio'] = (date.last['cover'].to_f / date.last['not_cover'].to_f * 100.0).round(2)
+            key = date.last['cover_ratio'] =
+              (date.last['cover'].size.to_f /
+                (date.last['cover'].size + date.last['not_cover'].size).to_f * 100.0).round(2)
             res[key] ||= []
-            res[key].push(date.first)
+            res[key].push({date.first => {'cover' => date.last['cover'], 'not_cover' => date.last['not_cover']}})
             res
           end
         end
