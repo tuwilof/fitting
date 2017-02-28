@@ -41,7 +41,7 @@ RSpec.describe Fitting::Matchers::Response do
     let(:response) {
       double(
         documented?: documented?,
-        real: 'real',
+        real_request_with_status: 'real request with status',
         valid?: valid?,
         got: 'got',
         diff: 'diff',
@@ -55,7 +55,7 @@ RSpec.describe Fitting::Matchers::Response do
       let(:documented?) { false }
 
       it 'returns error message' do
-        expect(subject.failure_message).to eq("response not documented\ngot: real")
+        expect(subject.failure_message).to eq("response not documented\ngot: real request with status")
       end
     end
 

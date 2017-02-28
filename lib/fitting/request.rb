@@ -17,7 +17,7 @@ module Fitting
       "#{@schema['method']} #{@schema['path']}"
     end
 
-    def real
+    def real_method_with_path
       "#{@method} #{@path}"
     end
 

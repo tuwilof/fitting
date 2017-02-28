@@ -35,8 +35,8 @@ module Fitting
       "#{@request.route} #{@status} #{index}"
     end
 
-    def real
-      "#{@request.real} #{@status}"
+    def real_request_with_status
+      "#{@request.real_method_with_path} #{@status}"
     end
 
     def got
