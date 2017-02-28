@@ -22,9 +22,13 @@ Or install it yourself as:
 
     $ gem install fitting
 
-## Config
+## Usage
 
-### tomogram
+In your `spec_helper.rb`:
+
+```ruby
+config.include JSON::SchemaMatchers
+```
 
 This gem takes a simplified format json convert from API Blueprint which we have called API Tomogram.
 
@@ -36,6 +40,24 @@ Use gem [tomograph](https://github.com/funbox/tomograph)
   end
 
 ```
+
+You can then write tests such as:
+
+```ruby
+ expect(response).to match_response
+```
+
+If you want check all tests:
+
+```ruby
+config.after(:each, :type => :controller) do
+  expect(response).to match_response
+end
+```
+
+## Report
+
+
 
 ## Contributing
 
