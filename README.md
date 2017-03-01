@@ -57,7 +57,7 @@ end
 
 ## Report
 
-
+Autogenerate `report_request_by_response.yaml` and `report_response.yaml reports`.
 
 ## Contributing
 
