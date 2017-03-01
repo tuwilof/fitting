@@ -36,7 +36,7 @@ module RSpec
         request_routes = Fitting::Documentation::Request::Route.new(response_routes)
         puts "Coverage documentation API (responses) by RSpec tests: #{response_routes.cover_ratio}%"
         Fitting::Report::Response.new('report_response.yaml', response_routes).save
-        Fitting::Report::Response.new('report_request.yaml', request_routes).save
+        Fitting::Report::Response.new('report_request_by_response.yaml', request_routes).save
       end
     end
   end
