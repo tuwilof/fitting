@@ -26,12 +26,24 @@ module Fitting
             stat[macro_key]['not_cover'] ||= []
             stat[macro_key]['not_cover'].push(micro_key)
           end
-          @stat = stat.inject({}) do |res, date|
-            key = date.last['cover_ratio'] =
+          @stat = stat.inject(
+            {
+              'full cover' => [],
+              'partial cover' => [],
+              'no cover' => []
+            }
+          ) do |res, date|
+            ratio = date.last['cover_ratio'] =
               (date.last['cover'].size.to_f /
                 (date.last['cover'].size + date.last['not_cover'].size).to_f * 100.0).round(2)
-            res[key] ||= []
-            res[key].push({date.first => {'cover' => date.last['cover'], 'not_cover' => date.last['not_cover']}})
+            info = {date.first => {'cover' => date.last['cover'], 'not_cover' => date.last['not_cover']}}
+            if ratio == 100.0
+              res['full cover'].push(info)
+            elsif ratio == 0.0
+              res['no cover'].push(info)
+            else
+              res['partial cover'].push(info)
+            end
             res
           end
         end
