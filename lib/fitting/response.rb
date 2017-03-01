@@ -44,14 +44,14 @@ module Fitting
 
     def diff
       @fully_validates.inject("") do |res, fully_validate|
-        res + "#{fully_validate}\n"
+        res + "#{fully_validate.join("\n")}\n\n"
       end
     end
 
     def expected
-      @schemas.inject("") do |res, schema|
-        res + "#{schema}\n"
-      end
+      @schemas.inject([]) do |res, schema|
+        res.push("#{schema}")
+      end.join("\n\n")
     end
 
     private

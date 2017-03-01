@@ -25,10 +25,10 @@ module Fitting
         end
 
         unless @response.valid?
-          "response not valid json-schema\n"\
-          "got: #{@response.got}\n"\
-          "diff: \n#{@response.diff}"\
-          "expected: \n#{@response.expected}\n"
+          "response does not conform to json-schema\n"\
+          "schemas: \n#{@response.expected}\n\n"\
+          "got: #{@response.got}\n\n"\
+          "errors: \n#{@response.diff}\n"
         end
       end
     end
