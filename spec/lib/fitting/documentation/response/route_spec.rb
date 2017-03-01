@@ -22,13 +22,13 @@ RSpec.describe Fitting::Documentation::Response::Route do
 
   describe '#all' do
     it 'returns all routes' do
-      expect(subject.all).to eq(['POST /sessions 200 0'])
+      expect(subject.all).to eq(["POST\t/sessions 200 0"])
     end
   end
 
   describe '#not_coverage' do
     it 'returns not coverage routes' do
-      expect(subject.not_coverage).to eq([])
+      expect(subject.not_coverage).to eq(["POST\t/sessions 200 0"])
     end
   end
 
@@ -40,7 +40,7 @@ RSpec.describe Fitting::Documentation::Response::Route do
 
   describe '#to_hash' do
     it 'returns hash routes' do
-      expect(subject.to_hash).to eq({'coverage' => ['POST /sessions 200 0'], 'not coverage' => []})
+      expect(subject.to_hash).to eq({'coverage' => ['POST /sessions 200 0'], 'not coverage' => ["POST\t/sessions 200 0"]})
     end
   end
 end

@@ -8,3 +8,7 @@ SimpleCov.start
 require 'json-schema'
 require 'byebug'
 require 'fitting'
+
+require 'fitting/storage/skip'
+
+Fitting::Storage::Skip.set(true)

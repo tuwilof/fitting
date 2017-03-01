@@ -64,7 +64,7 @@ RSpec.describe Fitting::Matchers::Response do
 
       it 'returns error message' do
         expect(subject.failure_message)
-          .to eq("response not valid json-schema\ngot: got\ndiff: \ndiffexpected: \nexpected\n")
+          .to eq("response does not conform to json-schema\nschemas: \nexpected\n\ngot: got\n\nerrors: \ndiff\n")
       end
     end
 

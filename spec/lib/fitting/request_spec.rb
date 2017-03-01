@@ -15,7 +15,7 @@ RSpec.describe Fitting::Request do
     before { subject.instance_variable_set(:@schema, {'method' => 'method', 'path' => 'path'}) }
 
     it 'returns route' do
-      expect(subject.route).to eq('method path')
+      expect(subject.route).to eq("method\tpath")
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.describe Fitting::Request do
     end
 
     it 'returns real method with path' do
-      expect(subject.real_method_with_path).to eq('method path')
+      expect(subject.real_method_with_path).to eq("method\tpath")
     end
   end
 

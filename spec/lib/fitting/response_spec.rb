@@ -75,10 +75,10 @@ RSpec.describe Fitting::Response do
   end
 
   describe '#diff' do
-    before { subject.instance_variable_set(:@fully_validates, ['fully validate']) }
+    before { subject.instance_variable_set(:@fully_validates, [['fully validate']]) }
 
     it 'returns diff' do
-      expect(subject.diff).to eq("fully validate\n")
+      expect(subject.diff).to eq("fully validate\n\n")
     end
   end
 
@@ -86,7 +86,7 @@ RSpec.describe Fitting::Response do
     before { subject.instance_variable_set(:@schemas, ['schema']) }
 
     it 'returns expected' do
-      expect(subject.expected).to eq("schema\n")
+      expect(subject.expected).to eq("schema")
     end
   end
 end
