@@ -27,7 +27,7 @@ module Fitting
               responses
             end.map do |status, indexes|
               indexes.times do |index|
-                route = "#{request['method']} #{request['path']} #{status} #{index}"
+                route = "#{request['method']}\t#{request['path']} #{status} #{index}"
                 routes.push(route)
               end
             end

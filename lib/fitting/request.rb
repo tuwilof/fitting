@@ -14,11 +14,11 @@ module Fitting
     end
 
     def route
-      "#{@schema['method']} #{@schema['path']}"
+      "#{@schema['method']}\t#{@schema['path']}"
     end
 
     def real_method_with_path
-      "#{@method} #{@path}"
+      "#{@method}\t#{@path}"
     end
 
     def schemas_of_possible_responses(status:)

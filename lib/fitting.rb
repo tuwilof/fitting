@@ -33,7 +33,17 @@ module RSpec
           Fitting::Storage::Responses.all
         )
         request_routes = Fitting::Documentation::Request::Route.new(response_routes)
-        puts "Coverage documentation API (responses) by RSpec tests: #{response_routes.cover_ratio}%"
+
+        valid_count = response_routes.coverage.size
+        valid_percentage = response_routes.cover_ratio
+        total_count = response_routes.all.size
+        invalid_count = response_routes.not_coverage.size
+        invalid_percentage = 100.0 - response_routes.cover_ratio
+        puts "API responses conforming to the blueprint: #{valid_count} (#{valid_percentage}% of #{total_count})."
+        puts "API responses with validation errors or untested: #{invalid_count} (#{invalid_percentage}% of #{total_count})."
+        puts
+        puts "Conforming responses: \n#{response_routes.to_hash['coverage'].join("\n")} \n\n"
+        puts "Non-conforming responses: \n#{response_routes.to_hash['not coverage'].join("\n")}\n\n"
         Fitting::Report::Response.new('report_response.yaml', response_routes).save
         Fitting::Report::Response.new('report_request_by_response.yaml', request_routes).save
       end
