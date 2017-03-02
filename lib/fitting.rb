@@ -5,7 +5,6 @@ require 'fitting/documentation/request/route'
 require 'fitting/storage/responses'
 require 'fitting/storage/documentation'
 require 'fitting/storage/skip'
-require 'fitting/report/response'
 require 'fitting/matchers/response_matcher'
 
 module Fitting
@@ -60,8 +59,7 @@ module RSpec
         puts "Partially conforming requests: \n#{request_routes.partially_implemented.join("\n")} \n\n"
         puts "Non-conforming requests: \n#{request_routes.no_implemented.join("\n")} \n\n"
 
-        Fitting::Report::Response.new('report_response.yaml', response_routes).save
-        Fitting::Report::Response.new('report_request_by_response.yaml', request_routes).save
+        exit if response_routes.not_coverage.present? && Fitting.configuration.crash_not_implemented_response
       end
     end
   end

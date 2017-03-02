@@ -20,7 +20,6 @@ RSpec.describe RSpec::Core::Runner do
       allow(Fitting::Documentation::Response::Route).to receive(:new).and_return(double(
         cover_ratio: 0.0, coverage: [], all: [], not_coverage: [])
       )
-      allow(Fitting::Report::Response).to receive(:new).and_return(double(save: nil))
     end
 
     it 'does not return error' do

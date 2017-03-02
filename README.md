@@ -55,6 +55,12 @@ config.after(:each, :type => :controller) do
 end
 ```
 
+## Config
+
+### crash_not_implemented_response
+
+Default true.
+
 ## Report
 
 Autogenerate `report_request_by_response.yaml` and `report_response.yaml reports`.
