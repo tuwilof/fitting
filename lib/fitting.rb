@@ -47,6 +47,22 @@ module RSpec
         puts
         puts "Conforming responses: \n#{response_routes.coverage.join("\n")} \n\n"
         puts "Non-conforming responses: \n#{response_routes.not_coverage.join("\n")}\n\n"
+
+        full_count = request_routes.to_hash['full cover'].size
+        part_count = request_routes.to_hash['partial cover'].size
+        no_count = request_routes.to_hash['no cover'].size
+        total_count = full_count + part_count + no_count
+        full_percentage = (full_count.to_f / total_count.to_f * 100.0).round(2)
+        part_percentage = (part_count.to_f / total_count.to_f * 100.0).round(2)
+        no_percentage = (no_count.to_f / total_count.to_f * 100.0).round(2)
+        puts "API requests with fully implemented responses: #{full_count} (#{full_percentage}% of #{total_count})."
+        puts "API requests with partially implemented responses: #{part_count} (#{part_percentage}% of #{total_count})."
+        puts "API requests with no implemented responses: #{no_count} (#{no_percentage}% of #{total_count})."
+        puts
+        puts "Conforming requests: \n#{request_routes.fully_implemented.join("\n")} \n\n"
+        puts "Partially conforming requests: \n#{request_routes.partially_implemented.join("\n")} \n\n"
+        puts "Non-conforming requests: \n#{request_routes.no_implemented.join("\n")} \n\n"
+
         Fitting::Report::Response.new('report_response.yaml', response_routes).save
         Fitting::Report::Response.new('report_request_by_response.yaml', request_routes).save
       end
