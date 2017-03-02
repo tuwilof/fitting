@@ -86,18 +86,22 @@ module Fitting
         private
 
         def beautiful_output(hash)
-          all = []
+          methods = {}
           res = []
           hash['cover'].map do |response|
             method, index = response.split(' ')
-            all[index.to_i] = {'method' => method, 'cover' => true}
+            methods[method] ||= []
+            methods[method][index.to_i] = {'method' => method, 'cover' => true}
           end
           hash['not_cover'].map do |response|
             method, index = response.split(' ')
-            all[index.to_i] = {'method' => method, 'cover' => false}
+            methods[method] ||= []
+            methods[method][index.to_i] = {'method' => method, 'cover' => false}
           end
-          all.size.times do |index|
-            res.push("#{all[index]['cover'] ? '✔' : '✖'} #{all[index]['method']}")
+          methods.map do |method|
+            method.last.size.times do |index|
+              res.push("#{method.last[index]['cover'] ? '✔' : '✖'} #{method.first}")
+            end
           end
           res.join(' ')
         end
