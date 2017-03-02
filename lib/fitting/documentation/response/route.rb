@@ -45,6 +45,17 @@ module Fitting
             'not coverage' => not_coverage
           }
         end
+
+        def statistics
+          valid_count = coverage.size
+          valid_percentage = cover_ratio
+          total_count = all.size
+          invalid_count = not_coverage.size
+          invalid_percentage = 100.0 - cover_ratio
+          puts "API responses conforming to the blueprint: #{valid_count} (#{valid_percentage}% of #{total_count})."
+          puts "API responses with validation errors or untested: #{invalid_count} (#{invalid_percentage}% of #{total_count})."
+          puts
+        end
       end
     end
   end

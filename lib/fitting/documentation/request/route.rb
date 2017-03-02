@@ -66,7 +66,8 @@ module Fitting
         end
 
         def fully_implemented
-          @fully_implemented = @stat['full cover'].map do |response|
+          @stat ||= coverage_statistic
+          @fully_implemented ||= @stat['full cover'].map do |response|
             "#{response.first.to_a.first.split(' ').join("\t")}#{"\t"*(@max-response.first.to_a.first.split(' ')[1].size/8)}#{response.first.to_a.last['all']}"
           end.sort do |first, second|
             first.split("\t")[1] <=> second.split("\t")[1]
@@ -74,6 +75,7 @@ module Fitting
         end
 
         def partially_implemented
+          @stat ||= coverage_statistic
           @partially_implemented ||= @stat['partial cover'].map do |response|
             "#{response.first.to_a.first.split(' ').join("\t")}#{"\t"*(@max-response.first.to_a.first.split(' ')[1].size/8)}#{response.first.to_a.last['all']}"
           end.sort do |first, second|
@@ -82,11 +84,35 @@ module Fitting
         end
 
         def no_implemented
+          @stat ||= coverage_statistic
           @no_implemented ||= @stat['no cover'].map do |response|
             "#{response.first.to_a.first.split(' ').join("\t")}#{"\t"*(@max-response.first.to_a.first.split(' ')[1].size/8)}#{response.first.to_a.last['all']}"
           end.sort do |first, second|
             first.split("\t")[1] <=> second.split("\t")[1]
           end
+        end
+
+        def conformity_lists
+          puts "Conforming requests: \n#{fully_implemented.join("\n")}"
+          puts
+          puts "Partially conforming requests: \n#{partially_implemented.join("\n")}"
+          puts
+          puts "Non-conforming requests: \n#{no_implemented.join("\n")}"
+          puts
+        end
+
+        def statistics
+          full_count = to_hash['full cover'].size
+          part_count = to_hash['partial cover'].size
+          no_count = to_hash['no cover'].size
+          total_count = full_count + part_count + no_count
+          full_percentage = (full_count.to_f / total_count.to_f * 100.0).round(2)
+          part_percentage = (part_count.to_f / total_count.to_f * 100.0).round(2)
+          no_percentage = (no_count.to_f / total_count.to_f * 100.0).round(2)
+          puts "API requests with fully implemented responses: #{full_count} (#{full_percentage}% of #{total_count})."
+          puts "API requests with partially implemented responses: #{part_count} (#{part_percentage}% of #{total_count})."
+          puts "API requests with no implemented responses: #{no_count} (#{no_percentage}% of #{total_count})."
+          puts
         end
 
         private
