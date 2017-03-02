@@ -44,9 +44,6 @@ module RSpec
         invalid_percentage = 100.0 - response_routes.cover_ratio
         puts "API responses conforming to the blueprint: #{valid_count} (#{valid_percentage}% of #{total_count})."
         puts "API responses with validation errors or untested: #{invalid_count} (#{invalid_percentage}% of #{total_count})."
-        puts
-        puts "Conforming responses: \n#{response_routes.coverage.join("\n")} \n\n"
-        puts "Non-conforming responses: \n#{response_routes.not_coverage.join("\n")}\n\n"
 
         full_count = request_routes.to_hash['full cover'].size
         part_count = request_routes.to_hash['partial cover'].size

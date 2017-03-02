@@ -52,6 +52,11 @@ module Fitting
             else
               res['partial cover'].push(info)
             end
+            path = date.first.split(' ')[1].size / 8
+            @max ||= 1
+            if path.size > @max
+              @max = path.size
+            end
             res
           end
         end
@@ -62,19 +67,19 @@ module Fitting
 
         def fully_implemented
           @fully_implemented = @stat['full cover'].map do |response|
-            "#{response.first.to_a.first.split(' ').join("\t")} #{response.first.to_a.last['all']}"
+            "#{response.first.to_a.first.split(' ').join("\t")}#{"\t"*(@max-response.first.to_a.first.split(' ')[1].size/8)}#{response.first.to_a.last['all']}"
           end
         end
 
         def partially_implemented
           @partially_implemented ||= @stat['partial cover'].map do |response|
-            "#{response.first.to_a.first.split(' ').join("\t")} #{response.first.to_a.last['all']}"
+            "#{response.first.to_a.first.split(' ').join("\t")}#{"\t"*(@max-response.first.to_a.first.split(' ')[1].size/8)}#{response.first.to_a.last['all']}"
           end
         end
 
         def no_implemented
           @no_implemented ||= @stat['no cover'].map do |response|
-            "#{response.first.to_a.first.split(' ').join("\t")} #{response.first.to_a.last['all']}"
+            "#{response.first.to_a.first.split(' ').join("\t")}#{"\t"*(@max-response.first.to_a.first.split(' ')[1].size/8)}#{response.first.to_a.last['all']}"
           end
         end
 
