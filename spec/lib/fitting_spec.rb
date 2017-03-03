@@ -15,7 +15,7 @@ RSpec.describe RSpec::Core::Runner do
     subject { described_class.new(double) }
 
     before do
-      allow(subject).to receive(:origin_run_specs)
+      allow(subject).to receive(:origin_run_specs).and_return(0)
       allow(Fitting::Storage::Responses).to receive(:nil?).and_return(false)
       allow(Fitting::Documentation::Response::Route).to receive(:new).and_return(double(
         cover_ratio: 0.0, coverage: [], all: [], not_coverage: [], statistics: nil, not_coverage: double(present?: false)
