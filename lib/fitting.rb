@@ -40,7 +40,7 @@ module RSpec
         request_routes.statistics
         response_routes.statistics
 
-        exit if response_routes.not_coverage.present? && Fitting.configuration.crash_not_implemented_response
+        exit 1 if response_routes.not_coverage.present? && Fitting.configuration.crash_not_implemented_response
       end
     end
   end
