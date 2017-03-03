@@ -1,10 +1,10 @@
 module Fitting
   class Configuration
     attr_accessor :tomogram,
-                  :crash_not_implemented_response
+                  :necessary_fully_implementation_of_responses
 
     def initialize
-      @crash_not_implemented_response = true
+      @necessary_fully_implementation_of_responses = true
     end
   end
 end

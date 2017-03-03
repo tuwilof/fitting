@@ -42,9 +42,9 @@ module RSpec
         request_routes.statistics
         response_routes.statistics
 
-        if response_routes.not_coverage.present? &&
-          Fitting.configuration.crash_not_implemented_response &&
-          returned_exit_code == 0
+        if Fitting.configuration.necessary_fully_implementation_of_responses &&
+          returned_exit_code == 0 &&
+          response_routes.not_coverage.present?
           return ERROR_EXIT_CODE
         end
         returned_exit_code

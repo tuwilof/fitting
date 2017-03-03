@@ -57,9 +57,9 @@ end
 
 ## Config
 
-### crash_not_implemented_response
+### necessary_fully_implementation_of_responses
 
-Default true.
+Default `true`. It returns `exit 1` if not implemented all(with tests expect match response) the responses.
 
 ## Report
 
