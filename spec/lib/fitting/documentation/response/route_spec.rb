@@ -41,11 +41,11 @@ RSpec.describe Fitting::Documentation::Response::Route do
     end
   end
 
-  describe '#statistics' do
+  describe '#statistics_with_conformity_lists' do
     before { allow(STDOUT).to receive(:puts) }
 
     it 'does not return error' do
-      expect { subject.statistics }.not_to raise_error
+      expect { subject.statistics_with_conformity_lists }.not_to raise_error
     end
   end
 end
