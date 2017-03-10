@@ -61,6 +61,21 @@ end
 
 Default `true`. It returns `exit 1` if not implemented all(with tests expect match response) the responses.
 
+### white_list
+
+Default all resources. This is an array of resources that are mandatory for implementation.
+This list does not affect the work of the match expert.
+This list is only for the report in the console and verify implementation.
+
+```ruby
+config.white_list = {
+  '/users' =>                ['DELETE', 'POST'],
+  '/users/{id}' =>           ['GET', 'PATCH'],
+  '/users/{id}/employees' => ['GET'],
+  '/sessions' =>             ['PATCH', 'DELETE', 'POST']
+}
+```
+
 ## Report
 
 Autogenerate `report_request_by_response.yaml` and `report_response.yaml reports`.

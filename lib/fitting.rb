@@ -35,7 +35,8 @@ module RSpec
 
         response_routes = Fitting::Documentation::Response::Route.new(
           Fitting::Storage::Documentation.hash,
-          Fitting::Storage::Responses.all
+          Fitting::Storage::Responses.all,
+          Fitting.configuration.white_list
         )
         request_routes = Fitting::Documentation::Request::Route.new(response_routes)
 

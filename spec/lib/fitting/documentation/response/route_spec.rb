@@ -4,9 +4,9 @@ require 'multi_json'
 RSpec.describe Fitting::Documentation::Response::Route do
   let(:responses) { [{'status' => '200'}] }
   let(:tomogram) { MultiJson.dump(['path': "/sessions", 'method': "POST", 'request': {}, 'responses': responses]) }
-  let(:coverage_responses) { [double(route: 'POST /sessions 200 0', documented?: true, valid?: true)] }
+  let(:coverage_responses) { [double(route: "POST\t/sessions 200 0", documented?: true, valid?: true)] }
 
-  subject { described_class.new(tomogram, coverage_responses) }
+  subject { described_class.new(tomogram, coverage_responses, nil) }
 
   describe '.new' do
     it 'returns described class object' do
@@ -16,7 +16,7 @@ RSpec.describe Fitting::Documentation::Response::Route do
 
   describe '#coverage' do
     it 'returns coverage routes' do
-      expect(subject.coverage).to eq(['POST /sessions 200 0'])
+      expect(subject.coverage).to eq(["POST\t/sessions 200 0"])
     end
   end
 
@@ -27,6 +27,8 @@ RSpec.describe Fitting::Documentation::Response::Route do
   end
 
   describe '#not_coverage' do
+    let(:coverage_responses) { [] }
+
     it 'returns not coverage routes' do
       expect(subject.not_coverage).to eq(["POST\t/sessions 200 0"])
     end
@@ -40,7 +42,7 @@ RSpec.describe Fitting::Documentation::Response::Route do
 
   describe '#to_hash' do
     it 'returns hash routes' do
-      expect(subject.to_hash).to eq({'coverage' => ['POST /sessions 200 0'], 'not coverage' => ["POST\t/sessions 200 0"]})
+      expect(subject.to_hash).to eq({'coverage' => ["POST\t/sessions 200 0"], 'not coverage' => []})
     end
   end
 

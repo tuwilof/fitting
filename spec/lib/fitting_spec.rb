@@ -27,7 +27,7 @@ RSpec.describe RSpec::Core::Runner do
       ))
       Fitting::Storage::Skip.set(false)
       allow(Fitting).to receive(:configuration)
-        .and_return(double(necessary_fully_implementation_of_responses: nil))
+        .and_return(double(necessary_fully_implementation_of_responses: nil, white_list: nil))
       allow(Fitting::Storage::Documentation).to receive(:hash)
     end
 
@@ -42,7 +42,7 @@ RSpec.describe RSpec::Core::Runner do
 
       before do
         allow(Fitting).to receive(:configuration)
-          .and_return(double(necessary_fully_implementation_of_responses: true))
+          .and_return(double(necessary_fully_implementation_of_responses: true, white_list: nil))
       end
 
       it 'does not return error' do
