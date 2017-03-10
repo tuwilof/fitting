@@ -5,8 +5,9 @@ RSpec.describe Fitting::Documentation::Response::Route do
   let(:responses) { [{'status' => '200'}] }
   let(:tomogram) { MultiJson.dump(['path': "/sessions", 'method': "POST", 'request': {}, 'responses': responses]) }
   let(:coverage_responses) { [double(route: "POST\t/sessions 200 0", documented?: true, valid?: true)] }
+  let(:responses_routes) { ["POST\t/sessions 200 0"] }
 
-  subject { described_class.new(tomogram, coverage_responses, nil) }
+  subject { described_class.new(coverage_responses, responses_routes) }
 
   describe '.new' do
     it 'returns described class object' do
@@ -17,12 +18,6 @@ RSpec.describe Fitting::Documentation::Response::Route do
   describe '#coverage' do
     it 'returns coverage routes' do
       expect(subject.coverage).to eq(["POST\t/sessions 200 0"])
-    end
-  end
-
-  describe '#all' do
-    it 'returns all routes' do
-      expect(subject.all).to eq(["POST\t/sessions 200 0"])
     end
   end
 
