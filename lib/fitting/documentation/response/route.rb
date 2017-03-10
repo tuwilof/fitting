@@ -29,9 +29,14 @@ module Fitting
           }
         end
 
-        def statistics
+        def statistics_with_conformity_lists
           @request_routes ||= Fitting::Documentation::Request::Route.new(self)
           @request_routes.conformity_lists
+          statistics
+        end
+
+        def statistics
+          @request_routes ||= Fitting::Documentation::Request::Route.new(self)
           @request_routes.statistics
 
           valid_count = coverage.size

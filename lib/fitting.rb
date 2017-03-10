@@ -39,20 +39,19 @@ module RSpec
           Fitting.configuration.white_list
         )
 
-        puts '[White list]'
-        response_routes_white = Fitting::Documentation::Response::Route.new(
-          Fitting::Storage::Responses.all,
-          responses_routes.white
-        )
-        response_routes_white.statistics
-        puts
-
         puts '[Black list]'
         response_routes_black = Fitting::Documentation::Response::Route.new(
           Fitting::Storage::Responses.all,
           responses_routes.black
         )
         response_routes_black.statistics
+
+        puts '[White list]'
+        response_routes_white = Fitting::Documentation::Response::Route.new(
+          Fitting::Storage::Responses.all,
+          responses_routes.white
+        )
+        response_routes_white.statistics_with_conformity_lists
 
         if Fitting.configuration.necessary_fully_implementation_of_responses &&
           returned_exit_code == 0 &&
