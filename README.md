@@ -72,9 +72,11 @@ config.white_list = {
   '/users' =>                ['DELETE', 'POST'],
   '/users/{id}' =>           ['GET', 'PATCH'],
   '/users/{id}/employees' => ['GET'],
-  '/sessions' =>             ['PATCH', 'DELETE', 'POST']
+  '/sessions' =>             []
 }
 ```
+
+Empty array `[]` means all methods.
 
 ## Report
 

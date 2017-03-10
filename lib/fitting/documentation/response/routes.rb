@@ -14,7 +14,7 @@ module Fitting
           if @white_list
             all.select do |response|
               data = response.split(' ')
-              @white_list && data[1] && !@white_list[data[1]] || !@white_list[data[1]].include?(data[0])
+              data[1] && !@white_list[data[1]] || (@white_list[data[1]] != [] && !@white_list[data[1]].include?(data[0]))
             end
           else
             []
@@ -25,7 +25,7 @@ module Fitting
           if @white_list
             all.select do |response|
               data = response.split(' ')
-              @white_list && data[1] && @white_list[data[1]] && @white_list[data[1]].include?(data[0])
+              data[1] && @white_list[data[1]] && (@white_list[data[1]] == [] || @white_list[data[1]].include?(data[0]))
             end
           else
             all
