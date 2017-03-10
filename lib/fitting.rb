@@ -1,6 +1,7 @@
 require 'fitting/version'
 require 'fitting/configuration'
 require 'fitting/documentation/response/route'
+require 'fitting/documentation/response/routes'
 require 'fitting/documentation/request/route'
 require 'fitting/storage/responses'
 require 'fitting/storage/documentation'
@@ -33,20 +34,29 @@ module RSpec
 
         return returned_exit_code if Fitting::Storage::Skip.get
 
-        response_routes = Fitting::Documentation::Response::Route.new(
+        responses_routes = Fitting::Documentation::Response::Routes.new(
           Fitting::Storage::Documentation.hash,
-          Fitting::Storage::Responses.all,
           Fitting.configuration.white_list
         )
-        request_routes = Fitting::Documentation::Request::Route.new(response_routes)
 
-        request_routes.conformity_lists
-        request_routes.statistics
-        response_routes.statistics
+        puts '[White list]'
+        response_routes_white = Fitting::Documentation::Response::Route.new(
+          Fitting::Storage::Responses.all,
+          responses_routes.white
+        )
+        response_routes_white.statistics
+        puts
+
+        puts '[Black list]'
+        response_routes_black = Fitting::Documentation::Response::Route.new(
+          Fitting::Storage::Responses.all,
+          responses_routes.black
+        )
+        response_routes_black.statistics
 
         if Fitting.configuration.necessary_fully_implementation_of_responses &&
           returned_exit_code == 0 &&
-          response_routes.not_coverage.present?
+          response_routes_white.not_coverage.present?
           return ERROR_EXIT_CODE
         end
         returned_exit_code
