@@ -93,7 +93,7 @@ module Fitting
         end
 
         def conformity_lists
-          puts "Conforming requests: \n#{fully_implemented.join("\n")}"
+          puts "Fully conforming requests: \n#{fully_implemented.join("\n")}"
           puts
           puts "Partially conforming requests: \n#{partially_implemented.join("\n")}"
           puts
