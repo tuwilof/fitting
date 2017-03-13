@@ -59,12 +59,4 @@ RSpec.describe Fitting::Documentation::Request::Route do
       expect(subject.no_implemented).to eq(["DELETE\t/sessions\t\t\t\t\t\t\t✖ ", "DELETE\t/users\t\t\t\t\t\t\t\t✖ "])
     end
   end
-
-  describe '#statistics' do
-    before { allow(STDOUT).to receive(:puts) }
-
-    it 'does not return error' do
-      expect { subject.statistics }.not_to raise_error
-    end
-  end
 end

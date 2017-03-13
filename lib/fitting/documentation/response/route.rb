@@ -1,6 +1,7 @@
 require 'multi_json'
 require 'fitting/documentation/request/route'
 require 'fitting/documentation/request/route/conformity_lists'
+require 'fitting/documentation/request/route/statistics'
 
 module Fitting
   module Documentation
@@ -38,7 +39,8 @@ module Fitting
 
         def statistics
           @request_routes ||= Fitting::Documentation::Request::Route.new(self)
-          @request_routes.statistics
+          request_routes_statistics = Fitting::Documentation::Request::Route::Statistics.new(@request_routes).to_s
+          puts "\n#{request_routes_statistics}\n"
 
           valid_count = coverage.size
           valid_percentage = cover_ratio
