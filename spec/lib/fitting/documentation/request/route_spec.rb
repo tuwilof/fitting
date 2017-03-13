@@ -61,10 +61,18 @@ RSpec.describe Fitting::Documentation::Request::Route do
   end
 
   describe '#conformity_lists' do
-    before { allow(STDOUT).to receive(:puts) }
+    before do
+      allow(subject).to receive(:fully_implemented).and_return(double(join: 'FKR'))
+      allow(subject).to receive(:partially_implemented).and_return(double(join: 'PI'))
+      allow(subject).to receive(:no_implemented).and_return(double(join: 'NI'))
+    end
 
     it 'does not return error' do
-      expect { subject.conformity_lists }.not_to raise_error
+      expect(subject.conformity_lists).to eq(
+        "Fully conforming requests: \nFKR\n"\
+        "Partially conforming requests: \nPI\n"\
+        "Non-conforming requests: \nNI\n"
+      )
     end
   end
 

@@ -31,7 +31,7 @@ module Fitting
 
         def statistics_with_conformity_lists
           @request_routes ||= Fitting::Documentation::Request::Route.new(self)
-          @request_routes.conformity_lists
+          puts @request_routes.conformity_lists
           statistics
         end
 
