@@ -8,6 +8,8 @@ require 'fitting/storage/documentation'
 require 'fitting/storage/skip'
 require 'fitting/matchers/response_matcher'
 require 'rspec/core'
+require 'fitting/documentation/request/route'
+require 'fitting/documentation/statistics'
 
 ERROR_EXIT_CODE = 1
 
@@ -34,30 +36,33 @@ module RSpec
 
         return returned_exit_code if Fitting::Storage::Skip.get
 
-        responses_routes = Fitting::Documentation::Response::Routes.new(
+        response_routes = Fitting::Documentation::Response::Routes.new(
           Fitting::Storage::Documentation.hash,
           Fitting.configuration.white_list
         )
 
         if Fitting.configuration.white_list
           puts '[Black list]'
-          response_routes_black = Fitting::Documentation::Response::Route.new(
+          response_route_black = Fitting::Documentation::Response::Route.new(
             Fitting::Storage::Responses.all,
-            responses_routes.black
+            response_routes.black
           )
-          puts response_routes_black.statistics
+
+          request_route = Fitting::Documentation::Request::Route.new(response_route_black)
+          statistics = Fitting::Documentation::Statistics.new(request_route, response_routes)
+          puts statistics
 
           puts '[White list]'
         end
-        response_routes_white = Fitting::Documentation::Response::Route.new(
+        response_route_white = Fitting::Documentation::Response::Route.new(
           Fitting::Storage::Responses.all,
-          responses_routes.white
+          response_routes.white
         )
-        puts response_routes_white.statistics_with_conformity_lists
+        puts response_route_white.statistics_with_conformity_lists
 
         if Fitting.configuration.necessary_fully_implementation_of_responses &&
           returned_exit_code == 0 &&
-          response_routes_white.not_coverage.present?
+          response_route_white.not_coverage.present?
           return ERROR_EXIT_CODE
         end
         returned_exit_code

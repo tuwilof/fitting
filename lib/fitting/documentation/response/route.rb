@@ -3,6 +3,7 @@ require 'fitting/documentation/request/route'
 require 'fitting/documentation/request/route/conformity_lists'
 require 'fitting/documentation/request/route/statistics'
 require 'fitting/documentation/response/route/statistics'
+require 'fitting/documentation/statistics'
 
 module Fitting
   module Documentation
@@ -34,17 +35,11 @@ module Fitting
 
         def statistics_with_conformity_lists
           @request_route ||= Fitting::Documentation::Request::Route.new(self)
+
           conformity_lists = Fitting::Documentation::Request::Route::ConformityLists.new(@request_route).to_s
+          statistics = Fitting::Documentation::Statistics.new(@request_route, @responses_routes, self).to_s
+
           "#{conformity_lists}\n#{statistics}"
-        end
-
-        def statistics
-          @request_route ||= Fitting::Documentation::Request::Route.new(self)
-
-          request_route_statistics = Fitting::Documentation::Request::Route::Statistics.new(@request_route).to_s
-          response_route_statistics = Fitting::Documentation::Response::Route::Statistics.new(self, @responses_routes).to_s
-
-          "\n#{request_route_statistics}\n#{response_route_statistics}\n"
         end
 
         private
