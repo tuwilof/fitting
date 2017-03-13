@@ -92,12 +92,6 @@ module Fitting
           end
         end
 
-        def conformity_lists
-          "Fully conforming requests: \n#{fully_implemented.join("\n")}\n"\
-          "Partially conforming requests: \n#{partially_implemented.join("\n")}\n"\
-          "Non-conforming requests: \n#{no_implemented.join("\n")}\n"
-        end
-
         def statistics
           full_count = to_hash['full cover'].size
           part_count = to_hash['partial cover'].size

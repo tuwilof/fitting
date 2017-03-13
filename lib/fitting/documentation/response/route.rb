@@ -1,5 +1,6 @@
 require 'multi_json'
 require 'fitting/documentation/request/route'
+require 'fitting/documentation/request/route/conformity_lists'
 
 module Fitting
   module Documentation
@@ -31,7 +32,7 @@ module Fitting
 
         def statistics_with_conformity_lists
           @request_routes ||= Fitting::Documentation::Request::Route.new(self)
-          puts @request_routes.conformity_lists
+          puts Fitting::Documentation::Request::Route::ConformityLists.new(@request_routes).to_s
           statistics
         end
 
