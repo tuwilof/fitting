@@ -40,12 +40,4 @@ RSpec.describe Fitting::Documentation::Response::Route do
       expect(subject.to_hash).to eq({'coverage' => ["POST\t/sessions 200 0"], 'not coverage' => []})
     end
   end
-
-  describe '#statistics_with_conformity_lists' do
-    before { allow(STDOUT).to receive(:puts) }
-
-    it 'does not return error' do
-      expect { subject.statistics_with_conformity_lists }.not_to raise_error
-    end
-  end
 end
