@@ -45,7 +45,7 @@ module RSpec
             Fitting::Storage::Responses.all,
             responses_routes.black
           )
-          response_routes_black.statistics
+          puts response_routes_black.statistics
 
           puts '[White list]'
         end
@@ -53,7 +53,7 @@ module RSpec
           Fitting::Storage::Responses.all,
           responses_routes.white
         )
-        response_routes_white.statistics_with_conformity_lists
+        puts response_routes_white.statistics_with_conformity_lists
 
         if Fitting.configuration.necessary_fully_implementation_of_responses &&
           returned_exit_code == 0 &&

@@ -2,6 +2,7 @@ require 'multi_json'
 require 'fitting/documentation/request/route'
 require 'fitting/documentation/request/route/conformity_lists'
 require 'fitting/documentation/request/route/statistics'
+require 'fitting/documentation/response/route/statistics'
 
 module Fitting
   module Documentation
@@ -32,24 +33,18 @@ module Fitting
         end
 
         def statistics_with_conformity_lists
-          @request_routes ||= Fitting::Documentation::Request::Route.new(self)
-          puts Fitting::Documentation::Request::Route::ConformityLists.new(@request_routes).to_s
-          statistics
+          @request_route ||= Fitting::Documentation::Request::Route.new(self)
+          conformity_lists = Fitting::Documentation::Request::Route::ConformityLists.new(@request_route).to_s
+          "#{conformity_lists}\n#{statistics}"
         end
 
         def statistics
-          @request_routes ||= Fitting::Documentation::Request::Route.new(self)
-          request_routes_statistics = Fitting::Documentation::Request::Route::Statistics.new(@request_routes).to_s
-          puts "\n#{request_routes_statistics}\n"
+          @request_route ||= Fitting::Documentation::Request::Route.new(self)
 
-          valid_count = coverage.size
-          valid_percentage = cover_ratio
-          total_count = @responses_routes.size
-          invalid_count = not_coverage.size
-          invalid_percentage = 100.0 - cover_ratio
-          puts "API responses conforming to the blueprint: #{valid_count} (#{valid_percentage}% of #{total_count})."
-          puts "API responses with validation errors or untested: #{invalid_count} (#{invalid_percentage}% of #{total_count})."
-          puts
+          request_route_statistics = Fitting::Documentation::Request::Route::Statistics.new(@request_route).to_s
+          response_route_statistics = Fitting::Documentation::Response::Route::Statistics.new(self, @responses_routes).to_s
+
+          "\n#{request_route_statistics}\n#{response_route_statistics}\n"
         end
 
         private
