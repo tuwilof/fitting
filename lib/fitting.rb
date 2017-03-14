@@ -1,16 +1,12 @@
 require 'fitting/version'
 require 'fitting/configuration'
-require 'fitting/documentation/response/route'
 require 'fitting/documentation/response/routes'
-require 'fitting/documentation/request/route'
-require 'fitting/storage/responses'
 require 'fitting/storage/documentation'
 require 'fitting/storage/skip'
 require 'fitting/matchers/response_matcher'
 require 'rspec/core'
 require 'fitting/documentation/request/route'
-require 'fitting/documentation/statistics'
-require 'fitting/documentation/statistics_with_conformity_lists'
+require 'fitting/statistics'
 
 ERROR_EXIT_CODE = 1
 
@@ -41,28 +37,12 @@ module RSpec
           Fitting::Storage::Documentation.hash,
           Fitting.configuration.white_list
         )
-
-        if Fitting.configuration.white_list
-          puts '[Black list]'
-          response_route_black = Fitting::Documentation::Response::Route.new(
-            Fitting::Storage::Responses.all,
-            response_routes.black
-          )
-
-          request_route = Fitting::Documentation::Request::Route.new(response_route_black)
-          statistics = Fitting::Documentation::Statistics.new(request_route, response_routes.black, response_route_black)
-          puts statistics
-
-          puts '[White list]'
-        end
         response_route_white = Fitting::Documentation::Response::Route.new(
           Fitting::Storage::Responses.all,
           response_routes.white
         )
 
-        request_route = Fitting::Documentation::Request::Route.new(response_route_white)
-        statistics_with_conformity_lists = Fitting::Documentation::StatisticsWithConformityLists.new(request_route, response_routes.white, response_route_white)
-        puts statistics_with_conformity_lists
+        puts Fitting::Statistics.new(response_routes, response_route_white)
 
         if Fitting.configuration.necessary_fully_implementation_of_responses &&
           returned_exit_code == 0 &&

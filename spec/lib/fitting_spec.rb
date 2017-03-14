@@ -19,21 +19,6 @@ RSpec.describe RSpec::Core::Runner do
     before do
       allow(STDOUT).to receive(:puts)
       allow(subject).to receive(:origin_run_specs).and_return(0)
-      allow(Fitting::Storage::Responses).to receive(:nil?).and_return(false)
-      allow(Fitting::Documentation::Response::Route).to receive(:new).and_return(double(
-        cover_ratio: 0.0, coverage: [], all: [], statistics: nil, not_coverage: double(present?: not_coverage_present),
-        statistics_with_conformity_lists: nil
-      ))
-      allow(Fitting::Documentation::Response::Routes).to receive(:new).and_return(double(
-        white: nil, black: nil
-      ))
-      allow(Fitting::Documentation::Request::Route).to receive(:new).and_return(double(
-        conformity_lists: nil, statistics: nil
-      ))
-      Fitting::Storage::Skip.set(false)
-      allow(Fitting).to receive(:configuration)
-        .and_return(double(necessary_fully_implementation_of_responses: nil, white_list: nil))
-      allow(Fitting::Storage::Documentation).to receive(:hash)
     end
 
     after { Fitting::Storage::Skip.set(true) }
