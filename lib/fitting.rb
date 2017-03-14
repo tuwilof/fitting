@@ -50,7 +50,7 @@ module RSpec
           )
 
           request_route = Fitting::Documentation::Request::Route.new(response_route_black)
-          statistics = Fitting::Documentation::Statistics.new(request_route, response_routes, response_route_black)
+          statistics = Fitting::Documentation::Statistics.new(request_route, response_routes.black, response_route_black)
           puts statistics
 
           puts '[White list]'
