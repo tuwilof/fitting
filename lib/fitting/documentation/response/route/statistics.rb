@@ -13,7 +13,7 @@ module Fitting
             valid_percentage = @response_routes.cover_ratio
             total_count = @responses_routes.size
             invalid_count = @response_routes.not_coverage.size
-            invalid_percentage = 100.0 - @response_routes.cover_ratio
+            invalid_percentage = (100.0 - @response_routes.cover_ratio).round(2)
 
             [
               "API responses conforming to the blueprint: #{valid_count} (#{valid_percentage}% of #{total_count}).",
