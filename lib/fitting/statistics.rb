@@ -21,7 +21,10 @@ module Fitting
         request_route = Fitting::Documentation::Request::Route.new(response_route_black)
         statistics = Fitting::Documentation::Statistics.new(request_route, @response_routes.black, response_route_black)
 
-        str_statistics =['[Black list]', statistics, '[White list]'].join("\n")
+        str_statistics =[
+          ['[Black list]', statistics].join("\n"),
+          '[White list]'
+        ].join("\n\n")
       end
       request_route = Fitting::Documentation::Request::Route.new(@response_route_white)
       statistics_with_conformity_lists = Fitting::Documentation::StatisticsWithConformityLists.new(request_route, @response_routes.white, @response_route_white)

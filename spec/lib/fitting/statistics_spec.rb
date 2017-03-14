@@ -27,7 +27,10 @@ RSpec.describe Fitting::Statistics do
 
       it 'returns two statistics' do
         expect(subject.to_s).to eq(
-          ['[Black list]', 'statistics', '[White list]', 'statistics_with_conformity_lists'].join("\n")
+          [
+            ['[Black list]', 'statistics'].join("\n"),
+            ['[White list]', 'statistics_with_conformity_lists'].join("\n")
+          ].join("\n\n")
         )
       end
     end

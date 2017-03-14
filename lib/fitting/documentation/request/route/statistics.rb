@@ -16,9 +16,11 @@ module Fitting
             part_percentage = (part_count.to_f / total_count.to_f * 100.0).round(2)
             no_percentage = (no_count.to_f / total_count.to_f * 100.0).round(2)
 
-            "API requests with fully implemented responses: #{full_count} (#{full_percentage}% of #{total_count}).\n"\
-            "API requests with partially implemented responses: #{part_count} (#{part_percentage}% of #{total_count}).\n"\
-            "API requests with no implemented responses: #{no_count} (#{no_percentage}% of #{total_count}).\n"
+            [
+              "API requests with fully implemented responses: #{full_count} (#{full_percentage}% of #{total_count}).",
+              "API requests with partially implemented responses: #{part_count} (#{part_percentage}% of #{total_count}).",
+              "API requests with no implemented responses: #{no_count} (#{no_percentage}% of #{total_count})."
+            ].join("\n")
           end
         end
       end

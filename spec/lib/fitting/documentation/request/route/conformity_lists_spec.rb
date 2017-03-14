@@ -11,14 +11,11 @@ RSpec.describe Fitting::Documentation::Request::Route::ConformityLists do
 
   describe '#to_s' do
     it 'does not return error' do
-      expect(subject.to_s).to eq(
-        "Fully conforming requests:\n"\
-        "FKR\n"\
-        "Partially conforming requests:\n"\
-        "PI\n"\
-        "Non-conforming requests:\n"\
-        "NI\n"
-      )
+      expect(subject.to_s).to eq([
+        ['Fully conforming requests:', 'FKR'].join("\n"),
+        ['Partially conforming requests:', 'PI'].join("\n"),
+        ['Non-conforming requests:', 'NI'].join("\n")
+      ].join("\n\n"))
     end
   end
 end

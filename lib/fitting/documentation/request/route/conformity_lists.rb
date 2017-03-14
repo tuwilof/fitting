@@ -12,12 +12,11 @@ module Fitting
             @partially_implemented ||= @request_routes.partially_implemented.join("\n")
             @no_implemented ||= @request_routes.no_implemented.join("\n")
 
-            "Fully conforming requests:\n"\
-            "#{@fully_implemented}\n"\
-            "Partially conforming requests:\n"\
-            "#{@partially_implemented}\n"\
-            "Non-conforming requests:\n"\
-            "#{@no_implemented}\n"
+            [
+              ['Fully conforming requests:', @fully_implemented].join("\n"),
+              ['Partially conforming requests:', @partially_implemented].join("\n"),
+              ['Non-conforming requests:', @no_implemented].join("\n")
+            ].join("\n\n")
           end
         end
       end

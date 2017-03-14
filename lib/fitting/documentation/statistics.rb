@@ -14,7 +14,7 @@ module Fitting
         request_route_statistics = Fitting::Documentation::Request::Route::Statistics.new(@request_route).to_s
         response_route_statistics = Fitting::Documentation::Response::Route::Statistics.new(@response_route, @responses_routes).to_s
 
-        "\n#{request_route_statistics}\n#{response_route_statistics}\n"
+        [request_route_statistics, response_route_statistics].join("\n\n")
       end
     end
   end

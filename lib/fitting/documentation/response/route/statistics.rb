@@ -15,8 +15,10 @@ module Fitting
             invalid_count = @response_routes.not_coverage.size
             invalid_percentage = 100.0 - @response_routes.cover_ratio
 
-            "API responses conforming to the blueprint: #{valid_count} (#{valid_percentage}% of #{total_count}).\n"\
-            "API responses with validation errors or untested: #{invalid_count} (#{invalid_percentage}% of #{total_count}).\n"
+            [
+              "API responses conforming to the blueprint: #{valid_count} (#{valid_percentage}% of #{total_count}).",
+              "API responses with validation errors or untested: #{invalid_count} (#{invalid_percentage}% of #{total_count})."
+            ].join("\n")
           end
         end
       end
