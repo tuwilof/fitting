@@ -1,4 +1,4 @@
-require 'fitting/documentation/response/routes'
+require 'fitting/documentation/response/monochrome_route/route'
 
 module Fitting
   module Documentation

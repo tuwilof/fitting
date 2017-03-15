@@ -92,6 +92,36 @@ module Fitting
           end
         end
 
+        def statistics
+          @stat ||= coverage_statistic
+          full_count = @stat.to_hash['full cover'].size
+          part_count = @stat.to_hash['partial cover'].size
+          no_count = @stat.to_hash['no cover'].size
+          total_count = full_count + part_count + no_count
+          full_percentage = (full_count.to_f / total_count.to_f * 100.0).round(2)
+          part_percentage = (part_count.to_f / total_count.to_f * 100.0).round(2)
+          no_percentage = (no_count.to_f / total_count.to_f * 100.0).round(2)
+
+          [
+            "API requests with fully implemented responses: #{full_count} (#{full_percentage}% of #{total_count}).",
+            "API requests with partially implemented responses: #{part_count} (#{part_percentage}% of #{total_count}).",
+            "API requests with no implemented responses: #{no_count} (#{no_percentage}% of #{total_count})."
+          ].join("\n")
+        end
+
+        def conformity_lists
+          @stat ||= coverage_statistic
+          fully_implemented ||= self.fully_implemented.join("\n")
+          partially_implemented ||= self.partially_implemented.join("\n")
+          no_implemented ||= self.no_implemented.join("\n")
+
+          [
+            ['Fully conforming requests:',fully_implemented].join("\n"),
+            ['Partially conforming requests:', partially_implemented].join("\n"),
+            ['Non-conforming requests:', no_implemented].join("\n")
+          ].join("\n\n")
+        end
+
         private
 
         def beautiful_output(hash)

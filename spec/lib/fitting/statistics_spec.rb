@@ -12,6 +12,7 @@ RSpec.describe Fitting::Statistics do
     before do
       allow(Fitting::Documentation::StatisticsWithConformityLists).to receive(:new)
         .and_return('statistics_with_conformity_lists')
+      allow(Fitting::Documentation::Statistics).to receive(:new).and_return("statistics")
     end
 
     it 'returns statistics' do
@@ -22,7 +23,6 @@ RSpec.describe Fitting::Statistics do
       before do
         allow(Fitting.configuration).to receive(:white_list).and_return([])
         allow(Fitting::Documentation::Response::MonochromeRoute::Route).to receive(:new)
-        allow(Fitting::Documentation::Statistics).to receive(:new).and_return("statistics")
       end
 
       it 'returns two statistics' do

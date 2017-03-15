@@ -59,4 +59,40 @@ RSpec.describe Fitting::Documentation::Request::Route do
       expect(subject.no_implemented).to eq(["DELETE\t/sessions\t\t\t\t\t\t\t✖ ", "DELETE\t/users\t\t\t\t\t\t\t\t✖ "])
     end
   end
+
+  describe '#statistics' do
+    let(:to_hash) do
+      {
+        'full cover' => [''],
+        'partial cover' => [''],
+        'no cover' => ['']
+      }
+    end
+
+    before { allow(subject).to receive(:coverage_statistic).and_return(to_hash) }
+
+    it 'returns statistics' do
+      expect(subject.statistics).to eq([
+        'API requests with fully implemented responses: 1 (33.33% of 3).',
+        'API requests with partially implemented responses: 1 (33.33% of 3).',
+        'API requests with no implemented responses: 1 (33.33% of 3).'
+      ].join("\n"))
+    end
+  end
+
+  describe '#conformity_lists' do
+    before do
+      allow(subject).to receive(:fully_implemented).and_return(double(join: 'FKR'))
+      allow(subject).to receive(:partially_implemented).and_return(double(join: 'PI'))
+      allow(subject).to receive(:no_implemented).and_return(double(join: 'NI'))
+    end
+
+    it 'does not return error' do
+      expect(subject.conformity_lists).to eq([
+        ['Fully conforming requests:', 'FKR'].join("\n"),
+        ['Partially conforming requests:', 'PI'].join("\n"),
+        ['Non-conforming requests:', 'NI'].join("\n")
+      ].join("\n\n"))
+    end
+  end
 end

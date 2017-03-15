@@ -1,3 +1,4 @@
+require 'fitting/documentation/response/monochrome_route/route'
 require 'spec_helper'
 require 'multi_json'
 
