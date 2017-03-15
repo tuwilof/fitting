@@ -6,11 +6,11 @@ require 'fitting/documentation/statistics_with_conformity_lists'
 
 module Fitting
   class Statistics
-    def initialize(response_routes, response_route)
-      request_route_black = Fitting::Documentation::Request::Route.new(response_route.black)
-      request_route_white = Fitting::Documentation::Request::Route.new(response_route.white)
-      @statistics = Fitting::Documentation::Statistics.new(request_route_black, response_routes.black, response_route.black)
-      @statistics_with_conformity_lists = Fitting::Documentation::StatisticsWithConformityLists.new(request_route_white, response_routes.white, response_route.white)
+    def initialize(response)
+      request_route_black = Fitting::Documentation::Request::Route.new(response.monochrome_route.black)
+      request_route_white = Fitting::Documentation::Request::Route.new(response.monochrome_route.white)
+      @statistics = Fitting::Documentation::Statistics.new(request_route_black, response.routes.black, response.monochrome_route.black)
+      @statistics_with_conformity_lists = Fitting::Documentation::StatisticsWithConformityLists.new(request_route_white, response)
     end
 
     def to_s

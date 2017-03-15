@@ -4,10 +4,10 @@ require 'fitting/documentation/statistics'
 module Fitting
   module Documentation
     class StatisticsWithConformityLists
-      def initialize(request_route, responses_routes, response_route)
+      def initialize(request_route, response)
         @request_route = request_route
-        @responses_routes = responses_routes
-        @response_route = response_route
+        @responses_routes = response.routes.white
+        @response_route = response.monochrome_route.white
       end
 
       def to_s

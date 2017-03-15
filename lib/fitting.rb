@@ -6,7 +6,7 @@ require 'fitting/matchers/response_matcher'
 require 'rspec/core'
 require 'fitting/documentation/request/route'
 require 'fitting/statistics'
-require 'fitting/documentation/response/monochrome_route'
+require 'fitting/documentation/response'
 
 ERROR_EXIT_CODE = 1
 
@@ -33,20 +33,16 @@ module RSpec
 
         return returned_exit_code if Fitting::Storage::Skip.get
 
-        response_routes = Fitting::Documentation::Response::Routes.new(
+        response = Fitting::Documentation::Response.new(
           Fitting::Storage::Documentation.hash,
-          Fitting.configuration.white_list
+          Fitting.configuration.white_list,
+          Fitting::Storage::Responses.all
         )
-        response_route = Fitting::Documentation::Response::MonochromeRoute.new(
-          Fitting::Storage::Responses.all,
-          response_routes
-        )
-
-        puts Fitting::Statistics.new(response_routes, response_route)
+        puts Fitting::Statistics.new(response)
 
         if Fitting.configuration.necessary_fully_implementation_of_responses &&
           returned_exit_code == 0 &&
-          response_route.white.not_coverage.present?
+          response.monochrome_route.white.not_coverage.present?
           return ERROR_EXIT_CODE
         end
         returned_exit_code

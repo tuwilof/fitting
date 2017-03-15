@@ -2,10 +2,12 @@ require 'spec_helper'
 
 RSpec.describe Fitting::Statistics do
   describe '#to_s' do
-    let(:response_routes) { double(white: nil, black: nil) }
-    let(:response_route) { double(white: nil, black: nil) }
+    let(:response) { double(
+      routes: double(white: nil, black: nil),
+      monochrome_route: double(white: nil, black: nil)
+    ) }
 
-    subject { described_class.new(response_routes, response_route) }
+    subject { described_class.new(response) }
 
     before do
       allow(Fitting::Documentation::StatisticsWithConformityLists).to receive(:new)
