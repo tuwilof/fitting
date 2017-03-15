@@ -13,13 +13,14 @@ module Fitting
 
     def to_s
       if Fitting.configuration.white_list
-        str_statistics = [
+        [
           ['[Black list]', @statistics].join("\n"),
-          '[White list]'
+          ['[White list]', @statistics_with_conformity_lists].join("\n"),
+          ""
         ].join("\n\n")
+      else
+        [@statistics_with_conformity_lists, "\n\n"].join
       end
-
-      [str_statistics, @statistics_with_conformity_lists, "\n"].compact.join("\n")
     end
   end
 end
