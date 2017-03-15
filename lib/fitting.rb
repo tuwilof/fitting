@@ -6,7 +6,7 @@ require 'fitting/matchers/response_matcher'
 require 'rspec/core'
 require 'fitting/documentation/request/route'
 require 'fitting/statistics'
-require 'fitting/statistics/response_route'
+require 'fitting/documentation/response/monochrome_route'
 
 ERROR_EXIT_CODE = 1
 
@@ -37,7 +37,7 @@ module RSpec
           Fitting::Storage::Documentation.hash,
           Fitting.configuration.white_list
         )
-        response_route = Fitting::Statistics::ResponseRoute.new(
+        response_route = Fitting::Documentation::Response::MonochromeRoute.new(
           Fitting::Storage::Responses.all,
           response_routes
         )
