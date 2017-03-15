@@ -3,7 +3,7 @@ require 'fitting/documentation/request/route'
 
 module Fitting
   module Documentation
-    module Response
+    class Response
       class Routes
         def initialize(tomogram, white_list)
           @tomogram = tomogram

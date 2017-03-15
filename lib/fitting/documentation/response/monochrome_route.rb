@@ -2,7 +2,7 @@ require 'fitting/documentation/response/routes'
 
 module Fitting
   module Documentation
-    module Response
+    class Response
       class MonochromeRoute
         def initialize(responses_all, response_routes)
           @white = Fitting::Documentation::Response::Route.new(responses_all, response_routes.white)

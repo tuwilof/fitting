@@ -1,6 +1,6 @@
 module Fitting
   module Documentation
-    module Response
+    class Response
       class Route
         class Statistics
           def initialize(response_routes, responses_routes)

@@ -2,7 +2,7 @@ require 'multi_json'
 
 module Fitting
   module Documentation
-    module Response
+    class Response
       class Route
         def initialize(coverage_responses, responses_routes)
           @coverage_responses = coverage_responses
