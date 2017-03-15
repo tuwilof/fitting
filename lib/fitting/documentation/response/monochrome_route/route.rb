@@ -1,5 +1,5 @@
 require 'multi_json'
-#Fitting::Documentation::Response::Route
+#Fitting::Documentation::Response::
 module Fitting
   module Documentation
     class Response
