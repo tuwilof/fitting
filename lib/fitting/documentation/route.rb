@@ -9,14 +9,6 @@ module Fitting
         @responses = Fitting::Documentation::Responses.new(routes, monochrome_route)
       end
 
-      def request
-        @request
-      end
-
-      def responses
-        @responses
-      end
-
       def statistics
         [@request.statistics, @responses.statistics].join("\n\n")
       end

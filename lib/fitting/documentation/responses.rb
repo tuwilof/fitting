@@ -6,14 +6,6 @@ module Fitting
         @monochrome_route = monochrome_route
       end
 
-      def routes
-        @routes
-      end
-
-      def monochrome_route
-        @monochrome_route
-      end
-
       def statistics
         valid_count = @monochrome_route.coverage.size
         valid_percentage = @monochrome_route.cover_ratio
