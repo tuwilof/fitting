@@ -16,6 +16,14 @@ module Fitting
       def responses
         @responses
       end
+
+      def statistics
+        [@request.statistics, @responses.statistics].join("\n\n")
+      end
+
+      def statistics_with_conformity_lists
+        [@request.conformity_lists, statistics].join("\n\n")
+      end
     end
   end
 end
