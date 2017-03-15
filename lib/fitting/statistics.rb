@@ -1,4 +1,4 @@
-require 'fitting/documentation/response/route'
+require 'fitting/documentation/response/monochrome_route/route'
 require 'fitting/storage/responses'
 require 'fitting/documentation/request/route'
 require 'fitting/documentation/statistics'

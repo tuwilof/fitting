@@ -19,7 +19,7 @@ RSpec.describe Fitting::Statistics do
     context 'uses whitelist' do
       before do
         allow(Fitting.configuration).to receive(:white_list).and_return([])
-        allow(Fitting::Documentation::Response::Route).to receive(:new)
+        allow(Fitting::Documentation::Response::MonochromeRoute::Route).to receive(:new)
         allow(Fitting::Documentation::Statistics).to receive(:new).and_return("statistics")
       end
 
