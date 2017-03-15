@@ -1,12 +1,12 @@
 require 'fitting/version'
 require 'fitting/configuration'
-require 'fitting/documentation/response/routes'
 require 'fitting/storage/documentation'
 require 'fitting/storage/skip'
 require 'fitting/matchers/response_matcher'
 require 'rspec/core'
 require 'fitting/documentation/request/route'
 require 'fitting/statistics'
+require 'fitting/statistics/response_route'
 
 ERROR_EXIT_CODE = 1
 
@@ -37,16 +37,16 @@ module RSpec
           Fitting::Storage::Documentation.hash,
           Fitting.configuration.white_list
         )
-        response_route_white = Fitting::Documentation::Response::Route.new(
+        response_route = Fitting::Statistics::ResponseRoute.new(
           Fitting::Storage::Responses.all,
-          response_routes.white
+          response_routes
         )
 
-        puts Fitting::Statistics.new(response_routes, response_route_white)
+        puts Fitting::Statistics.new(response_routes, response_route)
 
         if Fitting.configuration.necessary_fully_implementation_of_responses &&
           returned_exit_code == 0 &&
-          response_route_white.not_coverage.present?
+          response_route.white.not_coverage.present?
           return ERROR_EXIT_CODE
         end
         returned_exit_code
