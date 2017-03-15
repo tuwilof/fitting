@@ -4,9 +4,9 @@ module Fitting
       class MonochromeRoute
         class Route
           class Statistics
-            def initialize(response_routes, responses_routes)
-              @response_routes = response_routes
-              @responses_routes = responses_routes
+            def initialize(responses)
+              @response_routes = responses.monochrome_route
+              @responses_routes = responses.routes
             end
 
             def to_s
