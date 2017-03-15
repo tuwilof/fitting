@@ -4,9 +4,9 @@ require 'fitting/documentation/response/monochrome_route/route/statistics'
 module Fitting
   module Documentation
     class Statistics
-      def initialize(request_route, responses)
-        @request_route = request_route
-        @responses = responses
+      def initialize(route)
+        @request_route = route.request
+        @responses = route.responses
       end
 
       def to_s
