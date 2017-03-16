@@ -5,7 +5,7 @@ require 'fitting/storage/skip'
 require 'fitting/matchers/response_matcher'
 require 'rspec/core'
 require 'fitting/documentation/request/route'
-require 'fitting/documentation/response'
+require 'fitting/documentation/statistics'
 
 ERROR_EXIT_CODE = 1
 
@@ -32,12 +32,12 @@ module RSpec
 
         return returned_exit_code if Fitting::Storage::Skip.get
 
-        response = Fitting::Documentation::Response.new(
+        statistics = Fitting::Documentation::Statistics.new(
           Fitting::Storage::Documentation.hash,
           Fitting.configuration.white_list,
           Fitting::Storage::Responses.all
         )
-        puts response.statistics
+        puts statistics
 
         if Fitting.configuration.necessary_fully_implementation_of_responses &&
           returned_exit_code == 0 &&

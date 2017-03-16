@@ -4,7 +4,7 @@ require 'fitting/documentation/route'
 
 module Fitting
   module Documentation
-    class Response
+    class Statistics
       def initialize(documentation, white_list, all_responses)
         routes = Fitting::Documentation::Response::Routes.new(documentation, white_list)
         @monochrome_route = Fitting::Documentation::Response::MonochromeRoute.new(all_responses, routes)
@@ -16,7 +16,7 @@ module Fitting
         @monochrome_route.white_not_coverage?
       end
 
-      def statistics
+      def to_s
         if Fitting.configuration.white_list
           [
             ['[Black list]', @statistics].join("\n"),
