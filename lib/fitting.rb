@@ -33,7 +33,7 @@ module RSpec
         return returned_exit_code if Fitting::Storage::Skip.get
 
         statistics = Fitting::Documentation::Statistics.new(
-          Fitting::Storage::Documentation.hash,
+          Fitting.configuration.tomogram,
           Fitting.configuration.white_list,
           Fitting::Storage::Responses.all
         )
