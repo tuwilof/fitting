@@ -1,11 +1,11 @@
-require 'fitting/documentation/route'
+require 'fitting/route'
 
 module Fitting
   class Statistics
     def initialize(documentation, all_responses)
       @documentation = documentation
-      @black_route = Fitting::Documentation::Route.new(all_responses, @documentation.black)
-      @white_route = Fitting::Documentation::Route.new(all_responses, @documentation.white)
+      @black_route = Fitting::Route.new(all_responses, @documentation.black)
+      @white_route = Fitting::Route.new(all_responses, @documentation.white)
     end
 
     def not_coverage?

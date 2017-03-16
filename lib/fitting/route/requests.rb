@@ -1,7 +1,7 @@
 require 'multi_json'
 
 module Fitting
-  class Documentation
+  class Route
     class Requests
       def initialize(coverage)
         @coverage = coverage

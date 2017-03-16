@@ -1,5 +1,5 @@
 module Fitting
-  class Documentation
+  class Route
     class Responses
       def initialize(routes, coverage)
         @routes = routes
