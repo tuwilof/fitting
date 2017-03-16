@@ -5,6 +5,7 @@ require 'fitting/storage/skip'
 require 'fitting/matchers/response_matcher'
 require 'rspec/core'
 require 'fitting/statistics'
+require 'fitting/documentation'
 
 ERROR_EXIT_CODE = 1
 
@@ -31,12 +32,9 @@ module RSpec
 
         return returned_exit_code if Fitting::Storage::Skip.get
 
-        statistics = Fitting::Statistics.new(
-          Fitting.configuration.tomogram,
-          Fitting.configuration.white_list,
-          Fitting::Storage::Responses.all
-        )
-        puts statistics
+        puts Fitting::Statistics.new(
+          Fitting::Documentation.new(Fitting.configuration.tomogram, Fitting.configuration.white_list),
+          Fitting::Storage::Responses.all)
 
         if Fitting.configuration.necessary_fully_implementation_of_responses &&
           returned_exit_code == 0 &&

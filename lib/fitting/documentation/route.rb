@@ -3,7 +3,7 @@ require 'fitting/documentation/requests'
 require 'fitting/documentation/responses'
 
 module Fitting
-  module Documentation
+  class Documentation
     class Route
       def initialize(all_responses, routes)
         monochrome_route = Fitting::Documentation::Response::Route.new(all_responses, routes)

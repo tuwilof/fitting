@@ -1,7 +1,7 @@
 require 'multi_json'
 
 module Fitting
-  module Documentation
+  class Documentation
     class Requests
       def initialize(response_routes)
         @response_routes = response_routes

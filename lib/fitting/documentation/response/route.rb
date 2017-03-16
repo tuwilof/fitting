@@ -1,7 +1,7 @@
 require 'multi_json'
 #Fitting::Documentation::Response::
 module Fitting
-  module Documentation
+  class Documentation
     class Response
       class Route
         def initialize(coverage_responses, responses_routes)

@@ -1,5 +1,5 @@
 module Fitting
-  module Documentation
+  class Documentation
     class Responses
       def initialize(routes, monochrome_route)
         @routes = routes
