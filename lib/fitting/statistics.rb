@@ -1,14 +1,12 @@
 require 'fitting/documentation/response/routes'
-require 'fitting/documentation/response/monochrome_route'
 require 'fitting/documentation/route'
 
 module Fitting
   class Statistics
     def initialize(documentation, white_list, all_responses)
       @routes = Fitting::Documentation::Response::Routes.new(documentation, white_list)
-      monochrome_route = Fitting::Documentation::Response::MonochromeRoute.new(all_responses, @routes)
-      @black_route = Fitting::Documentation::Route.new(@routes.black, monochrome_route.black)
-      @white_route = Fitting::Documentation::Route.new(@routes.white, monochrome_route.white)
+      @black_route = Fitting::Documentation::Route.new(all_responses, @routes.black)
+      @white_route = Fitting::Documentation::Route.new(all_responses, @routes.white)
     end
 
     def not_coverage?
