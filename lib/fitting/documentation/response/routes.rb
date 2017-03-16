@@ -1,5 +1,4 @@
 require 'multi_json'
-require 'fitting/documentation/request/route'
 
 module Fitting
   module Documentation

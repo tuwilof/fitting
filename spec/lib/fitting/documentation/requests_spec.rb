@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Fitting::Documentation::Request::Route do
+RSpec.describe Fitting::Documentation::Requests do
   let(:response_routes) { double(
     coverage: ['GET /sessions', 'POST /sessions', 'GET /users', 'POST /users'],
     not_coverage: ['DELETE /sessions', 'POST /sessions', 'DELETE /users', 'POST /users']
