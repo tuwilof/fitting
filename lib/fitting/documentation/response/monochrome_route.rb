@@ -9,10 +9,6 @@ module Fitting
           @black = Fitting::Documentation::Response::MonochromeRoute::Route.new(responses_all, response_routes.black)
         end
 
-        def white_not_coverage?
-          @white.not_coverage.present?
-        end
-
         def white
           @white
         end
