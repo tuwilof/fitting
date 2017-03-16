@@ -1,17 +1,17 @@
 module Fitting
   class Documentation
     class Responses
-      def initialize(routes, monochrome_route)
+      def initialize(routes, coverage)
         @routes = routes
-        @monochrome_route = monochrome_route
+        @coverage = coverage
       end
 
       def statistics
-        valid_count = @monochrome_route.coverage.size
-        valid_percentage = @monochrome_route.cover_ratio
+        valid_count = @coverage.coverage.size
+        valid_percentage = @coverage.cover_ratio
         total_count = @routes.size
-        invalid_count = @monochrome_route.not_coverage.size
-        invalid_percentage = (100.0 - @monochrome_route.cover_ratio).round(2)
+        invalid_count = @coverage.not_coverage.size
+        invalid_percentage = (100.0 - @coverage.cover_ratio).round(2)
 
         [
           "API responses conforming to the blueprint: #{valid_count} (#{valid_percentage}% of #{total_count}).",

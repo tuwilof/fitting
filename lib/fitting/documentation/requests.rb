@@ -3,13 +3,13 @@ require 'multi_json'
 module Fitting
   class Documentation
     class Requests
-      def initialize(response_routes)
-        @response_routes = response_routes
+      def initialize(coverage)
+        @coverage = coverage
       end
 
       def coverage_statistic
         stat = {}
-        @response_routes.coverage.map do |route|
+        @coverage.coverage.map do |route|
           macro_key = route.split(' ')[0..1].join(' ')
           micro_key = route.split(' ')[2..3].join(' ')
           stat[macro_key] ||= {}
@@ -19,7 +19,7 @@ module Fitting
           stat[macro_key]['all'] ||= []
           stat[macro_key]['all'].push("✔ #{route.split(' ')[2..3].join(' ')}")
         end
-        @response_routes.not_coverage.map do |route|
+        @coverage.not_coverage.map do |route|
           macro_key = route.split(' ')[0..1].join(' ')
           micro_key = route.split(' ')[2..3].join(' ')
           stat[macro_key] ||= {}
