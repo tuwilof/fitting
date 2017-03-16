@@ -1,4 +1,4 @@
-require 'fitting/documentation/response/monochrome_route/route'
+require 'fitting/documentation/response/route'
 require 'fitting/documentation/request/route'
 require 'fitting/documentation/responses'
 
@@ -6,7 +6,7 @@ module Fitting
   module Documentation
     class Route
       def initialize(all_responses, routes)
-        monochrome_route = Fitting::Documentation::Response::MonochromeRoute::Route.new(all_responses, routes)
+        monochrome_route = Fitting::Documentation::Response::Route.new(all_responses, routes)
         @request = Fitting::Documentation::Request::Route.new(monochrome_route)
         @responses = Fitting::Documentation::Responses.new(routes, monochrome_route)
       end
