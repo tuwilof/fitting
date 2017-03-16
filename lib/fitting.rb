@@ -32,9 +32,13 @@ module RSpec
 
         return returned_exit_code if Fitting::Storage::Skip.get
 
-        puts Fitting::Statistics.new(
+        statistics = Fitting::Statistics.new(
           Fitting::Documentation.new(Fitting.configuration.tomogram, Fitting.configuration.white_list),
           Fitting::Storage::Responses.all)
+        puts statistics
+        if Fitting.configuration.create_report_with_name
+          statistics.save(Fitting.configuration.create_report_with_name)
+        end
 
         if Fitting.configuration.necessary_fully_implementation_of_responses &&
           returned_exit_code == 0 &&

@@ -78,6 +78,10 @@ config.white_list = {
 
 Empty array `[]` means all methods.
 
+### create_report_with_name
+
+Create report with name.
+
 ## Report
 
 Autogenerate `report_request_by_response.yaml` and `report_response.yaml reports`.

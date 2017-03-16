@@ -12,6 +12,10 @@ module Fitting
       @white_route.not_coverage.present?
     end
 
+    def save(name)
+      File.open(name, 'w') { |file| file.write(to_s) }
+    end
+
     def to_s
       if @documentation.black.any?
         [
