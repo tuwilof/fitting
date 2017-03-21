@@ -14,9 +14,7 @@ module Fitting
       end
 
       def to_s
-        @to_s ||= inject("") do |res, fully_validate|
-          res + "#{fully_validate.join("\n")}\n\n"
-        end
+        @to_s ||= join("\n\n")
       end
     end
   end

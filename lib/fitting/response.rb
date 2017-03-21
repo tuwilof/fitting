@@ -8,11 +8,10 @@ module Fitting
       @status = env_response.status
       @body = env_response.body
       @schemas = @request.schemas_of_possible_responses(status: @status)
-      @fully_validates = Fitting::Response::FullyValidates.craft(@schemas, @body) if @schemas
     end
 
     def fully_validates
-      @fully_validates
+      @fully_validates ||= Fitting::Response::FullyValidates.craft(@schemas, @body) if @schemas
     end
 
     def documented?
@@ -41,7 +40,7 @@ module Fitting
 
     def index
       @schemas.size.times do |i|
-        if @fully_validates[i] == []
+        if fully_validates[i] == []
           return i
         end
       end

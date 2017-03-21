@@ -33,6 +33,14 @@ RSpec.describe Fitting::Response::FullyValidates do
     context 'has one empty array' do
       let(:schemas) { [{}] }
 
+      it 'returns empty String' do
+        expect(subject.to_s).to eq('')
+      end
+    end
+
+    context 'has more than one empty array' do
+      let(:schemas) { [{}, {}] }
+
       it 'returns a string with line breaks' do
         expect(subject.to_s).to eq("\n\n")
       end
