@@ -11,7 +11,11 @@ module Fitting
     end
 
     def fully_validates
-      @fully_validates ||= Fitting::Response::FullyValidates.craft(@schemas, @body) if @schemas
+      @fully_validates ||= Fitting::Response::FullyValidates.craft(@schemas, @body, false)
+    end
+
+    def strict_fully_validates
+      @strict_fully_validates ||= Fitting::Response::FullyValidates.craft(@schemas, @body, true)
     end
 
     def documented?

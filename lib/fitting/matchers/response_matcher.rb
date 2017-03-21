@@ -31,8 +31,40 @@ module Fitting
       end
     end
 
+    class StrictResponse
+      def matches?(response)
+        @response = Fitting::Response.new(
+          response,
+          Fitting::Storage::Documentation.tomogram
+        )
+        @response.strict_fully_validates.valid?
+      end
+
+      def ===(other)
+        matches?(other)
+      end
+
+      def failure_message
+        unless @response.documented?
+          return "response not documented\n"\
+                 "got: #{@response.real_request_with_status}"
+        end
+
+        unless @response.strict_fully_validates.valid?
+          "response does not conform to json-schema\n"\
+          "schemas: \n#{@response.expected}\n\n"\
+          "got: #{@response.got}\n\n"\
+          "errors: \n#{@response.strict_fully_validates}\n"
+        end
+      end
+    end
+
     def match_response
       Response.new
+    end
+
+    def strict_match_response
+      StrictResponse.new
     end
   end
 end

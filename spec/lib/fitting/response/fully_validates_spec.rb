@@ -3,11 +3,19 @@ require 'fitting/response/fully_validates'
 
 RSpec.describe Fitting::Response::FullyValidates do
   let(:schemas) { [] }
-  subject { described_class.craft(schemas, {}) }
+  subject { described_class.craft(schemas, {}, false) }
 
   describe '.craft' do
     it 'returns described_class object' do
       expect(subject).to be_a(described_class)
+    end
+
+    context 'schemas nil' do
+      let(:schemas) { nil }
+
+      it 'returns described_class object' do
+        expect(subject).to be_a(described_class)
+      end
     end
   end
 
