@@ -18,7 +18,6 @@ RSpec.describe Fitting::Matchers::Response do
   before do
     allow(Fitting::Storage::Documentation).to receive(:tomogram)
     allow(Fitting::Response).to receive(:new).and_return(response)
-    allow(Fitting::Storage::Responses).to receive(:push)
   end
 
   subject { described_class.new }

@@ -1,5 +1,4 @@
 require 'fitting/response'
-require 'fitting/storage/responses'
 require 'fitting/storage/documentation'
 
 module Fitting
@@ -10,7 +9,6 @@ module Fitting
           response,
           Fitting::Storage::Documentation.tomogram
         )
-        Fitting::Storage::Responses.push(@response)
         @response.valid?
       end
 

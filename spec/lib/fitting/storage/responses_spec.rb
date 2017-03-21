@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fitting/storage/responses'
 
 RSpec.describe Fitting::Storage::Responses do
   describe '.push' do

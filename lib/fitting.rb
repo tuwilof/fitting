@@ -6,6 +6,7 @@ require 'fitting/matchers/response_matcher'
 require 'rspec/core'
 require 'fitting/statistics'
 require 'fitting/documentation'
+require 'fitting/storage/responses'
 
 ERROR_EXIT_CODE = 1
 
