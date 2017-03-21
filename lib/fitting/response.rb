@@ -1,5 +1,4 @@
 require 'fitting/request'
-require 'json-schema'
 require 'fitting/response/fully_validates'
 
 module Fitting
@@ -9,16 +8,7 @@ module Fitting
       @status = env_response.status
       @body = env_response.body
       @schemas = @request.schemas_of_possible_responses(status: @status)
-      @fully_validates = Fitting::Response::FullyValidates.craft(set_fully_validate) if @schemas
-    end
-
-    def set_fully_validate
-      fully_validates = []
-      @schemas.map do |old_schema|
-        fully_validate = JSON::Validator.fully_validate(old_schema, @body)
-        fully_validates.push(fully_validate)
-      end
-      fully_validates
+      @fully_validates = Fitting::Response::FullyValidates.craft(@schemas, @body) if @schemas
     end
 
     def fully_validates

@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'fitting/response/fully_validates'
 
 RSpec.describe Fitting::Response::FullyValidates do
-  let(:fully_validates) { [] }
-  subject { described_class.craft(fully_validates) }
+  let(:schemas) { [] }
+  subject { described_class.craft(schemas, {}) }
 
   describe '.craft' do
     it 'returns described_class object' do
@@ -17,7 +17,7 @@ RSpec.describe Fitting::Response::FullyValidates do
     end
 
     context 'has one empty array' do
-      let(:fully_validates) { [[]] }
+      let(:schemas) { [{}] }
 
       it 'returns true' do
         expect(subject.valid?).to be_truthy
@@ -31,7 +31,7 @@ RSpec.describe Fitting::Response::FullyValidates do
     end
 
     context 'has one empty array' do
-      let(:fully_validates) { [[]] }
+      let(:schemas) { [{}] }
 
       it 'returns a string with line breaks' do
         expect(subject.to_s).to eq("\n\n")
