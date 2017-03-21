@@ -13,7 +13,7 @@ RSpec.describe Fitting::Matchers do
 end
 
 RSpec.describe Fitting::Matchers::Response do
-  let(:response) { double(fully_validates: double(any?: true)) }
+  let(:response) { double(fully_validates: double(valid?: true)) }
 
   before do
     allow(Fitting::Storage::Documentation).to receive(:tomogram)
@@ -36,14 +36,13 @@ RSpec.describe Fitting::Matchers::Response do
 
   describe '#failure_message' do
     let(:documented?) { true }
-    let(:any?) { true }
+    let(:valid?) { true }
     let(:response) {
       double(
         documented?: documented?,
         real_request_with_status: 'real request with status',
-        fully_validates: double(any?: any?),
+        fully_validates: double(valid?: valid?, to_s: 'diff'),
         got: 'got',
-        diff: 'diff',
         expected: 'expected'
       )
     }
@@ -59,7 +58,7 @@ RSpec.describe Fitting::Matchers::Response do
     end
 
     context 'not valid?' do
-      let(:any?) { false }
+      let(:valid?) { false }
 
       it 'returns error message' do
         expect(subject.failure_message)

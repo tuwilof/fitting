@@ -1,5 +1,6 @@
 require 'fitting/request'
 require 'json-schema'
+require 'fitting/response/fully_validates'
 
 module Fitting
   class Response
@@ -8,7 +9,7 @@ module Fitting
       @status = env_response.status
       @body = env_response.body
       @schemas = @request.schemas_of_possible_responses(status: @status)
-      @fully_validates = set_fully_validate if @schemas
+      @fully_validates = Fitting::Response::FullyValidates.craft(set_fully_validate) if @schemas
     end
 
     def set_fully_validate
@@ -38,12 +39,6 @@ module Fitting
 
     def got
       @body
-    end
-
-    def diff
-      @fully_validates.inject("") do |res, fully_validate|
-        res + "#{fully_validate.join("\n")}\n\n"
-      end
     end
 
     def expected

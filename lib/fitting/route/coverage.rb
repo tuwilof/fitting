@@ -30,7 +30,7 @@ module Fitting
 
       def full_coverage
         @coverage_responses.map do |response|
-          response.route if response.documented? && response.fully_validates.any? { |fully_validate| fully_validate == [] }
+          response.route if response.documented? && response.fully_validates.valid?
         end.compact.uniq
       end
     end
