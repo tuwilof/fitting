@@ -9,7 +9,7 @@ module Fitting
           response,
           Fitting::Storage::Documentation.tomogram
         )
-        @response.valid?
+        @response.fully_validates.any? { |fully_validate| fully_validate == [] }
       end
 
       def ===(other)
@@ -22,7 +22,7 @@ module Fitting
                  "got: #{@response.real_request_with_status}"
         end
 
-        unless @response.valid?
+        unless @response.fully_validates.any? { |fully_validate| fully_validate == [] }
           "response does not conform to json-schema\n"\
           "schemas: \n#{@response.expected}\n\n"\
           "got: #{@response.got}\n\n"\

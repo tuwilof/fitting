@@ -12,22 +12,20 @@ module Fitting
     end
 
     def set_fully_validate
-      @valid = false
       fully_validates = []
       @schemas.map do |old_schema|
         fully_validate = JSON::Validator.fully_validate(old_schema, @body)
         fully_validates.push(fully_validate)
-        @valid = true if fully_validate == []
       end
       fully_validates
     end
 
-    def documented?
-      @schemas && @schemas.present?
+    def fully_validates
+      @fully_validates
     end
 
-    def valid?
-      @valid == true
+    def documented?
+      @schemas && @schemas.present?
     end
 
     def route

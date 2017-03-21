@@ -5,7 +5,7 @@ require 'multi_json'
 RSpec.describe Fitting::Route::Coverage do
   let(:responses) { [{'status' => '200'}] }
   let(:tomogram) { MultiJson.dump(['path': "/sessions", 'method': "POST", 'request': {}, 'responses': responses]) }
-  let(:coverage_responses) { [double(route: "POST\t/sessions 200 0", documented?: true, valid?: true)] }
+  let(:coverage_responses) { [double(route: "POST\t/sessions 200 0", documented?: true, fully_validates: double(any?: true))] }
   let(:responses_routes) { ["POST\t/sessions 200 0"] }
 
   subject { described_class.new(coverage_responses, responses_routes) }
