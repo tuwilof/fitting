@@ -1,14 +1,20 @@
-require 'fitting/route/coverage'
 require 'spec_helper'
+require 'fitting/route/coverage'
 require 'multi_json'
 
 RSpec.describe Fitting::Route::Coverage do
   let(:responses) { [{'status' => '200'}] }
   let(:tomogram) { MultiJson.dump(['path': "/sessions", 'method': "POST", 'request': {}, 'responses': responses]) }
-  let(:coverage_responses) { [double(route: "POST\t/sessions 200 0", documented?: true, fully_validates: double(valid?: true))] }
+  let(:coverage_responses) { [double(
+    route: "POST\t/sessions 200 0",
+    documented?: true,
+    fully_validates: double(valid?: true),
+    strict_fully_validates: double(valid?: true)
+  )] }
   let(:responses_routes) { ["POST\t/sessions 200 0"] }
+  let(:strict) { false }
 
-  subject { described_class.new(coverage_responses, responses_routes, false) }
+  subject { described_class.new(coverage_responses, responses_routes, strict) }
 
   describe '.new' do
     it 'returns described class object' do
@@ -19,6 +25,14 @@ RSpec.describe Fitting::Route::Coverage do
   describe '#coverage' do
     it 'returns coverage routes' do
       expect(subject.coverage).to eq(["POST\t/sessions 200 0"])
+    end
+
+    context 'strict true' do
+      let(:strict) { true }
+
+      it 'returns coverage routes' do
+        expect(subject.coverage).to eq(["POST\t/sessions 200 0"])
+      end
     end
   end
 
