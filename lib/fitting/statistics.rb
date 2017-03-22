@@ -19,7 +19,7 @@ module Fitting
     def to_s
       if @documentation.black.any?
         [
-          ['[Black list]', @black_route.statistics].join("\n"),
+          ['[Black list]', @black_route.statistics_with_conformity_lists].join("\n"),
           ['[White list]', @white_route.statistics_with_conformity_lists].join("\n"),
           ""
         ].join("\n\n")
