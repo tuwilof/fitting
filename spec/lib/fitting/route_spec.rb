@@ -7,10 +7,6 @@ RSpec.describe Fitting::Route do
 
   subject { described_class.new(all_responses, routes, strict) }
 
-  it do
-    expect { subject }.not_to raise_exception
-  end
-
   describe '#statistics' do
     let(:request) { double(statistics: 'request statistics') }
     let(:responses) { double(statistics: 'responses.statistics') }
