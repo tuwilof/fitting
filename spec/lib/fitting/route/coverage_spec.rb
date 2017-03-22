@@ -8,7 +8,7 @@ RSpec.describe Fitting::Route::Coverage do
   let(:coverage_responses) { [double(route: "POST\t/sessions 200 0", documented?: true, fully_validates: double(valid?: true))] }
   let(:responses_routes) { ["POST\t/sessions 200 0"] }
 
-  subject { described_class.new(coverage_responses, responses_routes) }
+  subject { described_class.new(coverage_responses, responses_routes, false) }
 
   describe '.new' do
     it 'returns described class object' do

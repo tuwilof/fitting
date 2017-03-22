@@ -2,9 +2,10 @@ require 'multi_json'
 module Fitting
   class Route
     class Coverage
-      def initialize(coverage_responses, responses_routes)
+      def initialize(coverage_responses, responses_routes, strict)
         @coverage_responses = coverage_responses
         @responses_routes = responses_routes
+        @strict = strict
       end
 
       def coverage
@@ -29,9 +30,15 @@ module Fitting
       private
 
       def full_coverage
-        @coverage_responses.map do |response|
-          response.route if response.documented? && response.fully_validates.valid?
-        end.compact.uniq
+        if @strict
+          @coverage_responses.map do |response|
+            response.route if response.documented? && response.strict_fully_validates.valid?
+          end.compact.uniq
+        else
+          @coverage_responses.map do |response|
+            response.route if response.documented? && response.fully_validates.valid?
+          end.compact.uniq
+        end
       end
     end
   end

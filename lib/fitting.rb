@@ -35,7 +35,9 @@ module RSpec
 
         statistics = Fitting::Statistics.new(
           Fitting::Documentation.new(Fitting.configuration.tomogram, Fitting.configuration.white_list),
-          Fitting::Storage::Responses.all)
+          Fitting::Storage::Responses.all,
+          Fitting.configuration.strict
+        )
         puts statistics
         if Fitting.configuration.create_report_with_name
           statistics.save(Fitting.configuration.create_report_with_name)

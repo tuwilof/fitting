@@ -4,8 +4,8 @@ require 'fitting/route/responses'
 
 module Fitting
   class Route
-    def initialize(all_responses, routes)
-      coverage = Fitting::Route::Coverage.new(all_responses, routes)
+    def initialize(all_responses, routes, strict)
+      coverage = Fitting::Route::Coverage.new(all_responses, routes, strict)
       @requests = Fitting::Route::Requests.new(coverage)
       @responses = Fitting::Route::Responses.new(routes, coverage)
     end

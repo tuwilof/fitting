@@ -6,7 +6,7 @@ RSpec.describe Fitting::Response::FullyValidates do
   subject { described_class.craft(schemas, {}, false) }
 
   describe '.craft' do
-    it 'returns described_class object' do
+    it 'returns described class object' do
       expect(subject).to be_a(described_class)
     end
 
