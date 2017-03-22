@@ -4,7 +4,7 @@ require 'fitting/response/fully_validates'
 module Fitting
   class Response
     def initialize(env_response, tomogram)
-      @request = Request.new(env_response.request, tomogram)
+      @request = Fitting::Request.new(env_response.request, tomogram)
       @status = env_response.status
       @body = env_response.body
       @schemas = @request.schemas_of_possible_responses(status: @status)
@@ -26,6 +26,10 @@ module Fitting
       "#{@request.route} #{@status} #{index}"
     end
 
+    def strict_route
+      "#{@request.route} #{@status} #{strict_index}"
+    end
+
     def real_request_with_status
       "#{@request.real_method_with_path} #{@status}"
     end
@@ -45,6 +49,14 @@ module Fitting
     def index
       @schemas.size.times do |i|
         if fully_validates[i] == []
+          return i
+        end
+      end
+    end
+
+    def strict_index
+      @schemas.size.times do |i|
+        if strict_fully_validates[i] == []
           return i
         end
       end

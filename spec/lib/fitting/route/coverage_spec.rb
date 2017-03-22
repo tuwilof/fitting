@@ -7,6 +7,7 @@ RSpec.describe Fitting::Route::Coverage do
   let(:tomogram) { MultiJson.dump(['path': "/sessions", 'method': "POST", 'request': {}, 'responses': responses]) }
   let(:coverage_responses) { [double(
     route: "POST\t/sessions 200 0",
+    strict_route: "POST\t/sessions 200 0",
     documented?: true,
     fully_validates: double(valid?: true),
     strict_fully_validates: double(valid?: true)

@@ -32,7 +32,7 @@ module Fitting
       def full_coverage
         if @strict
           @coverage_responses.map do |response|
-            response.route if response.documented? && response.strict_fully_validates.valid?
+            response.strict_route if response.documented? && response.strict_fully_validates.valid?
           end.compact.uniq
         else
           @coverage_responses.map do |response|
