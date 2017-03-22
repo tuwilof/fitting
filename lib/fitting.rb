@@ -53,3 +53,12 @@ module RSpec
     end
   end
 end
+
+RSpec.configure do |config|
+  config.after(:each, :type => :controller) do
+    Fitting::Storage::Responses.push(
+      Fitting::Response.new(
+        response,
+        Fitting::Storage::Documentation.tomogram))
+  end
+end
