@@ -55,6 +55,16 @@ config.after(:each, :type => :controller) do
 end
 ```
 
+## Matchers
+
+### match_response
+
+Makes a simple validation JSON Schema.
+
+### strict_match_response
+
+Makes a strict validation JSON Schema. All properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
+
 ## Config
 
 ### necessary_fully_implementation_of_responses
@@ -81,6 +91,10 @@ Empty array `[]` means all methods.
 ### create_report_with_name
 
 Create report with name.
+
+### strict
+
+Default `false`. If `true` than all properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
 
 ## Report
 
