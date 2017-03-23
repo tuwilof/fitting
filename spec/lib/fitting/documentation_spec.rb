@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'multi_json'
 
 RSpec.describe Fitting::Documentation do
-  let(:tomogram) { MultiJson.dump([{'responses' => [{'status' => 200}]}]) }
+  let(:tomogram) { [{'responses' => [{'status' => 200}]}] }
   let(:white_list) { nil }
 
   subject { described_class.new(tomogram, white_list) }
