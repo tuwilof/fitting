@@ -7,7 +7,8 @@ module Fitting
                   :strict,
                   :documentation,
                   :prefix,
-                  :drafter_yaml
+                  :drafter_yaml,
+                  :apib_path
 
     def initialize
       @necessary_fully_implementation_of_responses = true

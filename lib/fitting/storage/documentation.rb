@@ -7,7 +7,13 @@ module Fitting
     module Documentation
       class << self
         def tomogram
-          @tomogram ||= if Fitting.configuration.drafter_yaml
+          @tomogram ||= if Fitting.configuration.apib_path
+            Tomograph.configure do |config|
+              config.drafter_yaml = `drafter #{Fitting.configuration.apib_path}`
+              config.prefix = Fitting.configuration.prefix
+            end
+            TomogramRouting::Tomogram.craft(Tomograph::Tomogram.json)
+          elsif Fitting.configuration.drafter_yaml
             Tomograph.configure do |config|
               config.drafter_yaml = Fitting.configuration.drafter_yaml
               config.prefix = Fitting.configuration.prefix
