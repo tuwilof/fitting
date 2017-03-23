@@ -1,13 +1,13 @@
 module Fitting
   class Configuration
-    attr_accessor :tomogram,
+    attr_accessor :apib_path,
+                  :drafter_yaml_path,
                   :necessary_fully_implementation_of_responses,
+                  :strict,
+                  :prefix,
                   :white_list,
                   :create_report_with_name,
-                  :strict,
-                  :drafter_yaml_path,
-                  :prefix,
-                  :apib_path
+                  :tomogram,
 
     def initialize
       @necessary_fully_implementation_of_responses = true
