@@ -7,7 +7,13 @@ module Fitting
     module Documentation
       class << self
         def tomogram
-          @tomogram ||= if Fitting.configuration.tomogram
+          @tomogram ||= if Fitting.configuration.drafter_yaml
+            Tomograph.configure do |config|
+              config.drafter_yaml = Fitting.configuration.drafter_yaml
+              config.prefix = Fitting.configuration.prefix
+            end
+            TomogramRouting::Tomogram.craft(Tomograph::Tomogram.json)
+          elsif Fitting.configuration.tomogram
             TomogramRouting::Tomogram.craft(Fitting.configuration.tomogram)
           else
             Tomograph.configure do |config|

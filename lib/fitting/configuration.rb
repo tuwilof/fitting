@@ -6,7 +6,8 @@ module Fitting
                   :create_report_with_name,
                   :strict,
                   :documentation,
-                  :prefix
+                  :prefix,
+                  :drafter_yaml
 
     def initialize
       @necessary_fully_implementation_of_responses = true
