@@ -45,7 +45,7 @@ module RSpec
 
         if Fitting.configuration.necessary_fully_implementation_of_responses &&
           returned_exit_code == 0 &&
-          response.not_coverage?
+          statistics.not_coverage?
           return ERROR_EXIT_CODE
         end
         returned_exit_code

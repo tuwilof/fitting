@@ -15,10 +15,21 @@ RSpec.describe RSpec::Core::Runner do
     subject { described_class.new(double) }
 
     let(:not_coverage_present) { false }
+    let(:filename) { 'filename.txt' }
 
     before do
+      Fitting::Storage::Skip.set(false)
       allow(STDOUT).to receive(:puts)
       allow(subject).to receive(:origin_run_specs).and_return(0)
+      allow(Fitting::Statistics).to receive(:new).and_return(double(save: nil, not_coverage?: true))
+      allow(Fitting).to receive(:configuration)
+        .and_return(double(
+          tomogram: 'doc/api.yaml',
+          create_report_with_name: filename,
+          strict: false,
+          necessary_fully_implementation_of_responses: false,
+          white_list: nil
+        ))
     end
 
     after { Fitting::Storage::Skip.set(true) }
@@ -32,7 +43,13 @@ RSpec.describe RSpec::Core::Runner do
 
       before do
         allow(Fitting).to receive(:configuration)
-          .and_return(double(necessary_fully_implementation_of_responses: true, white_list: nil))
+          .and_return(double(
+            tomogram: 'doc/api.yaml',
+            create_report_with_name: nil,
+            strict: false,
+            necessary_fully_implementation_of_responses: true,
+            white_list: nil
+          ))
       end
 
       it 'does not return error' do
