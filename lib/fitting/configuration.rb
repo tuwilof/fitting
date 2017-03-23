@@ -5,7 +5,7 @@ module Fitting
                   :white_list,
                   :create_report_with_name,
                   :strict,
-                  :documentation,
+                  :drafter_yaml_path,
                   :prefix,
                   :drafter_yaml,
                   :apib_path
