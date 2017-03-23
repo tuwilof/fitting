@@ -8,8 +8,9 @@ module Fitting
       class << self
         def tomogram
           @tomogram ||= if Fitting.configuration.apib_path
+            @yaml ||= `drafter #{Fitting.configuration.apib_path}`
             Tomograph.configure do |config|
-              config.drafter_yaml = `drafter #{Fitting.configuration.apib_path}`
+              config.drafter_yaml = @yaml
               config.prefix = Fitting.configuration.prefix
             end
             TomogramRouting::Tomogram.craft(Tomograph::Tomogram.json)
