@@ -2,9 +2,7 @@
 
 [![Build Status](https://travis-ci.org/funbox/fitting.svg?branch=master)](https://travis-ci.org/funbox/fitting)
 
-This gem will help to make your tests according to the documentation for the API.
-
-When writing tests, you can be sure that the implement API in accordance with documentation on API Blueprint.
+This gem will help to make your tests for RSpec according to the documentation for the API Blueprint.
 
 ## Installation
 
@@ -27,49 +25,80 @@ Or install it yourself as:
 In your `spec_helper.rb`:
 
 ```ruby
-config.include JSON::SchemaMatchers
-```
-
-This gem takes a simplified format json convert from API Blueprint which we have called API Tomogram.
-
-Use gem [tomograph](https://github.com/funbox/tomograph)
-
-```ruby
   Fitting.configure do |config|
-    config.tomogram = 'tomogram.json'
+    config.apib_path = `doc.apib`
   end
-
 ```
 
-You can then write tests such as:
+## Example output
 
-```ruby
- expect(response).to match_response
+After running tests you will get statistics in the console.
+
 ```
-
-If you want check all tests:
-
-```ruby
-config.after(:each, :type => :controller) do
-  expect(response).to match_response
-end
+Fully conforming requests:
+DELETE  /api/v1/book                 ✔ 200 ✔ 201 ✔ 404
+DELETE  /api/v1/book/{id}            ✔ 200 ✔ 201 ✔ 404
+GET     /api/v1/book/{id}/seller     ✔ 200 ✔ 201 ✔ 404
+ 
+Partially conforming requests:
+GET     /api/v1/book                 ✖ 200 ✔ 404
+POST    /api/v1/book                 ✖ 200 ✔ 201 ✔ 404
+GET     /api/v1/book/{id}            ✖ 200 ✔ 404 ✔ 200
+PATCH   /api/v1/book/{id}            ✖ 200 ✔ 201 ✔ 404
+ 
+Non-conforming requests:
+GET     /api/v1/seller               ✖ 200 ✖ 201 ✖ 404
+GET     /api/v1/buyer                ✖ 200 ✖ 404
+ 
+API requests with fully implemented responses: 3 (33.33% of 9).
+API requests with partially implemented responses: 4 (44.44% of 9).
+API requests with no implemented responses: 2 (22.22% of 9).
+ 
+API responses conforming to the blueprint: 16 (64.00% of 25).
+API responses with validation errors or untested: 9 (36.00% of 25).
 ```
 
 ## Matchers
+
+If you want know describe why you get crosses instead of checkmarks you can use matchers for RSpec.
 
 ### match_response
 
 Makes a simple validation JSON Schema.
 
+```
+expect(response).to match_response
+```
+
 ### strict_match_response
 
 Makes a strict validation JSON Schema. All properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
 
+```
+expect(response).to strict_match_response
+```
+
 ## Config
+
+### apib_path
+
+Path for API Blueprint documentation. There must be an installed library [drafter](https://github.com/apiaryio/drafter).
+
+### drafter_yaml_path
+
+Path for API Blueprint documentation after use drafter and transformation in yaml.
 
 ### necessary_fully_implementation_of_responses
 
 Default `true`. It returns `exit 1` if not implemented all(with tests expect match response) the responses.
+
+### strict
+
+Default `false`. If `true` than all properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
+
+### prefix
+
+Prefix for request.
 
 ### white_list
 
@@ -88,13 +117,11 @@ config.white_list = {
 
 Empty array `[]` means all methods.
 
+Result be two statistic for two list.
+
 ### create_report_with_name
 
 Create report with name.
-
-### strict
-
-Default `false`. If `true` than all properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
 
 ## Report
 
