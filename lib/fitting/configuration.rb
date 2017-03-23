@@ -7,7 +7,6 @@ module Fitting
                   :strict,
                   :drafter_yaml_path,
                   :prefix,
-                  :drafter_yaml,
                   :apib_path
 
     def initialize
