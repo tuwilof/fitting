@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/funbox/fitting.svg?branch=master)](https://travis-ci.org/funbox/fitting)
 
-This gem will help to make your tests for RSpec according to the documentation for the API Blueprint.
+This gem will help to realize your API in strict accordance with the documentation in the format API Bluprint.
+To do this, when you run your RSpes tests on the controller, in the documentation automatically searches for the json-schema and then validate it with a response in the test.
 
 ## Installation
 
