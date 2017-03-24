@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/funbox/fitting.svg?branch=master)](https://travis-ci.org/funbox/fitting)
 
-This gem will help to realize your API in strict accordance with the documentation in the format API Bluprint.
-To do this, when you run your RSpes tests on the controller, in the documentation automatically searches for the json-schema and then validate it with a response in the test.
+This gem will help you implement your API in strict accordance to the documentation in [API Bluprint](https://apiblueprint.org/) format.
+To do this, when you run your RSpec tests on controllers, it automatically searches for the corresponding json-schemas in the documentation and then validates responses with them.
 
 ## Installation
 
@@ -27,13 +27,13 @@ In your `spec_helper.rb`:
 
 ```ruby
   Fitting.configure do |config|
-    config.apib_path = `doc.apib`
+    config.apib_path = '/path/to/doc.apib'
   end
 ```
 
 ## Example output
 
-After running tests you will get statistics in the console.
+After running tests you will get statistics in the console:
 
 ```
 Fully conforming requests:
@@ -61,11 +61,11 @@ API responses with validation errors or untested: 9 (36.00% of 25).
 
 ## Matchers
 
-If you want know describe why you get crosses instead of checkmarks you can use matchers for RSpec.
+If you want to know why you get crosses instead of checkmarks you can use matchers for RSpec.
 
 ### match_response
 
-Makes a simple validation JSON Schema.
+Makes a simple validation against JSON Schema.
 
 ```
 expect(response).to match_response
@@ -73,7 +73,7 @@ expect(response).to match_response
 
 ### strict_match_response
 
-Makes a strict validation JSON Schema. All properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
+Makes a strict validation against JSON Schema. All properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
 
 ```
 expect(response).to strict_match_response
@@ -83,29 +83,29 @@ expect(response).to strict_match_response
 
 ### apib_path
 
-Path for API Blueprint documentation. There must be an installed library [drafter](https://github.com/apiaryio/drafter).
+Path to API Blueprint documentation. There must be an installed [drafter](https://github.com/apiaryio/drafter) to parse it.
 
 ### drafter_yaml_path
 
-Path for API Blueprint documentation after use drafter and transformation in yaml.
+Path to API Blueprint documentation pre-parsed with `drafter` and saved to a YAML file.
 
 ### necessary_fully_implementation_of_responses
 
-Default `true`. It returns `exit 1` if not implemented all(with tests expect match response) the responses.
+Default `true`. It returns `exit 1` if not all responses are implemented according to the documentation. For this to work, `match_response` (see above) should run.
 
 ### strict
 
-Default `false`. If `true` than all properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
+Default `false`. If `true` then all properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
 
 ### prefix
 
-Prefix for request.
+Prefix of API requests. Example: `'/api'`.
 
 ### white_list
 
-Default all resources. This is an array of resources that are mandatory for implementation.
-This list does not affect the work of the match expert.
-This list is only for the report in the console and verify implementation.
+Default: all resources. This is an array of resources that are mandatory for implementation.
+This list does not affect the work of the matcher.
+This list is only for the report in the console.
 
 ```ruby
 config.white_list = {
@@ -118,19 +118,13 @@ config.white_list = {
 
 Empty array `[]` means all methods.
 
-Result be two statistic for two list.
-
 ### create_report_with_name
 
-Create report with name.
+File name for the report (see below).
 
 ### show_statistics_in_console
 
 Default `true`.
-
-## Report
-
-Autogenerate `report_request_by_response.yaml` and `report_response.yaml reports`.
 
 ## Contributing
 
