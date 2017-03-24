@@ -123,6 +123,10 @@ Result be two statistic for two list.
 
 Create report with name.
 
+### show_statistics_in_console
+
+Default `true`.
+
 ## Report
 
 Autogenerate `report_request_by_response.yaml` and `report_response.yaml reports`.

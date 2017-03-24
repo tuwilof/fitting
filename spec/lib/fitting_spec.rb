@@ -28,7 +28,8 @@ RSpec.describe RSpec::Core::Runner do
           create_report_with_name: filename,
           strict: false,
           necessary_fully_implementation_of_responses: false,
-          white_list: nil
+          white_list: nil,
+          show_statistics_in_console: true
         ))
     end
 
@@ -48,7 +49,8 @@ RSpec.describe RSpec::Core::Runner do
             create_report_with_name: nil,
             strict: false,
             necessary_fully_implementation_of_responses: true,
-            white_list: nil
+            white_list: nil,
+            show_statistics_in_console: true
           ))
       end
 
