@@ -63,11 +63,15 @@ API responses with validation errors or untested: 9 (36.00% of 25).
 
 If you want to know why you get crosses instead of checkmarks you can use matchers for RSpec.
 
+```ruby
+config.include Fitting::Matchers
+```
+
 ### match_response
 
 Makes a simple validation against JSON Schema.
 
-```
+```ruby
 expect(response).to match_response
 ```
 
@@ -75,7 +79,7 @@ expect(response).to match_response
 
 Makes a strict validation against JSON Schema. All properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
 
-```
+```ruby
 expect(response).to strict_match_response
 ```
 
@@ -120,7 +124,7 @@ Empty array `[]` means all methods.
 
 ### create_report_with_name
 
-File name for the report (see below).
+File name for the report.
 
 ### show_statistics_in_console
 
