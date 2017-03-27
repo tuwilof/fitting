@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['d.efimov@fun-box.ru']
 
   spec.summary       = 'Validation in the rspec of API Blueprint'
-  spec.description   = 'Validation requests and responses in the rspec with the help of API Blueprint'
+  spec.description   = 'Validation responses in the rspec with the help of API Blueprint'
   spec.homepage      = 'https://github.com/funbox/fitting'
   spec.license       = 'MIT'
 
