@@ -67,20 +67,20 @@ If you want to know why you get crosses instead of checkmarks you can use matche
 config.include Fitting::Matchers
 ```
 
-### match_response
+### match_schema
 
 Makes a simple validation against JSON Schema.
 
 ```ruby
-expect(response).to match_response
+expect(response).to match_schema
 ```
 
-### strict_match_response
+### strictly_match_schema
 
 Makes a strict validation against JSON Schema. All properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
 
 ```ruby
-expect(response).to strict_match_response
+expect(response).to strictly_match_schema
 ```
 
 ## Config
@@ -95,7 +95,7 @@ Path to API Blueprint documentation pre-parsed with `drafter` and saved to a YAM
 
 ### necessary_fully_implementation_of_responses
 
-Default `true`. It returns `exit 1` if not all responses are implemented according to the documentation. For this to work, `match_response` (see above) should run.
+Default `true`. It returns `exit 1` if not all responses are implemented according to the documentation. For this to work, `match_schema` (see above) should run.
 
 ### strict
 
