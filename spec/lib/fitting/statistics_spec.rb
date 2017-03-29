@@ -11,7 +11,7 @@ RSpec.describe Fitting::Statistics do
   subject { described_class.new(documentation, all_responses, strict) }
 
   describe '#not_coverage?' do
-    let(:white_route) { double(not_coverage: double(present?: true)) }
+    let(:white_route) { double(not_coverage?: true) }
 
     before { allow(Fitting::Route).to receive(:new).with(all_responses, white, strict).and_return(white_route) }
 
