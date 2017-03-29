@@ -40,21 +40,21 @@ Fully conforming requests:
 DELETE  /api/v1/book                 ✔ 200 ✔ 201 ✔ 404
 DELETE  /api/v1/book/{id}            ✔ 200 ✔ 201 ✔ 404
 GET     /api/v1/book/{id}/seller     ✔ 200 ✔ 201 ✔ 404
- 
+
 Partially conforming requests:
 GET     /api/v1/book                 ✖ 200 ✔ 404
 POST    /api/v1/book                 ✖ 200 ✔ 201 ✔ 404
 GET     /api/v1/book/{id}            ✖ 200 ✔ 404 ✔ 200
 PATCH   /api/v1/book/{id}            ✖ 200 ✔ 201 ✔ 404
- 
+
 Non-conforming requests:
 GET     /api/v1/seller               ✖ 200 ✖ 201 ✖ 404
 GET     /api/v1/buyer                ✖ 200 ✖ 404
- 
+
 API requests with fully implemented responses: 3 (33.33% of 9).
 API requests with partially implemented responses: 4 (44.44% of 9).
 API requests with no implemented responses: 2 (22.22% of 9).
- 
+
 API responses conforming to the blueprint: 16 (64.00% of 25).
 API responses with validation errors or untested: 9 (36.00% of 25).
 ```
@@ -64,7 +64,7 @@ API responses with validation errors or untested: 9 (36.00% of 25).
 If you want to know why you get crosses instead of checkmarks you can use matchers for RSpec.
 
 ```ruby
-config.include Fitting::Matchers
+config.include Fitting::Matchers, type: :controller
 ```
 
 ### match_response
