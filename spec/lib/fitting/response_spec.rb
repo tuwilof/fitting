@@ -77,10 +77,10 @@ RSpec.describe Fitting::Response do
 
   describe '#got' do
     let(:env_response) { double(request: nil, status: nil, body: body) }
-    let(:body) { double }
+    let(:body) { '{}' }
 
     it 'returns body' do
-      expect(subject.got).to eq(body)
+      expect(subject.got).to eq("{\n}")
     end
   end
 

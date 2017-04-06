@@ -1,6 +1,7 @@
 require 'fitting/request'
 require 'fitting/response/fully_validates'
 require 'json'
+require 'multi_json'
 
 module Fitting
   class Response
@@ -36,7 +37,7 @@ module Fitting
     end
 
     def got
-      @body
+      JSON.pretty_generate(MultiJson.load(@body))
     end
 
     def expected
