@@ -14,9 +14,6 @@ module Fitting
               config.prefix = Fitting.configuration.prefix
             end
             TomogramRouting::Tomogram.craft(Tomograph::Tomogram.json)
-          elsif Fitting.configuration.tomogram
-            # legacy
-            TomogramRouting::Tomogram.craft(Fitting.configuration.tomogram)
           else
             Tomograph.configure do |config|
               config.documentation = Fitting.configuration.drafter_yaml_path

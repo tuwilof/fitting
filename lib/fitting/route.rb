@@ -5,9 +5,13 @@ require 'fitting/route/responses'
 module Fitting
   class Route
     def initialize(all_responses, routes, strict)
-      coverage = Fitting::Route::Coverage.new(all_responses, routes, strict)
-      @requests = Fitting::Route::Requests.new(coverage)
-      @responses = Fitting::Route::Responses.new(routes, coverage)
+      @coverage = Fitting::Route::Coverage.new(all_responses, routes, strict)
+      @requests = Fitting::Route::Requests.new(@coverage)
+      @responses = Fitting::Route::Responses.new(routes, @coverage)
+    end
+
+    def not_coverage?
+      @coverage.not_coverage.present?
     end
 
     def statistics

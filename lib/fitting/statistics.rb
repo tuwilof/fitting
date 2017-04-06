@@ -9,7 +9,7 @@ module Fitting
     end
 
     def not_coverage?
-      @white_route.not_coverage.present?
+      @white_route.not_coverage?
     end
 
     def save(name)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Fitting::Request do
-  let(:env_request) { double(request_method: nil, env: {}) }
+  let(:env_request) { double(request_method: nil, env: {}, fullpath: nil) }
   let(:tomogram) { double(find_request: nil) }
   subject { described_class.new(env_request, tomogram) }
 

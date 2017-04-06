@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/funbox/fitting.svg?branch=master)](https://travis-ci.org/funbox/fitting)
 
-This gem will help you implement your API in strict accordance to the documentation in [API Bluprint](https://apiblueprint.org/) format.
+This gem will help you implement your API in strict accordance to the documentation in [API Blueprint](https://apiblueprint.org/) format.
 To do this, when you run your RSpec tests on controllers, it automatically searches for the corresponding json-schemas in the documentation and then validates responses with them.
 
 ## Installation
@@ -29,6 +29,14 @@ In your `spec_helper.rb`:
   Fitting.configure do |config|
     config.apib_path = '/path/to/doc.apib'
   end
+
+  config.after(:each, type: :controller) do
+    Fitting.add_to_stats(response)
+  end
+
+  config.after(:suite) do
+    Fitting.generate_stats
+  end
 ```
 
 ## Example output
@@ -40,21 +48,21 @@ Fully conforming requests:
 DELETE  /api/v1/book                 ✔ 200 ✔ 201 ✔ 404
 DELETE  /api/v1/book/{id}            ✔ 200 ✔ 201 ✔ 404
 GET     /api/v1/book/{id}/seller     ✔ 200 ✔ 201 ✔ 404
- 
+
 Partially conforming requests:
 GET     /api/v1/book                 ✖ 200 ✔ 404
 POST    /api/v1/book                 ✖ 200 ✔ 201 ✔ 404
 GET     /api/v1/book/{id}            ✖ 200 ✔ 404 ✔ 200
 PATCH   /api/v1/book/{id}            ✖ 200 ✔ 201 ✔ 404
- 
+
 Non-conforming requests:
 GET     /api/v1/seller               ✖ 200 ✖ 201 ✖ 404
 GET     /api/v1/buyer                ✖ 200 ✖ 404
- 
+
 API requests with fully implemented responses: 3 (33.33% of 9).
 API requests with partially implemented responses: 4 (44.44% of 9).
 API requests with no implemented responses: 2 (22.22% of 9).
- 
+
 API responses conforming to the blueprint: 16 (64.00% of 25).
 API responses with validation errors or untested: 9 (36.00% of 25).
 ```
@@ -64,7 +72,7 @@ API responses with validation errors or untested: 9 (36.00% of 25).
 If you want to know why you get crosses instead of checkmarks you can use matchers for RSpec.
 
 ```ruby
-config.include Fitting::Matchers
+config.include Fitting::Matchers, type: :controller
 ```
 
 ### match_schema
@@ -92,10 +100,6 @@ Path to API Blueprint documentation. There must be an installed [drafter](https:
 ### drafter_yaml_path
 
 Path to API Blueprint documentation pre-parsed with `drafter` and saved to a YAML file.
-
-### necessary_fully_implementation_of_responses
-
-Default `true`. It returns `exit 1` if not all responses are implemented according to the documentation. For this to work, `match_schema` (see above) should run.
 
 ### strict
 
@@ -125,10 +129,6 @@ Empty array `[]` means all methods.
 ### create_report_with_name
 
 File name for the report.
-
-### show_statistics_in_console
-
-Default `true`.
 
 ## Contributing
 
