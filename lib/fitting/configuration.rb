@@ -6,13 +6,11 @@ module Fitting
                   :prefix,
                   :white_list,
                   :create_report_with_name,
-                  :tomogram,
-                  :show_statistics_in_console
+                  :tomogram
 
     def initialize
       @strict = false
       @prefix = ''
-      @show_statistics_in_console = true
     end
   end
 end

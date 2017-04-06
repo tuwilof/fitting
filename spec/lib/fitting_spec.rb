@@ -27,8 +27,7 @@ RSpec.describe RSpec::Core::Runner do
           tomogram: 'doc/api.yaml',
           create_report_with_name: filename,
           strict: false,
-          white_list: nil,
-          show_statistics_in_console: true
+          white_list: nil
         ))
     end
 

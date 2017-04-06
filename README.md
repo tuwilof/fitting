@@ -130,10 +130,6 @@ Empty array `[]` means all methods.
 
 File name for the report.
 
-### show_statistics_in_console
-
-Default `true`.
-
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/funbox/fitting. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.

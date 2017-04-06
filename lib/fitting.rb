@@ -31,7 +31,6 @@ module Fitting
         Fitting::Storage::Responses.all,
         Fitting.configuration.strict
       )
-      puts statistics if Fitting.configuration.show_statistics_in_console
       if Fitting.configuration.create_report_with_name
         statistics.save(Fitting.configuration.create_report_with_name)
       end
