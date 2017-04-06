@@ -59,11 +59,11 @@ module Fitting
       end
     end
 
-    def match_response
+    def match_schema
       Response.new
     end
 
-    def strict_match_response
+    def strictly_match_schema
       StrictResponse.new
     end
   end

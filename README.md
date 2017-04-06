@@ -75,20 +75,20 @@ If you want to know why you get crosses instead of checkmarks you can use matche
 config.include Fitting::Matchers, type: :controller
 ```
 
-### match_response
+### match_schema
 
 Makes a simple validation against JSON Schema.
 
 ```ruby
-expect(response).to match_response
+expect(response).to match_schema
 ```
 
-### strict_match_response
+### strictly_match_schema
 
 Makes a strict validation against JSON Schema. All properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
 
 ```ruby
-expect(response).to strict_match_response
+expect(response).to strictly_match_schema
 ```
 
 ## Config

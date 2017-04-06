@@ -5,15 +5,15 @@ RSpec.configure do |config|
 end
 
 RSpec.describe Fitting::Matchers do
-  describe '.match_response' do
+  describe '.match_schema' do
     it 'returns matcher response object' do
-      expect(match_response).to be_a(described_class::Response)
+      expect(match_schema).to be_a(described_class::Response)
     end
   end
 
-  describe '.strict_match_response' do
+  describe '.strictly_match_schema' do
     it 'returns matcher strict response object' do
-      expect(strict_match_response).to be_a(described_class::StrictResponse)
+      expect(strictly_match_schema).to be_a(described_class::StrictResponse)
     end
   end
 end
