@@ -6,7 +6,6 @@ module Fitting
                   :prefix,
                   :white_list,
                   :create_report_with_name,
-                  :tomogram
 
     def initialize
       @strict = false
