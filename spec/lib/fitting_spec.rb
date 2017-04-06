@@ -35,10 +35,6 @@ RSpec.describe RSpec::Core::Runner do
 
     after { Fitting::Storage::Skip.set(true) }
 
-    it 'does not return error' do
-      expect { subject.run_specs(double) }.not_to raise_error
-    end
-
     context 'necessary_fully_implementation_of_responses and not_coverage.present? true' do
       let(:not_coverage_present) { true }
 
@@ -52,10 +48,6 @@ RSpec.describe RSpec::Core::Runner do
             white_list: nil,
             show_statistics_in_console: true
           ))
-      end
-
-      it 'does not return error' do
-        expect { subject.run_specs(double) }.not_to raise_error
       end
     end
   end
