@@ -1,5 +1,6 @@
 require 'fitting/request'
 require 'fitting/response/fully_validates'
+require 'json'
 
 module Fitting
   class Response
@@ -39,8 +40,8 @@ module Fitting
     end
 
     def expected
-      @schemas.inject([]) do |res, schema|
-        res.push("#{schema}")
+      @expected ||= @schemas.inject([]) do |res, schema|
+        res.push("#{JSON.pretty_generate(schema)}")
       end.join("\n\n")
     end
 
