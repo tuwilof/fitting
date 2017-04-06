@@ -27,28 +27,11 @@ RSpec.describe RSpec::Core::Runner do
           tomogram: 'doc/api.yaml',
           create_report_with_name: filename,
           strict: false,
-          necessary_fully_implementation_of_responses: false,
           white_list: nil,
           show_statistics_in_console: true
         ))
     end
 
     after { Fitting::Storage::Skip.set(true) }
-
-    context 'necessary_fully_implementation_of_responses and not_coverage.present? true' do
-      let(:not_coverage_present) { true }
-
-      before do
-        allow(Fitting).to receive(:configuration)
-          .and_return(double(
-            tomogram: 'doc/api.yaml',
-            create_report_with_name: nil,
-            strict: false,
-            necessary_fully_implementation_of_responses: true,
-            white_list: nil,
-            show_statistics_in_console: true
-          ))
-      end
-    end
   end
 end

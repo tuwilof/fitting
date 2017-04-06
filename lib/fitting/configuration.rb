@@ -2,7 +2,6 @@ module Fitting
   class Configuration
     attr_accessor :apib_path,
                   :drafter_yaml_path,
-                  :necessary_fully_implementation_of_responses,
                   :strict,
                   :prefix,
                   :white_list,
@@ -11,7 +10,6 @@ module Fitting
                   :show_statistics_in_console
 
     def initialize
-      @necessary_fully_implementation_of_responses = true
       @strict = false
       @prefix = ''
       @show_statistics_in_console = true

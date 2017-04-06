@@ -101,10 +101,6 @@ Path to API Blueprint documentation. There must be an installed [drafter](https:
 
 Path to API Blueprint documentation pre-parsed with `drafter` and saved to a YAML file.
 
-### necessary_fully_implementation_of_responses
-
-Default `true`. It returns `exit 1` if not all responses are implemented according to the documentation. For this to work, `match_response` (see above) should run.
-
 ### strict
 
 Default `false`. If `true` then all properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.

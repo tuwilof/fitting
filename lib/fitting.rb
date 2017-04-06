@@ -35,11 +35,6 @@ module Fitting
       if Fitting.configuration.create_report_with_name
         statistics.save(Fitting.configuration.create_report_with_name)
       end
-
-      if Fitting.configuration.necessary_fully_implementation_of_responses &&
-        statistics.not_coverage?
-        return 1
-      end
     end
   end
 end
