@@ -31,7 +31,7 @@ RSpec.describe Fitting::Statistics do
 
     it 'no error' do
       expect { subject.save }.not_to raise_exception
-      File.delete('.fitting')
+      FileUtils::rm_r 'fitting'
     end
   end
 

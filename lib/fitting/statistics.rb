@@ -1,4 +1,5 @@
 require 'fitting/route'
+require 'fileutils'
 
 module Fitting
   class Statistics
@@ -13,7 +14,8 @@ module Fitting
     end
 
     def save
-      File.open('.fitting', 'w') { |file| file.write(to_s) }
+      FileUtils::mkdir_p 'fitting'
+      File.open('fitting/stats', 'w') { |file| file.write(to_s) }
     end
 
     def to_s
