@@ -30,9 +30,7 @@ module Fitting
         Fitting::Storage::Responses.all,
         Fitting.configuration.strict
       )
-      if Fitting.configuration.create_report_with_name
-        statistics.save(Fitting.configuration.create_report_with_name)
-      end
+      statistics.save
     end
   end
 end

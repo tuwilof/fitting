@@ -12,8 +12,8 @@ module Fitting
       @white_route.not_coverage?
     end
 
-    def save(name)
-      File.open(name, 'w') { |file| file.write(to_s) }
+    def save
+      File.open('.fitting', 'w') { |file| file.write(to_s) }
     end
 
     def to_s

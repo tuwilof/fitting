@@ -23,7 +23,6 @@ RSpec.describe Fitting::Statistics do
   describe '#save' do
     let(:black) { double(any?: false) }
     let(:white_route) { double(statistics_with_conformity_lists: 'white_route statistics_with_conformity_lists') }
-    let(:filename) { 'report.txt' }
 
     before do
       allow(Fitting::Route).to receive(:new).with(all_responses, white, strict).and_return(white_route)
@@ -31,8 +30,8 @@ RSpec.describe Fitting::Statistics do
     end
 
     it 'no error' do
-      expect { subject.save(filename) }.not_to raise_exception
-      File.delete(filename)
+      expect { subject.save }.not_to raise_exception
+      File.delete('.fitting')
     end
   end
 

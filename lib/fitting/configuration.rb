@@ -4,8 +4,7 @@ module Fitting
                   :drafter_yaml_path,
                   :strict,
                   :prefix,
-                  :white_list,
-                  :create_report_with_name,
+                  :white_list
 
     def initialize
       @strict = false
