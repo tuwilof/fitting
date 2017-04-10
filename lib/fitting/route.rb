@@ -19,6 +19,8 @@ module Fitting
     end
 
     def statistics_with_conformity_lists
+      return "All responses are 100% valid! Great job!\n" if @coverage.not_coverage.empty?
+
       [@requests.conformity_lists, statistics].join("\n\n")
     end
 

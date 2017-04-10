@@ -24,8 +24,10 @@ RSpec.describe Fitting::Route do
   describe '#statistics_with_conformity_lists' do
     let(:request) { double(statistics: 'request statistics', conformity_lists: 'request conformity_lists') }
     let(:responses) { double(statistics: 'responses.statistics') }
+    let(:all_ready) { false }
 
     before do
+      allow(Fitting::Route::Coverage).to receive(:new).and_return(double(not_coverage: double(empty?: all_ready)))
       allow(Fitting::Route::Requests).to receive(:new).and_return(request)
       allow(Fitting::Route::Responses).to receive(:new).and_return(request)
     end
@@ -34,6 +36,16 @@ RSpec.describe Fitting::Route do
       expect(subject.statistics_with_conformity_lists).to eq(
         "request conformity_lists\n\nrequest statistics\n\nrequest statistics"
       )
+    end
+
+    context 'all ready' do
+      let(:all_ready) { true }
+
+      it 'returns all ready' do
+        expect(subject.statistics_with_conformity_lists).to eq(
+          "All responses are 100% valid! Great job!\n"
+        )
+      end
     end
   end
 
