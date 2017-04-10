@@ -16,6 +16,7 @@ module Fitting
     def save
       FileUtils::mkdir_p 'fitting'
       File.open('fitting/stats', 'w') { |file| file.write(to_s) }
+      File.open('fitting/errors', 'w') { |file| file.write(@white_route.errors) }
     end
 
     def to_s

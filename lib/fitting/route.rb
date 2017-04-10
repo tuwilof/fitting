@@ -21,5 +21,9 @@ module Fitting
     def statistics_with_conformity_lists
       [@requests.conformity_lists, statistics].join("\n\n")
     end
+
+    def errors
+      @coverage.not_coverage.join("\n") + "\n"
+    end
   end
 end

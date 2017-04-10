@@ -22,7 +22,9 @@ RSpec.describe Fitting::Statistics do
 
   describe '#save' do
     let(:black) { double(any?: false) }
-    let(:white_route) { double(statistics_with_conformity_lists: 'white_route statistics_with_conformity_lists') }
+    let(:white_route) do
+      double(statistics_with_conformity_lists: 'white_route statistics_with_conformity_lists', errors: [])
+    end
 
     before do
       allow(Fitting::Route).to receive(:new).with(all_responses, white, strict).and_return(white_route)
