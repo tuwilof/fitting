@@ -85,7 +85,7 @@ API responses conforming to the blueprint: 16 (64.00% of 25).
 API responses with validation errors or untested: 9 (36.00% of 25).
 ```
 
-Also you will get errors in the file `fitting/errors`.
+Also you will get not covered responses in the file `fitting/not_covered`.
 
 ## Matchers
 
