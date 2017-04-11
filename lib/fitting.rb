@@ -17,30 +17,32 @@ module Fitting
       @configuration ||= Configuration.new
     end
 
-    def add_to_stats(response)
-      Fitting::Storage::Responses.push(
+    def add_to_stats(responses, response)
+      responses.push(
         Fitting::Response.new(
           response,
           Fitting::Storage::Documentation.tomogram))
     end
 
-    def generate_stats
+    def generate_stats(responses)
       statistics = Fitting::Statistics.new(
         Fitting::Documentation.new(Fitting::Storage::Documentation.tomogram, Fitting.configuration.white_list),
-        Fitting::Storage::Responses.all,
+        responses.all,
         Fitting.configuration.strict
       )
       statistics.save
     end
 
     def start
+      responses = Fitting::Storage::Responses.new
+
       RSpec.configure do |config|
         config.after(:each, type: :controller) do
-          Fitting.add_to_stats(response)
+          Fitting.add_to_stats(responses, response)
         end
 
         config.after(:suite) do
-          Fitting.generate_stats
+          Fitting.generate_stats(responses)
         end
       end
     end

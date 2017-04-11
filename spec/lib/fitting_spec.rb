@@ -17,7 +17,7 @@ RSpec.describe Fitting do
     end
 
     it 'does not raise exception' do
-      expect { subject.add_to_stats(double) }.not_to raise_exception
+      expect { subject.add_to_stats(double(push: nil), double) }.not_to raise_exception
     end
   end
 
@@ -33,7 +33,7 @@ RSpec.describe Fitting do
     let(:stats) { double }
 
     it 'returns stats' do
-      expect(subject.generate_stats).to eq(stats)
+      expect(subject.generate_stats(double(all: nil))).to eq(stats)
     end
   end
 

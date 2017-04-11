@@ -1,20 +1,16 @@
 module Fitting
   module Storage
-    module Responses
-      class << self
-        def push(test)
-          @responses ||= []
-          @responses.push(test)
-        end
+    class Responses
+      def initialize
+        @responses = []
+      end
 
-        def all
-          @responses ||= []
-          @responses.uniq
-        end
+      def push(test)
+        @responses.push(test)
+      end
 
-        def nil?
-          @responses.nil?
-        end
+      def all
+        @responses.uniq
       end
     end
   end
