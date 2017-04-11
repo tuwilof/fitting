@@ -5,12 +5,21 @@ module Fitting
         @responses = []
       end
 
-      def push(test)
-        @responses.push(test)
+      def add(response)
+        @responses.push(
+          Fitting::Response.new(
+            response,
+            Fitting::Storage::Documentation.tomogram))
       end
 
-      def all
-        @responses.uniq
+      def statistics
+        Fitting::Statistics.new(
+          Fitting::Documentation.new(
+            Fitting::Storage::Documentation.tomogram,
+            Fitting.configuration.white_list),
+          @responses.uniq,
+          Fitting.configuration.strict
+        )
       end
     end
   end

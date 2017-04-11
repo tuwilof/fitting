@@ -8,17 +8,31 @@ RSpec.describe Fitting::Storage::Responses do
     end
   end
 
-  describe '#push' do
+  describe '#add' do
+    before do
+      allow(Fitting::Response).to receive(:new)
+      allow(Fitting::Storage::Documentation).to receive(:tomogram)
+    end
+
     after { Fitting::Storage::Responses.instance_variable_set(:@responses, nil) }
 
     it 'returns responses' do
-      expect(subject.push(nil)).to eq([nil])
+      expect(subject.add(nil)).to eq([nil])
     end
   end
 
-  describe '#all' do
-    it 'returns responses' do
-      expect(subject.all).to eq([])
+  describe '#statistics' do
+    before do
+      allow(Fitting::Statistics).to receive(:new).and_return(statistics)
+      allow(Fitting::Documentation).to receive(:new)
+      allow(Fitting::Storage::Documentation).to receive(:tomogram)
+      allow(Fitting).to receive(:configuration).and_return(double(white_list: nil, strict: nil))
+    end
+
+    let(:statistics) { double }
+
+    it 'returns statistics' do
+      expect(subject.statistics).to eq(statistics)
     end
   end
 end

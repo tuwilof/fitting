@@ -28,7 +28,7 @@ In your `spec_helper.rb`:
 ```ruby
 require 'fitting'
 
-Fitting.start
+Fitting.statistics
 
 Fitting.configure do |config|
   config.apib_path = '/path/to/doc.apib'
@@ -44,11 +44,11 @@ responses = Fitting::Storage::Responses.new
 
 RSpec.configure do |config|
   config.after(:each, type: :controller) do
-    Fitting.add_to_stats(responses, response)
+    responses.add(response)
   end
 
   config.after(:suite) do
-    Fitting.generate_stats(responses)
+    responses.statistics.save
   end
 end
 
