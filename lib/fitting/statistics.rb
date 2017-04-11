@@ -9,10 +9,6 @@ module Fitting
       @white_route = Fitting::Route.new(all_responses, @documentation.white, strict)
     end
 
-    def not_coverage?
-      @white_route.not_coverage?
-    end
-
     def save
       FileUtils::mkdir_p 'fitting'
       File.open('fitting/stats', 'w') { |file| file.write(to_s) }

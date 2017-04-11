@@ -10,10 +10,6 @@ module Fitting
       @responses = Fitting::Route::Responses.new(routes, @coverage)
     end
 
-    def not_coverage?
-      @coverage.not_coverage.present?
-    end
-
     def statistics
       [@requests.statistics, @responses.statistics].join("\n\n")
     end
