@@ -36,4 +36,17 @@ RSpec.describe Fitting do
       expect(subject.generate_stats).to eq(stats)
     end
   end
+
+  describe '.start' do
+    let(:config) { double }
+
+    it 'does not raise exception' do
+      allow(RSpec).to receive(:configure).and_yield(config)
+      allow(config).to receive(:after).and_yield
+      allow(described_class).to receive(:response)
+      allow(Fitting).to receive(:add_to_stats)
+      allow(Fitting).to receive(:generate_stats)
+      expect { subject.start }.not_to raise_exception
+    end
+  end
 end

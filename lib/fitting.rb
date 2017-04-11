@@ -32,5 +32,17 @@ module Fitting
       )
       statistics.save
     end
+
+    def start
+      RSpec.configure do |config|
+        config.after(:each, type: :controller) do
+          Fitting.add_to_stats(response)
+        end
+
+        config.after(:suite) do
+          Fitting.generate_stats
+        end
+      end
+    end
   end
 end
