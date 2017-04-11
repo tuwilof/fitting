@@ -26,22 +26,40 @@ Or install it yourself as:
 In your `spec_helper.rb`:
 
 ```ruby
-  Fitting.configure do |config|
-    config.apib_path = '/path/to/doc.apib'
-  end
+require 'fitting'
 
+Fitting.start
+
+Fitting.configure do |config|
+  config.apib_path = '/path/to/doc.apib'
+end
+```
+
+or
+
+```ruby
+require 'fitting'
+
+responses = Fitting::Storage::Responses.new
+
+RSpec.configure do |config|
   config.after(:each, type: :controller) do
-    Fitting.add_to_stats(response)
+    Fitting.add_to_stats(responses, response)
   end
 
   config.after(:suite) do
-    Fitting.generate_stats
+    Fitting.generate_stats(responses)
   end
+end
+
+Fitting.configure do |config|
+  config.apib_path = '/path/to/doc.apib'
+end
 ```
 
 ## Example output
 
-After running tests you will get statistics in the console:
+After running tests you will get statistics in the file `fitting/stats`:
 
 ```
 Fully conforming requests:
@@ -66,6 +84,8 @@ API requests with no implemented responses: 2 (22.22% of 9).
 API responses conforming to the blueprint: 16 (64.00% of 25).
 API responses with validation errors or untested: 9 (36.00% of 25).
 ```
+
+Also you will get errors in the file `fitting/errors`.
 
 ## Matchers
 
