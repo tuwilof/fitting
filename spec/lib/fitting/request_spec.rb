@@ -12,7 +12,7 @@ RSpec.describe Fitting::Request do
   end
 
   describe '#route' do
-    before { subject.instance_variable_set(:@schema, {'method' => 'method', 'path' => 'path'}) }
+    before { subject.instance_variable_set(:@schema, double(method: 'method', path: 'path')) }
 
     it 'returns route' do
       expect(subject.route).to eq("method\tpath")

@@ -30,7 +30,7 @@ module Fitting
     end
 
     def all
-      @all ||= @tomogram.inject([]) do |routes, request|
+      @all ||= @tomogram.to_hash.inject([]) do |routes, request|
         request['responses'].inject({}) do |responses, response|
           responses[response['status']] ||= 0
           responses[response['status']] += 1

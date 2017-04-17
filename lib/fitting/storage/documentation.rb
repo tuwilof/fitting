@@ -11,19 +11,11 @@ module Fitting
         end
 
         def craft
-          if Fitting.configuration.apib_path
-            @yaml ||= `drafter #{Fitting.configuration.apib_path}`
-            Tomograph.configure do |config|
-              config.drafter_yaml = @yaml
-              config.prefix = Fitting.configuration.prefix
-            end
-          else
-            Tomograph.configure do |config|
-              config.documentation = Fitting.configuration.drafter_yaml_path
-              config.prefix = Fitting.configuration.prefix
-            end
-          end
-          TomogramRouting::Tomogram.craft(Tomograph::Tomogram.json)
+          Tomograph::Tomogram.new(
+            apib_path: Fitting.configuration.apib_path,
+            drafter_yaml_path: Fitting.configuration.drafter_yaml_path,
+            prefix: Fitting.configuration.prefix
+          )
         end
       end
     end

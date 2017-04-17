@@ -5,8 +5,7 @@ RSpec.describe Fitting::Storage::Documentation do
 
   before do
     allow(Fitting).to receive(:configuration).and_return(double(apib_path: nil, drafter_yaml_path: nil, prefix: nil))
-    allow(TomogramRouting::Tomogram).to receive(:craft).and_return(tomogram_craft)
-    allow(Tomograph::Tomogram).to receive(:json).and_return(double)
+    allow(Tomograph::Tomogram).to receive(:new).and_return(tomogram_craft)
   end
 
   describe '.tomogram' do
