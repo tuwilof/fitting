@@ -12,9 +12,9 @@ module Fitting
 
         def craft
           Tomograph::Tomogram.new(
+            prefix: Fitting.configuration.prefix,
             apib_path: Fitting.configuration.apib_path,
             drafter_yaml_path: Fitting.configuration.drafter_yaml_path,
-            prefix: Fitting.configuration.prefix
           )
         end
       end
