@@ -1,4 +1,3 @@
-require 'tomogram_routing'
 require 'fitting/configuration'
 require 'tomograph'
 

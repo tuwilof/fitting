@@ -20,9 +20,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'json-schema', '~> 2.6', '>= 2.6.2'
-  spec.add_runtime_dependency 'tomogram_routing', '~> 0.1', '>= 0.1.0'
   spec.add_runtime_dependency 'multi_json'
-  spec.add_runtime_dependency 'tomograph', '~> 0.4', '>= 0.4.0'
+  spec.add_runtime_dependency 'tomograph', '~> 1.0', '>= 1.0.0'
   spec.add_development_dependency 'bundler', '~> 1.12'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'byebug', '~> 8.2', '>= 8.2.1'
