@@ -37,4 +37,12 @@ RSpec.describe Fitting::Request do
       expect(subject.schemas_of_possible_responses(status: '200')).to eq(['response'])
     end
   end
+
+  describe '#within_prefix??' do
+    let(:env_request) { double(request_method: nil, env: {'PATH_INFO' => ''}, fullpath: nil) }
+
+    it 'returns true' do
+      expect(subject.within_prefix?('')).to be_truthy
+    end
+  end
 end

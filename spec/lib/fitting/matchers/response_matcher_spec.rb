@@ -19,11 +19,12 @@ RSpec.describe Fitting::Matchers do
 end
 
 RSpec.describe Fitting::Matchers::Response do
-  let(:response) { double(fully_validates: double(valid?: true)) }
+  let(:response) { double(fully_validates: double(valid?: true), within_prefix?: true) }
 
   before do
     allow(Fitting::Storage::Documentation).to receive(:tomogram)
     allow(Fitting::Response).to receive(:new).and_return(response)
+    allow(Fitting).to receive(:configuration).and_return(double(prefix: ''))
   end
 
   subject { described_class.new }

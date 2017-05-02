@@ -25,5 +25,9 @@ module Fitting
         end
       end
     end
+
+    def within_prefix?(prefix)
+      @path.start_with?(prefix)
+    end
   end
 end

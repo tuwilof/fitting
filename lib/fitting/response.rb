@@ -12,6 +12,10 @@ module Fitting
       @schemas = @request.schemas_of_possible_responses(status: @status)
     end
 
+    def within_prefix?(prefix)
+      @request.within_prefix?(prefix)
+    end
+
     def fully_validates
       @fully_validates ||= Fitting::Response::FullyValidates.craft(@schemas, @body, false)
     end

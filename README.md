@@ -127,7 +127,7 @@ Default `false`. If `true` then all properties are condisidered to have `"requir
 
 ### prefix
 
-Prefix of API requests. Example: `'/api'`.
+Prefix of API requests. Example: `'/api'`. Validation will not be performed if the request path does not start with a prefix.
 
 ### white_list
 

@@ -91,4 +91,15 @@ RSpec.describe Fitting::Response do
       expect(subject.expected).to eq("\"schema1\"\n\n\"schema2\"")
     end
   end
+
+  describe '#within_prefix??' do
+    let(:request) { double(
+      within_prefix?: true,
+      schemas_of_possible_responses: schemas_of_possible_responses
+    ) }
+
+    it 'returns true' do
+      expect(subject.within_prefix?('')).to be_truthy
+    end
+  end
 end

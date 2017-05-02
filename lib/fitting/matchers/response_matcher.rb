@@ -1,5 +1,6 @@
 require 'fitting/response'
 require 'fitting/storage/documentation'
+require 'fitting/configuration'
 
 module Fitting
   module Matchers
@@ -9,7 +10,11 @@ module Fitting
           response,
           Fitting::Storage::Documentation.tomogram
         )
-        @response.fully_validates.valid?
+        if @response.within_prefix?(Fitting.configuration.prefix)
+          @response.fully_validates.valid?
+        else
+          true
+        end
       end
 
       def ===(other)
