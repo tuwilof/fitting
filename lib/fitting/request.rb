@@ -7,9 +7,6 @@ module Fitting
       @path = env_request.env['PATH_INFO'] || env_request.fullpath
       @body = env_request.env['action_dispatch.request.request_parameters']
       @schema = tomogram.find_request(method: @method, path: @path)
-      @fully_validate = JSON::Validator.fully_validate(@schema.request, @body) if @schema
-      @valid = false
-      @valid = true if @fully_validate == []
       self
     end
 
