@@ -6,7 +6,7 @@ module Fitting
       def self.craft(schemas, body, strict)
         if schemas
           new(schemas.inject([]) do |res, schema|
-            res.push(JSON::Validator.fully_validate(schema, body, :strict => strict))
+            res.push(fully_validate(schema, body, strict))
           end)
         else
           @valid = false
@@ -20,6 +20,14 @@ module Fitting
 
       def to_s
         @to_s ||= join("\n\n")
+      end
+
+      private
+
+      def self.fully_validate(schema, body, strict)
+        JSON::Validator.fully_validate(schema, body, :strict => strict)
+      rescue JSON::Schema::UriError
+        []
       end
     end
   end

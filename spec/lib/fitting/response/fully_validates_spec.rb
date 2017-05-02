@@ -17,6 +17,14 @@ RSpec.describe Fitting::Response::FullyValidates do
         expect(subject).to be_a(described_class)
       end
     end
+
+    context 'html' do
+      let(:schemas) { ['<html><body>You are being <a href=\"http://localhost:3000/\">redirected</a>.</body></html>'] }
+
+      it 'returns described_class object' do
+        expect(subject).to be_a(described_class)
+      end
+    end
   end
 
   describe '#valid?' do
