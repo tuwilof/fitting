@@ -10,14 +10,15 @@ module Fitting
       @responses = Fitting::Route::Responses.new(routes, @coverage)
     end
 
-    def statistics
-      [@requests.statistics, @responses.statistics].join("\n\n")
-    end
-
     def statistics_with_conformity_lists
       congratulation = "All responses are 100% valid! Great job!" if @coverage.not_coverage.empty?
 
-      [@requests.conformity_lists, statistics, congratulation].compact.join("\n\n")
+      [
+        @requests.conformity_lists,
+        @requests.statistics,
+        @responses.statistics,
+        congratulation
+      ].compact.join("\n\n")
     end
 
     def errors

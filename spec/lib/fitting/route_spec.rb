@@ -7,20 +7,6 @@ RSpec.describe Fitting::Route do
 
   subject { described_class.new(all_responses, routes, strict) }
 
-  describe '#statistics' do
-    let(:requests) { double(statistics: 'request statistics') }
-    let(:responses) { double(statistics: 'response statistics') }
-
-    before do
-      allow(Fitting::Route::Requests).to receive(:new).and_return(requests)
-      allow(Fitting::Route::Responses).to receive(:new).and_return(responses)
-    end
-
-    it 'return statistics' do
-      expect(subject.statistics).to eq("request statistics\n\nresponse statistics")
-    end
-  end
-
   describe '#statistics_with_conformity_lists' do
     let(:requests) { double(statistics: 'request statistics', conformity_lists: 'request conformity_lists') }
     let(:responses) { double(statistics: 'response statistics') }
