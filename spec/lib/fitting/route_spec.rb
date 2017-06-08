@@ -8,33 +8,33 @@ RSpec.describe Fitting::Route do
   subject { described_class.new(all_responses, routes, strict) }
 
   describe '#statistics' do
-    let(:request) { double(statistics: 'request statistics') }
-    let(:responses) { double(statistics: 'responses.statistics') }
+    let(:requests) { double(statistics: 'request statistics') }
+    let(:responses) { double(statistics: 'response statistics') }
 
     before do
-      allow(Fitting::Route::Requests).to receive(:new).and_return(request)
-      allow(Fitting::Route::Responses).to receive(:new).and_return(request)
+      allow(Fitting::Route::Requests).to receive(:new).and_return(requests)
+      allow(Fitting::Route::Responses).to receive(:new).and_return(responses)
     end
 
     it 'return statistics' do
-      expect(subject.statistics).to eq("request statistics\n\nrequest statistics")
+      expect(subject.statistics).to eq("request statistics\n\nresponse statistics")
     end
   end
 
   describe '#statistics_with_conformity_lists' do
-    let(:request) { double(statistics: 'request statistics', conformity_lists: 'request conformity_lists') }
-    let(:responses) { double(statistics: 'responses.statistics') }
+    let(:requests) { double(statistics: 'request statistics', conformity_lists: 'request conformity_lists') }
+    let(:responses) { double(statistics: 'response statistics') }
     let(:all_ready) { false }
 
     before do
       allow(Fitting::Route::Coverage).to receive(:new).and_return(double(not_coverage: double(empty?: all_ready)))
-      allow(Fitting::Route::Requests).to receive(:new).and_return(request)
-      allow(Fitting::Route::Responses).to receive(:new).and_return(request)
+      allow(Fitting::Route::Requests).to receive(:new).and_return(requests)
+      allow(Fitting::Route::Responses).to receive(:new).and_return(responses)
     end
 
     it 'return statistics_with_conformity_lists' do
       expect(subject.statistics_with_conformity_lists).to eq(
-        "request conformity_lists\n\nrequest statistics\n\nrequest statistics"
+        "request conformity_lists\n\nrequest statistics\n\nresponse statistics"
       )
     end
 
