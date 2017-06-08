@@ -82,17 +82,31 @@ RSpec.describe Fitting::Route::Requests do
 
   describe '#conformity_lists' do
     before do
-      allow(subject).to receive(:fully_implemented).and_return(double(join: 'FKR'))
-      allow(subject).to receive(:partially_implemented).and_return(double(join: 'PI'))
-      allow(subject).to receive(:no_implemented).and_return(double(join: 'NI'))
+      allow(subject).to receive(:fully_implemented).and_return(['FKR'])
+      allow(subject).to receive(:partially_implemented).and_return(['PI'])
+      allow(subject).to receive(:no_implemented).and_return(['NI'])
     end
 
-    it 'does not return error' do
+    it 'returns conformity lists' do
       expect(subject.conformity_lists).to eq([
         ['Fully conforming requests:', 'FKR'].join("\n"),
         ['Partially conforming requests:', 'PI'].join("\n"),
         ['Non-conforming requests:', 'NI'].join("\n")
       ].join("\n\n"))
+    end
+
+    context 'there are empty lists' do
+      before do
+        allow(subject).to receive(:fully_implemented).and_return(['FKR'])
+        allow(subject).to receive(:partially_implemented).and_return([])
+        allow(subject).to receive(:no_implemented).and_return([])
+      end
+
+      it 'returns conformity lists' do
+        expect(subject.conformity_lists).to eq([
+          ['Fully conforming requests:', 'FKR'].join("\n")
+        ].join("\n\n"))
+      end
     end
   end
 end

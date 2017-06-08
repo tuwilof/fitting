@@ -114,11 +114,20 @@ module Fitting
         partially_implemented ||= self.partially_implemented.join("\n")
         no_implemented ||= self.no_implemented.join("\n")
 
+        if fully_implemented != ''
+          list_fully_implemented = ['Fully conforming requests:', fully_implemented].join("\n")
+        end
+        if partially_implemented != ''
+          list_partially_implemented = ['Partially conforming requests:', partially_implemented].join("\n")
+        end
+        if no_implemented != ''
+          list_no_implemented = ['Non-conforming requests:', no_implemented].join("\n")
+        end
         [
-          ['Fully conforming requests:', fully_implemented].join("\n"),
-          ['Partially conforming requests:', partially_implemented].join("\n"),
-          ['Non-conforming requests:', no_implemented].join("\n")
-        ].join("\n\n")
+          list_fully_implemented,
+          list_partially_implemented,
+          list_no_implemented
+        ].compact.join("\n\n")
       end
 
       private
