@@ -43,7 +43,8 @@ RSpec.describe Fitting::Route do
 
       it 'returns all ready' do
         expect(subject.statistics_with_conformity_lists).to eq(
-          "All responses are 100% valid! Great job!\n"
+          "request conformity_lists\n\nrequest statistics\n\nresponse statistics\n\n"\
+          "All responses are 100% valid! Great job!"
         )
       end
     end

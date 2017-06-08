@@ -15,9 +15,9 @@ module Fitting
     end
 
     def statistics_with_conformity_lists
-      return "All responses are 100% valid! Great job!\n" if @coverage.not_coverage.empty?
+      congratulation = "All responses are 100% valid! Great job!" if @coverage.not_coverage.empty?
 
-      [@requests.conformity_lists, statistics].join("\n\n")
+      [@requests.conformity_lists, statistics, congratulation].compact.join("\n\n")
     end
 
     def errors
