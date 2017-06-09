@@ -19,11 +19,11 @@ module Fitting
           Fitting.configuration.white_list,
           Fitting.configuration.resource_white_list,
           Fitting::Storage::Documentation.tomogram.to_resources
-        )
+        ).to_a
         Fitting::Statistics.new(
           Fitting::Documentation.new(
             Fitting::Storage::Documentation.tomogram,
-            Fitting.configuration.white_list),
+            @white_list),
           @responses.uniq,
           Fitting.configuration.strict
         )

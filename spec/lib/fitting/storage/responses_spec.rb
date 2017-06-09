@@ -25,6 +25,7 @@ RSpec.describe Fitting::Storage::Responses do
     before do
       allow(Fitting::Statistics).to receive(:new).and_return(statistics)
       allow(Fitting::Documentation).to receive(:new)
+      allow(Fitting::Storage::WhiteList).to receive(:new).and_return(double(to_a: nil))
       allow(Fitting::Storage::Documentation).to receive(:tomogram).and_return(double(to_resources: nil))
       allow(Fitting).to receive(:configuration)
         .and_return(double(white_list: nil, strict: nil, resource_white_list: nil))
