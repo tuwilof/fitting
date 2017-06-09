@@ -4,7 +4,8 @@ module Fitting
                   :drafter_yaml_path,
                   :strict,
                   :prefix,
-                  :white_list
+                  :white_list,
+                  :resource_white_list
 
     def initialize
       @strict = false

@@ -131,7 +131,7 @@ Prefix of API requests. Example: `'/api'`. Validation will not be performed if t
 
 ### white_list
 
-Default: all resources. This is an array of resources that are mandatory for implementation.
+Default: all paths. This is an array of paths that are mandatory for implementation.
 This list does not affect the work of the matcher.
 This list is only for the report in the console.
 
@@ -140,6 +140,22 @@ config.white_list = {
   '/users' =>                ['DELETE', 'POST'],
   '/users/{id}' =>           ['GET', 'PATCH'],
   '/users/{id}/employees' => ['GET'],
+  '/sessions' =>             []
+}
+```
+
+Empty array `[]` means all methods.
+
+### resource_white_list
+
+Default: all resources. This is an array of resources that are mandatory for implementation.
+This list does not affect the work of the matcher.
+This list is only for the report in the console.
+
+```ruby
+config.resource_white_list = {
+  '/users' =>                ['DELETE /users/{id}', 'POST /users', 'GET /users/{id}', 'PATCH /users/{id}'],
+  '/users/{id}/employees' => ['GET /users/{id}/employees'],
   '/sessions' =>             []
 }
 ```

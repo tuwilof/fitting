@@ -1,3 +1,5 @@
+require 'fitting/storage/white_list'
+
 module Fitting
   module Storage
     class Responses
@@ -13,6 +15,11 @@ module Fitting
       end
 
       def statistics
+        @white_list = Fitting::Storage::WhiteList.new(
+          Fitting.configuration.white_list,
+          Fitting.configuration.resource_white_list,
+          Fitting::Storage::Documentation.tomogram.to_resources
+        )
         Fitting::Statistics.new(
           Fitting::Documentation.new(
             Fitting::Storage::Documentation.tomogram,
