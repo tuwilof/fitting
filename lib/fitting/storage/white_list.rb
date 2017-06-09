@@ -8,7 +8,11 @@ module Fitting
       end
 
       def to_a
-        @white_list
+        return @white_list if @white_list
+        @white_list = transformation
+      end
+
+      def transformation
       end
     end
   end
