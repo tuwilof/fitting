@@ -45,7 +45,8 @@ RSpec.describe Fitting::Route::Requests do
   end
 
   describe '#statistics' do
-    let(:to_hash) { double(full_cover: [''], partial_cover: [''], no_cover: ['']) }
+    #let(:to_hash) { double(full_cover: [''], partial_cover: [''], no_cover: ['']) }
+    let(:to_hash) { {'full cover' => [''], 'partial cover' => [''], 'no cover' => ['']} }
 
     before { allow(subject).to receive(:coverage_statistic).and_return(to_hash) }
 
