@@ -1,26 +1,28 @@
 require 'spec_helper'
 
 RSpec.describe Fitting::Route::Requests do
-  let(:response_routes) { double(
-    coverage: ['GET /sessions', 'POST /sessions', 'GET /users', 'POST /users'],
-    not_coverage: ['DELETE /sessions', 'POST /sessions', 'DELETE /users', 'POST /users']
-  ) }
-  let(:stat) {
+  let(:response_routes) do
+    double(
+      coverage: ['GET /sessions', 'POST /sessions', 'GET /users', 'POST /users'],
+      not_coverage: ['DELETE /sessions', 'POST /sessions', 'DELETE /users', 'POST /users']
+    )
+  end
+  let(:stat) do
     {
-      "full cover" => [
-        {"GET /sessions" => {"cover" => [""], "not_cover" => [], "all" => "✔ "}},
-        {"GET /users" => {"cover" => [""], "not_cover" => [], "all" => "✔ "}}
+      'full cover' => [
+        { 'GET /sessions' => { 'cover' => [''], 'not_cover' => [], 'all' => '✔ ' } },
+        { 'GET /users' => { 'cover' => [''], 'not_cover' => [], 'all' => '✔ ' } }
       ],
-      "partial cover" => [
-        {"POST /sessions" => {"cover" => [""], "not_cover" => [""], "all" => "✖ "}},
-        {"POST /users" => {"cover" => [""], "not_cover" => [""], "all" => "✖ "}}
+      'partial cover' => [
+        { 'POST /sessions' => { 'cover' => [''], 'not_cover' => [''], 'all' => '✖ ' } },
+        { 'POST /users' => { 'cover' => [''], 'not_cover' => [''], 'all' => '✖ ' } }
       ],
-      "no cover" => [
-        {"DELETE /sessions" => {"cover" => [], "not_cover" => [""], "all" => "✖ "}},
-        {"DELETE /users" => {"cover" => [], "not_cover" => [""], "all" => "✖ "}}
+      'no cover' => [
+        { 'DELETE /sessions' => { 'cover' => [], 'not_cover' => [''], 'all' => '✖ ' } },
+        { 'DELETE /users' => { 'cover' => [], 'not_cover' => [''], 'all' => '✖ ' } }
       ]
     }
-  }
+  end
 
   subject { described_class.new(response_routes) }
 

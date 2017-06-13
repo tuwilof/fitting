@@ -10,7 +10,7 @@ RSpec.describe Fitting::Route::Responses do
     it do
       expect(subject.statistics).to eq(
         "API responses conforming to the blueprint: 0 (0.0% of 0).\n"\
-        "API responses with validation errors or untested: 0 (100.0% of 0)."
+        'API responses with validation errors or untested: 0 (100.0% of 0).'
       )
     end
   end

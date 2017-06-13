@@ -46,7 +46,7 @@ module Fitting
 
     def expected
       @expected ||= @schemas.inject([]) do |res, schema|
-        res.push("#{JSON.pretty_generate(schema)}")
+        res.push(JSON.pretty_generate(schema).to_s)
       end.join("\n\n")
     end
 
@@ -54,17 +54,13 @@ module Fitting
 
     def index
       @schemas.size.times do |i|
-        if fully_validates[i] == []
-          return i
-        end
+        return i if fully_validates[i] == []
       end
     end
 
     def strict_index
       @schemas.size.times do |i|
-        if strict_fully_validates[i] == []
-          return i
-        end
+        return i if strict_fully_validates[i] == []
       end
     end
   end

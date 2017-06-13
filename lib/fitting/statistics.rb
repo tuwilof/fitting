@@ -10,7 +10,7 @@ module Fitting
     end
 
     def save
-      FileUtils::mkdir_p 'fitting'
+      FileUtils.mkdir_p 'fitting'
       File.open('fitting/stats', 'w') { |file| file.write(to_s) }
       File.open('fitting/not_covered', 'w') { |file| file.write(@white_route.errors) }
     end
@@ -20,7 +20,7 @@ module Fitting
         [
           ['[Black list]', @black_route.statistics_with_conformity_lists].join("\n"),
           ['[White list]', @white_route.statistics_with_conformity_lists].join("\n"),
-          ""
+          ''
         ].join("\n\n")
       else
         [@white_route.statistics_with_conformity_lists, "\n\n"].join

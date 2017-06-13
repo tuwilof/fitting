@@ -11,7 +11,9 @@ module Fitting
         @responses.push(
           Fitting::Response.new(
             response,
-            Fitting::Storage::Documentation.tomogram))
+            Fitting::Storage::Documentation.tomogram
+          )
+        )
       end
 
       def statistics
@@ -23,7 +25,8 @@ module Fitting
         Fitting::Statistics.new(
           Fitting::Documentation.new(
             Fitting::Storage::Documentation.tomogram,
-            @white_list),
+            @white_list
+          ),
           @responses.uniq,
           Fitting.configuration.strict
         )

@@ -29,21 +29,19 @@ module Fitting
           stat[macro_key]['all'] ||= []
           stat[macro_key]['all'].push("✖ #{route.split(' ')[2..3].join(' ')}")
         end
-        @stat = stat.inject(
-          {
-            'full cover' => [],
-            'partial cover' => [],
-            'no cover' => []
-          }
-        ) do |res, date|
+        @stat = stat.each_with_object(
+          'full cover' => [],
+          'partial cover' => [],
+          'no cover' => []
+        ) do |date, res|
           ratio = date.last['cover_ratio'] =
-            (date.last['cover'].size.to_f /
-              (date.last['cover'].size + date.last['not_cover'].size).to_f * 100.0).round(2)
-          info = {date.first => {
+                    (date.last['cover'].size.to_f /
+                      (date.last['cover'].size + date.last['not_cover'].size).to_f * 100.0).round(2)
+          info = { date.first => {
             'cover' => date.last['cover'],
             'not_cover' => date.last['not_cover'],
-            'all' => "#{beautiful_output(date.last)}"
-          }}
+            'all' => beautiful_output(date.last).to_s
+          } }
           if ratio == 100.0
             res['full cover'].push(info)
           elsif ratio == 0.0
@@ -53,10 +51,7 @@ module Fitting
           end
           path = date.first.split(' ')[1].size / 8
           @max ||= 1
-          if path.size > @max
-            @max = path.size
-          end
-          res
+          @max = path.size if path.size > @max
         end
       end
 
@@ -67,7 +62,7 @@ module Fitting
       def fully_implemented
         @stat ||= coverage_statistic
         @fully_implemented ||= @stat['full cover'].map do |response|
-          "#{response.first.to_a.first.split(' ').join("\t")}#{"\t"*(@max-response.first.to_a.first.split(' ')[1].size/8)}#{response.first.to_a.last['all']}"
+          "#{response.first.to_a.first.split(' ').join("\t")}#{"\t" * (@max - response.first.to_a.first.split(' ')[1].size / 8)}#{response.first.to_a.last['all']}"
         end.sort do |first, second|
           first.split("\t")[1] <=> second.split("\t")[1]
         end
@@ -76,7 +71,7 @@ module Fitting
       def partially_implemented
         @stat ||= coverage_statistic
         @partially_implemented ||= @stat['partial cover'].map do |response|
-          "#{response.first.to_a.first.split(' ').join("\t")}#{"\t"*(@max-response.first.to_a.first.split(' ')[1].size/8)}#{response.first.to_a.last['all']}"
+          "#{response.first.to_a.first.split(' ').join("\t")}#{"\t" * (@max - response.first.to_a.first.split(' ')[1].size / 8)}#{response.first.to_a.last['all']}"
         end.sort do |first, second|
           first.split("\t")[1] <=> second.split("\t")[1]
         end
@@ -85,7 +80,7 @@ module Fitting
       def no_implemented
         @stat ||= coverage_statistic
         @no_implemented ||= @stat['no cover'].map do |response|
-          "#{response.first.to_a.first.split(' ').join("\t")}#{"\t"*(@max-response.first.to_a.first.split(' ')[1].size/8)}#{response.first.to_a.last['all']}"
+          "#{response.first.to_a.first.split(' ').join("\t")}#{"\t" * (@max - response.first.to_a.first.split(' ')[1].size / 8)}#{response.first.to_a.last['all']}"
         end.sort do |first, second|
           first.split("\t")[1] <=> second.split("\t")[1]
         end
@@ -138,12 +133,12 @@ module Fitting
         hash['cover'].map do |response|
           method, index = response.split(' ')
           methods[method] ||= []
-          methods[method][index.to_i] = {'method' => method, 'cover' => true}
+          methods[method][index.to_i] = { 'method' => method, 'cover' => true }
         end
         hash['not_cover'].map do |response|
           method, index = response.split(' ')
           methods[method] ||= []
-          methods[method][index.to_i] = {'method' => method, 'cover' => false}
+          methods[method][index.to_i] = { 'method' => method, 'cover' => false }
         end
         methods.map do |method|
           method.last.size.times do |index|

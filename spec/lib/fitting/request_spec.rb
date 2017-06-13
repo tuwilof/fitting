@@ -31,7 +31,7 @@ RSpec.describe Fitting::Request do
   end
 
   describe '#schemas_of_possible_responses' do
-    before { subject.instance_variable_set(:@schema, double(find_responses: [{'body' => 'response'}])) }
+    before { subject.instance_variable_set(:@schema, double(find_responses: [{ 'body' => 'response' }])) }
 
     it 'returns schemas of possible responses' do
       expect(subject.schemas_of_possible_responses(status: '200')).to eq(['response'])
@@ -39,7 +39,7 @@ RSpec.describe Fitting::Request do
   end
 
   describe '#within_prefix??' do
-    let(:env_request) { double(request_method: nil, env: {'PATH_INFO' => ''}, fullpath: nil) }
+    let(:env_request) { double(request_method: nil, env: { 'PATH_INFO' => '' }, fullpath: nil) }
 
     it 'returns true' do
       expect(subject.within_prefix?('')).to be_truthy

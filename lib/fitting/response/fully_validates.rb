@@ -25,7 +25,7 @@ module Fitting
       private
 
       def self.fully_validate(schema, body, strict)
-        JSON::Validator.fully_validate(schema, body, :strict => strict)
+        JSON::Validator.fully_validate(schema, body, strict: strict)
       rescue JSON::Schema::UriError
         []
       end

@@ -2,10 +2,10 @@ require 'spec_helper'
 require 'multi_json'
 
 RSpec.describe Fitting::Documentation do
-  let(:tomogram) {double(to_hash: [{'responses' => [{'status' => 200}], 'method' => nil, 'path' => nil}])}
-  let(:white_list) {nil}
+  let(:tomogram) { double(to_hash: [{ 'responses' => [{ 'status' => 200 }], 'method' => nil, 'path' => nil }]) }
+  let(:white_list) { nil }
 
-  subject {described_class.new(tomogram, white_list)}
+  subject { described_class.new(tomogram, white_list) }
 
   describe '#black' do
     it 'returns empty array' do
@@ -13,7 +13,7 @@ RSpec.describe Fitting::Documentation do
     end
 
     context 'has whitelist' do
-      let(:white_list) {{}}
+      let(:white_list) { {} }
 
       it 'returns responses array' do
         expect(subject.black).to eq(["\t 200 0"])
@@ -27,7 +27,7 @@ RSpec.describe Fitting::Documentation do
     end
 
     context 'has whitelist' do
-      let(:white_list) {{}}
+      let(:white_list) { {} }
 
       it 'returns empty array' do
         expect(subject.white).to eq([])

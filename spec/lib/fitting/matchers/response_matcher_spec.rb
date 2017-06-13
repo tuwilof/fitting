@@ -44,7 +44,7 @@ RSpec.describe Fitting::Matchers::Response do
   describe '#failure_message' do
     let(:documented?) { true }
     let(:valid?) { true }
-    let(:response) {
+    let(:response) do
       double(
         documented?: documented?,
         real_request_with_status: 'real request with status',
@@ -52,7 +52,7 @@ RSpec.describe Fitting::Matchers::Response do
         got: 'got',
         expected: 'expected'
       )
-    }
+    end
 
     before { subject.instance_variable_set(:@response, response) }
 
@@ -104,7 +104,7 @@ RSpec.describe Fitting::Matchers::StrictResponse do
   describe '#failure_message' do
     let(:documented?) { true }
     let(:valid?) { true }
-    let(:response) {
+    let(:response) do
       double(
         documented?: documented?,
         real_request_with_status: 'real request with status',
@@ -112,7 +112,7 @@ RSpec.describe Fitting::Matchers::StrictResponse do
         got: 'got',
         expected: 'expected'
       )
-    }
+    end
 
     before { subject.instance_variable_set(:@response, response) }
 

@@ -3,15 +3,17 @@ require 'fitting/route/coverage'
 require 'multi_json'
 
 RSpec.describe Fitting::Route::Coverage do
-  let(:responses) { [{'status' => '200'}] }
-  let(:tomogram) { MultiJson.dump(['path': "/sessions", 'method': "POST", 'request': {}, 'responses': responses]) }
-  let(:coverage_responses) { [double(
-    route: "POST\t/sessions 200 0",
-    strict_route: "POST\t/sessions 200 0",
-    documented?: true,
-    fully_validates: double(valid?: true),
-    strict_fully_validates: double(valid?: true)
-  )] }
+  let(:responses) { [{ 'status' => '200' }] }
+  let(:tomogram) { MultiJson.dump(['path': '/sessions', 'method': 'POST', 'request': {}, 'responses': responses]) }
+  let(:coverage_responses) do
+    [double(
+      route: "POST\t/sessions 200 0",
+      strict_route: "POST\t/sessions 200 0",
+      documented?: true,
+      fully_validates: double(valid?: true),
+      strict_fully_validates: double(valid?: true)
+    )]
+  end
   let(:responses_routes) { ["POST\t/sessions 200 0"] }
   let(:strict) { false }
 
@@ -53,7 +55,7 @@ RSpec.describe Fitting::Route::Coverage do
 
   describe '#to_hash' do
     it 'returns hash routes' do
-      expect(subject.to_hash).to eq({'coverage' => ["POST\t/sessions 200 0"], 'not coverage' => []})
+      expect(subject.to_hash).to eq('coverage' => ["POST\t/sessions 200 0"], 'not coverage' => [])
     end
   end
 end

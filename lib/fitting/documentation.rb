@@ -30,18 +30,16 @@ module Fitting
     end
 
     def all
-      @all ||= @tomogram.to_hash.inject([]) do |routes, request|
-        request['responses'].inject({}) do |responses, response|
+      @all ||= @tomogram.to_hash.each_with_object([]) do |request, routes|
+        request['responses'].each_with_object({}) do |response, responses|
           responses[response['status']] ||= 0
           responses[response['status']] += 1
-          responses
         end.map do |status, indexes|
           indexes.times do |index|
             route = "#{request['method']}\t#{request['path']} #{status} #{index}"
             routes.push(route)
           end
         end
-        routes
       end.uniq
     end
   end

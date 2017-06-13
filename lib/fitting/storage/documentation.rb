@@ -13,7 +13,7 @@ module Fitting
           Tomograph::Tomogram.new(
             prefix: Fitting.configuration.prefix,
             apib_path: Fitting.configuration.apib_path,
-            drafter_yaml_path: Fitting.configuration.drafter_yaml_path,
+            drafter_yaml_path: Fitting.configuration.drafter_yaml_path
           )
         end
       end

@@ -64,10 +64,12 @@ RSpec.describe Fitting::Response do
   end
 
   describe '#real_request_with_status' do
-    let(:request) { double(
-      schemas_of_possible_responses: schemas_of_possible_responses,
-      real_method_with_path: 'real_method_with_path'
-    ) }
+    let(:request) do
+      double(
+        schemas_of_possible_responses: schemas_of_possible_responses,
+        real_method_with_path: 'real_method_with_path'
+      )
+    end
     let(:env_response) { double(request: nil, status: 'status', body: nil) }
 
     it 'returns real_request_with_status' do
@@ -85,7 +87,7 @@ RSpec.describe Fitting::Response do
   end
 
   describe '#expected' do
-    let(:schemas_of_possible_responses) { ['schema1', 'schema2'] }
+    let(:schemas_of_possible_responses) { %w(schema1 schema2) }
 
     it 'returns expected' do
       expect(subject.expected).to eq("\"schema1\"\n\n\"schema2\"")
@@ -93,10 +95,12 @@ RSpec.describe Fitting::Response do
   end
 
   describe '#within_prefix??' do
-    let(:request) { double(
-      within_prefix?: true,
-      schemas_of_possible_responses: schemas_of_possible_responses
-    ) }
+    let(:request) do
+      double(
+        within_prefix?: true,
+        schemas_of_possible_responses: schemas_of_possible_responses
+      )
+    end
 
     it 'returns true' do
       expect(subject.within_prefix?('')).to be_truthy

@@ -11,7 +11,7 @@ module Fitting
     end
 
     def statistics_with_conformity_lists
-      congratulation = "All responses are 100% valid! Great job!" if @coverage.not_coverage.empty?
+      congratulation = 'All responses are 100% valid! Great job!' if @coverage.not_coverage.empty?
 
       [
         @requests.conformity_lists,

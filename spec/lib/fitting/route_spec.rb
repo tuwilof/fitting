@@ -30,14 +30,14 @@ RSpec.describe Fitting::Route do
       it 'returns all ready' do
         expect(subject.statistics_with_conformity_lists).to eq(
           "request conformity_lists\n\nrequest statistics\n\nresponse statistics\n\n"\
-          "All responses are 100% valid! Great job!"
+          'All responses are 100% valid! Great job!'
         )
       end
     end
   end
 
   describe '#errors' do
-    before { allow(Fitting::Route::Coverage).to receive(:new).and_return(double(not_coverage: ['first', 'second'])) }
+    before { allow(Fitting::Route::Coverage).to receive(:new).and_return(double(not_coverage: %w(first second))) }
 
     it 'returns errors' do
       expect(subject.errors).to eq("first\nsecond\n")
