@@ -61,41 +61,27 @@ module Fitting
 
       def fully_implemented
         @stat ||= coverage_statistic
-        @fully_implemented ||= @stat['full cover'].map do |response|
-          "#{response.first.to_a.first.split(' ').join("\t")}#{"\t" * (@max - response.first.to_a.first.split(' ')[1].size / 8)}#{response.first.to_a.last['all']}"
-        end.sort do |first, second|
+        @fully_implemented ||= stat_full_cover.sort do |first, second|
           first.split("\t")[1] <=> second.split("\t")[1]
         end
       end
 
       def partially_implemented
         @stat ||= coverage_statistic
-        @partially_implemented ||= @stat['partial cover'].map do |response|
-          "#{response.first.to_a.first.split(' ').join("\t")}#{"\t" * (@max - response.first.to_a.first.split(' ')[1].size / 8)}#{response.first.to_a.last['all']}"
-        end.sort do |first, second|
+        @partially_implemented ||= stat_partial_cover.sort do |first, second|
           first.split("\t")[1] <=> second.split("\t")[1]
         end
       end
 
       def no_implemented
         @stat ||= coverage_statistic
-        @no_implemented ||= @stat['no cover'].map do |response|
-          "#{response.first.to_a.first.split(' ').join("\t")}#{"\t" * (@max - response.first.to_a.first.split(' ')[1].size / 8)}#{response.first.to_a.last['all']}"
-        end.sort do |first, second|
+        @no_implemented ||= stat_no_cover.sort do |first, second|
           first.split("\t")[1] <=> second.split("\t")[1]
         end
       end
 
       def statistics
         @stat ||= coverage_statistic
-        full_count = @stat.to_hash['full cover'].size
-        part_count = @stat.to_hash['partial cover'].size
-        no_count = @stat.to_hash['no cover'].size
-        total_count = full_count + part_count + no_count
-        full_percentage = (full_count.to_f / total_count.to_f * 100.0).round(2)
-        part_percentage = (part_count.to_f / total_count.to_f * 100.0).round(2)
-        no_percentage = (no_count.to_f / total_count.to_f * 100.0).round(2)
-
         [
           "API requests with fully implemented responses: #{full_count} (#{full_percentage}% of #{total_count}).",
           "API requests with partially implemented responses: #{part_count} (#{part_percentage}% of #{total_count}).",
@@ -105,19 +91,6 @@ module Fitting
 
       def conformity_lists
         @stat ||= coverage_statistic
-        fully_implemented ||= self.fully_implemented.join("\n")
-        partially_implemented ||= self.partially_implemented.join("\n")
-        no_implemented ||= self.no_implemented.join("\n")
-
-        if fully_implemented != ''
-          list_fully_implemented = ['Fully conforming requests:', fully_implemented].join("\n")
-        end
-        if partially_implemented != ''
-          list_partially_implemented = ['Partially conforming requests:', partially_implemented].join("\n")
-        end
-        if no_implemented != ''
-          list_no_implemented = ['Non-conforming requests:', no_implemented].join("\n")
-        end
         [
           list_fully_implemented,
           list_partially_implemented,
@@ -127,25 +100,121 @@ module Fitting
 
       private
 
+      def stat_full_cover
+        @stat['full cover'].map do |response|
+          cover_request(response)
+        end
+      end
+
+      def stat_partial_cover
+        @stat['partial cover'].map do |response|
+          cover_request(response)
+        end
+      end
+
+      def stat_no_cover
+        @stat['no cover'].map do |response|
+          cover_request(response)
+        end
+      end
+
+      def cover_request(response)
+        "#{cover_method(response)}#{tabulation(response)}#{cover_status(response)}"
+      end
+
+      def cover_method(response)
+        response.first.to_a.first.split(' ').join("\t")
+      end
+
+      def tabulation(response)
+        "\t" * (@max - response.first.to_a.first.split(' ')[1].size / 8)
+      end
+
+      def cover_status(response)
+        response.first.to_a.last['all']
+      end
+
+      def full_count
+        @full_count ||= @stat.to_hash['full cover'].size
+      end
+
+      def part_count
+        @part_count ||= @stat.to_hash['partial cover'].size
+      end
+
+      def no_count
+        @no_count ||= @stat.to_hash['no cover'].size
+      end
+
+      def total_count
+        @total_count ||= full_count + part_count + no_count
+      end
+
+      def full_percentage
+        @full_percentage ||= (full_count.to_f / total_count.to_f * 100.0).round(2)
+      end
+
+      def part_percentage
+        @part_percentage ||= (part_count.to_f / total_count.to_f * 100.0).round(2)
+      end
+
+      def no_percentage
+        @no_percentage ||= (no_count.to_f / total_count.to_f * 100.0).round(2)
+      end
+
+      def list_fully_implemented
+        @fully_implemented ||= fully_implemented.join("\n")
+        if @fully_implemented != ''
+          return ['Fully conforming requests:', fully_implemented].join("\n")
+        end
+        nil
+      end
+
+      def list_partially_implemented
+        @partially_implemented ||= partially_implemented.join("\n")
+        if @partially_implemented != ''
+          return ['Partially conforming requests:', partially_implemented].join("\n")
+        end
+        nil
+      end
+
+      def list_no_implemented
+        @no_implemented ||= no_implemented.join("\n")
+        if @no_implemented != ''
+          return ['Non-conforming requests:', no_implemented].join("\n")
+        end
+        nil
+      end
+
       def beautiful_output(hash)
         methods = {}
         res = []
-        hash['cover'].map do |response|
-          method, index = response.split(' ')
-          methods[method] ||= []
-          methods[method][index.to_i] = { 'method' => method, 'cover' => true }
-        end
-        hash['not_cover'].map do |response|
-          method, index = response.split(' ')
-          methods[method] ||= []
-          methods[method][index.to_i] = { 'method' => method, 'cover' => false }
-        end
+        methods = beautiful_cover(hash, methods)
+        methods = beautiful_not_cover(hash, methods)
         methods.map do |method|
           method.last.size.times do |index|
             res.push("#{method.last[index]['cover'] ? '✔' : '✖'} #{method.first}")
           end
         end
         res.join(' ')
+      end
+
+      def beautiful_cover(hash, methods)
+        hash['cover'].map do |response|
+          method, index = response.split(' ')
+          methods[method] ||= []
+          methods[method][index.to_i] = { 'method' => method, 'cover' => true }
+        end
+        methods
+      end
+
+      def beautiful_not_cover(hash, methods)
+        hash['not_cover'].map do |response|
+          method, index = response.split(' ')
+          methods[method] ||= []
+          methods[method][index.to_i] = { 'method' => method, 'cover' => false }
+        end
+        methods
       end
     end
   end
