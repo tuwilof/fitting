@@ -10,8 +10,7 @@ module Fitting
     def black
       if @white_list
         all.select do |response|
-          data = response.split(' ')
-          data[1] && !@white_list[data[1]] || (@white_list[data[1]] != [] && !@white_list[data[1]].include?(data[0]))
+          black?(response)
         end
       else
         []
@@ -21,8 +20,7 @@ module Fitting
     def white
       if @white_list
         all.select do |response|
-          data = response.split(' ')
-          data[1] && @white_list[data[1]] && (@white_list[data[1]] == [] || @white_list[data[1]].include?(data[0]))
+          white?(response)
         end
       else
         all
@@ -31,16 +29,30 @@ module Fitting
 
     def all
       @all ||= @tomogram.to_hash.each_with_object([]) do |request, routes|
-        request['responses'].each_with_object({}) do |response, responses|
-          responses[response['status']] ||= 0
-          responses[response['status']] += 1
-        end.map do |status, indexes|
+        responses(request).map do |status, indexes|
           indexes.times do |index|
             route = "#{request['method']}\t#{request['path']} #{status} #{index}"
             routes.push(route)
           end
         end
       end.uniq
+    end
+
+    def responses(request)
+      request['responses'].each_with_object({}) do |response, responses|
+        responses[response['status']] ||= 0
+        responses[response['status']] += 1
+      end
+    end
+
+    def black?(response)
+      data = response.split(' ')
+      data[1] && !@white_list[data[1]] || (@white_list[data[1]] != [] && !@white_list[data[1]].include?(data[0]))
+    end
+
+    def white?(response)
+      data = response.split(' ')
+      data[1] && @white_list[data[1]] && (@white_list[data[1]] == [] || @white_list[data[1]].include?(data[0]))
     end
   end
 end

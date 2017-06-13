@@ -27,12 +27,12 @@ module Fitting
                  "got: #{@response.real_request_with_status}"
         end
 
-        unless @response.fully_validates.valid?
-          "response does not conform to json-schema\n"\
+        return nil if @response.fully_validates.valid?
+
+        "response does not conform to json-schema\n"\
           "schemas: \n#{@response.expected}\n\n"\
           "got: #{@response.got}\n\n"\
           "errors: \n#{@response.fully_validates}\n"
-        end
       end
     end
 
@@ -55,12 +55,12 @@ module Fitting
                  "got: #{@response.real_request_with_status}"
         end
 
-        unless @response.strict_fully_validates.valid?
-          "response does not conform to json-schema\n"\
+        return nil if @response.strict_fully_validates.valid?
+
+        "response does not conform to json-schema\n"\
           "schemas: \n#{@response.expected}\n\n"\
           "got: #{@response.got}\n\n"\
           "errors: \n#{@response.strict_fully_validates}\n"
-        end
       end
     end
 

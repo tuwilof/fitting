@@ -17,11 +17,7 @@ module Fitting
       end
 
       def statistics
-        @white_list = Fitting::Storage::WhiteList.new(
-          Fitting.configuration.white_list,
-          Fitting.configuration.resource_white_list,
-          Fitting::Storage::Documentation.tomogram.to_resources
-        ).to_a
+        @white_list = white_list
         Fitting::Statistics.new(
           Fitting::Documentation.new(
             Fitting::Storage::Documentation.tomogram,
@@ -30,6 +26,16 @@ module Fitting
           @responses.uniq,
           Fitting.configuration.strict
         )
+      end
+
+      private
+
+      def white_list
+        Fitting::Storage::WhiteList.new(
+          Fitting.configuration.white_list,
+          Fitting.configuration.resource_white_list,
+          Fitting::Storage::Documentation.tomogram.to_resources
+        ).to_a
       end
     end
   end

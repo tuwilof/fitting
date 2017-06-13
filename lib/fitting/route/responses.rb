@@ -15,7 +15,8 @@ module Fitting
 
         [
           "API responses conforming to the blueprint: #{valid_count} (#{valid_percentage}% of #{total_count}).",
-          "API responses with validation errors or untested: #{invalid_count} (#{invalid_percentage}% of #{total_count})."
+          'API responses with validation errors or untested: '\
+            "#{invalid_count} (#{invalid_percentage}% of #{total_count})."
         ].join("\n")
       end
     end

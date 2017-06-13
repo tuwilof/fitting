@@ -13,5 +13,8 @@ Style/FrozenStringLiteralComment:
 Metrics/BlockLength:
   Enabled: false
 
+Style/CaseEquality:
+  Enabled: false
+
 Style/NilComparison:
   Enabled: false

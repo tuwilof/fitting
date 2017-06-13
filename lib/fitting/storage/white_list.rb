@@ -12,30 +12,37 @@ module Fitting
         @white_list = transformation
       end
 
-      def transformation
-        res = @resource_white_list.inject([]) do |res, asd|
+      def without_group
+        @resource_white_list.inject([]) do |all_requests, asd|
           if asd[1] == []
-            @resources[asd[0]].map do |vbn|
-              qwe = vbn.split(' ')
-              res.push(method: qwe[0],
-                       path: qwe[1].split('/{?').first.split('{?').first)
-            end
-            res
+            requests(@resources[asd[0]], all_requests)
           else
-            asd[1].map do |request|
-              qwe = request.split(' ')
-              res.push(method: qwe[0],
-                       path: qwe[1].split('/{?').first.split('{?').first)
-            end
-            res
+            requests(asd[1], all_requests)
           end
         end.flatten.uniq
+      end
 
-        res = res.group_by { |action| action[:path] }
-        res.inject({}) do |res, group|
+      def requests(resource, all_requests)
+        resource.map do |request|
+          all_requests.push(request_hash(request))
+        end
+        all_requests
+      end
+
+      def transformation
+        result = without_group.group_by { |action| action[:path] }
+        result.inject({}) do |res, group|
           methods = group.last.map { |gr| gr[:method] }
           res.merge(group.first => methods)
         end
+      end
+
+      def request_hash(request)
+        array = request.split(' ')
+        {
+          method: array[0],
+          path: array[1].split('/{?').first.split('{?').first
+        }
       end
     end
   end

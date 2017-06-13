@@ -19,10 +19,10 @@ module Fitting
     end
 
     def schemas_of_possible_responses(status:)
-      if @schema
-        @schema.find_responses(status: status).map do |response|
-          response['body']
-        end
+      return nil unless @schema
+
+      @schema.find_responses(status: status).map do |response|
+        response['body']
       end
     end
 
