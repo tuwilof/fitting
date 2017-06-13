@@ -10,49 +10,91 @@ module Fitting
       def coverage_statistic
         stat = {}
         @coverage.coverage.map do |route|
-          macro_key = route.split(' ')[0..1].join(' ')
-          micro_key = route.split(' ')[2..3].join(' ')
-          stat[macro_key] ||= {}
-          stat[macro_key]['cover'] ||= []
-          stat[macro_key]['not_cover'] ||= []
-          stat[macro_key]['cover'].push(micro_key)
-          stat[macro_key]['all'] ||= []
-          stat[macro_key]['all'].push("✔ #{route.split(' ')[2..3].join(' ')}")
+          stat = coverage_stat(stat, route, '✔')
         end
         @coverage.not_coverage.map do |route|
-          macro_key = route.split(' ')[0..1].join(' ')
-          micro_key = route.split(' ')[2..3].join(' ')
-          stat[macro_key] ||= {}
-          stat[macro_key]['cover'] ||= []
-          stat[macro_key]['not_cover'] ||= []
-          stat[macro_key]['not_cover'].push(micro_key)
-          stat[macro_key]['all'] ||= []
-          stat[macro_key]['all'].push("✖ #{route.split(' ')[2..3].join(' ')}")
+          stat = not_coverage_stat(stat, route, '✖')
         end
-        @stat = stat.each_with_object(
+        @stat = stat_each(stat)
+      end
+
+      def stat_each(stat)
+        stat.each_with_object(default_statistic) do |date, res|
+          date.last['cover_ratio'] = ratio(date)
+          res_cover(ratio(date), res, info(date))
+          path = date.first.split(' ')[1].size / 8
+          find_max(path)
+        end
+      end
+
+      def find_max(path)
+        @max ||= 1
+        @max = path.size if path.size > @max
+      end
+
+      def res_cover(ratio, res, info)
+        if ratio == 100.0
+          res['full cover'].push(info)
+        elsif ratio == 0.0
+          res['no cover'].push(info)
+        else
+          res['partial cover'].push(info)
+        end
+      end
+
+      def default_statistic
+        {
           'full cover' => [],
           'partial cover' => [],
           'no cover' => []
-        ) do |date, res|
-          ratio = date.last['cover_ratio'] =
-                    (date.last['cover'].size.to_f /
-                      (date.last['cover'].size + date.last['not_cover'].size).to_f * 100.0).round(2)
-          info = { date.first => {
-            'cover' => date.last['cover'],
-            'not_cover' => date.last['not_cover'],
-            'all' => beautiful_output(date.last).to_s
-          } }
-          if ratio == 100.0
-            res['full cover'].push(info)
-          elsif ratio == 0.0
-            res['no cover'].push(info)
-          else
-            res['partial cover'].push(info)
-          end
-          path = date.first.split(' ')[1].size / 8
-          @max ||= 1
-          @max = path.size if path.size > @max
-        end
+        }
+      end
+
+      def ratio(date)
+        (date.last['cover'].size.to_f /
+          (date.last['cover'].size + date.last['not_cover'].size).to_f * 100.0).round(2)
+      end
+
+      def info(date)
+        { date.first => {
+          'cover' => date.last['cover'],
+          'not_cover' => date.last['not_cover'],
+          'all' => beautiful_output(date.last).to_s
+        } }
+      end
+
+      def coverage_stat(stat, route, symbol)
+        macro_key = macro_key(route)
+        micro_key = micro_key(route)
+        stat = default_stat(stat, macro_key)
+        stat[macro_key]['cover'].push(micro_key)
+        stat[macro_key]['all'].push("#{symbol} #{route.split(' ')[2..3].join(' ')}")
+        stat
+      end
+
+      def not_coverage_stat(stat, route, symbol)
+        macro_key = macro_key(route)
+        micro_key = micro_key(route)
+        stat = default_stat(stat, macro_key)
+        stat[macro_key]['not_cover'].push(micro_key)
+        stat[macro_key]['all'].push("#{symbol} #{route.split(' ')[2..3].join(' ')}")
+        stat
+      end
+
+      def default_stat(stat, macro_key)
+        stat[macro_key] ||= {}
+        stat[macro_key]['cover'] ||= []
+        stat[macro_key]['not_cover'] ||= []
+        stat[macro_key]['all'] ||= []
+        stat
+      end
+
+      def macro_key(route)
+        route.split(' ')[0..1].join(' ')
+      end
+
+      def micro_key(route)
+        route.split(' ')[2..3].join(' ')
       end
 
       def to_hash
