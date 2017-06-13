@@ -10,6 +10,18 @@ module Fitting
         @coverage = coverage
       end
 
+      def full_cover
+        @stat['full cover']
+      end
+
+      def partial_cover
+        @stat['partial cover']
+      end
+
+      def no_cover
+        @stat['no cover']
+      end
+
       def coverage_statistic
         stat = Fitting::Route::Requests::Coverage.new(@coverage).to_hash
         @stat = stat_each(stat)
