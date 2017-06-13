@@ -69,11 +69,6 @@ module Fitting
         Fitting::Route::Requests::Statistics.new(@stat).to_s
       end
 
-      def conformity_lists
-        @stat ||= coverage_statistic
-        Fitting::Route::Requests::Lists.new(@stat, @max).to_s
-      end
-
       private
 
       def beautiful_output(hash)

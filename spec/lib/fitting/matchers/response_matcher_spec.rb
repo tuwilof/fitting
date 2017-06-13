@@ -33,6 +33,14 @@ RSpec.describe Fitting::Matchers::Response do
     it 'returns true' do
       expect(subject.matches?(nil)).to be_truthy
     end
+
+    context 'within_prefix? false' do
+      let(:response) { double(fully_validates: double(valid?: true), within_prefix?: false) }
+
+      it 'returns true' do
+        expect(subject.matches?(nil)).to be_truthy
+      end
+    end
   end
 
   describe '#===' do
