@@ -44,24 +44,6 @@ RSpec.describe Fitting::Route::Requests do
     end
   end
 
-  describe '#fully_implemented' do
-    it 'returns fully_implemented' do
-      expect(subject.fully_implemented).to eq(["GET\t/sessions\t\t\t\t\t\t\t✔ ", "GET\t/users\t\t\t\t\t\t\t\t✔ "])
-    end
-  end
-
-  describe '#partially_implemented' do
-    it 'returns partially_implemented' do
-      expect(subject.partially_implemented).to eq(["POST\t/sessions\t\t\t\t\t\t\t✖ ", "POST\t/users\t\t\t\t\t\t\t\t✖ "])
-    end
-  end
-
-  describe '#no_implemented' do
-    it 'returns no_implemented' do
-      expect(subject.no_implemented).to eq(["DELETE\t/sessions\t\t\t\t\t\t\t✖ ", "DELETE\t/users\t\t\t\t\t\t\t\t✖ "])
-    end
-  end
-
   describe '#statistics' do
     let(:to_hash) do
       {
@@ -79,36 +61,6 @@ RSpec.describe Fitting::Route::Requests do
         'API requests with partially implemented responses: 1 (33.33% of 3).',
         'API requests with no implemented responses: 1 (33.33% of 3).'
       ].join("\n"))
-    end
-  end
-
-  describe '#conformity_lists' do
-    before do
-      allow(subject).to receive(:fully_implemented).and_return(['FKR'])
-      allow(subject).to receive(:partially_implemented).and_return(['PI'])
-      allow(subject).to receive(:no_implemented).and_return(['NI'])
-    end
-
-    it 'returns conformity lists' do
-      expect(subject.conformity_lists).to eq([
-        ['Fully conforming requests:', 'FKR'].join("\n"),
-        ['Partially conforming requests:', 'PI'].join("\n"),
-        ['Non-conforming requests:', 'NI'].join("\n")
-      ].join("\n\n"))
-    end
-
-    context 'there are empty lists' do
-      before do
-        allow(subject).to receive(:fully_implemented).and_return(['FKR'])
-        allow(subject).to receive(:partially_implemented).and_return([])
-        allow(subject).to receive(:no_implemented).and_return([])
-      end
-
-      it 'returns conformity lists' do
-        expect(subject.conformity_lists).to eq([
-          ['Fully conforming requests:', 'FKR'].join("\n")
-        ].join("\n\n"))
-      end
     end
   end
 end
