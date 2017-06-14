@@ -37,7 +37,10 @@ RSpec.describe Fitting::Route do
   end
 
   describe '#errors' do
-    before { allow(Fitting::Route::Coverage).to receive(:new).and_return(double(not_coverage: %w(first second))) }
+    before do
+      allow(Fitting::Route::Coverage).to receive(:new).and_return(double(not_coverage: %w(first second)))
+      allow(Fitting::Route::Requests).to receive(:new).and_return(double(conformity_lists: nil, statistics: nil))
+    end
 
     it 'returns errors' do
       expect(subject.errors).to eq("first\nsecond\n")

@@ -2,19 +2,20 @@ module Fitting
   class Route
     class Requests
       class Lists
-        def initialize(full_cover, partial_cover, no_cover, max)
-          @full_cover = full_cover
-          @partial_cover = partial_cover
-          @no_cover = no_cover
-          @max = max
+        def initialize(combine)
+          @full_cover = combine.full_cover
+          @partial_cover = combine.partial_cover
+          @no_cover = combine.no_cover
+          @max = combine.max
         end
 
         def to_s
-          [
-            list_fully_implemented,
-            list_partially_implemented,
-            list_no_implemented
-          ].compact.join("\n\n")
+          @to_s ||=
+            [
+              list_fully_implemented,
+              list_partially_implemented,
+              list_no_implemented
+            ].compact.join("\n\n")
         end
 
         def list_fully_implemented

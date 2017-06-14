@@ -18,18 +18,30 @@ module Fitting
           }
         end
 
-        attr_reader :max
+        def max
+          stat_each
+          @max
+        end
 
-        attr_reader :full_cover
+        def full_cover
+          stat_each
+          @full_cover
+        end
 
-        attr_reader :partial_cover
+        def partial_cover
+          stat_each
+          @partial_cover
+        end
 
-        attr_reader :no_cover
+        def no_cover
+          stat_each
+          @no_cover
+        end
 
         private
 
         def stat_each
-          @stat_each ||= @stat.map do |date|
+          @stat_each ||= @stat.to_hash.map do |date|
             date.last['cover_ratio'] = ratio(date)
             res_cover(ratio(date), info(date))
             path = date.first.split(' ')[1].size / 8

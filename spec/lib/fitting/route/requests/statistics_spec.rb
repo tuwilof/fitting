@@ -2,7 +2,13 @@ require 'spec_helper'
 require 'fitting/route/requests/statistics'
 
 RSpec.describe Fitting::Route::Requests::Statistics do
-  subject { described_class.new(full_count, part_count, no_count) }
+  subject do
+    described_class.new(double(
+                          full_cover: double(size: full_count),
+                          partial_cover: double(size: part_count),
+                          no_cover: double(size: no_count)
+    ))
+  end
 
   let(:full_count) { double }
   let(:part_count) { double }

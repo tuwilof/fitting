@@ -7,22 +7,6 @@ RSpec.describe Fitting::Route::Requests do
       not_coverage: ['DELETE /sessions', 'POST /sessions', 'DELETE /users', 'POST /users']
     )
   end
-  let(:stat) do
-    {
-      'full cover' => [
-        { 'GET /sessions' => { 'cover' => [''], 'not_cover' => [], 'all' => '✔ ' } },
-        { 'GET /users' => { 'cover' => [''], 'not_cover' => [], 'all' => '✔ ' } }
-      ],
-      'partial cover' => [
-        { 'POST /sessions' => { 'cover' => [''], 'not_cover' => [''], 'all' => '✖ ' } },
-        { 'POST /users' => { 'cover' => [''], 'not_cover' => [''], 'all' => '✖ ' } }
-      ],
-      'no cover' => [
-        { 'DELETE /sessions' => { 'cover' => [], 'not_cover' => [''], 'all' => '✖ ' } },
-        { 'DELETE /users' => { 'cover' => [], 'not_cover' => [''], 'all' => '✖ ' } }
-      ]
-    }
-  end
 
   subject { described_class.new(response_routes) }
 
@@ -32,14 +16,8 @@ RSpec.describe Fitting::Route::Requests do
     end
   end
 
-  describe '#to_hash' do
-    it 'returns hash' do
-      expect(subject.to_hash).to eq(stat)
-    end
-  end
-
   describe '#statistics' do
-    let(:combine) { double(full_cover: [''], partial_cover: [''], no_cover: [''], to_hash: {}) }
+    let(:combine) { double(full_cover: [''], partial_cover: [''], no_cover: [''], to_hash: {}, max: 8) }
 
     before do
       allow(Fitting::Route::Requests::Combine).to receive(:new).and_return(combine)

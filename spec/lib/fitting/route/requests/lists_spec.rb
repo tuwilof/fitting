@@ -2,7 +2,14 @@ require 'spec_helper'
 require 'fitting/route/requests/lists'
 
 RSpec.describe Fitting::Route::Requests::Lists do
-  subject { described_class.new(full_cover, partial_cover, no_cover, max) }
+  subject do
+    described_class.new(double(
+                          full_cover: full_cover,
+                          partial_cover: partial_cover,
+                          no_cover: no_cover,
+                          max: max
+    ))
+  end
 
   let(:max) { 8 }
   let(:full_cover) { double }

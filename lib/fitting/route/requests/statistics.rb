@@ -2,10 +2,10 @@ module Fitting
   class Route
     class Requests
       class Statistics
-        def initialize(full_count, part_count, no_count)
-          @full_count = full_count
-          @part_count = part_count
-          @no_count = no_count
+        def initialize(combine)
+          @full_count = combine.full_cover.size
+          @part_count = combine.partial_cover.size
+          @no_count = combine.no_cover.size
         end
 
         def to_s
