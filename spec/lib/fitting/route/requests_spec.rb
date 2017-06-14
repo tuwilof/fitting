@@ -39,11 +39,10 @@ RSpec.describe Fitting::Route::Requests do
   end
 
   describe '#statistics' do
+    let(:combine) { double(full_cover: [''], partial_cover: [''], no_cover: [''], to_hash: {}) }
+
     before do
-      allow(subject).to receive(:coverage_statistic)
-      subject.instance_variable_set(:@full_cover, [''])
-      subject.instance_variable_set(:@partial_cover, [''])
-      subject.instance_variable_set(:@no_cover, [''])
+      allow(Fitting::Route::Requests::Combine).to receive(:new).and_return(combine)
     end
 
     it 'returns statistics' do
