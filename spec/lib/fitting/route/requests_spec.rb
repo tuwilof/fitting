@@ -32,12 +32,6 @@ RSpec.describe Fitting::Route::Requests do
     end
   end
 
-  describe '#coverage_statistic' do
-    it 'returns coverage_statistic' do
-      expect(subject.coverage_statistic).to eq(stat)
-    end
-  end
-
   describe '#to_hash' do
     it 'returns hash' do
       expect(subject.to_hash).to eq(stat)
@@ -45,10 +39,12 @@ RSpec.describe Fitting::Route::Requests do
   end
 
   describe '#statistics' do
-    #let(:to_hash) { double(full_cover: [''], partial_cover: [''], no_cover: ['']) }
-    let(:to_hash) { {'full cover' => [''], 'partial cover' => [''], 'no cover' => ['']} }
-
-    before { allow(subject).to receive(:coverage_statistic).and_return(to_hash) }
+    before do
+      allow(subject).to receive(:coverage_statistic)
+      subject.instance_variable_set(:@full_cover, [''])
+      subject.instance_variable_set(:@partial_cover, [''])
+      subject.instance_variable_set(:@no_cover, [''])
+    end
 
     it 'returns statistics' do
       expect(subject.statistics).to eq([
@@ -56,6 +52,18 @@ RSpec.describe Fitting::Route::Requests do
         'API requests with partially implemented responses: 1 (33.33% of 3).',
         'API requests with no implemented responses: 1 (33.33% of 3).'
       ].join("\n"))
+    end
+  end
+
+  describe '#conformity_lists' do
+    let(:lists) { double }
+
+    before do
+      allow(Fitting::Route::Requests::Lists).to receive(:new).and_return(double(to_s: lists))
+    end
+
+    it 'returns conformity lists' do
+      expect(subject.conformity_lists).to eq(lists)
     end
   end
 end

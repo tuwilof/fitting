@@ -2,8 +2,10 @@ module Fitting
   class Route
     class Requests
       class Lists
-        def initialize(stat, max)
-          @stat = stat
+        def initialize(full_cover, partial_cover, no_cover, max)
+          @full_cover = full_cover
+          @partial_cover = partial_cover
+          @no_cover = no_cover
           @max = max
         end
 
@@ -16,27 +18,18 @@ module Fitting
         end
 
         def list_fully_implemented
-          @fully_implemented ||= fully_implemented.join("\n")
-          if @fully_implemented != ''
-            return ['Fully conforming requests:', fully_implemented].join("\n")
-          end
-          nil
+          return nil if fully_implemented == []
+          ['Fully conforming requests:', fully_implemented].join("\n")
         end
 
         def list_partially_implemented
-          @partially_implemented ||= partially_implemented.join("\n")
-          if @partially_implemented != ''
-            return ['Partially conforming requests:', partially_implemented].join("\n")
-          end
-          nil
+          return nil if partially_implemented == []
+          ['Partially conforming requests:', partially_implemented].join("\n")
         end
 
         def list_no_implemented
-          @no_implemented ||= no_implemented.join("\n")
-          if @no_implemented != ''
-            return ['Non-conforming requests:', no_implemented].join("\n")
-          end
-          nil
+          return nil if no_implemented == []
+          ['Non-conforming requests:', no_implemented].join("\n")
         end
 
         def fully_implemented
@@ -60,19 +53,19 @@ module Fitting
         private
 
         def stat_full_cover
-          @stat['full cover'].map do |response|
+          @full_cover.map do |response|
             cover_request(response)
           end
         end
 
         def stat_partial_cover
-          @stat['partial cover'].map do |response|
+          @partial_cover.map do |response|
             cover_request(response)
           end
         end
 
         def stat_no_cover
-          @stat['no cover'].map do |response|
+          @no_cover.map do |response|
             cover_request(response)
           end
         end

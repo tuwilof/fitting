@@ -8,17 +8,50 @@ module Fitting
     class Requests
       def initialize(coverage)
         @coverage = coverage
+        @full_cover = []
+        @partial_cover = []
+        @no_cover = []
       end
+
+      def to_hash
+        @stat ||= coverage_statistic
+        {
+          'full cover' => @full_cover,
+          'partial cover' => @partial_cover,
+          'no cover' => @no_cover
+        }
+      end
+
+      def conformity_lists
+        @stat ||= coverage_statistic
+        Fitting::Route::Requests::Lists.new(
+          @full_cover,
+          @partial_cover,
+          @no_cover,
+          @max
+        ).to_s
+      end
+
+      def statistics
+        @stat ||= coverage_statistic
+        Fitting::Route::Requests::Statistics.new(
+          @full_cover.size,
+          @partial_cover.size,
+          @no_cover.size
+        ).to_s
+      end
+
+      private
 
       def coverage_statistic
         stat = Fitting::Route::Requests::Coverage.new(@coverage).to_hash
-        @stat = stat_each(stat)
+        stat_each(stat)
       end
 
       def stat_each(stat)
-        stat.each_with_object(default_statistic) do |date, res|
+        stat.map do |date|
           date.last['cover_ratio'] = ratio(date)
-          res_cover(ratio(date), res, info(date))
+          res_cover(ratio(date), info(date))
           path = date.first.split(' ')[1].size / 8
           find_max(path)
         end
@@ -29,22 +62,14 @@ module Fitting
         @max = path.size if path.size > @max
       end
 
-      def res_cover(ratio, res, info)
+      def res_cover(ratio, info)
         if ratio == 100.0
-          res['full cover'].push(info)
+          @full_cover.push(info)
         elsif ratio == 0.0
-          res['no cover'].push(info)
+          @no_cover.push(info)
         else
-          res['partial cover'].push(info)
+          @partial_cover.push(info)
         end
-      end
-
-      def default_statistic
-        {
-          'full cover' => [],
-          'partial cover' => [],
-          'no cover' => []
-        }
       end
 
       def ratio(date)
@@ -59,21 +84,6 @@ module Fitting
           'all' => beautiful_output(date.last).to_s
         } }
       end
-
-      def to_hash
-        @stat ||= coverage_statistic
-      end
-
-      def statistics
-        @stat ||= coverage_statistic
-        Fitting::Route::Requests::Statistics.new(
-          @stat['full cover'].size,
-          @stat['partial cover'].size,
-          @stat['no cover'].size
-        ).to_s
-      end
-
-      private
 
       def beautiful_output(hash)
         methods = {}
