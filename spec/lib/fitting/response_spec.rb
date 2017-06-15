@@ -87,7 +87,7 @@ RSpec.describe Fitting::Response do
   end
 
   describe '#expected' do
-    let(:schemas_of_possible_responses) { %w(schema1 schema2) }
+    let(:schemas_of_possible_responses) { %w[schema1 schema2] }
 
     it 'returns expected' do
       expect(subject.expected).to eq("\"schema1\"\n\n\"schema2\"")

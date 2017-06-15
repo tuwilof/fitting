@@ -57,8 +57,8 @@ RSpec.describe Fitting::Storage::WhiteList do
       let(:res) do
         {
           '/users' => ['POST'],
-          '/users/{id}' => %w(DELETE GET PATCH),
-          '/dogs/{id}' => %w(GET PATCH)
+          '/users/{id}' => %w[DELETE GET PATCH],
+          '/dogs/{id}' => %w[GET PATCH]
         }
       end
 
@@ -75,7 +75,7 @@ RSpec.describe Fitting::Storage::WhiteList do
       end
       let(:res) do
         {
-          '/users/{id}' => %w(DELETE GET PATCH),
+          '/users/{id}' => %w[DELETE GET PATCH],
           '/users' => ['POST']
         }
       end

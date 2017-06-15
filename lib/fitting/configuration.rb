@@ -5,7 +5,8 @@ module Fitting
                   :strict,
                   :prefix,
                   :white_list,
-                  :resource_white_list
+                  :resource_white_list,
+                  :json_schema_cover
 
     def initialize
       @strict = false
