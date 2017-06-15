@@ -1,3 +1,5 @@
+require 'tomograph'
+
 module Fitting
   module Storage
     class WhiteList
@@ -41,7 +43,7 @@ module Fitting
         array = request.split(' ')
         {
           method: array[0],
-          path: array[1].split('/{?').first.split('{?').first
+          path: Tomograph::Path.new(array[1]).to_s
         }
       end
     end
