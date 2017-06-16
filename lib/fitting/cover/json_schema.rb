@@ -25,6 +25,7 @@ module Fitting
       end
 
       def new_keys
+        return [] unless @json_schema && @json_schema[:properties]
         all = @json_schema[:properties].keys.map(&:to_s)
         old = @json_schema[:required]
         all - old

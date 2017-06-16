@@ -10,6 +10,7 @@ module Fitting
 
     def to_hash
       @all_responses.map do |response|
+        next nil unless response.documented?
         if @list.key?(response.route)
           @list[response.route].update(response)
         else
@@ -20,7 +21,7 @@ module Fitting
     end
 
     def save
-      @coverage.coverage
+      to_hash
     end
   end
 end

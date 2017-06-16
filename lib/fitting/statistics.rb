@@ -1,5 +1,6 @@
 require 'fitting/route'
 require 'fileutils'
+require 'multi_json'
 
 module Fitting
   class Statistics
@@ -16,7 +17,8 @@ module Fitting
     end
 
     def cover_save
-      @white_route.cover_save
+      FileUtils.mkdir_p 'fitting'
+      File.open('fitting/response_cover.json', 'w') { |file| file.write(MultiJson.dump(@white_route.cover_save)) }
     end
 
     def to_s

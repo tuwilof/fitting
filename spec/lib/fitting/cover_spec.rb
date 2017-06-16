@@ -4,7 +4,7 @@ require 'fitting/cover'
 RSpec.describe Fitting::Cover do
   subject { described_class.new(all_responses, coverage) }
 
-  let(:all_responses) { double }
+  let(:all_responses) { {} }
   let(:coverage) { double }
 
   describe '.new' do
@@ -24,8 +24,8 @@ RSpec.describe Fitting::Cover do
   describe '#to_hash' do
     let(:all_responses) do
       [
-        double(route: "POST\t/sessions 200 0"),
-        double(route: "POST\t/sessions 200 0")
+        double(route: "POST\t/sessions 200 0", documented?: true),
+        double(route: "POST\t/sessions 200 0", documented?: true)
       ]
     end
     let(:coverage) do
