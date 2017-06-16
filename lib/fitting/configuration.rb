@@ -11,6 +11,7 @@ module Fitting
     def initialize
       @strict = false
       @prefix = ''
+      @json_schema_cover = false
     end
   end
 end

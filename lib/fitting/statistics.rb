@@ -15,6 +15,10 @@ module Fitting
       File.open('fitting/not_covered', 'w') { |file| file.write(@white_route.errors) }
     end
 
+    def cover_save
+      @white_route.cover_save
+    end
+
     def to_s
       if @documentation.black.any?
         [

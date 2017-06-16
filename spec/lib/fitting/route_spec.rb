@@ -7,6 +7,11 @@ RSpec.describe Fitting::Route do
 
   subject { described_class.new(all_responses, routes, strict) }
 
+  before do
+    allow(Fitting::Route::Coverage).to receive(:new).and_return(double(not_coverage: %w[first second]))
+    allow(Fitting::Route::Requests).to receive(:new).and_return(double(conformity_lists: nil, statistics: nil))
+  end
+
   describe '#statistics_with_conformity_lists' do
     let(:requests) { double(statistics: 'request statistics', conformity_lists: 'request conformity_lists') }
     let(:responses) { double(statistics: 'response statistics') }
@@ -37,13 +42,18 @@ RSpec.describe Fitting::Route do
   end
 
   describe '#errors' do
-    before do
-      allow(Fitting::Route::Coverage).to receive(:new).and_return(double(not_coverage: %w[first second]))
-      allow(Fitting::Route::Requests).to receive(:new).and_return(double(conformity_lists: nil, statistics: nil))
-    end
-
     it 'returns errors' do
       expect(subject.errors).to eq("first\nsecond\n")
+    end
+  end
+
+  describe 'cover_save' do
+    let(:cover) { double(save: nil) }
+
+    before { allow(Fitting::Cover).to receive(:new).and_return(cover) }
+
+    it 'does not raise exception' do
+      expect { subject.cover_save }.not_to raise_exception
     end
   end
 end

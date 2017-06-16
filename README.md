@@ -164,7 +164,8 @@ Empty array `[]` means all methods.
 
 ### json_schema_cover
 
-Json-schema covering becomes mandatory.
+Default: false. Json-schema covering becomes mandatory.
+Or you can call `responses.statistics.cover_save` if you don't use call `Fitting.statistics`.
 
 ## Contributing
 

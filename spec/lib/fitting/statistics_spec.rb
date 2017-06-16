@@ -27,6 +27,18 @@ RSpec.describe Fitting::Statistics do
     end
   end
 
+  describe '#cover_save' do
+    let(:white_route) { double(cover_save: nil) }
+
+    before do
+      allow(Fitting::Route).to receive(:new).with(all_responses, white, strict).and_return(white_route)
+    end
+
+    it 'no error' do
+      expect { subject.cover_save }.not_to raise_exception
+    end
+  end
+
   describe '#to_s' do
     let(:black) { double(any?: false) }
     let(:white_route) { double(statistics_with_conformity_lists: 'white_route statistics_with_conformity_lists') }

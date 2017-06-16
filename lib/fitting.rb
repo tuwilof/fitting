@@ -26,6 +26,7 @@ module Fitting
 
         config.after(:suite) do
           responses.statistics.save
+          responses.statistics.cover_save if Fitting.configuration.json_schema_cover
         end
       end
     end
