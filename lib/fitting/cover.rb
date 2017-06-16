@@ -1,3 +1,5 @@
+require 'fitting/cover/response'
+
 module Fitting
   class Cover
     def initialize(all_responses, coverage)
@@ -8,7 +10,11 @@ module Fitting
 
     def to_hash
       @all_responses.map do |response|
-        @list[response.route] = nil unless @list.has_key?(response.route)
+        if @list.key?(response.route)
+          @list[response.route].update(response)
+        else
+          @list[response.route] = Fitting::Cover::Response.new(response)
+        end
       end
       @list
     end

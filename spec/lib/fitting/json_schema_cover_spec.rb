@@ -48,7 +48,7 @@ RSpec.describe Fitting::JSONSchemaCover do
     let(:json_schema_three) { main_json_schema.merge('required': %w[login password code]) }
 
     it 'returns json-schemas' do
-      expect(subject.combinations).to eq([["required", "captcha"], ["required", "code"]])
+      expect(subject.combinations).to eq([%w[required captcha], %w[required code]])
     end
   end
 end

@@ -33,11 +33,12 @@ RSpec.describe Fitting::Cover do
         "POST\t/sessions 200 0"
       ]
     end
+    let(:response) { double(update: nil) }
+
+    before { allow(Fitting::Cover::Response).to receive(:new).and_return(response) }
 
     it 'returns hash' do
-      expect(subject.to_hash).to eq({
-        "POST\t/sessions 200 0" => nil
-      })
+      expect(subject.to_hash).to eq("POST\t/sessions 200 0" => response)
     end
   end
 end
