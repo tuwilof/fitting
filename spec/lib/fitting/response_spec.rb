@@ -106,4 +106,29 @@ RSpec.describe Fitting::Response do
       expect(subject.within_prefix?('')).to be_truthy
     end
   end
+
+  describe '#json_schema' do
+    let(:request) { double(schemas_of_possible_responses: schemas_of_possible_responses, route: 'route') }
+    let(:env_response) { double(request: nil, status: 'status', body: nil) }
+    let(:schemas_of_possible_responses) { ['{}'] }
+
+    before { allow(Fitting::Response::FullyValidates).to receive(:craft).and_return([[]]) }
+
+    it 'returns json_schema' do
+      expect(subject.json_schema).to eq('{}')
+    end
+  end
+
+  describe '#body' do
+    let(:body) { double }
+    let(:request) { double(schemas_of_possible_responses: schemas_of_possible_responses, route: 'route') }
+    let(:env_response) { double(request: nil, status: 'status', body: body) }
+    let(:schemas_of_possible_responses) { ['{}'] }
+
+    before { allow(Fitting::Response::FullyValidates).to receive(:craft).and_return([[]]) }
+
+    it 'returns json_schema' do
+      expect(subject.body).to eq(body)
+    end
+  end
 end

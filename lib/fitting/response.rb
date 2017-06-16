@@ -50,16 +50,24 @@ module Fitting
       end.join("\n\n")
     end
 
+    def json_schema
+      @schemas[index]
+    end
+
+    def body
+      @body
+    end
+
     private
 
     def index
-      @schemas.size.times do |i|
+      @index ||= @schemas.size.times do |i|
         return i if fully_validates[i] == []
       end
     end
 
     def strict_index
-      @schemas.size.times do |i|
+      @strict_index ||= @schemas.size.times do |i|
         return i if strict_fully_validates[i] == []
       end
     end
