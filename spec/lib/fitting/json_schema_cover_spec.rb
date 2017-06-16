@@ -33,12 +33,22 @@ RSpec.describe Fitting::JSONSchemaCover do
   end
 
   describe '#json_schemas' do
-    let(:json_schemas) { [json_schema, json_schema_two, json_schema_three] }
+    let(:json_schemas) { [json_schema_two, json_schema_three] }
     let(:json_schema_two) { main_json_schema.merge('required': %w[login password captcha]) }
     let(:json_schema_three) { main_json_schema.merge('required': %w[login password code]) }
 
     it 'returns json-schemas' do
       expect(subject.json_schemas).to eq(json_schemas)
+    end
+  end
+
+  describe '#combinations' do
+    let(:json_schemas) { [json_schema_two, json_schema_three] }
+    let(:json_schema_two) { main_json_schema.merge('required': %w[login password captcha]) }
+    let(:json_schema_three) { main_json_schema.merge('required': %w[login password code]) }
+
+    it 'returns json-schemas' do
+      expect(subject.combinations).to eq([["required", "captcha"], ["required", "code"]])
     end
   end
 end
