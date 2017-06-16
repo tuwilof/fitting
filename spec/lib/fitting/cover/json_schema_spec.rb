@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'fitting/json_schema_cover'
+require 'fitting/cover/json_schema'
 
-RSpec.describe Fitting::JSONSchemaCover do
+RSpec.describe Fitting::Cover::JSONSchema do
   let(:main_json_schema) do
     {
       '$schema': 'http://json-schema.org/draft-04/schema#',

@@ -54,9 +54,7 @@ module Fitting
       @schemas[index]
     end
 
-    def body
-      @body
-    end
+    attr_reader :body
 
     private
 
