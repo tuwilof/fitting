@@ -3,9 +3,14 @@
 ### 2.0.2 - 2017-05-02
 
 * bug fixes
-  * Validate html response
+  * validate html response
 
 ### 2.0.3 - 2017-05-02
 
 * bug fixes
-  * Skip expect if prefix not match
+  * skip expect if prefix not match
+
+### 2.1.0 - 2017-06-19
+
+* features
+  * add resource_white_list config
