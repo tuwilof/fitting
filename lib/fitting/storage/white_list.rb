@@ -25,6 +25,8 @@ module Fitting
       end
 
       def requests(resource, all_requests)
+        return all_requests unless resource
+
         resource.map do |request|
           all_requests.push(request_hash(request))
         end
