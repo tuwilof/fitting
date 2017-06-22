@@ -38,7 +38,7 @@ RSpec.describe Fitting::Route do
 
   describe '#errors' do
     before do
-      allow(Fitting::Route::Coverage).to receive(:new).and_return(double(not_coverage: %w(first second)))
+      allow(Fitting::Route::Coverage).to receive(:new).and_return(double(not_coverage: %w[first second]))
       allow(Fitting::Route::Requests).to receive(:new).and_return(double(conformity_lists: nil, statistics: nil))
     end
 
