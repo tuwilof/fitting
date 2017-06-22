@@ -90,4 +90,30 @@ RSpec.describe Fitting::Storage::WhiteList do
       end
     end
   end
+
+  describe '#requests' do
+    let(:resource) { [double] }
+    let(:all_requests) { [] }
+    let(:request_hash) { double }
+
+    before { allow(subject).to receive(:request_hash).and_return(request_hash) }
+
+    it 'returns requests' do
+      expect(subject.requests(resource, all_requests)).to eq([request_hash])
+    end
+
+    context 'resource nil' do
+      it 'returns all_requests' do
+        expect(subject.requests(resource, all_requests)).to eq(all_requests)
+      end
+    end
+  end
+
+  describe '#request_hash' do
+    let(:request) { 'method path' }
+
+    it 'returns request_hash' do
+      expect(subject.request_hash(request)).to eq(method: 'method', path: 'path')
+    end
+  end
 end
