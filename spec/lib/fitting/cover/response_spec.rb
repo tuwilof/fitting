@@ -4,7 +4,8 @@ require 'fitting/cover/response'
 RSpec.describe Fitting::Cover::Response do
   subject { described_class.new(response) }
 
-  let(:response) { double(json_schema: nil, body: {}) }
+  let(:json_schema) { double }
+  let(:response) { double(json_schema: json_schema, body: {}) }
   let(:json_schemas) do
     double(
       combinations: combinations,
@@ -23,7 +24,7 @@ RSpec.describe Fitting::Cover::Response do
 
   describe '#json_schemas' do
     it 'returns json-schemas' do
-      expect(subject.json_schemas).to eq(json_schemas)
+      expect(subject.json_schemas).to eq([{}, {}, {}, json_schema])
     end
   end
 
@@ -42,6 +43,16 @@ RSpec.describe Fitting::Cover::Response do
   describe '#update' do
     it 'returns described class object' do
       expect(subject.update(double(body: {}))).to be_a(described_class)
+    end
+  end
+
+  describe '#to_hash' do
+    it 'returns to_hash' do
+      expect(subject.to_hash).to eq({
+        'json_schemas' => json_schemas.json_schemas + [response.json_schema],
+        'combinations' => combinations,
+        'flags' => [true, true, true]
+      })
     end
   end
 end
