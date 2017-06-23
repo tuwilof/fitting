@@ -116,4 +116,15 @@ RSpec.describe Fitting::Storage::WhiteList do
       expect(subject.request_hash(request)).to eq(method: 'method', path: 'path')
     end
   end
+
+  describe '#without_group' do
+    let(:resource_white_list) { [[[], []]] }
+    let(:resources) { {} }
+
+    before { allow(STDOUT).to receive(:puts) }
+
+    it 'returns without_group' do
+      expect(subject.without_group).to eq([])
+    end
+  end
 end
