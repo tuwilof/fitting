@@ -30,7 +30,17 @@ module Fitting
       @template = {}
       to_hash.each do |key, value|
         @template[key] = value
-        @template[key]['type'] = 'passed'
+        if value['flags'] == []
+          @template[key]['type'] = 'passed'
+        else
+          flag_true = value['flags'].find_all{|flag| flag == true}
+          flag_false = value['flags'].find_all{|flag| flag == false}
+          if flag_false == 0
+            @template[key]['type'] = 'passed'
+          else
+            @template[key]['type'] = 'failed'
+          end
+        end
         @template[key]['json_schema'] = JSON.pretty_generate(value['json_schemas'].last)
       end
       @template
