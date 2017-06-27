@@ -30,14 +30,20 @@ module Fitting
       @template = {}
       to_hash.each do |key, value|
         @template[key] = value
+        @template[key]['cover'] = 100.0
         if value['flags'] == []
           @template[key]['type'] = 'passed'
         else
           flag_true = value['flags'].find_all{|flag| flag == true}
           flag_false = value['flags'].find_all{|flag| flag == false}
-          if flag_false == 0
+          if flag_false.size == 0
             @template[key]['type'] = 'passed'
           else
+            if flag_true.size == 0
+              @template[key]['cover'] = 0.0
+            else
+              @template[key]['cover'] = flag_false.size / flag_true.size
+            end
             @template[key]['type'] = 'failed'
           end
         end

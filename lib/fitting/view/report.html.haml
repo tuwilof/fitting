@@ -7,7 +7,7 @@
     - @to_hash.each do |key, value|
       %details
         %summary{class: "collapse #{value['type']}"}
-          = key
+          = "#{key} #{value['cover']}"
         %div{class: 'group'}
           %div{class: 'section'}
             %div
