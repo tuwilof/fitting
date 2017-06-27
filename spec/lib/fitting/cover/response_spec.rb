@@ -48,11 +48,9 @@ RSpec.describe Fitting::Cover::Response do
 
   describe '#to_hash' do
     it 'returns to_hash' do
-      expect(subject.to_hash).to eq({
-        'json_schemas' => json_schemas.json_schemas + [response.json_schema],
-        'combinations' => combinations,
-        'flags' => [true, true, true]
-      })
+      expect(subject.to_hash).to eq('json_schemas' => json_schemas.json_schemas + [response.json_schema],
+                                    'combinations' => combinations,
+                                    'flags' => [true, true, true])
     end
   end
 end

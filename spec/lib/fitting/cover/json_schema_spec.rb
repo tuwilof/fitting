@@ -40,6 +40,36 @@ RSpec.describe Fitting::Cover::JSONSchema do
     it 'returns json-schemas' do
       expect(subject.json_schemas).to eq(json_schemas)
     end
+
+    context 'attachments' do
+      let(:main_json) do
+        {
+          '$schema': 'http://json-schema.org/draft-04/schema#',
+          'type': 'object',
+          'required': %w[result]
+        }
+      end
+      let(:result) do
+        {
+          'type': 'object',
+          'properties': {
+            'login': {
+              'type': 'string'
+            },
+            'password': {
+              'type': 'string'
+            }
+          }
+        }
+      end
+      let(:json_schema) { main_json.merge('properties': { 'result': result }) }
+      let(:json_schema_two) { main_json.merge('properties': { 'result': result.merge('required': %w[login]) }) }
+      let(:json_schema_three) { main_json.merge('properties': { 'result': result.merge('required': %w[password]) }) }
+
+      it 'returns json-schemas' do
+        expect(subject.json_schemas).to eq([json_schema_two, json_schema_three])
+      end
+    end
   end
 
   describe '#combinations' do
@@ -47,8 +77,36 @@ RSpec.describe Fitting::Cover::JSONSchema do
     let(:json_schema_two) { main_json_schema.merge('required': %w[login password captcha]) }
     let(:json_schema_three) { main_json_schema.merge('required': %w[login password code]) }
 
-    it 'returns json-schemas' do
+    it 'returns combinations' do
       expect(subject.combinations).to eq([%w[required captcha], %w[required code]])
+    end
+
+    context 'attachments' do
+      let(:main_json) do
+        {
+          '$schema': 'http://json-schema.org/draft-04/schema#',
+          'type': 'object',
+          'required': %w[result]
+        }
+      end
+      let(:result) do
+        {
+          'type': 'object',
+          'properties': {
+            'login': {
+              'type': 'string'
+            },
+            'password': {
+              'type': 'string'
+            }
+          }
+        }
+      end
+      let(:json_schema) { main_json.merge('properties': { 'result': result }) }
+
+      it 'returns combinations' do
+        expect(subject.combinations).to eq([%w[required login], %w[required password]])
+      end
     end
   end
 end

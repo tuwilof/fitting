@@ -9,14 +9,13 @@ module Fitting
     end
 
     def to_hash
-      @all_responses.inject({}) do |res, response|
+      @all_responses.each_with_object({}) do |response, res|
         next res unless response.documented?
         if res.key?(response.route)
           res[response.route].update(response)
         else
           res[response.route] = Fitting::Cover::Response.new(response)
         end
-        res
       end.map do |key, value|
         @list[key] = value.to_hash
       end
