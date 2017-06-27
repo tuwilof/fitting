@@ -1,4 +1,5 @@
 require 'fitting/cover/response'
+require 'haml'
 
 module Fitting
   class Cover
@@ -9,6 +10,7 @@ module Fitting
     end
 
     def to_hash
+      return @list unless @list == {}
       @all_responses.each_with_object({}) do |response, res|
         next res unless response.documented?
         if res.key?(response.route)
@@ -24,6 +26,13 @@ module Fitting
 
     def save
       to_hash
+      contents = File.read(File.expand_path('../view/report.html.haml', __FILE__))
+      html = "<style>\n#{File.read(File.expand_path('../view/style.css', __FILE__))}\n</style>\n"
+      html += Haml::Engine.new(contents).render(
+        Object.new,
+        :@to_hash => to_hash
+      )
+      html
     end
   end
 end

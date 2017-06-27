@@ -18,7 +18,7 @@ module Fitting
 
     def cover_save
       FileUtils.mkdir_p 'fitting'
-      File.open('fitting/response_cover.json', 'w') { |file| file.write(MultiJson.dump(@white_route.cover_save)) }
+      File.open('fitting/response_cover.html', 'w') { |file| file.write(@white_route.cover_save) }
     end
 
     def to_s

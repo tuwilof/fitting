@@ -1,0 +1,14 @@
+!!! 5
+%html
+  %head
+    %title= Time.now
+    %meta{charset: "utf-8"}
+  %body
+    - @to_hash.each do |key, value|
+      %details
+        %summary{class: "collapse"}
+          = key
+        %div{class: 'group'}
+          %div{class: 'section'}
+            %div
+              = value['json_schemas'].last
