@@ -15,10 +15,7 @@ module Fitting
           if @json_schema['properties'][key]['properties']
             qwe = required(@json_schema['properties'][key])
             qwe[0].map do |asd|
-              new_json_shema = {}
-              @json_schema.each do |jkey, jvalue|
-                new_json_shema.merge!(jkey => jvalue.clone)
-              end
+              new_json_shema = clone_json_shema(@json_schema)
               new_json_shema['properties'][key] = asd
               @json_schemas += [new_json_shema]
             end
@@ -26,22 +23,7 @@ module Fitting
           elsif @json_schema['properties'][key]['items']
             qwe = required(@json_schema['properties'][key]['items'])
             qwe[0].map do |asd|
-              new_json_shema = {}
-              @json_schema.each do |jkey, jvalue|
-                if jvalue.is_a?(Hash)
-                  jj_schema = {}
-                  jvalue.each do |jjkey, jjvalue|
-                    if key == jjkey
-                      jj_schema.merge!(jjkey => jjvalue.clone)
-                    else
-                      jj_schema.merge!(jvalue.clone)
-                    end
-                  end
-                  new_json_shema.merge!(jkey => jj_schema)
-                else
-                  new_json_shema.merge!(jkey => jvalue.clone)
-                end
-              end
+              new_json_shema = clone_json_shema(@json_schema)
               new_json_shema['properties'][key]['items'] = asd
               @json_schemas += [new_json_shema]
             end
@@ -50,6 +32,18 @@ module Fitting
         end
 
         @json_schemas
+      end
+
+      def clone_json_shema(old_json_schema)
+        new_json_schema = {}
+        old_json_schema.each do |key, value|
+          if value.is_a?(Hash)
+            new_json_schema.merge!(key => clone_json_shema(value))
+          else
+            new_json_schema.merge!(key => value.clone)
+          end
+        end
+        new_json_schema
       end
 
       def combinations
