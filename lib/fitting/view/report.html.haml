@@ -6,9 +6,11 @@
   %body
     - @to_hash.each do |key, value|
       %details
-        %summary{class: "collapse"}
+        %summary{class: "collapse #{value['type']}"}
           = key
         %div{class: 'group'}
           %div{class: 'section'}
             %div
-              = value['json_schemas'].last
+              %b main json-schema
+              %xmp
+                = value['json_schema']
