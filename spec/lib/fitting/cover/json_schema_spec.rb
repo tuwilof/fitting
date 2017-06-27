@@ -64,8 +64,12 @@ RSpec.describe Fitting::Cover::JSONSchema do
         }
       end
       let(:json_schema) { main_json.merge('properties' => { 'result' => login_password }) }
-      let(:json_schema_two) { main_json.merge('properties' => { 'result' => login_password.merge('required' => %w[login]) }) }
-      let(:json_schema_three) { main_json.merge('properties' => { 'result' => login_password.merge('required' => %w[password]) }) }
+      let(:json_schema_two) do
+        main_json.merge('properties' => { 'result' => login_password.merge('required' => %w[login]) })
+      end
+      let(:json_schema_three) do
+        main_json.merge('properties' => { 'result' => login_password.merge('required' => %w[password]) })
+      end
 
       it 'returns json-schemas' do
         expect(subject.json_schemas).to eq([json_schema_two, json_schema_three])

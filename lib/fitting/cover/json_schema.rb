@@ -10,37 +10,62 @@ module Fitting
         @json_schemas, @combinations = required(@json_schema)
 
         return @json_schemas unless @json_schema['properties']
-        keys = @json_schema['properties'].keys
-        keys.map do |key|
-          if @json_schema['properties'][key]['properties']
-            qwe = required(@json_schema['properties'][key])
-            qwe[0].map do |asd|
-              new_json_shema = clone_json_shema(@json_schema)
-              new_json_shema['properties'][key] = asd
-              @json_schemas += [new_json_shema]
-            end
-            @combinations += qwe[1]
-          elsif @json_schema['properties'][key]['items']
-            qwe = required(@json_schema['properties'][key]['items'])
-            qwe[0].map do |asd|
-              new_json_shema = clone_json_shema(@json_schema)
-              new_json_shema['properties'][key]['items'] = asd
-              @json_schemas += [new_json_shema]
-            end
-            @combinations += qwe[1]
-          end
-        end
+        super_each(@json_schema['properties'], 'properties' => nil)
 
         @json_schemas
       end
 
-      def clone_json_shema(old_json_schema)
+      def super_each(json_schema, old_keys_hash)
+        json_schema.each do |key, value|
+          new_keys_hash = clone_hash(old_keys_hash)
+          add_super_key(new_keys_hash, key)
+          if value.is_a?(Hash)
+            modify_json_shema(value, new_keys_hash)
+            super_each(value, new_keys_hash)
+          end
+        end
+      end
+
+      def add_super_key(vbn, new_key)
+        vbn.each do |key, value|
+          if value
+            add_super_key(value, new_key)
+          else
+            vbn[key] = { new_key => nil }
+          end
+        end
+      end
+
+      def super_merge(vbn, asd, old_json_schema)
+        vbn.each do |key, value|
+          if value
+            super_merge(value, asd, old_json_schema[key])
+          else
+            old_json_schema[key].merge!(asd)
+          end
+        end
+        old_json_schema
+      end
+
+      def modify_json_shema(value, vbn)
+        qwe = required(value)
+        qwe[0].map do |asd|
+          new_json_shema = clone_hash(@json_schema)
+          super_merge(vbn, asd, new_json_shema)
+          @json_schemas += [new_json_shema]
+        end
+        @combinations += qwe[1]
+      end
+
+      def clone_hash(old_json_schema)
         new_json_schema = {}
         old_json_schema.each do |key, value|
           if value.is_a?(Hash)
-            new_json_schema.merge!(key => clone_json_shema(value))
-          else
+            new_json_schema.merge!(key => clone_hash(value))
+          elsif value
             new_json_schema.merge!(key => value.clone)
+          else
+            new_json_schema.merge!(key => nil)
           end
         end
         new_json_schema
