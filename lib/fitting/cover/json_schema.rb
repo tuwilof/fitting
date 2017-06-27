@@ -12,19 +12,36 @@ module Fitting
         @json_schemas ||= []
         @combinations ||= []
 
+        return @json_schemas unless @json_schema[:properties]
         keys = @json_schema[:properties].keys
         keys.map do |key|
-          next unless @json_schema[:properties][key][:properties]
-          qwe = required(@json_schema[:properties][key])
-          qwe[0].map do |asd|
-            new_json_shema = {}
-            @json_schema.each do |jkey, jvalue|
-              new_json_shema.merge!(jkey => jvalue.clone)
+          if @json_schema[:properties][key][:properties]
+            qwe = required(@json_schema[:properties][key])
+            qwe[0].map do |asd|
+              new_json_shema = {}
+              @json_schema.each do |jkey, jvalue|
+                new_json_shema.merge!(jkey => jvalue.clone)
+              end
+              new_json_shema[:properties][key] = asd
+              @json_schemas += [new_json_shema]
             end
-            new_json_shema[:properties][key] = asd
-            @json_schemas += [new_json_shema]
+            @combinations += qwe[1]
+          elsif @json_schema[:properties][key][:items]
+            qwe = required(@json_schema[:properties][key][:items])
+            qwe[0].map do |asd|
+              new_json_shema = {}
+              @json_schema.each do |jkey, jvalue|
+                if jvalue.is_a?(Hash)
+                  new_json_shema.merge!(jkey => {key => jvalue[key].clone})
+                else
+                  new_json_shema.merge!(jkey => jvalue.clone)
+                end
+              end
+              new_json_shema[:properties][key][:items] = asd
+              @json_schemas += [new_json_shema]
+            end
+            @combinations += qwe[1]
           end
-          @combinations += qwe[1]
         end
 
         @json_schemas
