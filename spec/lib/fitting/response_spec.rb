@@ -47,7 +47,7 @@ RSpec.describe Fitting::Response do
     before { allow(Fitting::Response::FullyValidates).to receive(:craft).and_return([[]]) }
 
     it 'returns route' do
-      expect(subject.route).to eq('route status 0')
+      expect(subject.route).to eq(['route status 0'])
     end
   end
 
@@ -59,7 +59,7 @@ RSpec.describe Fitting::Response do
     before { allow(Fitting::Response::FullyValidates).to receive(:craft).and_return([[]]) }
 
     it 'returns strict_route' do
-      expect(subject.strict_route).to eq('route status 0')
+      expect(subject.strict_route).to eq(['route status 0'])
     end
   end
 
