@@ -33,11 +33,11 @@ module Fitting
         if @strict
           @coverage_responses.map do |response|
             response.strict_route if response.documented? && response.strict_fully_validates.valid?
-          end.compact.uniq
+          end.flatten.compact.uniq
         else
           @coverage_responses.map do |response|
             response.route if response.documented? && response.fully_validates.valid?
-          end.compact.uniq
+          end.flatten.compact.uniq
         end
       end
     end

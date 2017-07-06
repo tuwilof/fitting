@@ -29,11 +29,15 @@ module Fitting
     end
 
     def route
-      "#{@request.route} #{@status} #{index}"
+      index.map do |i|
+        "#{@request.route} #{@status} #{i}"
+      end
     end
 
     def strict_route
-      "#{@request.route} #{@status} #{strict_index}"
+      strict_index.map do |i|
+        "#{@request.route} #{@status} #{i}"
+      end
     end
 
     def real_request_with_status
@@ -51,7 +55,7 @@ module Fitting
     end
 
     def json_schema
-      @schemas[index]
+      @schemas[index.first]
     end
 
     attr_reader :body
@@ -59,15 +63,21 @@ module Fitting
     private
 
     def index
-      @index ||= @schemas.size.times do |i|
-        return i if fully_validates[i] == []
+      return @index_res if @index_res
+      @index_res = []
+      @schemas.size.times do |i|
+        @index_res.push(i) if fully_validates[i] == []
       end
+      @index_res
     end
 
     def strict_index
-      @strict_index ||= @schemas.size.times do |i|
-        return i if strict_fully_validates[i] == []
+      return @strict_index_res if @strict_index_res
+      @strict_index_res = []
+      @schemas.size.times do |i|
+        @strict_index_res.push(i) if strict_fully_validates[i] == []
       end
+      @strict_index_res
     end
   end
 end

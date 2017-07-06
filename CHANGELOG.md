@@ -1,5 +1,11 @@
 # Change log
 
+### 2.1.2 - 2017-07-04
+
+* bug fixes
+  * one response may match with more than one scheme
+  * inform non-existent resources in the white list of resources
+
 ### 2.1.1 - 2017-06-22
 
 * bug fixes
