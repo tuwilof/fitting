@@ -4,12 +4,13 @@ module Fitting
   class Records
     class Documented
       class Request
-        attr_reader :method, :path, :json_schema, :responses
+        attr_reader :method, :path, :json_schema, :responses, :tested_requests
 
         def initialize(tomogram_request)
           @method = tomogram_request['method']
-          @path = tomogram_request['path'].to_s
+          @path = tomogram_request['path']
           @json_schema = tomogram_request['json_schema']
+          @tested_requests = []
         end
 
         def add_responses(tomogram_responses, responses)
@@ -19,6 +20,10 @@ module Fitting
           end
           responses.add_responses(request_responses)
           @responses = request_responses
+        end
+
+        def join(tested_request)
+          @tested_requests.push(tested_request)
         end
 
         private

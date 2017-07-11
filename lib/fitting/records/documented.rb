@@ -10,6 +10,10 @@ module Fitting
         @responses = Fitting::Records::Documented::Responses.new
         @requests = Fitting::Records::Documented::Requests.new(tomogram, @responses)
       end
+
+      def join(tested)
+        @requests.join(tested.requests)
+      end
     end
   end
 end

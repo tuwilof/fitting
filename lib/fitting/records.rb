@@ -15,6 +15,8 @@ module Fitting
       @documented = Fitting::Records::Documented.new(tomogram)
     end
 
-    def save_statistics; end
+    def save_statistics
+      @documented.join(@tested)
+    end
   end
 end
