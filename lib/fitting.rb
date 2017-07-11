@@ -19,12 +19,16 @@ module Fitting
 
     def statistics
       responses = Fitting::Storage::Responses.new
-      records = Fitting::Records.new(Fitting::Storage::Documentation.tomogram)
+      records = Fitting::Records.new
 
       RSpec.configure do |config|
+        config.before(:suite) do
+          records.initialization_of_documentation(Fitting::Storage::Documentation.tomogram)
+        end
+
         config.after(:each, type: :controller) do
           responses.add(response)
-          records.add(response, response.request)
+          records.add(response)
         end
 
         config.after(:suite) do

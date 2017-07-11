@@ -16,9 +16,15 @@ RSpec.describe Fitting do
     it 'does not raise exception' do
       allow(RSpec).to receive(:configure).and_yield(config)
       allow(config).to receive(:after).and_yield
+      allow(config).to receive(:before).and_yield
       allow(described_class).to receive(:response).and_return(double(request: nil))
       allow(Fitting::Storage::Responses).to receive(:new).and_return(responses)
-      allow(Fitting::Records).to receive(:new).and_return(double(add: nil, save_statistics: nil))
+      allow(Fitting::Storage::Documentation).to receive(:tomogram)
+      allow(Fitting::Records).to receive(:new).and_return(double(
+                                                            add: nil,
+                                                            save_statistics: nil,
+                                                            initialization_of_documentation: nil
+      ))
       expect { subject.statistics }.not_to raise_exception
     end
   end

@@ -3,13 +3,16 @@ require 'fitting/records/tested'
 
 module Fitting
   class Records
-    def initialize(tomogram)
-      @documented = Fitting::Records::Documented.new(tomogram)
+    def initialize
       @tested = Fitting::Records::Tested.new
     end
 
-    def add(env_response, env_request)
-      @tested.add(env_response, env_request)
+    def add(env_response)
+      @tested.add(env_response)
+    end
+
+    def initialization_of_documentation(tomogram)
+      @documented = Fitting::Records::Documented.new(tomogram)
     end
 
     def save_statistics; end
