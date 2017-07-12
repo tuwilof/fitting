@@ -16,6 +16,7 @@ module Fitting
       def add(env_response)
         request = Fitting::Records::Tested::Request.new(env_response.request)
         response = Fitting::Records::Tested::Response.new(env_response, request)
+        request.add_response(response)
         @requests.find_or_add(request)
         @responses.find_or_add(response)
       end

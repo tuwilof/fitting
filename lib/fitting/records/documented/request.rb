@@ -24,6 +24,9 @@ module Fitting
 
         def join(tested_request)
           @tested_requests.push(tested_request)
+          responses.map do |documented_response|
+            documented_response.join(tested_request.responses)
+          end
         end
 
         private
