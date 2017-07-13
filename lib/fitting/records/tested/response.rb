@@ -1,3 +1,5 @@
+require 'fitting/records/tested/body'
+
 module Fitting
   class Records
     class Tested
@@ -6,7 +8,7 @@ module Fitting
 
         def initialize(env_response, request)
           @status = env_response.status
-          @body = env_response.body
+          @body = Fitting::Records::Tested::Body.new(env_response.body)
           @request = request
         end
       end
