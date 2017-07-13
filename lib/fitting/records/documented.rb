@@ -14,6 +14,10 @@ module Fitting
       def join(tested)
         @requests.join(tested.requests)
       end
+
+      def joind_white_list(white_list)
+        @requests.joind_white_list(white_list)
+      end
     end
   end
 end

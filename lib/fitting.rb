@@ -23,7 +23,7 @@ module Fitting
 
       RSpec.configure do |config|
         config.before(:suite) do
-          records.initialization_of_documentation(Fitting::Storage::Documentation.tomogram.to_hash)
+          records.initialization_of_documentation
         end
 
         config.after(:each, type: :controller) do

@@ -27,6 +27,12 @@ module Fitting
             end
           end
         end
+
+        def joind_white_list(white_list)
+          @requests.map do |request|
+            request.joind_white_list(white_list)
+          end
+        end
       end
     end
   end
