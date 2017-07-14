@@ -22,6 +22,21 @@ module Fitting
 
     def save_statistics
       @documented.join(@tested)
+      FileUtils.mkdir_p 'fitting'
+      File.open('fitting/stats_new', 'w') { |file| file.write(to_s) }
+      #File.open('fitting/not_covered_new', 'w') { |file| file.write(@white_route.errors) }
+    end
+
+    def to_s
+      if @documented.requests.all_count > @documented.requests.white.size
+        [
+          ['[Black list]', @documented.requests.black_statistics_with_conformity_lists].join("\n"),
+          ['[White list]', @documented.requests.white_statistics_with_conformity_lists].join("\n"),
+          ''
+        ].join("\n\n")
+      else
+        [@documented.requests.white_statistics_with_conformity_lists, "\n\n"].join
+      end
     end
 
     def white_list

@@ -11,6 +11,7 @@ module Fitting
       end
 
       def to_a
+        return nil if @white_list == nil && @resource_white_list == nil
         return @white_list if @white_list
         @white_list = transformation
       end

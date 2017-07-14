@@ -27,6 +27,18 @@ module Fitting
             end
           end
         end
+
+        def all_json_schemas_coverage?
+          return @coverga unless @coverga == nil
+
+          @coverga = true
+          json_schemas.map do |json_schema|
+            if json_schema.bodies == []
+              @coverga = false
+              return @coverga
+            end
+          end
+        end
       end
     end
   end

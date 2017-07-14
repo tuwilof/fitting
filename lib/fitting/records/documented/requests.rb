@@ -1,5 +1,6 @@
 require 'fitting/records/documented/request'
 require 'tomograph/path'
+require 'fitting/records/statistics'
 
 module Fitting
   class Records
@@ -32,6 +33,43 @@ module Fitting
           @requests.map do |request|
             request.joind_white_list(white_list)
           end
+        end
+
+        def all_count
+          @requests.size
+        end
+
+        def white
+          @white ||= @requests.inject([]) do |res, request|
+            next res unless request.white
+            res.push(request)
+          end
+        end
+
+        def black
+          @black ||= @requests.inject([]) do |res, request|
+            next res if request.white
+            res.push(request)
+          end
+        end
+
+        def black_statistics_with_conformity_lists
+          Fitting::Records::Statistics.new(black).statistics_with_conformity_lists
+        end
+
+        def white_statistics_with_conformity_lists
+          Fitting::Records::Statistics.new(white).statistics_with_conformity_lists
+        end
+
+        def statistics_with_conformity_lists
+          congratulation = 'All responses are 100% valid! Great job!' if @coverage.not_coverage.empty?
+
+          [
+            @requests.conformity_lists,
+            @requests.statistics,
+            @responses.statistics,
+            congratulation
+          ].compact.join("\n\n")
         end
       end
     end
