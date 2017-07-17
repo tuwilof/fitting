@@ -6,12 +6,27 @@ module Fitting
         @all_responses = 0
         @cover_responses = 0
         @not_cover_responses = 0
+        @max_response_path = 0
       end
 
       def to_s(requests)
         requests.inject([]) do |res, request|
-          res.push("#{request.method}\t#{request.path}")
+          res.push("#{request.method}\t#{request.path}#{responses_stat(request)}")
         end.join("\n")
+      end
+
+      def responses_stat(request)
+        tab = "\t" * ((@max_response_path - request.path.to_s.size / 8) + 3)
+        tab + request.responses.to_a.inject([]) do |res, response|
+          response.json_schemas.map do |json_schema|
+            if json_schema.bodies == []
+              res.push("✖ #{response.status}")
+            else
+              res.push("✔ #{response.status}")
+            end
+          end
+          res
+        end.join(' ')
       end
 
       def percent(divider, dividend)
@@ -43,6 +58,9 @@ module Fitting
 
       def check_responses
         @requests.to_a.map do |request|
+          if request.path.to_s.size / 8 > @max_response_path
+            @max_response_path = request.path.to_s.size / 8
+          end
           request.responses.to_a.map do |response|
             response.json_schemas.map do |json_schema|
               if json_schema.bodies == []
