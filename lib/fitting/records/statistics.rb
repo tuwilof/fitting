@@ -36,24 +36,67 @@ module Fitting
 
       def statistics_with_conformity_lists
         check_responses
-        @requests
         [
-          'Fully conforming requests:',
-          to_s(coverage_fully),
-          '',
-          'Partially conforming requests:',
-          to_s(coverage_partially),
-          '',
-          'Non-conforming requests:',
-          to_s(coverage_non),
-          '',
+          list_stat,
+          requests_stats,
+          responses_stats
+        ].join("\n\n")
+      end
+
+      def list_stat
+        [
+          coverage_fully_stat,
+          coverage_partially_stat,
+          coverage_non_stat
+        ].compact.join("\n\n")
+      end
+
+      def requests_stats
+        [
           "API requests with fully implemented responses: #{coverage_fully.size} (#{percent(@requests.size, coverage_fully.size)}% of #{@requests.size}).",
           "API requests with partially implemented responses: #{coverage_partially.size} (#{percent(@requests.size, coverage_partially.size)}% of #{@requests.size}).",
-          "API requests with no implemented responses: #{coverage_non.size} (#{percent(@requests.size, coverage_non.size)}% of #{@requests.size}).",
-          '',
+          "API requests with no implemented responses: #{coverage_non.size} (#{percent(@requests.size, coverage_non.size)}% of #{@requests.size})."
+        ].join("\n")
+      end
+
+      def responses_stats
+        [
           "API responses conforming to the blueprint: #{@cover_responses} (#{percent(@all_responses, @cover_responses)}% of #{@all_responses}).",
           "API responses with validation errors or untested: #{@not_cover_responses} (#{percent(@all_responses, @not_cover_responses)}% of #{@all_responses})."
         ].join("\n")
+      end
+
+      def coverage_fully_stat
+        if coverage_fully == []
+          nil
+        else
+          [
+            'Fully conforming requests:',
+            to_s(coverage_fully),
+          ].join("\n")
+        end
+      end
+
+      def coverage_partially_stat
+        if coverage_partially == []
+          nil
+        else
+          [
+            'Partially conforming requests:',
+            to_s(coverage_partially),
+          ].join("\n")
+        end
+      end
+
+      def coverage_non_stat
+        if coverage_non == []
+          nil
+        else
+          [
+            'Non-conforming requests:',
+            to_s(coverage_non),
+          ].join("\n")
+        end
       end
 
       def check_responses
