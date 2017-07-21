@@ -15,6 +15,12 @@ module Fitting
         end.join("\n")
       end
 
+      def list_sort(requests)
+        requests.sort do |first, second|
+          first.path.to_s <=> second.path.to_s
+        end
+      end
+
       def responses_stat(request)
         tab = "\t" * ((@max_response_path - request.path.to_s.size / 8) + 3)
         tab + request.responses.to_a.inject([]) do |res, response|
@@ -72,7 +78,7 @@ module Fitting
         else
           [
             'Fully conforming requests:',
-            to_s(coverage_fully),
+            to_s(list_sort(coverage_fully)),
           ].join("\n")
         end
       end
@@ -83,7 +89,7 @@ module Fitting
         else
           [
             'Partially conforming requests:',
-            to_s(coverage_partially),
+            to_s(list_sort(coverage_partially)),
           ].join("\n")
         end
       end
@@ -94,7 +100,7 @@ module Fitting
         else
           [
             'Non-conforming requests:',
-            to_s(coverage_non),
+            to_s(list_sort(coverage_non)),
           ].join("\n")
         end
       end
