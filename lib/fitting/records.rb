@@ -28,7 +28,7 @@ module Fitting
     end
 
     def to_s
-      if @documented.requests.all_count > @documented.requests.white.size
+      if @documented.requests.to_a.size > @documented.requests.white.size
         [
           ['[Black list]', @documented.requests.black_statistics_with_conformity_lists].join("\n"),
           ['[White list]', @documented.requests.white_statistics_with_conformity_lists].join("\n"),

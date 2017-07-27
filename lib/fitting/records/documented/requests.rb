@@ -35,22 +35,14 @@ module Fitting
           end
         end
 
-        def all_count
-          @requests.size
-        end
-
         def white
-          @white ||= @requests.inject([]) do |res, request|
-            next res unless request.white
-            res.push(request)
-          end
+          return @white if @white
+          find
         end
 
         def black
-          @black ||= @requests.inject([]) do |res, request|
-            next res if request.white
-            res.push(request)
-          end
+          return @black if @black
+          find
         end
 
         def black_statistics_with_conformity_lists
@@ -59,6 +51,18 @@ module Fitting
 
         def white_statistics_with_conformity_lists
           Fitting::Records::Statistics.new(white).statistics_with_conformity_lists
+        end
+
+        def find
+          @white = []
+          @black = []
+          @requests.map do |request|
+             if request.white
+               @white.push(request)
+             else
+               @black.push(request)
+             end
+          end
         end
       end
     end
