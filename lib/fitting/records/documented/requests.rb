@@ -60,17 +60,6 @@ module Fitting
         def white_statistics_with_conformity_lists
           Fitting::Records::Statistics.new(white).statistics_with_conformity_lists
         end
-
-        def statistics_with_conformity_lists
-          congratulation = 'All responses are 100% valid! Great job!' if @coverage.not_coverage.empty?
-
-          [
-            @requests.conformity_lists,
-            @requests.statistics,
-            @responses.statistics,
-            congratulation
-          ].compact.join("\n\n")
-        end
       end
     end
   end
