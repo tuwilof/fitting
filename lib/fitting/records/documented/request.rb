@@ -69,18 +69,6 @@ module Fitting
           @state
         end
 
-        def all_responses_coverage?
-          return @coverga unless @coverga == nil
-
-          @coverga = true
-          responses.map do |response|
-            if response.all_json_schemas_coverage?
-              @coverga = false
-              return @coverga
-            end
-          end
-        end
-
         private
 
         def tomogram_responses(tomogram_response, request_responses)
