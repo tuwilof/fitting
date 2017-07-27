@@ -45,8 +45,9 @@ module Fitting
         [
           list_stat,
           requests_stats,
-          responses_stats
-        ].join("\n\n")
+          responses_stats,
+          great
+        ].compact.join("\n\n")
       end
 
       def list_stat
@@ -55,6 +56,14 @@ module Fitting
           coverage_partially_stat,
           coverage_non_stat
         ].compact.join("\n\n")
+      end
+
+      def great
+        if @cover_responses == @all_responses
+          'All responses are 100% valid! Great job!'
+        else
+          nil
+        end
       end
 
       def requests_stats
