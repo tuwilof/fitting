@@ -1,6 +1,5 @@
 require 'fitting/records/documented/request'
 require 'tomograph/path'
-require 'fitting/records/statistics'
 
 module Fitting
   class Records
@@ -45,26 +44,6 @@ module Fitting
           return @black if @black
           find
           @black
-        end
-
-        def black_statistics_with_conformity_lists
-          black_statistics.statistics_with_conformity_lists
-        end
-
-        def white_statistics_with_conformity_lists
-          white_statistics.statistics_with_conformity_lists
-        end
-
-        def white_not_covered
-          white_statistics.statistics_with_not_covered_lists
-        end
-
-        def white_statistics
-          @white_statistics ||= Fitting::Records::Statistics.new(white)
-        end
-
-        def black_statistics
-          @black_statistics ||= Fitting::Records::Statistics.new(black)
         end
 
         def find
