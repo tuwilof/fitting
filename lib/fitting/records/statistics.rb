@@ -115,9 +115,12 @@ module Fitting
       end
 
       def check_responses
+        return if @ready
+
         @coverage_fully = []
         @coverage_non = []
         @coverage_partially = []
+        @not_covered_responses = []
         @requests.to_a.map do |request|
           if request.state == 'fully'
             @coverage_fully.push(request)
@@ -130,16 +133,26 @@ module Fitting
             @max_response_path = request.path.to_s.size / 8
           end
           request.responses.to_a.map do |response|
+            json_schema_index = 0
             response.json_schemas.map do |json_schema|
               if json_schema.bodies == []
                 @not_cover_responses += 1
+                @not_covered_responses.push("#{request.method}\t#{request.path} #{response.status} #{json_schema_index}")
               else
                 @cover_responses += 1
               end
               @all_responses += 1
+              json_schema_index += 1
             end
           end
         end
+
+        @ready = true
+      end
+
+      def statistics_with_not_covered_lists
+        check_responses
+        @not_covered_responses.join("\n") + "\n"
       end
     end
   end

@@ -17,7 +17,7 @@ module Fitting
       documented.join(@tested)
       FileUtils.mkdir_p 'fitting'
       File.open('fitting/stats_new', 'w') { |file| file.write(to_s) }
-      #File.open('fitting/not_covered_new', 'w') { |file| file.write(@white_route.errors) }
+      File.open('fitting/not_covered_new', 'w') { |file| file.write(documented.requests.white_not_covered) }
     end
 
     def to_s

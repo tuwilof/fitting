@@ -48,11 +48,23 @@ module Fitting
         end
 
         def black_statistics_with_conformity_lists
-          Fitting::Records::Statistics.new(black).statistics_with_conformity_lists
+          black_statistics.statistics_with_conformity_lists
         end
 
         def white_statistics_with_conformity_lists
-          Fitting::Records::Statistics.new(white).statistics_with_conformity_lists
+          white_statistics.statistics_with_conformity_lists
+        end
+
+        def white_not_covered
+          white_statistics.statistics_with_not_covered_lists
+        end
+
+        def white_statistics
+          @white_statistics ||= Fitting::Records::Statistics.new(white)
+        end
+
+        def black_statistics
+          @black_statistics ||= Fitting::Records::Statistics.new(black)
         end
 
         def find
