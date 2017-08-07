@@ -18,7 +18,6 @@ RSpec.describe Fitting do
       allow(config).to receive(:after).and_yield
       allow(config).to receive(:before).and_yield
       allow(described_class).to receive(:response).and_return(double(request: nil))
-      allow(Fitting::Storage::Responses).to receive(:new).and_return(responses)
       allow(Fitting::Storage::Documentation).to receive(:tomogram).and_return(double(to_hash: nil))
       allow(Fitting::Records).to receive(:new).and_return(double(
                                                             add: nil,
