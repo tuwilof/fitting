@@ -24,7 +24,7 @@ module Fitting
         end
 
         config.after(:suite) do
-          responses.save_statistics
+          responses.statistics.save
         end
       end
     end
