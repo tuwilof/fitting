@@ -38,11 +38,13 @@ module Fitting
         def white
           return @white if @white
           find
+          @white
         end
 
         def black
           return @black if @black
           find
+          @black
         end
 
         def black_statistics_with_conformity_lists
