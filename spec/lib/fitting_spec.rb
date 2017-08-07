@@ -22,8 +22,7 @@ RSpec.describe Fitting do
       allow(Fitting::Storage::Documentation).to receive(:tomogram).and_return(double(to_hash: nil))
       allow(Fitting::Records).to receive(:new).and_return(double(
                                                             add: nil,
-                                                            save_statistics: nil,
-                                                            initialization_of_documentation: nil
+                                                            save_statistics: nil
       ))
       expect { subject.statistics }.not_to raise_exception
     end

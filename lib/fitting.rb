@@ -22,10 +22,6 @@ module Fitting
       records = Fitting::Records.new
 
       RSpec.configure do |config|
-        config.before(:suite) do
-          records.initialization_of_documentation
-        end
-
         config.after(:each, type: :controller) do
           responses.add(response)
           records.add(response)
