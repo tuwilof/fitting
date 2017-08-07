@@ -22,6 +22,10 @@ RSpec.describe Fitting::Storage::WhiteList do
       expect { subject.to_a }.not_to raise_exception
     end
 
+    it 'returns nil' do
+      expect(subject.to_a).to be_nil
+    end
+
     context 'white list' do
       let(:white_list) { double }
 
