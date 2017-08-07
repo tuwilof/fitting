@@ -1,6 +1,6 @@
 module Fitting
-  class Records
-    class Statistics
+  class Statistics
+    class List
       def initialize(requests)
         @requests = requests
         @all_responses = 0

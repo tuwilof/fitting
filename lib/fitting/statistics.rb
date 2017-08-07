@@ -1,7 +1,7 @@
 require 'fitting/storage/white_list'
 require 'fitting/storage/documentation'
 require 'fitting/records/documented'
-require 'fitting/records/statistics'
+require 'fitting/statistics/list'
 
 module Fitting
   class Statistics
@@ -43,11 +43,11 @@ module Fitting
     end
 
     def white_statistics
-      @white_statistics ||= Fitting::Records::Statistics.new(documented.requests.white)
+      @white_statistics ||= Fitting::Statistics::List.new(documented.requests.white)
     end
 
     def black_statistics
-      @black_statistics ||= Fitting::Records::Statistics.new(documented.requests.black)
+      @black_statistics ||= Fitting::Statistics::List.new(documented.requests.black)
     end
 
     def white_list
