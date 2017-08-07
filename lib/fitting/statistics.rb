@@ -10,12 +10,25 @@ module Fitting
     end
 
     def save
-      documented.join(@tested)
-      @white_statistics ||= Fitting::Records::Statistics.new(documented.requests.white)
-      @black_statistics ||= Fitting::Records::Statistics.new(documented.requests.black)
       FileUtils.mkdir_p 'fitting'
-      File.open('fitting/stats', 'w') { |file| file.write(to_s) }
-      File.open('fitting/not_covered', 'w') { |file| file.write(@white_statistics.statistics_with_not_covered_lists) }
+      File.open('fitting/stats', 'w') { |file| file.write(stats) }
+      File.open('fitting/not_covered', 'w') { |file| file.write(not_covered) }
+    end
+
+    def stats
+      if documented.requests.to_a.size > documented.requests.white.size
+        [
+          ['[Black list]', black_statistics.all].join("\n"),
+          ['[White list]', white_statistics.all].join("\n"),
+          ''
+        ].join("\n\n")
+      else
+        [white_statistics.all, "\n\n"].join
+      end
+    end
+
+    def not_covered
+      white_statistics.not_covered
     end
 
     def documented
@@ -25,19 +38,16 @@ module Fitting
         Fitting::Storage::Documentation.tomogram.to_hash
       )
       @documented.joind_white_list(white_list)
+      @documented.join(@tested)
       @documented
     end
 
-    def to_s
-      if documented.requests.to_a.size > documented.requests.white.size
-        [
-          ['[Black list]', @black_statistics.statistics_with_conformity_lists].join("\n"),
-          ['[White list]', @white_statistics.statistics_with_conformity_lists].join("\n"),
-          ''
-        ].join("\n\n")
-      else
-        [@white_statistics.statistics_with_conformity_lists, "\n\n"].join
-      end
+    def white_statistics
+      @white_statistics ||= Fitting::Records::Statistics.new(documented.requests.white)
+    end
+
+    def black_statistics
+      @black_statistics ||= Fitting::Records::Statistics.new(documented.requests.black)
     end
 
     def white_list

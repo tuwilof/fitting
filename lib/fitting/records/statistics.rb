@@ -9,7 +9,7 @@ module Fitting
         @max_response_path = 0
       end
 
-      def statistics_with_conformity_lists
+      def all
         check_responses
         [
           list_stat,
@@ -150,7 +150,7 @@ module Fitting
         @ready = true
       end
 
-      def statistics_with_not_covered_lists
+      def not_covered
         check_responses
         @not_covered_responses.join("\n") + "\n"
       end
