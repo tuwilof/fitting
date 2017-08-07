@@ -3,7 +3,7 @@ require 'fitting/configuration'
 require 'fitting/storage/documentation'
 require 'fitting/matchers/response_matcher'
 require 'fitting/documentation'
-require 'fitting/records'
+require 'fitting/storage/responses'
 
 module Fitting
   class << self
@@ -16,15 +16,15 @@ module Fitting
     end
 
     def statistics
-      records = Fitting::Records.new
+      responses = Fitting::Storage::Responses.new
 
       RSpec.configure do |config|
         config.after(:each, type: :controller) do
-          records.add(response)
+          responses.add(response)
         end
 
         config.after(:suite) do
-          records.save_statistics
+          responses.save_statistics
         end
       end
     end
