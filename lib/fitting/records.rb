@@ -16,8 +16,8 @@ module Fitting
     def save_statistics
       documented.join(@tested)
       FileUtils.mkdir_p 'fitting'
-      File.open('fitting/stats_new', 'w') { |file| file.write(to_s) }
-      File.open('fitting/not_covered_new', 'w') { |file| file.write(documented.requests.white_not_covered) }
+      File.open('fitting/stats', 'w') { |file| file.write(to_s) }
+      File.open('fitting/not_covered', 'w') { |file| file.write(documented.requests.white_not_covered) }
     end
 
     def to_s
