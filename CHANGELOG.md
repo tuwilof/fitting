@@ -1,5 +1,10 @@
 # Change log
 
+### 2.1.3 - 2017-08-07
+
+* bug fixes
+  * does not raise an exception if the whitelist is not used
+
 ### 2.1.2 - 2017-07-04
 
 * bug fixes
