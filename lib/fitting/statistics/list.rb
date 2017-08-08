@@ -7,6 +7,10 @@ module Fitting
         @cover_responses = 0
         @not_cover_responses = 0
         @max_response_path = 0
+        @coverage_fully = []
+        @coverage_non = []
+        @coverage_partially = []
+        @not_covered_responses = []
       end
 
       def all
@@ -117,10 +121,6 @@ module Fitting
       def check_responses
         return if @ready
 
-        @coverage_fully = []
-        @coverage_non = []
-        @coverage_partially = []
-        @not_covered_responses = []
         @requests.to_a.map do |request|
           if request.state == 'fully'
             @coverage_fully.push(request)
