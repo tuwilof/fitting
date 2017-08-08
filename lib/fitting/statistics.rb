@@ -2,6 +2,7 @@ require 'fitting/storage/white_list'
 require 'fitting/storage/documentation'
 require 'fitting/records/documented'
 require 'fitting/statistics/analysis'
+require 'fitting/statistics/measurement'
 
 module Fitting
   class Statistics
@@ -28,7 +29,7 @@ module Fitting
     end
 
     def not_covered
-      white_statistics.not_covered
+      Fitting::Statistics::NotCoveredResponses.new(white_measurement).to_s
     end
 
     def documented
@@ -43,11 +44,19 @@ module Fitting
     end
 
     def white_statistics
-      @white_statistics ||= Fitting::Statistics::Analysis.new(documented.requests.white)
+      @white_statistics ||= Fitting::Statistics::Analysis.new(white_measurement)
     end
 
     def black_statistics
-      @black_statistics ||= Fitting::Statistics::Analysis.new(documented.requests.black)
+      @black_statistics ||= Fitting::Statistics::Analysis.new(black_measurement)
+    end
+
+    def white_measurement
+      @white_measurement ||= Fitting::Statistics::Measurement.new(documented.requests.white)
+    end
+
+    def black_measurement
+      @black_measurement ||= Fitting::Statistics::Measurement.new(documented.requests.black)
     end
 
     def white_list
