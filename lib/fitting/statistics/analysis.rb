@@ -1,6 +1,7 @@
 require 'fitting/statistics/list'
 require 'fitting/statistics/requests_stats'
 require 'fitting/statistics/responses_stats'
+require 'fitting/statistics/great'
 
 module Fitting
   class Statistics
@@ -40,11 +41,7 @@ module Fitting
       end
 
       def great
-        if @cover_responses == @all_responses
-          'All responses are 100% valid! Great job!'
-        else
-          nil
-        end
+        Fitting::Statistics::Great.new(@cover_responses, @all_responses).to_s
       end
 
       def check_responses
