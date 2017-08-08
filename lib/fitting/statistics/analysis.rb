@@ -1,5 +1,6 @@
 require 'fitting/statistics/list'
 require 'fitting/statistics/requests_stats'
+require 'fitting/statistics/responses_stats'
 
 module Fitting
   class Statistics
@@ -35,10 +36,7 @@ module Fitting
       end
 
       def responses_stats
-        [
-          "API responses conforming to the blueprint: #{@cover_responses} (#{percent(@all_responses, @cover_responses)}% of #{@all_responses}).",
-          "API responses with validation errors or untested: #{@not_cover_responses} (#{percent(@all_responses, @not_cover_responses)}% of #{@all_responses})."
-        ].join("\n")
+        Fitting::Statistics::ResponsesStats.new(@cover_responses, @not_cover_responses, @all_responses).to_s
       end
 
       def great
@@ -47,11 +45,6 @@ module Fitting
         else
           nil
         end
-      end
-
-      def percent(divider, dividend)
-        return 0 if divider == 0
-        (dividend.to_f / divider.to_f * 100.0).round(2)
       end
 
       def check_responses
