@@ -1,4 +1,5 @@
 require 'fitting/statistics/list'
+require 'fitting/statistics/requests_stats'
 
 module Fitting
   class Statistics
@@ -30,11 +31,7 @@ module Fitting
       end
 
       def requests_stats
-        [
-          "API requests with fully implemented responses: #{@coverage_fully.size} (#{percent(@requests.size, @coverage_fully.size)}% of #{@requests.size}).",
-          "API requests with partially implemented responses: #{@coverage_partially.size} (#{percent(@requests.size, @coverage_partially.size)}% of #{@requests.size}).",
-          "API requests with no implemented responses: #{@coverage_non.size} (#{percent(@requests.size, @coverage_non.size)}% of #{@requests.size})."
-        ].join("\n")
+        Fitting::Statistics::RequestsStats.new(@coverage_fully, @coverage_partially, @coverage_non, @requests).to_s
       end
 
       def responses_stats
