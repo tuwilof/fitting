@@ -1,6 +1,6 @@
 module Fitting
   class Statistics
-    class List
+    class Analysis
       def initialize(requests)
         @requests = requests
         @all_responses = 0
