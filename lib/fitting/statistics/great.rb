@@ -1,9 +1,9 @@
 module Fitting
   class Statistics
     class Great
-      def initialize(cover_responses, all_responses)
-        @cover_responses = cover_responses
-        @all_responses = all_responses
+      def initialize(measurement)
+        @cover_responses = measurement.cover_responses
+        @all_responses = measurement.all_responses
       end
 
       def to_s

@@ -1,10 +1,10 @@
 module Fitting
   class Statistics
     class ResponsesStats
-      def initialize(cover_responses, not_cover_responses, all_responses)
-        @cover_responses = cover_responses
-        @not_cover_responses = not_cover_responses
-        @all_responses = all_responses
+      def initialize(measurement)
+        @cover_responses = measurement.cover_responses
+        @not_cover_responses = measurement.not_cover_responses
+        @all_responses = measurement.all_responses
       end
 
       def to_s

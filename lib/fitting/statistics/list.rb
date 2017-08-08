@@ -1,11 +1,11 @@
 module Fitting
   class Statistics
     class List
-      def initialize(coverage_fully, coverage_partially, coverage_non, max_response_path)
-        @coverage_fully = coverage_fully
-        @coverage_partially = coverage_partially
-        @coverage_non = coverage_non
-        @max_response_path = max_response_path
+      def initialize(measurement)
+        @coverage_fully = measurement.coverage_fully
+        @coverage_partially = measurement.coverage_partially
+        @coverage_non = measurement.coverage_non
+        @max_response_path = measurement.max_response_path
       end
 
       def to_s

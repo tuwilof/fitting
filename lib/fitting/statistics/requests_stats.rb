@@ -1,11 +1,11 @@
 module Fitting
   class Statistics
     class RequestsStats
-      def initialize(coverage_fully, coverage_partially, coverage_non, requests)
-        @coverage_fully = coverage_fully
-        @coverage_partially = coverage_partially
-        @coverage_non = coverage_non
-        @requests = requests
+      def initialize(measurement)
+        @coverage_fully = measurement.coverage_fully
+        @coverage_partially = measurement.coverage_partially
+        @coverage_non = measurement.coverage_non
+        @requests = measurement.requests
       end
 
       def to_s
