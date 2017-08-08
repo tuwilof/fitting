@@ -3,6 +3,7 @@ require 'fitting/statistics/requests_stats'
 require 'fitting/statistics/responses_stats'
 require 'fitting/statistics/great'
 require 'fitting/statistics/measurement'
+require 'fitting/statistics/not_covered_responses'
 
 module Fitting
   class Statistics
@@ -21,7 +22,7 @@ module Fitting
       end
 
       def not_covered
-        @measurement.not_covered_responses.join("\n") + "\n"
+        Fitting::Statistics::NotCoveredResponses.new(@measurement).to_s
       end
     end
   end
