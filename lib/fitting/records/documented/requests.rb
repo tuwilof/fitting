@@ -50,11 +50,11 @@ module Fitting
           @white = []
           @black = []
           @requests.map do |request|
-             if request.white
-               @white.push(request)
-             else
-               @black.push(request)
-             end
+            if request.white
+              @white.push(request)
+            else
+              @black.push(request)
+            end
           end
         end
       end

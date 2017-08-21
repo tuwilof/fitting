@@ -22,7 +22,7 @@ module Fitting
         else
           [
             'Fully conforming requests:',
-            craft(list_sort(@coverage_fully)),
+            craft(list_sort(@coverage_fully))
           ].join("\n")
         end
       end
@@ -33,7 +33,7 @@ module Fitting
         else
           [
             'Partially conforming requests:',
-            craft(list_sort(@coverage_partially)),
+            craft(list_sort(@coverage_partially))
           ].join("\n")
         end
       end
@@ -44,7 +44,7 @@ module Fitting
         else
           [
             'Non-conforming requests:',
-            craft(list_sort(@coverage_non)),
+            craft(list_sort(@coverage_non))
           ].join("\n")
         end
       end
@@ -63,7 +63,7 @@ module Fitting
 
       def responses_stat(request)
         tab = "\t" * ((@max_response_path - request.path.to_s.size / 8) + 3)
-        tab + request.responses.to_a.inject([]) do |res, response|
+        tab + request.responses.to_a.each_with_object([]) do |response, res|
           response.json_schemas.map do |json_schema|
             if json_schema.bodies == []
               res.push("✖ #{response.status}")
@@ -71,7 +71,6 @@ module Fitting
               res.push("✔ #{response.status}")
             end
           end
-          res
         end.join(' ')
       end
     end

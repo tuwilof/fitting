@@ -16,7 +16,7 @@ module Fitting
           Fitting::Statistics::List.new(@measurement).to_s,
           Fitting::Statistics::RequestsStats.new(@measurement).to_s,
           Fitting::Statistics::ResponsesStats.new(@measurement).to_s,
-          Fitting::Statistics::Great.new(@measurement).to_s,
+          Fitting::Statistics::Great.new(@measurement).to_s
         ].compact.join("\n\n")
       end
     end

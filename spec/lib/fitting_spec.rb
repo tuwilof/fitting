@@ -20,8 +20,8 @@ RSpec.describe Fitting do
       allow(described_class).to receive(:response).and_return(double(request: nil))
       allow(Fitting::Storage::Documentation).to receive(:tomogram).and_return(double(to_hash: nil))
       allow(Fitting::Storage::Responses).to receive(:new).and_return(double(
-                                                            add: nil,
-                                                            statistics: double(save: nil)
+                                                                       add: nil,
+                                                                       statistics: double(save: nil)
       ))
       expect { subject.statistics }.not_to raise_exception
     end

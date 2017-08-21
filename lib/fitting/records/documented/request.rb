@@ -59,13 +59,13 @@ module Fitting
             end
           end
 
-          if all == cover
-            @state = 'fully'
-          elsif all == not_cover
-            @state = 'non'
-          else
-            @state = 'partially'
-          end
+          @state = if all == cover
+                     'fully'
+                   elsif all == not_cover
+                     'non'
+                   else
+                     'partially'
+                   end
           @state
         end
 

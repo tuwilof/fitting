@@ -2,7 +2,7 @@ module Fitting
   class Statistics
     class Measurement
       attr_reader :requests, :all_responses, :cover_responses, :not_cover_responses, :max_response_path,
-        :coverage_fully, :coverage_non, :coverage_partially, :not_covered_responses
+                  :coverage_fully, :coverage_non, :coverage_partially, :not_covered_responses
 
       def initialize(requests)
         @requests = requests
