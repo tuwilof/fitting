@@ -3,9 +3,8 @@ require 'fitting/statistics/measurement'
 
 module Fitting
   class Statistics
-    def initialize(tested, source_documented)
-      @tested = tested
-      @source_documented = source_documented
+    def initialize(documented)
+      @documented = documented
     end
 
     def save
@@ -15,7 +14,7 @@ module Fitting
     end
 
     def stats
-      if documented.requests.to_a.size > documented.requests.white.size
+      if @documented.requests.to_a.size > @documented.requests.white.size
         [
           ['[Black list]', black_statistics.all].join("\n"),
           ['[White list]', white_statistics.all].join("\n"),
@@ -30,14 +29,6 @@ module Fitting
       Fitting::Statistics::NotCoveredResponses.new(white_measurement).to_s
     end
 
-    def documented
-      return @documented if @documented
-
-      @documented = @source_documented
-      @documented.join(@tested)
-      @documented
-    end
-
     def white_statistics
       @white_statistics ||= Fitting::Statistics::Analysis.new(white_measurement)
     end
@@ -47,11 +38,11 @@ module Fitting
     end
 
     def white_measurement
-      @white_measurement ||= Fitting::Statistics::Measurement.new(documented.requests.white)
+      @white_measurement ||= Fitting::Statistics::Measurement.new(@documented.requests.white)
     end
 
     def black_measurement
-      @black_measurement ||= Fitting::Statistics::Measurement.new(documented.requests.black)
+      @black_measurement ||= Fitting::Statistics::Measurement.new(@documented.requests.black)
     end
   end
 end

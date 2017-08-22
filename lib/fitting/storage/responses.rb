@@ -16,7 +16,8 @@ module Fitting
       end
 
       def statistics
-        Fitting::Statistics.new(@tested, documented)
+        documented.join(@tested)
+        Fitting::Statistics.new(documented)
       end
 
       def documented
