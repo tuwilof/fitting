@@ -6,17 +6,14 @@ module Fitting
     class Documented
       attr_reader :requests, :responses
 
-      def initialize(tomogram)
+      def initialize(tomogram, white_list)
         @responses = Fitting::Records::Documented::Responses.new
         @requests = Fitting::Records::Documented::Requests.new(tomogram, @responses)
+        @requests.joind_white_list(white_list)
       end
 
       def join(tested)
         @requests.join(tested.requests)
-      end
-
-      def joind_white_list(white_list)
-        @requests.joind_white_list(white_list)
       end
     end
   end

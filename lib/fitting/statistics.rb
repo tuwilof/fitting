@@ -1,13 +1,11 @@
-require 'fitting/storage/white_list'
-require 'fitting/storage/documentation'
-require 'fitting/records/documented'
 require 'fitting/statistics/analysis'
 require 'fitting/statistics/measurement'
 
 module Fitting
   class Statistics
-    def initialize(tested)
+    def initialize(tested, source_documented)
       @tested = tested
+      @source_documented = source_documented
     end
 
     def save
@@ -35,10 +33,7 @@ module Fitting
     def documented
       return @documented if @documented
 
-      @documented = Fitting::Records::Documented.new(
-        Fitting::Storage::Documentation.tomogram.to_hash
-      )
-      @documented.joind_white_list(white_list)
+      @documented = @source_documented
       @documented.join(@tested)
       @documented
     end
@@ -57,14 +52,6 @@ module Fitting
 
     def black_measurement
       @black_measurement ||= Fitting::Statistics::Measurement.new(documented.requests.black)
-    end
-
-    def white_list
-      Fitting::Storage::WhiteList.new(
-        Fitting.configuration.white_list,
-        Fitting.configuration.resource_white_list,
-        Fitting::Storage::Documentation.tomogram.to_resources
-      ).to_a
     end
   end
 end
