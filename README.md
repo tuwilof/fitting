@@ -162,6 +162,16 @@ config.resource_white_list = {
 
 Empty array `[]` means all methods.
 
+### ignore_list
+
+You can use ignore list for omit checks with matchers.
+
+```ruby
+config.ignore_list = [%r{/api/v1/users/[1-9].}, %r{/api/v1/comments}]
+```
+
+It's work only for match_schema (NOT FOR strictly_match_schema)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/funbox/fitting. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
