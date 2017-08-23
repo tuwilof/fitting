@@ -54,6 +54,10 @@ module Fitting
       end.join("\n\n")
     end
 
+    def ignored?(ignore_list)
+      @request.ignored?(ignore_list)
+    end
+
     private
 
     def index

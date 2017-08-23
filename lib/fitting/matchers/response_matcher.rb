@@ -10,6 +10,7 @@ module Fitting
           response,
           Fitting::Storage::Documentation.tomogram
         )
+        return true if @response.ignored?(Fitting.configuration.ignore_list)
         if @response.within_prefix?(Fitting.configuration.prefix)
           @response.fully_validates.valid?
         else

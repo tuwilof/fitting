@@ -29,5 +29,11 @@ module Fitting
     def within_prefix?(prefix)
       @path.start_with?(prefix)
     end
+
+    def ignored?(ignore_list)
+      ignore_list.any? do |regexp|
+        regexp.match(@path)
+      end
+    end
   end
 end
