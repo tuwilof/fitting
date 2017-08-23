@@ -22,9 +22,10 @@ RSpec.describe Fitting::Matchers::Response do
   let(:response) { double(fully_validates: double(valid?: true), within_prefix?: true) }
 
   before do
+    allow(response).to receive(:ignored?).and_return(false)
     allow(Fitting::Storage::Documentation).to receive(:tomogram)
     allow(Fitting::Response).to receive(:new).and_return(response)
-    allow(Fitting).to receive(:configuration).and_return(double(prefix: ''))
+    allow(Fitting).to receive(:configuration).and_return(double(prefix: '', ignore_list: []))
   end
 
   describe '#matches?' do
@@ -34,6 +35,16 @@ RSpec.describe Fitting::Matchers::Response do
 
     context 'within_prefix? false' do
       let(:response) { double(fully_validates: double(valid?: true), within_prefix?: false) }
+
+      it 'returns true' do
+        expect(subject.matches?(nil)).to be_truthy
+      end
+    end
+
+    context 'path ignored' do
+      before do
+        allow(response).to receive(:ignored?).and_return(true)
+      end
 
       it 'returns true' do
         expect(subject.matches?(nil)).to be_truthy

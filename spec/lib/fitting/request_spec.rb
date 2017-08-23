@@ -34,4 +34,14 @@ RSpec.describe Fitting::Request do
       expect(subject.within_prefix?('')).to be_truthy
     end
   end
+
+  describe '#ignored?' do
+    it 'matchs with ignore list' do
+      expect(subject.ignored?([/path/])).to eq(true)
+    end
+
+    it 'does not matchs with ignore list' do
+      expect(subject.ignored?([/smthing/])).to eq(false)
+    end
+  end
 end
