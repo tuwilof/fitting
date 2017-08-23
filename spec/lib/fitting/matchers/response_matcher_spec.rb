@@ -27,8 +27,6 @@ RSpec.describe Fitting::Matchers::Response do
     allow(Fitting).to receive(:configuration).and_return(double(prefix: ''))
   end
 
-  subject { described_class.new }
-
   describe '#matches?' do
     it 'returns true' do
       expect(subject.matches?(nil)).to be_truthy
