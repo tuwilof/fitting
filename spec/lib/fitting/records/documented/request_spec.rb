@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'fitting/records/documented/request'
 
 RSpec.describe Fitting::Records::Documented::Request do
-  subject { described_class.new(tomogram_request) }
+  subject { described_class.new(tomogram_request, white_list) }
 
   let(:tomogram_request) do
     {
@@ -11,6 +11,7 @@ RSpec.describe Fitting::Records::Documented::Request do
       'json_schema' => nil
     }
   end
+  let(:white_list) { double(to_a: nil) }
 
   describe '#add_responses' do
     let(:tomogram_responses) { [double, double] }

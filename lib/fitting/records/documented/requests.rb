@@ -5,9 +5,9 @@ module Fitting
   class Records
     class Documented
       class Requests
-        def initialize(tomogram, responses)
+        def initialize(tomogram, responses, white_list)
           @requests = tomogram.inject([]) do |requests, tomogram_request|
-            request = Fitting::Records::Documented::Request.new(tomogram_request)
+            request = Fitting::Records::Documented::Request.new(tomogram_request, white_list)
             request.add_responses(tomogram_request['responses'], responses)
             requests.push(request)
           end
@@ -25,12 +25,6 @@ module Fitting
               tested_request.join(documented_request)
               documented_request.join(tested_request)
             end
-          end
-        end
-
-        def joind_white_list(white_list)
-          @requests.map do |request|
-            request.joind_white_list(white_list.to_a)
           end
         end
 

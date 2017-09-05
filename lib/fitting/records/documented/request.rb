@@ -6,12 +6,13 @@ module Fitting
       class Request
         attr_reader :method, :path, :json_schema, :responses, :tested_requests, :white
 
-        def initialize(tomogram_request)
+        def initialize(tomogram_request, white_list)
           @method = tomogram_request['method']
           @path = tomogram_request['path']
           @json_schema = tomogram_request['json_schema']
           @tested_requests = []
           @white = false
+          joind_white_list(white_list.to_a)
         end
 
         def add_responses(tomogram_responses, responses)
@@ -30,6 +31,8 @@ module Fitting
           end
         end
 
+        private
+
         def joind_white_list(white_list)
           if white_list == nil
             @white = true
@@ -40,8 +43,6 @@ module Fitting
 
           @white = true if white_list[@path.to_s] == [] || white_list[@path.to_s].include?(@method)
         end
-
-        private
 
         def tomogram_responses(tomogram_response, request_responses)
           response = Fitting::Records::Documented::Response.new(tomogram_response, self)
