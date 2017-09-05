@@ -41,34 +41,6 @@ module Fitting
           @white = true if white_list[@path.to_s] == [] || white_list[@path.to_s].include?(@method)
         end
 
-        def state
-          return @state unless @state == nil
-
-          all = 0
-          cover = 0
-          not_cover = 0
-
-          @responses.map do |response|
-            response.json_schemas.map do |json_schema|
-              all += 1
-              if json_schema.bodies == []
-                not_cover += 1
-              else
-                cover += 1
-              end
-            end
-          end
-
-          @state = if all == cover
-                     'fully'
-                   elsif all == not_cover
-                     'non'
-                   else
-                     'partially'
-                   end
-          @state
-        end
-
         private
 
         def tomogram_responses(tomogram_response, request_responses)

@@ -21,13 +21,30 @@ module Fitting
         return if @ready
 
         @requests.to_a.map do |request|
-          if request.state == 'fully'
-            @coverage_fully.push(request)
-          elsif request.state == 'partially'
-            @coverage_partially.push(request)
-          elsif request.state == 'non'
-            @coverage_non.push(request)
+
+          all = 0
+          cover = 0
+          not_cover = 0
+
+          request.responses.map do |response|
+            response.json_schemas.map do |json_schema|
+              all += 1
+              if json_schema.bodies == []
+                not_cover += 1
+              else
+                cover += 1
+              end
+            end
           end
+
+          if all == cover
+            @coverage_fully.push(request)
+          elsif all == not_cover
+            @coverage_non.push(request)
+          else
+            @coverage_partially.push(request)
+          end
+
           if request.path.to_s.size / 8 > @max_response_path
             @max_response_path = request.path.to_s.size / 8
           end
