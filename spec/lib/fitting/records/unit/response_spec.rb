@@ -37,9 +37,9 @@ RSpec.describe Fitting::Records::Unit::Response do
     let(:body3) { double }
     let(:tested_responses) do
       [
-        double(status: 200, body: double(to_s: body1)),
-        double(status: 200, body: double(to_s: body2)),
-        double(status: 400, body: double(to_s: body3))
+        double(status: 200, body: body1),
+        double(status: 200, body: body2),
+        double(status: 400, body: body3)
       ]
     end
 
