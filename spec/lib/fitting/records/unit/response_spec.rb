@@ -16,7 +16,7 @@ RSpec.describe Fitting::Records::Unit::Response do
 
   describe '#json_schemas' do
     let(:status) { double }
-    let(:documented_response) { double(json_schemas: [double(to_h: double)]) }
+    let(:documented_response) { double(json_schemas: [double]) }
     let(:tested_responses) { double }
     let(:json_schema) { double }
 

@@ -1,5 +1,3 @@
-require 'fitting/records/documented/json_schema'
-
 module Fitting
   class Records
     class Documented
@@ -14,8 +12,7 @@ module Fitting
         end
 
         def add_json_schema(tomogram_response)
-          json_schema = Fitting::Records::Documented::JsonSchema.new(tomogram_response['body'])
-          @json_schemas.push(json_schema)
+          @json_schemas.push(tomogram_response['body'])
         end
       end
     end

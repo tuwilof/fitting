@@ -15,7 +15,7 @@ module Fitting
 
         def json_schemas
           @json_schemas ||= @documented_response.json_schemas.inject([]) do |res, documented_json_schema|
-            res.push(Fitting::Records::Unit::JsonSchema.new(documented_json_schema.to_h, tested_bodies))
+            res.push(Fitting::Records::Unit::JsonSchema.new(documented_json_schema, tested_bodies))
           end
         end
 
