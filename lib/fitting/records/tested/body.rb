@@ -9,10 +9,6 @@ module Fitting
           @json_schemas = []
         end
 
-        def add_json_schema(json_schema)
-          @json_schemas.push(json_schema)
-        end
-
         def to_s
           @body
         end
