@@ -44,7 +44,7 @@ RSpec.describe Fitting::Records::Unit::Request do
     let(:response) { double }
     let(:tested_request1) { double(method: 200, path: double(to_s: nil), responses: double(to_a: [response])) }
     let(:tested_request2) { double(method: 400, path: double(to_s: nil)) }
-    let(:tested_requests) { double(to_a: [tested_request1, tested_request2]) }
+    let(:tested_requests) { [tested_request1, tested_request2] }
 
     it 'returns tested_responses' do
       expect(subject.tested_responses).to eq([response])

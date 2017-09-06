@@ -1,4 +1,3 @@
-require 'fitting/records/tested/requests'
 require 'fitting/records/tested/request'
 require 'fitting/records/tested/response'
 
@@ -8,14 +7,14 @@ module Fitting
       attr_reader :requests
 
       def initialize
-        @requests = Fitting::Records::Tested::Requests.new
+        @requests = []
       end
 
       def add(env_response)
         request = Fitting::Records::Tested::Request.new(env_response.request)
         response = Fitting::Records::Tested::Response.new(env_response, request)
         request.add_response(response)
-        @requests.find_or_add(request)
+        @requests.push(request)
       end
     end
   end
