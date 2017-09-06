@@ -1,22 +1,22 @@
-require 'fitting/records/tested'
 require 'fitting/statistics'
 require 'fitting/storage/white_list'
 require 'fitting/storage/documentation'
 require 'fitting/records/documented'
+require 'fitting/records/tested/request'
 
 module Fitting
   module Storage
     class Responses
       def initialize
-        @tested = Fitting::Records::Tested.new
+        @tested_requests = []
       end
 
       def add(env_response)
-        @tested.add(env_response)
+        @tested_requests.push(Fitting::Records::Tested::Request.new(env_response))
       end
 
       def statistics
-        Fitting::Statistics.new(documented, @tested)
+        Fitting::Statistics.new(documented, @tested_requests)
       end
 
       def documented
