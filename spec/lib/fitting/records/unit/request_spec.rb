@@ -42,7 +42,7 @@ RSpec.describe Fitting::Records::Unit::Request do
   describe '#tested_responses' do
     let(:documented_request) { double(method: 200, path: double(match: true)) }
     let(:response) { double }
-    let(:tested_request1) { double(method: 200, path: double(to_s: nil), responses: double(to_a: [response])) }
+    let(:tested_request1) { double(method: 200, path: double(to_s: nil), response: response) }
     let(:tested_request2) { double(method: 400, path: double(to_s: nil)) }
     let(:tested_requests) { [tested_request1, tested_request2] }
 
