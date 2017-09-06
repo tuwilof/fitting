@@ -4,8 +4,8 @@ require 'fitting/records/unit'
 
 module Fitting
   class Statistics
-    def initialize(documented, tested_requests)
-      @documented = documented
+    def initialize(documented_requests, tested_requests)
+      @documented_requests = documented_requests
       @tested_requests = tested_requests
     end
 
@@ -16,7 +16,7 @@ module Fitting
     end
 
     def stats
-      if @documented.requests.to_a.size > @documented.requests.white.size
+      if @documented_requests.to_a.size > @documented_requests.white.size
         [
           ['[Black list]', black_statistics.all].join("\n"),
           ['[White list]', white_statistics.all].join("\n"),
@@ -48,11 +48,11 @@ module Fitting
     end
 
     def white_unit
-      @white_unit ||= Fitting::Records::Unit.new(@documented.requests.white, @tested_requests)
+      @white_unit ||= Fitting::Records::Unit.new(@documented_requests.white, @tested_requests)
     end
 
     def black_unit
-      @black_unit ||= Fitting::Records::Unit.new(@documented.requests.black, @tested_requests)
+      @black_unit ||= Fitting::Records::Unit.new(@documented_requests.black, @tested_requests)
     end
   end
 end

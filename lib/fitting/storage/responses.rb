@@ -1,8 +1,8 @@
 require 'fitting/statistics'
 require 'fitting/storage/white_list'
 require 'fitting/storage/documentation'
-require 'fitting/records/documented'
 require 'fitting/records/tested/request'
+require 'fitting/records/documented/requests'
 
 module Fitting
   module Storage
@@ -20,7 +20,7 @@ module Fitting
       end
 
       def documented
-        @documented ||= Fitting::Records::Documented.new(tomogram, white_list)
+        @documented_requests ||= Fitting::Records::Documented::Requests.new(tomogram, white_list)
       end
 
       def tomogram
