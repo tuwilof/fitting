@@ -4,13 +4,12 @@ module Fitting
   class Records
     class Documented
       class Request
-        attr_reader :method, :path, :json_schema, :responses, :tested_requests, :white
+        attr_reader :method, :path, :json_schema, :responses, :white
 
         def initialize(tomogram_request, white_list)
           @method = tomogram_request['method']
           @path = tomogram_request['path']
           @json_schema = tomogram_request['json_schema']
-          @tested_requests = []
           @white = false
           joind_white_list(white_list.to_a)
         end
