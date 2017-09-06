@@ -5,7 +5,7 @@ RSpec.describe Fitting::Records::Unit do
   subject { described_class.new(documented_requests, tested_requests) }
 
   describe '#requests' do
-    let(:documented_requests) { double(to_a: [double]) }
+    let(:documented_requests) { [double] }
     let(:tested_requests) { double }
     let(:request) { double }
 

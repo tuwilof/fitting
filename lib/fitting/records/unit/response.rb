@@ -15,14 +15,14 @@ module Fitting
 
         def json_schemas
           @json_schemas ||= @documented_response.json_schemas.inject([]) do |res, documented_json_schema|
-            res.push(Fitting::Records::Unit::JsonSchema.new(documented_json_schema, tested_bodies))
+            res.push(Fitting::Records::Unit::JsonSchema.new(documented_json_schema.to_h, tested_bodies))
           end
         end
 
         def tested_bodies
           @tested_bodies ||= @tested_responses.inject([]) do |res, tested_response|
             next res unless status == tested_response.status.to_s
-            res.push(tested_response.body)
+            res.push(tested_response.body.to_s)
           end
         end
       end

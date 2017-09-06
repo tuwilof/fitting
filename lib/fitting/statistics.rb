@@ -1,10 +1,12 @@
 require 'fitting/statistics/analysis'
 require 'fitting/statistics/measurement'
+require 'fitting/records/unit'
 
 module Fitting
   class Statistics
-    def initialize(documented)
+    def initialize(documented, tested)
       @documented = documented
+      @tested = tested
     end
 
     def save
@@ -38,11 +40,19 @@ module Fitting
     end
 
     def white_measurement
-      @white_measurement ||= Fitting::Statistics::Measurement.new(@documented.requests.white)
+      @white_measurement ||= Fitting::Statistics::Measurement.new(white_unit)
     end
 
     def black_measurement
-      @black_measurement ||= Fitting::Statistics::Measurement.new(@documented.requests.black)
+      @black_measurement ||= Fitting::Statistics::Measurement.new(black_unit)
+    end
+
+    def white_unit
+      @white_unit ||= Fitting::Records::Unit.new(@documented.requests.white, @tested.requests)
+    end
+
+    def black_unit
+      @black_unit ||= Fitting::Records::Unit.new(@documented.requests.black, @tested.requests)
     end
   end
 end

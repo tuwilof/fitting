@@ -16,7 +16,7 @@ RSpec.describe Fitting::Records::Unit::Response do
 
   describe '#json_schemas' do
     let(:status) { double }
-    let(:documented_response) { double(json_schemas: [double]) }
+    let(:documented_response) { double(json_schemas: [double(to_h: double)]) }
     let(:tested_responses) { double }
     let(:json_schema) { double }
 
@@ -37,9 +37,9 @@ RSpec.describe Fitting::Records::Unit::Response do
     let(:body3) { double }
     let(:tested_responses) do
       [
-        double(status: 200, body: body1),
-        double(status: 200, body: body2),
-        double(status: 400, body: body3)
+        double(status: 200, body: double(to_s: body1)),
+        double(status: 200, body: double(to_s: body2)),
+        double(status: 400, body: double(to_s: body3))
       ]
     end
 
