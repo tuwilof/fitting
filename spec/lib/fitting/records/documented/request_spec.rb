@@ -25,23 +25,4 @@ RSpec.describe Fitting::Records::Documented::Request do
       expect { subject.add_responses(tomogram_responses, responses) }.not_to raise_exception
     end
   end
-
-  describe '#join' do
-    let(:tested_request) { double(responses: nil) }
-
-    before do
-      allow(Fitting::Records::Documented::Response).to receive(:new).and_return(double(status: nil, add_json_schema: nil, join: nil))
-      subject.add_responses([double], double(add_responses: nil))
-    end
-
-    it 'does not rais exception' do
-      expect { subject.join(tested_request) }.not_to raise_exception
-    end
-  end
-
-  describe '#joind_white_list' do
-  end
-
-  describe '#state' do
-  end
 end

@@ -17,16 +17,6 @@ module Fitting
           json_schema = Fitting::Records::Documented::JsonSchema.new(tomogram_response['body'])
           @json_schemas.push(json_schema)
         end
-
-        def join(tested_responses)
-          tested_responses.map do |tested_response|
-            next unless status == tested_response.status.to_s
-            @tested_responses.push(tested_response)
-            @json_schemas.map do |json_schema|
-              json_schema.join(tested_response.body)
-            end
-          end
-        end
       end
     end
   end

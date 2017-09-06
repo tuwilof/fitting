@@ -16,10 +16,6 @@ module Fitting
         def add_response(response)
           @responses.push(response)
         end
-
-        def join(documented_request)
-          @documented_request = documented_request
-        end
       end
     end
   end
