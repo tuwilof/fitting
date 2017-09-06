@@ -15,12 +15,11 @@ module Fitting
           joind_white_list(white_list.to_a)
         end
 
-        def add_responses(tomogram_responses, responses)
+        def add_responses(tomogram_responses)
           request_responses = []
           tomogram_responses.map do |tomogram_response|
             tomogram_responses(tomogram_response, request_responses)
           end
-          responses.add_responses(request_responses)
           @responses = request_responses
         end
 
