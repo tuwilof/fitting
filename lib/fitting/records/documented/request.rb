@@ -2,12 +2,9 @@ module Fitting
   class Records
     class Documented
       class Request
-        attr_reader :white
-
         def initialize(tomogram_request, white_list)
           @tomogram_request = tomogram_request
-          @white = false
-          joind_white_list(white_list.to_a)
+          @white_list = white_list
         end
 
         def method
@@ -33,17 +30,18 @@ module Fitting
           end
         end
 
-        private
-
-        def joind_white_list(white_list)
-          if white_list == nil
-            @white = true
-            return
+        def white
+          @white ||= if @white_list == nil
+            true
+          elsif @white_list[path.to_s] == nil
+            false
+          elsif @white_list[path.to_s] == []
+            true
+          elsif @white_list[path.to_s].include?(method)
+            true
+          else
+            false
           end
-
-          return if white_list[path.to_s] == nil
-
-          @white = true if white_list[path.to_s] == [] || white_list[path.to_s].include?(method)
         end
       end
     end

@@ -21,7 +21,7 @@ module Fitting
 
       def documented
         @documented_requests ||= tomogram.inject([]) do |res, tomogram_request|
-          res.push(Fitting::Records::Documented::Request.new(tomogram_request, white_list))
+          res.push(Fitting::Records::Documented::Request.new(tomogram_request, white_list.to_a))
         end
       end
 
