@@ -2,10 +2,9 @@ require 'spec_helper'
 require 'fitting/records/documented/response'
 
 RSpec.describe Fitting::Records::Documented::Response do
-  subject { described_class.new(tomogram_response, request) }
+  subject { described_class.new(tomogram_response) }
 
   let(:tomogram_response) { double }
-  let(:request) { double }
 
   describe '#add_json_schema' do
     let(:tomogram_response) { {'body' => nil} }

@@ -36,7 +36,7 @@ module Fitting
         end
 
         def tomogram_responses(tomogram_response, request_responses)
-          response = Fitting::Records::Documented::Response.new(tomogram_response, self)
+          response = Fitting::Records::Documented::Response.new(tomogram_response)
           exist_response = request_responses.find do |old_response|
             old_response.status == response.status
           end

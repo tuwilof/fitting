@@ -4,10 +4,9 @@ module Fitting
       class Response
         attr_reader :status, :json_schemas
 
-        def initialize(tomogram_response, request)
+        def initialize(tomogram_response)
           @status = tomogram_response['status'].to_s
           @json_schemas = []
-          @request = request
         end
 
         def add_json_schema(tomogram_response)
