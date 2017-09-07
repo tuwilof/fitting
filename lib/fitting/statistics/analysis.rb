@@ -11,7 +11,7 @@ module Fitting
         @measurement = measurement
       end
 
-      def all
+      def to_s
         [
           Fitting::Statistics::List.new(@measurement).to_s,
           Fitting::Statistics::RequestsStats.new(@measurement).to_s,

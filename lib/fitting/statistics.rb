@@ -18,12 +18,12 @@ module Fitting
     def stats
       if @documented_requests.to_a.size > documented_requests_white.size
         [
-          ['[Black list]', black_statistics.all].join("\n"),
-          ['[White list]', white_statistics.all].join("\n"),
+          ['[Black list]', black_statistics].join("\n"),
+          ['[White list]', white_statistics].join("\n"),
           ''
         ].join("\n\n")
       else
-        [white_statistics.all, "\n\n"].join
+        [white_statistics, "\n\n"].join
       end
     end
 
