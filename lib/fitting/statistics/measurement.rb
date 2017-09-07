@@ -5,7 +5,7 @@ module Fitting
                   :coverage_fully, :coverage_non, :coverage_partially, :not_covered_responses
 
       def initialize(unit)
-        @requests = unit.requests
+        @requests = unit
         @all_responses = 0
         @cover_responses = 0
         @not_cover_responses = 0

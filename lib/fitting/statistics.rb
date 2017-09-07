@@ -1,6 +1,6 @@
 require 'fitting/statistics/analysis'
 require 'fitting/statistics/measurement'
-require 'fitting/records/unit'
+require 'fitting/records/unit/request'
 
 module Fitting
   class Statistics
@@ -48,11 +48,15 @@ module Fitting
     end
 
     def white_unit
-      @white_unit ||= Fitting::Records::Unit.new(documented_requests_white, @tested_requests)
+      @white_unit_requests ||= documented_requests_white.inject([]) do |res, documented_request|
+        res.push(Fitting::Records::Unit::Request.new(documented_request, @tested_requests))
+      end
     end
 
     def black_unit
-      @black_unit ||= Fitting::Records::Unit.new(documented_requests_black, @tested_requests)
+      @black_unit_requests ||= documented_requests_black.inject([]) do |res, documented_request|
+        res.push(Fitting::Records::Unit::Request.new(documented_request, @tested_requests))
+      end
     end
 
     def documented_requests_white
