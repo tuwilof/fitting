@@ -11,6 +11,7 @@ module Fitting
           @path = tomogram_request['path']
           @json_schema = tomogram_request['json_schema']
           @white = false
+          @responses = []
           joind_white_list(white_list.to_a)
         end
 
@@ -23,11 +24,12 @@ module Fitting
         end
 
         def add_responses(tomogram_responses)
-          request_responses = []
-          tomogram_responses.map do |tomogram_response|
-            tomogram_responses(tomogram_response, request_responses)
+          grouping_responses = grouping(tomogram_responses)
+          grouping_responses.map do |status, json_schemas|
+            @responses.push(
+              Fitting::Records::Documented::Response.new(status, json_schemas)
+            )
           end
-          @responses = request_responses
         end
 
         private
@@ -41,19 +43,6 @@ module Fitting
           return if white_list[@path.to_s] == nil
 
           @white = true if white_list[@path.to_s] == [] || white_list[@path.to_s].include?(@method)
-        end
-
-        def tomogram_responses(tomogram_response, request_responses)
-          response = Fitting::Records::Documented::Response.new(tomogram_response)
-          exist_response = request_responses.find do |old_response|
-            old_response.status == response.status
-          end
-          if exist_response
-            exist_response.add_json_schema(tomogram_response)
-          else
-            response.add_json_schema(tomogram_response)
-            request_responses.push(response)
-          end
         end
       end
     end

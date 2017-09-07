@@ -13,18 +13,6 @@ RSpec.describe Fitting::Records::Documented::Request do
   end
   let(:white_list) { double(to_a: nil) }
 
-  describe '#add_responses' do
-    let(:tomogram_responses) { [double, double] }
-
-    before do
-      allow(Fitting::Records::Documented::Response).to receive(:new).and_return(double(status: nil, add_json_schema: nil))
-    end
-
-    it 'does not rais exception' do
-      expect { subject.add_responses(tomogram_responses) }.not_to raise_exception
-    end
-  end
-
   describe '#grouping' do
     it 'returns grouping' do
       expect(subject.grouping(

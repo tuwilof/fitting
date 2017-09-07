@@ -2,15 +2,20 @@ require 'spec_helper'
 require 'fitting/records/documented/response'
 
 RSpec.describe Fitting::Records::Documented::Response do
-  subject { described_class.new(tomogram_response) }
+  subject { described_class.new(status, json_schemas) }
 
-  let(:tomogram_response) { double }
+  let(:status) { double }
+  let(:json_schemas) { double }
 
-  describe '#add_json_schema' do
-    let(:tomogram_response) { {'body' => nil} }
+  describe '#status' do
+    it 'returns status' do
+      expect(subject.status).to eq(status)
+    end
+  end
 
-    it 'does not rais exception' do
-      expect { subject.add_json_schema(tomogram_response) }.not_to raise_exception
+  describe '#json_schemas' do
+    it 'returns json_schemas' do
+      expect(subject.json_schemas).to eq(json_schemas)
     end
   end
 end
