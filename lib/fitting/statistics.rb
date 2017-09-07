@@ -56,13 +56,13 @@ module Fitting
     end
 
     def documented_requests_white
-      @documented_requests_white ||= @documented_requests.to_a.find_all do |request|
+      @documented_requests_white ||= @documented_requests.find_all do |request|
         request.white
       end
     end
 
     def documented_requests_black
-      @documented_requests_black ||= @documented_requests.to_a.find_all do |request|
+      @documented_requests_black ||= @documented_requests.find_all do |request|
         !request.white
       end
     end

@@ -2,7 +2,7 @@ require 'fitting/statistics'
 require 'fitting/storage/white_list'
 require 'fitting/storage/documentation'
 require 'fitting/records/tested/request'
-require 'fitting/records/documented/requests'
+require 'fitting/records/documented/request'
 
 module Fitting
   module Storage
@@ -20,7 +20,9 @@ module Fitting
       end
 
       def documented
-        @documented_requests ||= Fitting::Records::Documented::Requests.new(tomogram, white_list)
+        @documented_requests ||= tomogram.inject([]) do |res, tomogram_request|
+          res.push(Fitting::Records::Documented::Request.new(tomogram_request, white_list))
+        end
       end
 
       def tomogram
