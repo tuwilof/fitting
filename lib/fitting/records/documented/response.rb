@@ -2,13 +2,12 @@ module Fitting
   class Records
     class Documented
       class Response
-        attr_reader :status, :json_schemas, :tested_responses
+        attr_reader :status, :json_schemas
 
         def initialize(tomogram_response, request)
           @status = tomogram_response['status']
           @json_schemas = []
           @request = request
-          @tested_responses = []
         end
 
         def add_json_schema(tomogram_response)
