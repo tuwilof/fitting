@@ -15,30 +15,6 @@ module Fitting
         def to_a
           @requests
         end
-
-        def white
-          return @white if @white
-          find
-          @white
-        end
-
-        def black
-          return @black if @black
-          find
-          @black
-        end
-
-        def find
-          @white = []
-          @black = []
-          @requests.map do |request|
-            if request.white
-              @white.push(request)
-            else
-              @black.push(request)
-            end
-          end
-        end
       end
     end
   end

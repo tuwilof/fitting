@@ -16,7 +16,7 @@ module Fitting
     end
 
     def stats
-      if @documented_requests.to_a.size > @documented_requests.white.size
+      if @documented_requests.to_a.size > documented_requests_white.size
         [
           ['[Black list]', black_statistics.all].join("\n"),
           ['[White list]', white_statistics.all].join("\n"),
@@ -48,11 +48,23 @@ module Fitting
     end
 
     def white_unit
-      @white_unit ||= Fitting::Records::Unit.new(@documented_requests.white, @tested_requests)
+      @white_unit ||= Fitting::Records::Unit.new(documented_requests_white, @tested_requests)
     end
 
     def black_unit
-      @black_unit ||= Fitting::Records::Unit.new(@documented_requests.black, @tested_requests)
+      @black_unit ||= Fitting::Records::Unit.new(documented_requests_black, @tested_requests)
+    end
+
+    def documented_requests_white
+      @documented_requests_white ||= @documented_requests.to_a.find_all do |request|
+        request.white
+      end
+    end
+
+    def documented_requests_black
+      @documented_requests_black ||= @documented_requests.to_a.find_all do |request|
+        !request.white
+      end
     end
   end
 end
