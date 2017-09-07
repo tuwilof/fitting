@@ -2,10 +2,7 @@ module Fitting
   class Statistics
     class List
       def initialize(measurement)
-        @coverage_fully = measurement.coverage_fully
-        @coverage_partially = measurement.coverage_partially
-        @coverage_non = measurement.coverage_non
-        @max_response_path = measurement.max_response_path
+        @measurement = measurement
       end
 
       def to_s
@@ -17,34 +14,34 @@ module Fitting
       end
 
       def coverage_fully_stat
-        if @coverage_fully == []
+        if @measurement.coverage_fully == []
           nil
         else
           [
             'Fully conforming requests:',
-            craft(list_sort(@coverage_fully))
+            craft(list_sort(@measurement.coverage_fully))
           ].join("\n")
         end
       end
 
       def coverage_partially_stat
-        if @coverage_partially == []
+        if @measurement.coverage_partially == []
           nil
         else
           [
             'Partially conforming requests:',
-            craft(list_sort(@coverage_partially))
+            craft(list_sort(@measurement.coverage_partially))
           ].join("\n")
         end
       end
 
       def coverage_non_stat
-        if @coverage_non == []
+        if @measurement.coverage_non == []
           nil
         else
           [
             'Non-conforming requests:',
-            craft(list_sort(@coverage_non))
+            craft(list_sort(@measurement.coverage_non))
           ].join("\n")
         end
       end
@@ -62,7 +59,7 @@ module Fitting
       end
 
       def responses_stat(request)
-        tab = "\t" * ((@max_response_path - request.path.to_s.size / 8) + 3)
+        tab = "\t" * ((@measurement.max_response_path - request.path.to_s.size / 8) + 3)
         tab + request.responses.to_a.each_with_object([]) do |response, res|
           response.json_schemas.map do |json_schema|
             if json_schema.bodies == []

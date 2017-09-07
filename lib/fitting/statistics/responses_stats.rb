@@ -2,15 +2,13 @@ module Fitting
   class Statistics
     class ResponsesStats
       def initialize(measurement)
-        @cover_responses = measurement.cover_responses
-        @not_cover_responses = measurement.not_cover_responses
-        @all_responses = measurement.all_responses
+        @measurement = measurement
       end
 
       def to_s
         [
-          "API responses conforming to the blueprint: #{@cover_responses} (#{percent(@all_responses, @cover_responses)}% of #{@all_responses}).",
-          "API responses with validation errors or untested: #{@not_cover_responses} (#{percent(@all_responses, @not_cover_responses)}% of #{@all_responses})."
+          "API responses conforming to the blueprint: #{@measurement.cover_responses} (#{percent(@measurement.all_responses, @measurement.cover_responses)}% of #{@measurement.all_responses}).",
+          "API responses with validation errors or untested: #{@measurement.not_cover_responses} (#{percent(@measurement.all_responses, @measurement.not_cover_responses)}% of #{@measurement.all_responses})."
         ].join("\n")
       end
 

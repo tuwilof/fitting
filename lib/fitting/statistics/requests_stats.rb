@@ -2,17 +2,14 @@ module Fitting
   class Statistics
     class RequestsStats
       def initialize(measurement)
-        @coverage_fully = measurement.coverage_fully
-        @coverage_partially = measurement.coverage_partially
-        @coverage_non = measurement.coverage_non
-        @requests = measurement.requests
+        @measurement = measurement
       end
 
       def to_s
         [
-          "API requests with fully implemented responses: #{@coverage_fully.size} (#{percent(@requests.size, @coverage_fully.size)}% of #{@requests.size}).",
-          "API requests with partially implemented responses: #{@coverage_partially.size} (#{percent(@requests.size, @coverage_partially.size)}% of #{@requests.size}).",
-          "API requests with no implemented responses: #{@coverage_non.size} (#{percent(@requests.size, @coverage_non.size)}% of #{@requests.size})."
+          "API requests with fully implemented responses: #{@measurement.coverage_fully.size} (#{percent(@measurement.requests.size, @measurement.coverage_fully.size)}% of #{@measurement.requests.size}).",
+          "API requests with partially implemented responses: #{@measurement.coverage_partially.size} (#{percent(@measurement.requests.size, @measurement.coverage_partially.size)}% of #{@measurement.requests.size}).",
+          "API requests with no implemented responses: #{@measurement.coverage_non.size} (#{percent(@measurement.requests.size, @measurement.coverage_non.size)}% of #{@measurement.requests.size})."
         ].join("\n")
       end
 
