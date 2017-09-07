@@ -14,6 +14,14 @@ module Fitting
           joind_white_list(white_list.to_a)
         end
 
+        def grouping(tomogram_responses)
+          tomogram_responses.group_by do |tomogram_response|
+            tomogram_response['status']
+          end.inject({}) do |res, group|
+            res.merge({group[0] => group[1].map { |subgroup| subgroup['body'] }})
+          end
+        end
+
         def add_responses(tomogram_responses)
           request_responses = []
           tomogram_responses.map do |tomogram_response|

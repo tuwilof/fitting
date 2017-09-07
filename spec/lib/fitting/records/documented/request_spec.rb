@@ -24,4 +24,43 @@ RSpec.describe Fitting::Records::Documented::Request do
       expect { subject.add_responses(tomogram_responses) }.not_to raise_exception
     end
   end
+
+  describe '#grouping' do
+    it 'returns grouping' do
+      expect(subject.grouping(
+        [
+          {
+            "status" => "401",
+            "body" => {}
+          },
+          {
+            "status" => "429",
+            "body" => {}
+          }
+        ]
+      )).to eq(
+        {
+          "401" => [{}],
+          "429" => [{}]
+        }
+      )
+
+      expect(subject.grouping(
+        [
+          {
+            "status" => "401",
+            "body" => {}
+          },
+          {
+            "status" => "401",
+            "body" => {}
+          }
+        ]
+      )).to eq(
+        {
+          "401" => [{}, {}]
+        }
+      )
+    end
+  end
 end
