@@ -10,7 +10,7 @@ module Fitting
         end
 
         def status
-          @status ||= @documented_response.status.to_s
+          @status ||= @documented_response.status
         end
 
         def json_schemas

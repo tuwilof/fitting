@@ -5,7 +5,7 @@ module Fitting
         attr_reader :status, :json_schemas
 
         def initialize(tomogram_response, request)
-          @status = tomogram_response['status']
+          @status = tomogram_response['status'].to_s
           @json_schemas = []
           @request = request
         end

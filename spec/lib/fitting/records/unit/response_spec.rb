@@ -6,7 +6,7 @@ RSpec.describe Fitting::Records::Unit::Response do
 
   describe '#status' do
     let(:status) { double }
-    let(:documented_response) { double(status: double(to_s: status)) }
+    let(:documented_response) { double(status: status) }
     let(:tested_responses) { double }
 
     it 'returns status' do
@@ -31,7 +31,7 @@ RSpec.describe Fitting::Records::Unit::Response do
   end
 
   describe '#tested_bodies' do
-    let(:documented_response) { double(status: 200) }
+    let(:documented_response) { double(status: '200') }
     let(:body1) { double }
     let(:body2) { double }
     let(:body3) { double }
