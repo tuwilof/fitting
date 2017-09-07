@@ -10,11 +10,11 @@ module Fitting
         end
 
         def status
-          @status ||= @documented_response.status
+          @status ||= @documented_response['status']
         end
 
         def json_schemas
-          @json_schemas ||= @documented_response.json_schemas.inject([]) do |res, documented_json_schema|
+          @json_schemas ||= @documented_response['json_schemas'].inject([]) do |res, documented_json_schema|
             res.push(Fitting::Records::Unit::JsonSchema.new(documented_json_schema, tested_bodies))
           end
         end

@@ -1,5 +1,3 @@
-require 'fitting/records/documented/response'
-
 module Fitting
   class Records
     class Documented
@@ -27,12 +25,7 @@ module Fitting
         end
 
         def add_responses(tomogram_responses)
-          grouping_responses = grouping(tomogram_responses)
-          grouping_responses.map do |response|
-            @responses.push(
-              Fitting::Records::Documented::Response.new(response)
-            )
-          end
+          @responses = grouping(tomogram_responses)
         end
 
         private
