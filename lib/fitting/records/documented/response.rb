@@ -4,9 +4,9 @@ module Fitting
       class Response
         attr_reader :status, :json_schemas
 
-        def initialize(status, json_schemas)
-          @status = status
-          @json_schemas = json_schemas
+        def initialize(response)
+          @status = response['status']
+          @json_schemas = response['json_schemas']
         end
       end
     end

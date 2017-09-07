@@ -2,10 +2,11 @@ require 'spec_helper'
 require 'fitting/records/documented/response'
 
 RSpec.describe Fitting::Records::Documented::Response do
-  subject { described_class.new(status, json_schemas) }
+  subject { described_class.new(response) }
 
   let(:status) { double }
   let(:json_schemas) { double }
+  let(:response) { { 'status' => status, 'json_schemas' => json_schemas } }
 
   describe '#status' do
     it 'returns status' do

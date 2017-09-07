@@ -18,16 +18,19 @@ module Fitting
         def grouping(tomogram_responses)
           tomogram_responses.group_by do |tomogram_response|
             tomogram_response['status']
-          end.inject({}) do |res, group|
-            res.merge({group[0] => group[1].map { |subgroup| subgroup['body'] }})
+          end.map do |group|
+            {
+              'status' => group[0],
+              'json_schemas' => group[1].map { |subgroup| subgroup['body'] }
+            }
           end
         end
 
         def add_responses(tomogram_responses)
           grouping_responses = grouping(tomogram_responses)
-          grouping_responses.map do |status, json_schemas|
+          grouping_responses.map do |response|
             @responses.push(
-              Fitting::Records::Documented::Response.new(status, json_schemas)
+              Fitting::Records::Documented::Response.new(response)
             )
           end
         end

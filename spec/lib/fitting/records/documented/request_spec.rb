@@ -27,10 +27,10 @@ RSpec.describe Fitting::Records::Documented::Request do
           }
         ]
       )).to eq(
-        {
-          "401" => [{}],
-          "429" => [{}]
-        }
+        [
+          {"status"=>"401", "json_schemas"=>[{}]},
+          {"status"=>"429", "json_schemas"=>[{}]}
+        ]
       )
 
       expect(subject.grouping(
@@ -45,9 +45,9 @@ RSpec.describe Fitting::Records::Documented::Request do
           }
         ]
       )).to eq(
-        {
-          "401" => [{}, {}]
-        }
+        [
+          {"status"=>"401", "json_schemas"=>[{}, {}]}
+        ]
       )
     end
   end
