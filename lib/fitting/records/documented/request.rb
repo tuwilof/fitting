@@ -2,19 +2,28 @@ module Fitting
   class Records
     class Documented
       class Request
-        attr_reader :method, :path, :json_schema, :responses, :white
+        attr_reader :white
 
         def initialize(tomogram_request, white_list)
-          @method = tomogram_request['method']
-          @path = tomogram_request['path']
-          @json_schema = tomogram_request['json_schema']
+          @tomogram_request = tomogram_request
           @white = false
-          @responses = []
           joind_white_list(white_list.to_a)
         end
 
-        def grouping(tomogram_responses)
-          tomogram_responses.group_by do |tomogram_response|
+        def method
+          @method ||= @tomogram_request['method']
+        end
+
+        def path
+          @path ||= @tomogram_request['path']
+        end
+
+        def json_schema
+          @json_schema ||= @tomogram_request['json_schema']
+        end
+
+        def responses
+          @responses ||= @tomogram_request['responses'].group_by do |tomogram_response|
             tomogram_response['status']
           end.map do |group|
             {
@@ -22,10 +31,6 @@ module Fitting
               'json_schemas' => group[1].map { |subgroup| subgroup['body'] }
             }
           end
-        end
-
-        def add_responses(tomogram_responses)
-          @responses = grouping(tomogram_responses)
         end
 
         private
@@ -36,9 +41,9 @@ module Fitting
             return
           end
 
-          return if white_list[@path.to_s] == nil
+          return if white_list[path.to_s] == nil
 
-          @white = true if white_list[@path.to_s] == [] || white_list[@path.to_s].include?(@method)
+          @white = true if white_list[path.to_s] == [] || white_list[path.to_s].include?(method)
         end
       end
     end

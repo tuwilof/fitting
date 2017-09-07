@@ -8,7 +8,6 @@ module Fitting
         def initialize(tomogram, white_list)
           @requests = tomogram.inject([]) do |requests, tomogram_request|
             request = Fitting::Records::Documented::Request.new(tomogram_request, white_list)
-            request.add_responses(tomogram_request['responses'])
             requests.push(request)
           end
         end
