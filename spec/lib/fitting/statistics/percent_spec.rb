@@ -20,4 +20,13 @@ RSpec.describe Fitting::Statistics::Percent do
       end
     end
   end
+
+  describe 'to_s' do
+    let(:divider) { 5 }
+    let(:dividend) { 4 }
+
+    it 'return percent string' do
+      expect(subject.to_s).to eq('(80.0% of 5)')
+    end
+  end
 end
