@@ -2,39 +2,54 @@ require 'spec_helper'
 require 'fitting/storage/responses'
 
 RSpec.describe Fitting::Storage::Responses do
-  describe '.new' do
-    it 'does not raise exception' do
-      expect { subject }.not_to raise_exception
-    end
-  end
-
   describe '#add' do
-    before do
-      allow(Fitting::Response).to receive(:new)
-      allow(Fitting::Storage::Documentation).to receive(:tomogram)
-    end
+    before { allow(Fitting::Records::Tested::Request).to receive(:new) }
 
-    after { Fitting::Storage::Responses.instance_variable_set(:@responses, nil) }
-
-    it 'returns responses' do
-      expect(subject.add(nil)).to eq([nil])
+    it 'does not raise an error' do
+      expect { subject.add(double) }.not_to raise_exception
     end
   end
 
   describe '#statistics' do
     before do
-      allow(Fitting::Statistics).to receive(:new).and_return(statistics)
-      allow(Fitting::Documentation).to receive(:new)
-      allow(Fitting::Storage::WhiteList).to receive(:new).and_return(double(to_a: nil))
-      allow(Fitting::Storage::Documentation).to receive(:tomogram).and_return(double(to_resources: nil))
-      allow(Fitting).to receive(:configuration)
-        .and_return(double(white_list: nil, strict: nil, resource_white_list: nil))
+      allow(Fitting::Statistics).to receive(:new)
+      allow(subject).to receive(:documented)
     end
 
-    let(:statistics) { double }
+    it 'does not raise an error' do
+      expect { subject.statistics }.not_to raise_exception
+    end
+  end
 
-    it 'returns statistics' do
-      expect(subject.statistics).to eq(statistics)
+  describe '#documented' do
+    before do
+      allow(Fitting::Records::Documented::Request).to receive(:new)
+      allow(subject).to receive(:tomogram).and_return([double])
+      allow(subject).to receive(:white_list).and_return(double(to_a: nil))
+    end
+
+    it 'does not raise an error' do
+      expect { subject.documented }.not_to raise_exception
+    end
+  end
+
+  describe '#tomogram' do
+    before { allow(Fitting::Storage::Documentation).to receive(:tomogram).and_return(double(to_hash: nil)) }
+
+    it 'does not raise an error' do
+      expect { subject.tomogram }.not_to raise_exception
+    end
+  end
+
+  describe '#white_list' do
+    before do
+      allow(Fitting::Storage::WhiteList).to receive(:new)
+      allow(Fitting).to receive(:configuration).and_return(double(white_list: nil, resource_white_list: nil))
+      allow(Fitting::Storage::Documentation).to receive(:tomogram).and_return(double(to_resources: nil))
+    end
+
+    it 'does not raise an error' do
+      expect { subject.white_list }.not_to raise_exception
     end
   end
 end

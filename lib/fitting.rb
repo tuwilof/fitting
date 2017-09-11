@@ -2,7 +2,6 @@ require 'fitting/version'
 require 'fitting/configuration'
 require 'fitting/storage/documentation'
 require 'fitting/matchers/response_matcher'
-require 'fitting/statistics'
 require 'fitting/documentation'
 require 'fitting/storage/responses'
 
