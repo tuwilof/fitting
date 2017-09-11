@@ -4,8 +4,8 @@ module Fitting
       attr_reader :requests, :all_responses, :cover_responses, :not_cover_responses, :max_response_path,
                   :coverage_fully, :coverage_non, :coverage_partially, :not_covered_responses
 
-      def initialize(unit)
-        @requests = unit
+      def initialize(requests)
+        @requests = requests
         @all_responses = 0
         @cover_responses = 0
         @not_cover_responses = 0
