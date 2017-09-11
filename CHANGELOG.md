@@ -1,5 +1,10 @@
 # Change log
 
+### 2.2.0 - 2017-08-23
+
+* features
+  * ignore requests which match with ignore list
+
 ### 2.1.3 - 2017-08-07
 
 * bug fixes
