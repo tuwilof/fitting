@@ -32,15 +32,15 @@ module Fitting
 
         def white
           @white ||= if @white_list == nil
-            true
-          elsif @white_list[path.to_s] == nil
-            false
-          elsif @white_list[path.to_s] == []
-            true
-          elsif @white_list[path.to_s].include?(method)
-            true
-          else
-            false
+                       true
+                     elsif @white_list[path.to_s] == nil
+                       false
+                     elsif @white_list[path.to_s] == []
+                       true
+                     elsif @white_list[path.to_s].include?(method)
+                       true
+                     else
+                       false
           end
         end
       end

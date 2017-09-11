@@ -26,7 +26,7 @@ module Fitting
         def tested_responses
           @tested_responses ||= @tested_requests.inject([]) do |res, tested_request|
             next res unless @documented_request.method == tested_request.method &&
-              @documented_request.path.match(tested_request.path.to_s)
+                            @documented_request.path.match(tested_request.path.to_s)
             res.push(tested_request.response)
           end
         end

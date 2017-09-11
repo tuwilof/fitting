@@ -8,7 +8,7 @@ RSpec.describe Fitting::Statistics::Great do
     let(:measurement) { double(cover_responses: nil, all_responses: nil) }
 
     it 'return great string' do
-      expect(subject.to_s).to eq("All responses are 100% valid! Great job!")
+      expect(subject.to_s).to eq('All responses are 100% valid! Great job!')
     end
   end
 end

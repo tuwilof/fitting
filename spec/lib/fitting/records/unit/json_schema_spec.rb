@@ -7,16 +7,16 @@ RSpec.describe Fitting::Records::Unit::JsonSchema do
   describe 'bodies' do
     let(:json_schema) do
       {
-        "type" => "object",
-        "required" => ["a"],
-        "properties" => {
-          "a" => {"type" => "integer"}
+        'type' => 'object',
+        'required' => ['a'],
+        'properties' => {
+          'a' => { 'type' => 'integer' }
         }
       }
     end
-    let(:valid_body) { { "a" => 5 } }
+    let(:valid_body) { { 'a' => 5 } }
     let(:invalid_body) { {} }
-    let(:html_body) { "<html><body><a href=\"http://localhost:3000/\">redirected</a>.</body></html>" }
+    let(:html_body) { '<html><body><a href="http://localhost:3000/">redirected</a>.</body></html>' }
     let(:tested_bodies) { [valid_body, invalid_body, html_body] }
 
     it 'returns bodies' do

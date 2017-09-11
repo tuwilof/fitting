@@ -60,9 +60,7 @@ module Fitting
     end
 
     def documented_requests_white
-      @documented_requests_white ||= @documented_requests.find_all do |request|
-        request.white
-      end
+      @documented_requests_white ||= @documented_requests.find_all(&:white)
     end
 
     def documented_requests_black

@@ -19,7 +19,7 @@ RSpec.describe Fitting::Statistics::RequestsStats do
         .to eq(
           "API requests with fully implemented responses: 0 (0.0% of 0).\n"\
           "API requests with partially implemented responses: 0 (0.0% of 0).\n"\
-          "API requests with no implemented responses: 0 (0.0% of 0)."
+          'API requests with no implemented responses: 0 (0.0% of 0).'
         )
     end
   end

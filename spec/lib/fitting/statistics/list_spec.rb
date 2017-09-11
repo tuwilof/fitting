@@ -33,8 +33,8 @@ RSpec.describe Fitting::Statistics::List do
   end
 
   describe '#list_sort' do
-    let(:request1) { double(path: double(to_s: 'b'))}
-    let(:request2) { double(path: double(to_s: 'a'))}
+    let(:request1) { double(path: double(to_s: 'b')) }
+    let(:request2) { double(path: double(to_s: 'a')) }
     let(:coverage) do
       [
         request1,

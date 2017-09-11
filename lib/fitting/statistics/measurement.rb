@@ -21,7 +21,6 @@ module Fitting
         return if @ready
 
         @requests.map do |request|
-
           all = 0
           cover = 0
           not_cover = 0

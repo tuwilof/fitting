@@ -15,7 +15,7 @@ RSpec.describe Fitting::Records::Tested::Request do
 
   describe '#path' do
     let(:path) { double }
-    let(:env_response) { double(request: double(env: {'PATH_INFO' => path})) }
+    let(:env_response) { double(request: double(env: { 'PATH_INFO' => path })) }
 
     before { allow(Tomograph::Path).to receive(:new).and_return(path) }
 
@@ -26,7 +26,7 @@ RSpec.describe Fitting::Records::Tested::Request do
 
   describe '#body' do
     let(:body) { double }
-    let(:env_response) { double(request: double(env: {'action_dispatch.request.request_parameters' => body})) }
+    let(:env_response) { double(request: double(env: { 'action_dispatch.request.request_parameters' => body })) }
 
     it 'returns body' do
       expect(subject.body).to eq(body)
