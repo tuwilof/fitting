@@ -1,5 +1,9 @@
 # Fitting
 
+<a href="https://funbox.ru">
+  <img src="https://funbox.ru/badges/sponsored_by_funbox.svg" alt="Sponsored by FunBox" width=250 />
+</a>
+
 [![Build Status](https://travis-ci.org/funbox/fitting.svg?branch=master)](https://travis-ci.org/funbox/fitting)
 
 This gem will help you implement your API in strict accordance to the documentation in [API Blueprint](https://apiblueprint.org/) format.
