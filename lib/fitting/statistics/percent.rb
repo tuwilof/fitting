@@ -12,7 +12,7 @@ module Fitting
       end
 
       def to_s
-        "(#{to_f}% of #{@divider})"
+        "#{@dividend} (#{to_f}% of #{@divider})"
       end
     end
   end
