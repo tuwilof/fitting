@@ -1,3 +1,5 @@
+require 'fitting/statistics/list'
+
 module Fitting
   class Statistics
     class Lists
@@ -19,7 +21,7 @@ module Fitting
         else
           [
             'Fully conforming requests:',
-            craft(list_sort(@measurement.coverage_fully))
+            Fitting::Statistics::List.new(@measurement.coverage_fully, @measurement.max_response_path).to_s
           ].join("\n")
         end
       end
@@ -30,7 +32,7 @@ module Fitting
         else
           [
             'Partially conforming requests:',
-            craft(list_sort(@measurement.coverage_partially))
+            Fitting::Statistics::List.new(@measurement.coverage_partially, @measurement.max_response_path).to_s
           ].join("\n")
         end
       end
@@ -41,34 +43,9 @@ module Fitting
         else
           [
             'Non-conforming requests:',
-            craft(list_sort(@measurement.coverage_non))
+            Fitting::Statistics::List.new(@measurement.coverage_non, @measurement.max_response_path).to_s
           ].join("\n")
         end
-      end
-
-      def craft(requests)
-        requests.inject([]) do |res, request|
-          res.push("#{request.method}\t#{request.path}#{responses_stat(request)}")
-        end.join("\n")
-      end
-
-      def list_sort(requests)
-        requests.sort do |first, second|
-          first.path.to_s <=> second.path.to_s
-        end
-      end
-
-      def responses_stat(request)
-        tab = "\t" * ((@measurement.max_response_path - request.path.to_s.size / 8) + 3)
-        tab + request.responses.to_a.each_with_object([]) do |response, res|
-          response.json_schemas.map do |json_schema|
-            if json_schema.bodies == []
-              res.push("✖ #{response.status}")
-            else
-              res.push("✔ #{response.status}")
-            end
-          end
-        end.join(' ')
       end
     end
   end
