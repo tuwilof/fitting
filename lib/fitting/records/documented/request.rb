@@ -20,9 +20,7 @@ module Fitting
         end
 
         def responses
-          @responses ||= @tomogram_request['responses'].group_by do |tomogram_response|
-            tomogram_response['status']
-          end.map do |group|
+          @responses ||= groups.map do |group|
             {
               'status' => group[0],
               'json_schemas' => group[1].map { |subgroup| subgroup['body'] }
@@ -31,16 +29,22 @@ module Fitting
         end
 
         def white
-          @white ||= if @white_list == nil
-                       true
-                     elsif @white_list[path.to_s] == nil
-                       false
-                     elsif @white_list[path.to_s] == []
-                       true
-                     elsif @white_list[path.to_s].include?(method)
-                       true
-                     else
-                       false
+          @white ||= white?
+        end
+
+        private
+
+        def white?
+          return true if @white_list == nil
+          return false if @white_list[path.to_s] == nil
+          return true if @white_list[path.to_s] == []
+          return true if @white_list[path.to_s].include?(method)
+          false
+        end
+
+        def groups
+          @groups ||= @tomogram_request['responses'].group_by do |tomogram_response|
+            tomogram_response['status']
           end
         end
       end

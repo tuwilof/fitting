@@ -7,7 +7,7 @@ module Fitting
       end
 
       def to_f
-        return 0.to_f if @divider == 0
+        return 0.to_f if @divider.zero?
         (@dividend.to_f / @divider.to_f * 100.0).round(2)
       end
 

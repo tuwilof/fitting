@@ -6,9 +6,7 @@ module Fitting
       end
 
       def to_s
-        if @measurement.cover_responses == @measurement.all_responses
-          'All responses are 100% valid! Great job!'
-        end
+        return 'All responses are 100% valid! Great job!' if @measurement.cover_responses == @measurement.all_responses
       end
     end
   end
