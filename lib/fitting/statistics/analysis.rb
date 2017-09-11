@@ -1,4 +1,4 @@
-require 'fitting/statistics/list'
+require 'fitting/statistics/lists'
 require 'fitting/statistics/requests_stats'
 require 'fitting/statistics/responses_stats'
 require 'fitting/statistics/great'
@@ -13,7 +13,7 @@ module Fitting
 
       def to_s
         [
-          Fitting::Statistics::List.new(@measurement).to_s,
+          Fitting::Statistics::Lists.new(@measurement).to_s,
           Fitting::Statistics::RequestsStats.new(@measurement).to_s,
           Fitting::Statistics::ResponsesStats.new(@measurement).to_s,
           Fitting::Statistics::Great.new(@measurement).to_s

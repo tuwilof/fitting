@@ -1,6 +1,6 @@
 module Fitting
   class Statistics
-    class List
+    class Lists
       def initialize(measurement)
         @measurement = measurement
       end
