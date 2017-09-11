@@ -6,9 +6,9 @@ module Fitting
         @dividend = dividend
       end
 
-      def to_s
-        return 0.to_f.to_s if @divider == 0
-        (@dividend.to_f / @divider.to_f * 100.0).round(2).to_s
+      def to_f
+        return 0.to_f if @divider == 0
+        (@dividend.to_f / @divider.to_f * 100.0).round(2)
       end
     end
   end
