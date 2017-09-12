@@ -1,11 +1,13 @@
 require 'fitting/statistics/analysis'
 require 'fitting/statistics/measurement'
 require 'fitting/records/unit/request'
+require 'fitting/storage/white_list'
+require 'fitting/records/documented/request'
 
 module Fitting
   class Statistics
-    def initialize(documented_requests, tested_requests)
-      @documented_requests = documented_requests
+    def initialize(tested_requests)
+      @documented_requests = documented
       @tested_requests = tested_requests
     end
 
@@ -67,6 +69,20 @@ module Fitting
       @documented_requests_black ||= @documented_requests.find_all do |request|
         !request.white
       end
+    end
+
+    def documented
+      @documented_requests ||= Fitting.configuration.tomogram.to_hash.inject([]) do |res, tomogram_request|
+        res.push(Fitting::Records::Documented::Request.new(tomogram_request, white_list.to_a))
+      end
+    end
+
+    def white_list
+      @white_list ||= Fitting::Storage::WhiteList.new(
+        Fitting.configuration.white_list,
+        Fitting.configuration.resource_white_list,
+        Fitting.configuration.tomogram.to_resources
+      )
     end
   end
 end
