@@ -5,15 +5,31 @@ module Fitting
   module Matchers
     class Response
       def matches?(response)
-        @response = Fitting::Response.new(
-          response,
-          Fitting.configuration.tomogram
-        )
-        return true if @response.ignored?(Fitting.configuration.ignore_list)
-        if @response.within_prefix?(Fitting.configuration.prefix)
-          @response.fully_validates.valid?
+        if Fitting.configuration.is_a?(Array)
+          Fitting.configuration.all? do |config|
+            response = Fitting::Response.new(
+              response,
+              config.tomogram
+            )
+            if response.within_prefix?(config.prefix)
+              @response = response
+              return true if @response.ignored?(config.ignore_list)
+              return @response.fully_validates.valid?
+            else
+              true
+            end
+          end
         else
-          true
+          @response = Fitting::Response.new(
+            response,
+            Fitting.configuration.tomogram
+          )
+          return true if @response.ignored?(Fitting.configuration.ignore_list)
+          if @response.within_prefix?(Fitting.configuration.prefix)
+            @response.fully_validates.valid?
+          else
+            true
+          end
         end
       end
 
