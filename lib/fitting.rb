@@ -1,9 +1,11 @@
 require 'fitting/version'
 require 'fitting/configuration'
+require 'fitting/yaml_configuration'
 require 'fitting/storage/documentation'
 require 'fitting/matchers/response_matcher'
 require 'fitting/documentation'
 require 'fitting/storage/responses'
+require 'yaml'
 
 module Fitting
   class << self
@@ -12,7 +14,13 @@ module Fitting
     end
 
     def configuration
-      @configuration ||= Configuration.new
+      return @configuration if @configuration
+      if File.file?('.fitting.yml')
+        yaml = YAML.safe_load(File.read('.fitting.yml'))
+        @configuration = YamlConfiguration.new(yaml)
+      else
+        @configuration = Configuration.new
+      end
     end
 
     def statistics
