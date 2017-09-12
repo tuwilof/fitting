@@ -24,20 +24,12 @@ RSpec.describe Fitting::Storage::Responses do
   describe '#documented' do
     before do
       allow(Fitting::Records::Documented::Request).to receive(:new)
-      allow(subject).to receive(:tomogram).and_return([double])
+      allow(Fitting).to receive(:configuration).and_return(double(tomogram: double(to_hash: [double])))
       allow(subject).to receive(:white_list).and_return(double(to_a: nil))
     end
 
     it 'does not raise an error' do
       expect { subject.documented }.not_to raise_exception
-    end
-  end
-
-  describe '#tomogram' do
-    before { allow(Fitting).to receive(:configuration).and_return(double(tomogram: double(to_hash: nil))) }
-
-    it 'does not raise an error' do
-      expect { subject.tomogram }.not_to raise_exception
     end
   end
 
