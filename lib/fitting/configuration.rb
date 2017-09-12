@@ -1,3 +1,5 @@
+require 'tomograph'
+
 module Fitting
   class Configuration
     attr_accessor :apib_path,
@@ -12,6 +14,14 @@ module Fitting
       @strict = false
       @prefix = ''
       @ignore_list = []
+    end
+
+    def tomogram
+      @tomogram ||= Tomograph::Tomogram.new(
+        prefix: @prefix,
+        apib_path: @apib_path,
+        drafter_yaml_path: @drafter_yaml_path
+      )
     end
   end
 end

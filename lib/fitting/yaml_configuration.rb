@@ -1,3 +1,5 @@
+require 'tomograph'
+
 module Fitting
   class YamlConfiguration
     attr_accessor :apib_path,
@@ -17,6 +19,14 @@ module Fitting
       @resource_white_list = yaml['resource_white_list']
       @ignore_list         = yaml['ignore_list']
       default
+    end
+
+    def tomogram
+      @tomogram ||= Tomograph::Tomogram.new(
+        prefix: @prefix,
+        apib_path: @apib_path,
+        drafter_yaml_path: @drafter_yaml_path
+      )
     end
 
     private

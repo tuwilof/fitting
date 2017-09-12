@@ -1,6 +1,5 @@
 require 'fitting/statistics'
 require 'fitting/storage/white_list'
-require 'fitting/storage/documentation'
 require 'fitting/records/tested/request'
 require 'fitting/records/documented/request'
 
@@ -26,14 +25,14 @@ module Fitting
       end
 
       def tomogram
-        @tomogram ||= Fitting::Storage::Documentation.tomogram.to_hash
+        @tomogram ||= Fitting.configuration.tomogram.to_hash
       end
 
       def white_list
         @white_list ||= Fitting::Storage::WhiteList.new(
           Fitting.configuration.white_list,
           Fitting.configuration.resource_white_list,
-          Fitting::Storage::Documentation.tomogram.to_resources
+          Fitting.configuration.tomogram.to_resources
         )
       end
     end

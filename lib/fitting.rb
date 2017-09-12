@@ -1,7 +1,6 @@
 require 'fitting/version'
 require 'fitting/configuration'
 require 'fitting/yaml_configuration'
-require 'fitting/storage/documentation'
 require 'fitting/matchers/response_matcher'
 require 'fitting/documentation'
 require 'fitting/storage/responses'

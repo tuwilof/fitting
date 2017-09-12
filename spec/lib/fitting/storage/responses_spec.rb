@@ -34,7 +34,7 @@ RSpec.describe Fitting::Storage::Responses do
   end
 
   describe '#tomogram' do
-    before { allow(Fitting::Storage::Documentation).to receive(:tomogram).and_return(double(to_hash: nil)) }
+    before { allow(Fitting).to receive(:configuration).and_return(double(tomogram: double(to_hash: nil))) }
 
     it 'does not raise an error' do
       expect { subject.tomogram }.not_to raise_exception
@@ -44,8 +44,8 @@ RSpec.describe Fitting::Storage::Responses do
   describe '#white_list' do
     before do
       allow(Fitting::Storage::WhiteList).to receive(:new)
-      allow(Fitting).to receive(:configuration).and_return(double(white_list: nil, resource_white_list: nil))
-      allow(Fitting::Storage::Documentation).to receive(:tomogram).and_return(double(to_resources: nil))
+      allow(Fitting).to receive(:configuration)
+        .and_return(double(white_list: nil, resource_white_list: nil, tomogram: double(to_resources: nil)))
     end
 
     it 'does not raise an error' do

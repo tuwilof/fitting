@@ -1,5 +1,4 @@
 require 'fitting/response'
-require 'fitting/storage/documentation'
 require 'fitting/configuration'
 
 module Fitting
@@ -8,7 +7,7 @@ module Fitting
       def matches?(response)
         @response = Fitting::Response.new(
           response,
-          Fitting::Storage::Documentation.tomogram
+          Fitting.configuration.tomogram
         )
         return true if @response.ignored?(Fitting.configuration.ignore_list)
         if @response.within_prefix?(Fitting.configuration.prefix)
@@ -41,7 +40,7 @@ module Fitting
       def matches?(response)
         @response = Fitting::Response.new(
           response,
-          Fitting::Storage::Documentation.tomogram
+          Fitting.configuration.tomogram
         )
         @response.strict_fully_validates.valid?
       end
