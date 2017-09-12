@@ -23,5 +23,9 @@ module Fitting
         drafter_yaml_path: @drafter_yaml_path
       )
     end
+
+    def title
+      'fitting'
+    end
   end
 end
