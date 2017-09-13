@@ -1,6 +1,5 @@
 require 'fitting/version'
 require 'fitting/configuration'
-require 'fitting/storage/documentation'
 require 'fitting/matchers/response_matcher'
 require 'fitting/documentation'
 require 'fitting/storage/responses'
@@ -12,7 +11,7 @@ module Fitting
     end
 
     def configuration
-      @configuration ||= Configuration.new
+      @configuration ||= Configuration.craft
     end
 
     def statistics

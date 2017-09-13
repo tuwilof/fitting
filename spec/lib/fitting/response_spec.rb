@@ -108,7 +108,7 @@ RSpec.describe Fitting::Response do
   end
 
   describe '#ignored?' do
-    before { allow(request).to receive(:ignored?).and_return(true)}
+    before { allow(request).to receive(:ignored?).and_return(true) }
 
     it 'call #ignored? to request' do
       expect(subject.ignored?([/path/])).to eq(true)
