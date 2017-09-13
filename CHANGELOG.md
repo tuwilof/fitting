@@ -1,5 +1,11 @@
 # Change log
 
+### 2.3.0 - 2017-09-13
+
+* features
+  * configuration via yaml file
+  * setting for multiple prefixes
+
 ### 2.2.0 - 2017-08-23
 
 * features
