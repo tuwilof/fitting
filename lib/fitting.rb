@@ -20,7 +20,7 @@ module Fitting
       elsif !Dir['fitting/*.yml'].empty?
         @configuration = Dir['fitting/*.yml'].map do |file|
           yaml = YAML.safe_load(File.read(file))
-          YamlConfiguration.new(yaml, file)
+          YamlConfiguration.new(yaml, file[8..-5])
         end
       else
         @configuration = Configuration.new

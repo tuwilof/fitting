@@ -27,5 +27,13 @@ module Fitting
     def title
       'fitting'
     end
+
+    def stats_path
+      'fitting/stats'
+    end
+
+    def not_covered_path
+      'fitting/not_covered'
+    end
   end
 end

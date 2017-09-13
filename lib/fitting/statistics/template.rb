@@ -14,8 +14,8 @@ module Fitting
       end
 
       def save
-        File.open('fitting/stats', 'w') { |file| file.write(stats) }
-        File.open('fitting/not_covered', 'w') { |file| file.write(not_covered) }
+        File.open(@config.stats_path, 'w') { |file| file.write(stats) }
+        File.open(@config.not_covered_path, 'w') { |file| file.write(not_covered) }
       end
 
       def stats
