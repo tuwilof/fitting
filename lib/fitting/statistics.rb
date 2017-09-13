@@ -7,15 +7,19 @@ module Fitting
     end
 
     def save
-      FileUtils.mkdir_p 'fitting'
+      make_dir('fitting')
       if Fitting.configuration.is_a?(Array)
         Fitting.configuration.each do |config|
-          FileUtils.mkdir_p "fitting/#{config.title}"
+          make_dir("fitting/#{config.title}")
           Fitting::Statistics::Template.new(@tested_requests, config).save
         end
       else
         Fitting::Statistics::Template.new(@tested_requests, Fitting.configuration).save
       end
+    end
+
+    def make_dir(dir_name)
+      FileUtils.mkdir_p(dir_name)
     end
   end
 end
