@@ -14,17 +14,13 @@ module Fitting
 
     def configuration
       return @configuration if @configuration
-      if File.file?('.fitting.yml')
-        yaml = YAML.safe_load(File.read('.fitting.yml'))
-        @configuration = YamlConfiguration.new(yaml)
-      elsif !Dir['fitting/*.yml'].empty?
-        @configuration = Dir['fitting/*.yml'].map do |file|
-          yaml = YAML.safe_load(File.read(file))
-          YamlConfiguration.new(yaml, file[8..-5])
-        end
-      else
-        @configuration = Configuration.new
-      end
+      @configuration = if File.file?('.fitting.yml')
+                         one_yaml
+                       elsif !Dir['fitting/*.yml'].empty?
+                         more_than_one_yaml
+                       else
+                         Configuration.new
+                       end
     end
 
     def statistics
@@ -38,6 +34,20 @@ module Fitting
         config.after(:suite) do
           responses.statistics.save
         end
+      end
+    end
+
+    private
+
+    def one_yaml
+      yaml = YAML.safe_load(File.read('.fitting.yml'))
+      YamlConfiguration.new(yaml)
+    end
+
+    def more_than_one_yaml
+      Dir['fitting/*.yml'].map do |file|
+        yaml = YAML.safe_load(File.read(file))
+        YamlConfiguration.new(yaml, file[8..-5])
       end
     end
   end

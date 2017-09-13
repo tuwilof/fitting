@@ -10,7 +10,7 @@ module Fitting
                   :resource_white_list,
                   :ignore_list
 
-    def initialize(yaml, title = 'fitting.yml')
+    def initialize(yaml, title = 'fitting')
       @apib_path           = yaml['apib_path']
       @drafter_yaml_path   = yaml['drafter_yaml_path']
       @strict              = yaml['strict']
