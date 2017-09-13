@@ -6,7 +6,9 @@ module Fitting
     class Response
       def matches?(response)
         if Fitting.configuration.is_a?(Array)
-          more_than_one_match(response)
+          Fitting.configuration.all? do |config|
+            one_match(response, config)
+          end
         else
           one_match(response, Fitting.configuration)
         end
@@ -31,12 +33,6 @@ module Fitting
       end
 
       private
-
-      def more_than_one_match(response)
-        Fitting.configuration.all? do |config|
-          one_match(response, config)
-        end
-      end
 
       def one_match(response, config)
         response = Fitting::Response.new(response, config.tomogram)

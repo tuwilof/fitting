@@ -49,6 +49,16 @@ RSpec.describe Fitting::Matchers::Response do
         expect(subject.matches?(nil)).to be_truthy
       end
     end
+
+    context 'config is array' do
+      before do
+        allow(Fitting).to receive(:configuration).and_return([double(prefix: '', ignore_list: [], tomogram: nil)])
+      end
+
+      it 'returns true' do
+        expect(subject.matches?(nil)).to be_truthy
+      end
+    end
   end
 
   describe '#===' do
@@ -108,6 +118,14 @@ RSpec.describe Fitting::Matchers::StrictResponse do
   describe '#matches?' do
     it 'returns true' do
       expect(subject.matches?(nil)).to be_truthy
+    end
+
+    context 'config is array' do
+      before { allow(Fitting).to receive(:configuration).and_return([double(tomogram: nil)]) }
+
+      it 'returns true' do
+        expect(subject.matches?(nil)).to be_truthy
+      end
     end
   end
 
