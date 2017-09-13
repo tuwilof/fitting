@@ -52,11 +52,11 @@ module Fitting
 
     class StrictResponse
       def matches?(response)
-        @response = Fitting::Response.new(
-          response,
-          Fitting.configuration.tomogram
-        )
-        @response.strict_fully_validates.valid?
+        if Fitting.configuration.is_a?(Array)
+          one_match(response, Fitting.configuration[0])
+        else
+          one_match(response, Fitting.configuration)
+        end
       end
 
       def ===(other)
@@ -75,6 +75,16 @@ module Fitting
           "schemas: \n#{@response.expected}\n\n"\
           "got: #{@response.got}\n\n"\
           "errors: \n#{@response.strict_fully_validates}\n"
+      end
+
+      private
+
+      def one_match(response, config)
+        @response = Fitting::Response.new(
+          response,
+          config.tomogram
+        )
+        @response.strict_fully_validates.valid?
       end
     end
 
