@@ -16,7 +16,7 @@ module Fitting
       return @configuration if @configuration
       if File.file?('.fitting.yml')
         yaml = YAML.safe_load(File.read('.fitting.yml'))
-        @configuration = YamlConfiguration.new(yaml )
+        @configuration = YamlConfiguration.new(yaml)
       elsif !Dir['fitting/*.yml'].empty?
         @configuration = Dir['fitting/*.yml'].map do |file|
           yaml = YAML.safe_load(File.read(file))

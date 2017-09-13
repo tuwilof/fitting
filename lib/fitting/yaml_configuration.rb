@@ -30,9 +30,7 @@ module Fitting
       )
     end
 
-    def title
-      @title
-    end
+    attr_reader :title
 
     def stats_path
       if @title == 'fitting'
@@ -46,7 +44,7 @@ module Fitting
       if @title == 'fitting'
         'fitting/not_covered'
       else
-         "fitting/#{@title}/not_covered"
+        "fitting/#{@title}/not_covered"
       end
     end
 
