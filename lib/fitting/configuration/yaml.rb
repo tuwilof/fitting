@@ -3,6 +3,7 @@ require 'tomograph'
 module Fitting
   class Configuration
     class Yaml
+      attr_reader   :title
       attr_accessor :apib_path,
                     :drafter_yaml_path,
                     :strict,
@@ -30,8 +31,6 @@ module Fitting
           drafter_yaml_path: @drafter_yaml_path
         )
       end
-
-      attr_reader :title
 
       def stats_path
         if @title == 'fitting'
