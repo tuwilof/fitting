@@ -117,6 +117,9 @@ expect(response).to strictly_match_schema
 
 ## Config
 
+You can specify the settings either in a yaml file `.fitting.yml` or in config.
+If your project uses several prefixes, for each one you need to create a separate yaml file in the folder `fitting` (`fitting/*.yml`).
+
 ### apib_path
 
 Path to API Blueprint documentation. There must be an installed [drafter](https://github.com/apiaryio/drafter) to parse it.
