@@ -9,7 +9,9 @@ module Fitting
                     :prefix,
                     :white_list,
                     :resource_white_list,
-                    :ignore_list
+                    :ignore_list,
+                    :include_resources,
+                    :include_actions
 
       def initialize
         @strict = false
