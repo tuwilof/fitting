@@ -32,7 +32,8 @@ RSpec.describe Fitting::Statistics::Template do
       let(:config) do
         double(
           white_list: double(present?: false),
-          resource_white_list: double(present?: false)
+          resource_white_list: double(present?: false),
+          include_resources: double(present?: false)
         )
       end
 

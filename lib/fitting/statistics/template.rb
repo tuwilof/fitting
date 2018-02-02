@@ -19,7 +19,7 @@ module Fitting
       end
 
       def stats
-        if @config.white_list.present? || @config.resource_white_list.present?
+        if @config.white_list.present? || @config.resource_white_list.present? || @config.include_resources.present?
           [
             ['[Black list]', black_statistics].join("\n"),
             ['[White list]', white_statistics].join("\n"),
@@ -82,6 +82,7 @@ module Fitting
         @white_list ||= Fitting::Storage::WhiteList.new(
           @config.white_list,
           @config.resource_white_list,
+          @config.include_resources,
           @config.tomogram.to_resources
         )
       end

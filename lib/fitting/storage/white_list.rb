@@ -3,17 +3,19 @@ require 'tomograph'
 module Fitting
   module Storage
     class WhiteList
-      def initialize(white_list, resource_white_list, resources)
+      def initialize(white_list, resource_white_list, include_resources, resources)
         @white_list = white_list
         @resource_white_list = resource_white_list
+        @include_resources = include_resources
         @resources = resources
         @warnings = []
       end
 
       def to_a
-        return nil if @white_list == nil && @resource_white_list == nil
+        return nil if @white_list == nil && @resource_white_list == nil && @include_resources == nil
         return @white_list if @white_list
-        @white_list = transformation
+        return @white_list = transformation if @resource_white_list
+        @white_list = new_transformation
       end
 
       def without_group
@@ -70,6 +72,28 @@ module Fitting
           method: array[0],
           path: Tomograph::Path.new(array[1]).to_s
         }
+      end
+
+      def new_transformation
+        result = new_without_group.group_by { |action| action[:path] }
+        result.inject({}) do |res, group|
+          methods = group.last.map { |gr| gr[:method] }
+          res.merge(group.first => methods)
+        end
+      end
+
+      def new_without_group
+        return @without_group_list if @without_group_list
+        @without_group_list = @include_resources.inject([]) do |all_requests, resource|
+          new_resource_selection("/#{resource}", all_requests)
+        end.flatten.uniq
+        puts_warnings
+        @without_group_list
+      end
+
+      def new_resource_selection(resource, all_requests)
+        find_warnings(resource)
+        requests(@resources[resource], all_requests)
       end
     end
   end
