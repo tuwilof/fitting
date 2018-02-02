@@ -19,7 +19,7 @@ module Fitting
       end
 
       def stats
-        if documented.to_a.size > documented_requests_white.size
+        if @config.white_list.present? || @config.resource_white_list.present?
           [
             ['[Black list]', black_statistics].join("\n"),
             ['[White list]', white_statistics].join("\n"),
