@@ -75,6 +75,10 @@ module Fitting
       end
 
       def new_transformation
+        @new_resources = {}
+        @resources.map do |key, value|
+          @new_resources.merge!(Tomograph::Path.new(key).to_s => value)
+        end
         result = new_without_group.group_by { |action| action[:path] }
         result.inject({}) do |res, group|
           methods = group.last.map { |gr| gr[:method] }
@@ -92,8 +96,24 @@ module Fitting
       end
 
       def new_resource_selection(resource, all_requests)
-        find_warnings(resource)
-        requests(@resources[resource], all_requests)
+        new_find_warnings(resource)
+        new_requests(@new_resources[resource], all_requests)
+      end
+
+      def new_requests(resource, all_requests)
+        return all_requests unless resource
+
+        resource.map do |request|
+          all_requests.push(request_hash(request))
+        end
+        all_requests
+      end
+
+      def new_find_warnings(resource)
+        return nil if @new_resources[resource]
+        @warnings.push(
+          "FITTING WARNING: In the documentation there isn't resource from the resource_white_list #{resource}"
+        )
       end
     end
   end
