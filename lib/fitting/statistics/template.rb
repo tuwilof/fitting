@@ -83,6 +83,7 @@ module Fitting
           @config.white_list,
           @config.resource_white_list,
           @config.include_resources,
+          @config.include_actions,
           @config.tomogram.to_resources
         )
       end

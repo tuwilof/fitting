@@ -3,19 +3,27 @@ require 'tomograph'
 module Fitting
   module Storage
     class WhiteList
-      def initialize(white_list, resource_white_list, include_resources, resources)
+      def initialize(white_list, resource_white_list, include_resources, include_actions, resources)
         @white_list = white_list
         @resource_white_list = resource_white_list
         @include_resources = include_resources
+        @include_actions = include_actions
         @resources = resources
         @warnings = []
       end
 
       def to_a
-        return nil if @white_list == nil && @resource_white_list == nil && @include_resources == nil
+        return nil if @white_list == nil && @resource_white_list == nil && @include_resources == nil && @include_actions == nil
         return @white_list if @white_list
         return @white_list = transformation if @resource_white_list
-        @white_list = new_transformation
+        @white_list = {}
+        if @include_resources
+          @white_list.merge!(new_transformation)
+        end
+        if @include_actions
+          @white_list.merge!(postnew_transformation)
+        end
+        @white_list
       end
 
       def without_group
@@ -87,12 +95,12 @@ module Fitting
       end
 
       def new_without_group
-        return @without_group_list if @without_group_list
-        @without_group_list = @include_resources.inject([]) do |all_requests, resource|
+        return @newwithout_group_list if @newwithout_group_list
+        @newwithout_group_list = @include_resources.inject([]) do |all_requests, resource|
           new_resource_selection("/#{resource}", all_requests)
         end.flatten.uniq
         puts_warnings
-        @without_group_list
+        @newwithout_group_list
       end
 
       def new_resource_selection(resource, all_requests)
@@ -114,6 +122,23 @@ module Fitting
         @warnings.push(
           "FITTING WARNING: In the documentation there isn't resource from the resource_white_list #{resource}"
         )
+      end
+
+      def postnew_transformation
+        result = postnew_without_group.group_by { |action| action[:path] }
+        result.inject({}) do |res, group|
+          methods = group.last.map { |gr| gr[:method] }
+          res.merge(group.first => methods)
+        end
+      end
+
+      def postnew_without_group
+        return @postnewwithout_group_list if @postnewwithout_group_list
+        @postnewwithout_group_list = @include_actions.inject([]) do |all_requests, resource|
+          new_requests([resource], all_requests)
+        end.flatten.uniq
+        puts_warnings
+        @postnewwithout_group_list
       end
     end
   end
