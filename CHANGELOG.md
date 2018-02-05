@@ -1,5 +1,13 @@
 # Change log
 
+### 2.4.0 - 2018-02-05
+
+* features
+  * add include_resources and include_actions configs
+* deprecations
+  * white_list and resource_white_list configs
+  * configure
+
 ### 2.3.0 - 2017-09-13
 
 * features

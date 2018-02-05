@@ -28,16 +28,18 @@ Or install it yourself as:
 
 ## Usage
 
+In your `.fitting.yml`:
+
+```yaml
+apib_path: /path/to/doc.apib
+```
+
 In your `spec_helper.rb`:
 
 ```ruby
 require 'fitting'
 
 Fitting.statistics
-
-Fitting.configure do |config|
-  config.apib_path = '/path/to/doc.apib'
-end
 ```
 
 or
@@ -55,10 +57,6 @@ RSpec.configure do |config|
   config.after(:suite) do
     responses.statistics.save
   end
-end
-
-Fitting.configure do |config|
-  config.apib_path = '/path/to/doc.apib'
 end
 ```
 
@@ -143,13 +141,17 @@ Default: all paths. This is an array of paths that are mandatory for implementat
 This list does not affect the work of the matcher.
 This list is only for the report in the console.
 
-```ruby
-config.white_list = {
-  '/users' =>                ['DELETE', 'POST'],
-  '/users/{id}' =>           ['GET', 'PATCH'],
-  '/users/{id}/employees' => ['GET'],
-  '/sessions' =>             []
-}
+```yaml
+white_list:
+  /users:
+    - DELETE
+    - POST
+  /users/{id}:
+    - GET
+    - PATCH
+  /users/{id}/employees:
+    - GET
+  /sessions: []
 ```
 
 Empty array `[]` means all methods.
@@ -160,12 +162,16 @@ Default: all resources. This is an array of resources that are mandatory for imp
 This list does not affect the work of the matcher.
 This list is only for the report in the console.
 
-```ruby
-config.resource_white_list = {
-  '/users' =>                ['DELETE /users/{id}', 'POST /users', 'GET /users/{id}', 'PATCH /users/{id}'],
-  '/users/{id}/employees' => ['GET /users/{id}/employees'],
-  '/sessions' =>             []
-}
+```yaml
+resource_white_list:
+  /users:
+    - DELETE /users/{id}
+    - POST /users
+    - GET /users/{id}
+    - PATCH /users/{id}
+  /users/{id}/employees:
+    - GET /users/{id}/employees
+  /sessions: []
 ```
 
 Empty array `[]` means all methods.
@@ -177,10 +183,9 @@ This is an array of resources that are mandatory for implementation.
 This list does not affect the work of the matcher.
 This list is only for the report in the console.
 
-```ruby
-config.include_resources = [
-  '/sessions'
-]
+```yaml
+include_resources:
+  - /sessions
 ```
 
 ### include_actions
@@ -190,22 +195,23 @@ This is an array of paths that are mandatory for implementation.
 This list does not affect the work of the matcher.
 This list is only for the report in the console.
 
-```ruby
-config.include_actions = [
-  'DELETE /users/{id}',
-  'POST /users',
-  'GET /users/{id}',
-  'PATCH /users/{id}',
-  'GET /users/{id}/employees'
-]
+```yaml
+include_actions:
+  - DELETE /users/{id}
+  - POST /users
+  - GET /users/{id}
+  - PATCH /users/{id}
+  - GET /users/{id}/employees
 ```
 
 ### ignore_list
 
 You can use ignore list for omit checks with matchers.
 
-```ruby
-config.ignore_list = [%r{/api/v1/users/[1-9].}, %r{/api/v1/comments}]
+```yaml
+ignore_list:
+  - %r{/api/v1/users/[1-9].}
+  - %r{/api/v1/comments}
 ```
 
 It's work only for match_schema (NOT FOR strictly_match_schema)
