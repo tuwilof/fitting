@@ -2,10 +2,22 @@ require 'spec_helper'
 require 'fitting/storage/white_list'
 
 RSpec.describe Fitting::Storage::WhiteList do
-  subject { described_class.new(white_list, resource_white_list, resources) }
+  subject do
+    described_class.new(
+      prefix,
+      white_list,
+      resource_white_list,
+      include_resources,
+      include_actions,
+      resources
+    )
+  end
 
+  let(:prefix) { nil }
   let(:white_list) { nil }
   let(:resource_white_list) { nil }
+  let(:include_resources) { nil }
+  let(:include_actions) { nil }
   let(:resources) { nil }
   let(:new_white_list) { double }
 

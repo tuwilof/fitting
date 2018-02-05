@@ -195,7 +195,10 @@ RSpec.describe Fitting::Statistics::Template do
       double(
         white_list: nil,
         resource_white_list: nil,
-        tomogram: double(to_resources: nil)
+        tomogram: double(to_resources: nil),
+        prefix: nil,
+        include_resources: nil,
+        include_actions: nil
       )
     end
 
