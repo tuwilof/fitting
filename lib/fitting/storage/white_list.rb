@@ -3,7 +3,8 @@ require 'tomograph'
 module Fitting
   module Storage
     class WhiteList
-      def initialize(white_list, resource_white_list, include_resources, include_actions, resources)
+      def initialize(prefix, white_list, resource_white_list, include_resources, include_actions, resources)
+        @prefix = prefix
         @white_list = white_list
         @resource_white_list = resource_white_list
         @include_resources = include_resources
@@ -135,7 +136,8 @@ module Fitting
       def postnew_without_group
         return @postnewwithout_group_list if @postnewwithout_group_list
         @postnewwithout_group_list = @include_actions.inject([]) do |all_requests, resource|
-          new_requests([resource], all_requests)
+          method, path = resource.split(' ')
+          new_requests(["#{method} #{@prefix}#{path}"], all_requests)
         end.flatten.uniq
         puts_warnings
         @postnewwithout_group_list

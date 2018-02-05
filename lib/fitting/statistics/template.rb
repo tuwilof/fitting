@@ -80,6 +80,7 @@ module Fitting
 
       def white_list
         @white_list ||= Fitting::Storage::WhiteList.new(
+          @config.prefix,
           @config.white_list,
           @config.resource_white_list,
           @config.include_resources,
