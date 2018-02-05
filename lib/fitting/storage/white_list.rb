@@ -98,7 +98,11 @@ module Fitting
       def new_without_group
         return @newwithout_group_list if @newwithout_group_list
         @newwithout_group_list = @include_resources.inject([]) do |all_requests, resource|
-          new_resource_selection("/#{resource}", all_requests)
+          if resource[0] == '/'
+            new_resource_selection(resource, all_requests)
+          else
+            new_resource_selection("/#{resource}", all_requests)
+          end
         end.flatten.uniq
         puts_warnings
         @newwithout_group_list
@@ -137,7 +141,11 @@ module Fitting
         return @postnewwithout_group_list if @postnewwithout_group_list
         @postnewwithout_group_list = @include_actions.inject([]) do |all_requests, resource|
           method, path = resource.split(' ')
-          new_requests(["#{method} #{@prefix}#{path}"], all_requests)
+          if path[0] == '/'
+            new_requests(["#{method} #{@prefix}#{path}"], all_requests)
+          else
+            new_requests(["#{method} #{@prefix}/#{path}"], all_requests)
+          end
         end.flatten.uniq
         puts_warnings
         @postnewwithout_group_list
