@@ -2,10 +2,22 @@ require 'spec_helper'
 require 'fitting/storage/white_list'
 
 RSpec.describe Fitting::Storage::WhiteList do
-  subject { described_class.new(white_list, resource_white_list, resources) }
+  subject do
+    described_class.new(
+      prefix,
+      white_list,
+      resource_white_list,
+      include_resources,
+      include_actions,
+      resources
+    )
+  end
 
+  let(:prefix) { nil }
   let(:white_list) { nil }
   let(:resource_white_list) { nil }
+  let(:include_resources) { nil }
+  let(:include_actions) { nil }
   let(:resources) { nil }
   let(:new_white_list) { double }
 
@@ -41,6 +53,26 @@ RSpec.describe Fitting::Storage::WhiteList do
 
       it 'returns new white list' do
         expect(subject.to_a).to eq(new_white_list)
+      end
+    end
+
+    context 'include_resources' do
+      let(:include_resources) { double }
+
+      before { allow(subject).to receive(:new_transformation).and_return({}) }
+
+      it 'returns new white list' do
+        expect(subject.to_a).to eq({})
+      end
+    end
+
+    context 'include_actions' do
+      let(:include_actions) { double }
+
+      before { allow(subject).to receive(:postnew_transformation).and_return({}) }
+
+      it 'returns new white list' do
+        expect(subject.to_a).to eq({})
       end
     end
   end
@@ -129,6 +161,137 @@ RSpec.describe Fitting::Storage::WhiteList do
 
     it 'returns without_group' do
       expect(subject.without_group).to eq([])
+    end
+  end
+
+  describe '#new_transformation' do
+    it 'does not raise exception' do
+      allow(subject).to receive(:new_transformation).and_return(new_white_list)
+      expect { subject.new_transformation }.not_to raise_exception
+    end
+
+    context 'default' do
+      let(:include_resources) do
+        [
+          '/users'
+        ]
+      end
+      let(:res) do
+        {
+          '/users/{id}' => %w[DELETE GET PATCH],
+          '/users' => ['POST']
+        }
+      end
+      let(:resources) do
+        {
+          '/users' => ['DELETE /users/{id}', 'POST /users', 'GET /users/{id}', 'PATCH /users/{id}']
+        }
+      end
+
+      it 'returns transformation' do
+        expect(subject.new_transformation).to eq(res)
+      end
+    end
+
+    context 'without slesh' do
+      let(:include_resources) do
+        [
+          'users'
+        ]
+      end
+      let(:res) do
+        {
+          '/users/{id}' => %w[DELETE GET PATCH],
+          '/users' => ['POST']
+        }
+      end
+      let(:resources) do
+        {
+          '/users' => ['DELETE /users/{id}', 'POST /users', 'GET /users/{id}', 'PATCH /users/{id}']
+        }
+      end
+
+      it 'returns transformation' do
+        expect(subject.new_transformation).to eq(res)
+      end
+    end
+
+    context 'warning' do
+      before { allow(STDOUT).to receive(:puts) }
+      let(:include_resources) do
+        [
+          '/lol'
+        ]
+      end
+      let(:res) { {} }
+      let(:resources) do
+        {
+          '/users' => ['DELETE /users/{id}', 'POST /users', 'GET /users/{id}', 'PATCH /users/{id}']
+        }
+      end
+
+      it 'returns transformation' do
+        expect(subject.new_transformation).to eq(res)
+      end
+    end
+  end
+
+  describe '#postnew_transformation' do
+    it 'does not raise exception' do
+      allow(subject).to receive(:postnew_transformation).and_return(new_white_list)
+      expect { subject.postnew_transformation }.not_to raise_exception
+    end
+
+    context 'default' do
+      let(:include_actions) do
+        [
+          'DELETE /users/{id}',
+          'POST /users',
+          'GET /users/{id}',
+          'PATCH /users/{id}'
+        ]
+      end
+      let(:res) do
+        {
+          '/users/{id}' => %w[DELETE GET PATCH],
+          '/users' => ['POST']
+        }
+      end
+      let(:resources) do
+        {
+          '/users' => ['DELETE /users/{id}', 'POST /users', 'GET /users/{id}', 'PATCH /users/{id}']
+        }
+      end
+
+      it 'returns transformation' do
+        expect(subject.postnew_transformation).to eq(res)
+      end
+    end
+
+    context 'without slesh' do
+      let(:include_actions) do
+        [
+          'DELETE users/{id}',
+          'POST users',
+          'GET /users/{id}',
+          'PATCH /users/{id}'
+        ]
+      end
+      let(:res) do
+        {
+          '/users/{id}' => %w[DELETE GET PATCH],
+          '/users' => ['POST']
+        }
+      end
+      let(:resources) do
+        {
+          '/users' => ['DELETE /users/{id}', 'POST /users', 'GET /users/{id}', 'PATCH /users/{id}']
+        }
+      end
+
+      it 'returns transformation' do
+        expect(subject.postnew_transformation).to eq(res)
+      end
     end
   end
 end

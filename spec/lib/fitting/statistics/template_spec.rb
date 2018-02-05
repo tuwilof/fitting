@@ -29,6 +29,14 @@ RSpec.describe Fitting::Statistics::Template do
 
   describe '#stats' do
     context 'all requests are less than white' do
+      let(:config) do
+        double(
+          white_list: double(present?: false),
+          resource_white_list: double(present?: false),
+          include_resources: double(present?: false)
+        )
+      end
+
       before do
         allow(subject).to receive(:documented).and_return(double(to_a: double(size: 0)))
         allow(subject).to receive(:documented_requests_white).and_return(double(size: 1))
@@ -41,6 +49,12 @@ RSpec.describe Fitting::Statistics::Template do
     end
 
     context 'all requests are more than white' do
+      let(:config) do
+        double(
+          white_list: double(present?: true)
+        )
+      end
+
       before do
         allow(subject).to receive(:documented).and_return(double(to_a: double(size: 1)))
         allow(subject).to receive(:documented_requests_white).and_return(double(size: 0))
@@ -181,7 +195,10 @@ RSpec.describe Fitting::Statistics::Template do
       double(
         white_list: nil,
         resource_white_list: nil,
-        tomogram: double(to_resources: nil)
+        tomogram: double(to_resources: nil),
+        prefix: nil,
+        include_resources: nil,
+        include_actions: nil
       )
     end
 

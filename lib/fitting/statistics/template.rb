@@ -19,7 +19,7 @@ module Fitting
       end
 
       def stats
-        if documented.to_a.size > documented_requests_white.size
+        if @config.white_list.present? || @config.resource_white_list.present? || @config.include_resources.present?
           [
             ['[Black list]', black_statistics].join("\n"),
             ['[White list]', white_statistics].join("\n"),
@@ -80,8 +80,11 @@ module Fitting
 
       def white_list
         @white_list ||= Fitting::Storage::WhiteList.new(
+          @config.prefix,
           @config.white_list,
           @config.resource_white_list,
+          @config.include_resources,
+          @config.include_actions,
           @config.tomogram.to_resources
         )
       end
