@@ -217,6 +217,7 @@ RSpec.describe Fitting::Storage::WhiteList do
     end
 
     context 'warning' do
+      before { allow(STDOUT).to receive(:puts) }
       let(:include_resources) do
         [
           '/lol'
