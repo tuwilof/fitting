@@ -172,7 +172,7 @@ Empty array `[]` means all methods.
 
 ### include_resources
 
-Default: all resources if `include_actions` is not used.
+Default: all resources if  `include_resources` and `include_actions` is not used.
 This is an array of resources that are mandatory for implementation.
 This list does not affect the work of the matcher.
 This list is only for the report in the console.
@@ -185,7 +185,7 @@ config.include_resources = [
 
 ### include_actions
 
-Default: all paths if `include_resources` is not used.
+Default: all paths if `include_resources` and `include_actions` is not used.
 This is an array of paths that are mandatory for implementation.
 This list does not affect the work of the matcher.
 This list is only for the report in the console.
