@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'fitting/records/tested/request'
 
 RSpec.describe Fitting::Records::Tested::Request do
-  subject { described_class.new(env_response) }
+  subject { described_class.new(env_response, double) }
 
   describe '#method' do
     let(:method) { double }

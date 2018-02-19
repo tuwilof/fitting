@@ -8,8 +8,8 @@ module Fitting
         @tested_requests = []
       end
 
-      def add(env_response)
-        @tested_requests.push(Fitting::Records::Tested::Request.new(env_response))
+      def add(env_response, test_title)
+        @tested_requests.push(Fitting::Records::Tested::Request.new(env_response, test_title))
       end
 
       def statistics

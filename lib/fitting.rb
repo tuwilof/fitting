@@ -20,7 +20,7 @@ module Fitting
 
       RSpec.configure do |config|
         config.after(:each, type: :controller) do
-          responses.add(response)
+          responses.add(response, self.inspect)
         end
 
         config.after(:suite) do

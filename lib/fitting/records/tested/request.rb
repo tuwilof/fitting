@@ -5,8 +5,9 @@ module Fitting
   class Records
     class Tested
       class Request
-        def initialize(env_response)
+        def initialize(env_response, test_title)
           @env_response = env_response
+          @test_title = test_title
         end
 
         def method
@@ -23,6 +24,14 @@ module Fitting
 
         def response
           @response ||= Fitting::Records::Tested::Response.new(@env_response)
+        end
+
+        def test_path
+          @test_path ||= @test_title[/#{'\('}(.*?)#{'\)'}/m, 1]
+        end
+
+        def test_file_path
+          @test_file_path ||= test_path.split(':').first
         end
       end
     end
