@@ -11,6 +11,7 @@ RSpec.describe Fitting::Statistics do
       allow(subject).to receive(:make_dir)
       allow(Fitting).to receive(:configuration).and_return(double(is_a?: false))
       allow(Fitting::Statistics::Template).to receive(:new).and_return(double(save: nil))
+      allow(Fitting::Statistics::TestTemplate).to receive(:new).and_return(double(save: nil))
     end
 
     it 'does not raise expection' do

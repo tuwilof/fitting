@@ -1,4 +1,5 @@
 require 'fitting/statistics/template'
+require 'fitting/statistics/test_template'
 
 module Fitting
   class Statistics
@@ -15,6 +16,7 @@ module Fitting
         end
       else
         Fitting::Statistics::Template.new(@tested_requests, Fitting.configuration).save
+        Fitting::Statistics::TestTemplate.new.save
       end
     end
 
