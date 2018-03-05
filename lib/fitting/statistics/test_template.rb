@@ -16,12 +16,12 @@ module Fitting
       def stats
         res = ''
         test_file_paths.each do |key, requests|
-          res += "file: #{key}\n"
+          all_good = requests.all? { |request| request.documented? }
+          res += "file: #{key} #{all_good ? '✔' : '✖'}\n"
           requests.map do |request|
-            res += "path: #{request.test_path}\n"
+            res += "path: #{request.test_path} #{request.documented? ? '✔' : '✖'}\n"
             res += "request: #{request.method} #{request.path} #{request.body}\n"
             res += "response: #{request.response.status} #{request.response.body}\n"
-            res += "\n"
           end
           res += "\n"
         end
@@ -35,7 +35,7 @@ module Fitting
       def test_file_paths
         return @test_file_paths if @test_file_paths
         @test_file_paths = {}
-        @tested_requests.map do |request|
+        white_unit.map do |request|
           @test_file_paths[request.test_file_path] ||= []
           @test_file_paths[request.test_file_path].push(request)
         end
