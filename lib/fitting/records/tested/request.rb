@@ -27,7 +27,7 @@ module Fitting
         end
 
         def test_path
-          @test_path ||= @test_title[/#{'\('}(.*?)#{'\)'}/m, 1]
+          @test_path ||= @test_title[/#{'\(\.'}(.*?)#{'\)'}/m, 1] || @test_title[/#{'\.'}(.*?)#{'\"'}/m, 1]
         end
 
         def test_file_path

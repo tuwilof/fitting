@@ -1,3 +1,5 @@
+require 'fitting/records/test_unit/request'
+
 module Fitting
   class Statistics
     class TestTemplate
@@ -38,6 +40,18 @@ module Fitting
           @test_file_paths[request.test_file_path].push(request)
         end
         @test_file_paths
+      end
+
+      def all_documented_requests
+        @all_documented_requests ||= @config.tomogram.to_hash.inject([]) do |res, tomogram_request|
+          res.push(Fitting::Records::Documented::Request.new(tomogram_request, nil))
+        end
+      end
+
+      def white_unit
+        @white_unit_requests ||= @tested_requests.inject([]) do |res, tested_request|
+          res.push(Fitting::Records::TestUnit::Request.new(tested_request, all_documented_requests))
+        end
       end
     end
   end
