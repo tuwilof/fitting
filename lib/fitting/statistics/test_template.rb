@@ -15,15 +15,23 @@ module Fitting
 
       def stats
         res = ''
+        res += "1. Find request method and path:\n"
         test_file_paths.each do |key, requests|
           all_good = requests.all? { |request| request.documented? }
           res += "file: #{key} #{all_good ? '✔' : '✖'}\n"
+        end
+        res += "\n2. Find response status code:\n"
+        test_file_paths.each do |key, requests|
+          all_good = requests.all? { |request| request.response_documented? }
+          res += "file: #{key} #{all_good ? '✔' : '✖'}\n"
+=begin
           requests.map do |request|
             res += "path: #{request.test_path} #{request.documented? ? '✔' : '✖'}\n"
             res += "request: #{request.method} #{request.path} #{request.body}\n"
             res += "response: #{request.response.status} #{request.response.body}\n"
           end
           res += "\n"
+=end
         end
         res
       end

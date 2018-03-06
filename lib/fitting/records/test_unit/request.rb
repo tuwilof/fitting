@@ -42,6 +42,19 @@ module Fitting
         def documented?
           @documented ||= documented_requests.present?
         end
+
+        def documented_responses
+          @documented_responses ||= documented_requests.inject([]) do |res, documented_request|
+            documented_request.responses.map do |documented_response|
+              next unless documented_response["status"] == response.status.to_s
+              res.push(documented_response)
+            end
+          end.flatten
+        end
+
+        def response_documented?
+          @documented ||= documented_responses.present?
+        end
       end
     end
   end
