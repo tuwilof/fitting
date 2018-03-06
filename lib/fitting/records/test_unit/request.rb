@@ -34,7 +34,7 @@ module Fitting
         def documented_requests
           @documented_requests ||= @all_documented_requests.inject([]) do |res, documented_request|
             next res unless @tested_request.method == documented_request.method &&
-              @tested_request.path.match(documented_request.path.to_s)
+              documented_request.path.match(@tested_request.path.to_s)
             res.push(documented_request)
           end
         end
