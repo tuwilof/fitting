@@ -24,14 +24,16 @@ module Fitting
         test_file_paths.each do |key, requests|
           all_good = requests.all? { |request| request.response_documented? }
           res += "file: #{key} #{all_good ? '✔' : '✖'}\n"
-=begin
-          requests.map do |request|
-            res += "path: #{request.test_path} #{request.documented? ? '✔' : '✖'}\n"
-            res += "request: #{request.method} #{request.path} #{request.body}\n"
-            res += "response: #{request.response.status} #{request.response.body}\n"
-          end
-          res += "\n"
-=end
+        end
+        res += "\n3. Find response json-schemas:\n"
+        test_file_paths.each do |key, requests|
+          all_good = requests.all? { |request| request.response_json_schemas? }
+          res += "file: #{key} #{all_good ? '✔' : '✖'}\n"
+        end
+        res += "\n4. Check valid json-schemas:\n"
+        test_file_paths.each do |key, requests|
+          all_good = requests.all? { |request| request.valid_json_schemas? }
+          res += "file: #{key} #{all_good ? '✔' : '✖'}\n"
         end
         res
       end

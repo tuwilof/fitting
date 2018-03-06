@@ -1,3 +1,5 @@
+require 'json-schema'
+
 module Fitting
   class Records
     class TestUnit
@@ -49,11 +51,32 @@ module Fitting
               next unless documented_response["status"] == response.status.to_s
               res.push(documented_response)
             end
-          end.flatten
+          end.flatten.compact
         end
 
         def response_documented?
           @documented ||= documented_responses.present?
+        end
+
+        def response_json_schemas
+          @valid_documented_responses ||= documented_responses.inject([]) do |res, documented_response|
+            res.push(documented_response["json_schemas"])
+          end.flatten
+        end
+
+        def response_json_schemas?
+          @response_valid ||= response_json_schemas.present?
+        end
+
+        def valid_json_schemas
+          @valid_documented_responses ||= response_json_schemas.inject([]) do |res, json_schema|
+            next res unless JSON::Validator.validate(json_schema, body)
+            res.push(json_schema)
+          end.flatten
+        end
+
+        def valid_json_schemas?
+          @response_valid ||= valid_json_schemas.present?
         end
       end
     end
