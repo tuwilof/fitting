@@ -4,7 +4,7 @@ require 'fitting/records/spherical/request'
 RSpec.describe Fitting::Records::Spherical::Request do
   let(:json) { "{\"method\":\"GET\",\"path\":\"users\",\"body\":\"{\\\"name\\\": \\\"noname\\\"}\",\"response\":\"\\\"{\\\\\\\"name\\\\\\\": \\\\\\\"John\\\\\\\"}\\\"\",\"title\":\"spec/spec_users.rb:4\",\"group\":\"spec/spec_users.rb\"}" }
 
-  describe '#dump' do
+  describe '#to_json' do
     subject do
       described_class.new(
         method: 'GET',
@@ -16,10 +16,25 @@ RSpec.describe Fitting::Records::Spherical::Request do
       )
     end
     it 'returns json' do
-      expect(subject.dump).to eq(json)
+      expect(subject.to_json).to eq(json)
     end
   end
 
+  describe '#to_hash' do
+    subject do
+      described_class.new(
+        method: 'GET',
+        path: 'users',
+        body: "{\"name\": \"noname\"}",
+        response: "{\"name\": \"John\"}",
+        title: 'spec/spec_users.rb:4',
+        group: 'spec/spec_users.rb'
+      )
+    end
+    it 'returns json' do
+      expect(subject.to_hash).to eq({:method=>"GET", :path=>"users", :body=>"{\"name\": \"noname\"}", :response=>"\"{\\\"name\\\": \\\"John\\\"}\"", :title=>"spec/spec_users.rb:4", :group=>"spec/spec_users.rb"})
+    end
+  end
 
   describe '#load' do
     subject { described_class.load(json) }

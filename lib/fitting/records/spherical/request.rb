@@ -16,15 +16,19 @@ module Fitting
           @group = group
         end
 
-        def dump
-          JSON.dump({
+        def to_hash
+          {
             method: method,
             path: path,
             body: body,
-            response: response.dump,
+            response: response.to_json,
             title: title,
             group: group
-          })
+          }
+        end
+
+        def to_json
+          JSON.dump(to_hash)
         end
 
         class << self

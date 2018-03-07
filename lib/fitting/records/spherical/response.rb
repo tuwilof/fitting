@@ -11,11 +11,15 @@ module Fitting
           @body = body
         end
 
-        def dump
-          JSON.dump({
+        def to_hash
+          {
             status: status,
             body: body
-          })
+          }
+        end
+
+        def to_json
+          JSON.dump(to_hash)
         end
 
         class << self
