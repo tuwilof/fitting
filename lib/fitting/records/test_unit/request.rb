@@ -26,11 +26,11 @@ module Fitting
         end
 
         def test_path
-          @test_path ||= @tested_request.test_path
+          @test_path ||= @tested_request.title
         end
 
         def test_file_path
-          @test_file_path ||= @tested_request.test_file_path
+          @test_file_path ||= @tested_request.group
         end
 
         def documented_requests

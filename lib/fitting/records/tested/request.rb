@@ -1,5 +1,6 @@
 require 'tomograph/path'
 require 'fitting/records/tested/response'
+require 'fitting/records/spherical/request'
 
 module Fitting
   class Records
@@ -32,6 +33,17 @@ module Fitting
 
         def test_file_path
           @test_file_path ||= test_path.split(':').first
+        end
+
+        def to_spherical
+          Fitting::Records::Spherical::Request.new(
+            method: method,
+            path: path,
+            body: body,
+            response: response.to_spherical,
+            title: test_path,
+            group: test_file_path
+          )
         end
       end
     end

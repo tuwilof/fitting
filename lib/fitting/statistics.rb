@@ -16,7 +16,7 @@ module Fitting
         end
       else
         Fitting::Statistics::Template.new(@tested_requests, Fitting.configuration).save
-        Fitting::Statistics::TestTemplate.new(@tested_requests, Fitting.configuration).save
+        Fitting::Statistics::TestTemplate.new(@tested_requests.map {|request| request.to_spherical} , Fitting.configuration).save
       end
     end
 
