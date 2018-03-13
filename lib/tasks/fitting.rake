@@ -22,9 +22,7 @@ namespace :fitting do
       res.push(Fitting::Records::Spherical::Request.load(tested_request))
     end
 
-    Fitting::Statistics::TestTemplate.new(spherical_requests, Fitting.configuration).save
-
-    result = File.read('fitting/tests_not_covered')
+    result = Fitting::Statistics::TestTemplate.new(spherical_requests, Fitting.configuration).check
     unless result == "\n"
       puts 'Not all responses from the whitelist are covered!'
       exit 1

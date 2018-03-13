@@ -8,9 +8,9 @@ module Fitting
         @config = config
       end
 
-      def save
-        File.open('fitting/tests_stats', 'w') { |file| file.write(stats) }
-        File.open('fitting/tests_not_covered', 'w') { |file| file.write(not_covered) }
+      def check
+        puts stats
+        not_covered
       end
 
       def stats
@@ -46,10 +46,8 @@ module Fitting
         return @test_file_paths if @test_file_paths
         @test_file_paths = {}
         white_unit.map do |request|
-          if request.path.to_s.start_with?(@config.prefix)
-            @test_file_paths[request.test_file_path] ||= []
-            @test_file_paths[request.test_file_path].push(request)
-          end
+          @test_file_paths[request.test_file_path] ||= []
+          @test_file_paths[request.test_file_path].push(request)
         end
         @test_file_paths
       end
