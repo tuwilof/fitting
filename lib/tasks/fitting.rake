@@ -1,3 +1,7 @@
+require 'fitting/records/spherical/request'
+require 'fitting/statistics/test_template'
+require 'fitting/configuration'
+
 namespace :fitting do
   desc 'Fitting documentation'
   task :documentation do
@@ -13,8 +17,12 @@ namespace :fitting do
 
   desc 'Fitting tests'
   task :tests do
-    puts `bundle exec rspec ./spec/controllers`
-    puts `cat fitting/tests_stats`
+    array = JSON.load(File.read('statistics.json'))
+    spherical_requests = array.inject([]) do |res, tested_request|
+      res.push(Fitting::Records::Spherical::Request.load(tested_request))
+    end
+
+    Fitting::Statistics::TestTemplate.new(spherical_requests, Fitting.configuration).save
 
     result = File.read('fitting/tests_not_covered')
     unless result == "\n"

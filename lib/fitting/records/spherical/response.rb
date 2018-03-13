@@ -28,8 +28,7 @@ module Fitting
         end
 
         class << self
-          def load(json)
-            hash = JSON.load(json)
+          def load(hash)
             new(status: hash["status"], body: hash["body"])
           end
         end

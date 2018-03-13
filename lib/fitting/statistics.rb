@@ -1,5 +1,4 @@
 require 'fitting/statistics/template'
-require 'fitting/statistics/test_template'
 
 module Fitting
   class Statistics
@@ -16,8 +15,8 @@ module Fitting
         end
       else
         Fitting::Statistics::Template.new(@tested_requests, Fitting.configuration).save
-        hash = @tested_requests.map { |request| request.to_spherical.to_hash }
-        json = JSON.dump(hash)
+        array = @tested_requests.map { |request| request.to_spherical.to_hash }
+        json = JSON.dump(array)
         File.open("statistics.json", 'w') { |file| file.write(json) }
       end
     end

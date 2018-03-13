@@ -32,13 +32,12 @@ module Fitting
         end
 
         class << self
-          def load(json)
-            hash = JSON.load(json)
+          def load(hash)
             new(
               method: hash["method"],
               path: hash["path"],
               body: hash["body"],
-              response: hash["response"],
+              response: Fitting::Records::Spherical::Response.load(hash["response"]),
               title: hash["title"],
               group: hash["group"]
             )
