@@ -16,7 +16,9 @@ module Fitting
         end
       else
         Fitting::Statistics::Template.new(@tested_requests, Fitting.configuration).save
-        Fitting::Statistics::TestTemplate.new(@tested_requests.map {|request| request.to_spherical} , Fitting.configuration).save
+        hash = @tested_requests.map { |request| request.to_spherical.to_hash }
+        json = JSON.dump(hash)
+        File.open("statistics.json", 'w') { |file| file.write(json) }
       end
     end
 

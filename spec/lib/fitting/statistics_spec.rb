@@ -16,6 +16,7 @@ RSpec.describe Fitting::Statistics do
 
     it 'does not raise expection' do
       expect { subject.save }.not_to raise_exception
+      FileUtils.rm_r 'statistics.json'
     end
 
     context 'config is array' do

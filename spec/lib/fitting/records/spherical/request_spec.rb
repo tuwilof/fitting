@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'fitting/records/spherical/request'
 
 RSpec.describe Fitting::Records::Spherical::Request do
-  let(:json) { "{\"method\":\"GET\",\"path\":\"users\",\"body\":\"{\\\"name\\\": \\\"noname\\\"}\",\"response\":\"\\\"{\\\\\\\"name\\\\\\\": \\\\\\\"John\\\\\\\"}\\\"\",\"title\":\"spec/spec_users.rb:4\",\"group\":\"spec/spec_users.rb\"}" }
+  let(:json) { "{\"method\":\"GET\",\"path\":\"users\",\"body\":\"{\\\"name\\\": \\\"noname\\\"}\",\"response\":\"{\\\"name\\\": \\\"John\\\"}\",\"title\":\"spec/spec_users.rb:4\",\"group\":\"spec/spec_users.rb\"}" }
 
   describe '#to_json' do
     subject do
@@ -10,7 +10,7 @@ RSpec.describe Fitting::Records::Spherical::Request do
         method: 'GET',
         path: 'users',
         body: "{\"name\": \"noname\"}",
-        response: "{\"name\": \"John\"}",
+        response: double(to_hash: "{\"name\": \"John\"}"),
         title: 'spec/spec_users.rb:4',
         group: 'spec/spec_users.rb'
       )
@@ -26,13 +26,13 @@ RSpec.describe Fitting::Records::Spherical::Request do
         method: 'GET',
         path: 'users',
         body: "{\"name\": \"noname\"}",
-        response: "{\"name\": \"John\"}",
+        response: double(to_hash: "{\"name\": \"John\"}"),
         title: 'spec/spec_users.rb:4',
         group: 'spec/spec_users.rb'
       )
     end
     it 'returns json' do
-      expect(subject.to_hash).to eq({:method=>"GET", :path=>"users", :body=>"{\"name\": \"noname\"}", :response=>"\"{\\\"name\\\": \\\"John\\\"}\"", :title=>"spec/spec_users.rb:4", :group=>"spec/spec_users.rb"})
+      expect(subject.to_hash).to eq({:method=>"GET", :path=>"users", :body=>"{\"name\": \"noname\"}", :response=>"{\"name\": \"John\"}", :title=>"spec/spec_users.rb:4", :group=>"spec/spec_users.rb"})
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe Fitting::Records::Spherical::Request do
     end
 
     it 'returns response' do
-      expect(subject.response).to eq("\"{\\\"name\\\": \\\"John\\\"}\"")
+      expect(subject.response).to eq("{\"name\": \"John\"}")
     end
 
     it 'returns title' do

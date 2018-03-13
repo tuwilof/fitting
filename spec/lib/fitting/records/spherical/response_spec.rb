@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'fitting/records/spherical/response'
 
 RSpec.describe Fitting::Records::Spherical::Response do
-  let(:json) { "{\"status\":200,\"body\":\"{\\\"name\\\": \\\"noname\\\"}\"}" }
+  let(:json) { "{\"status\":200,\"body\":{\"name\":\"noname\"}}" }
   let(:body) { "{\"name\": \"noname\"}" }
 
   describe '#to_json' do
@@ -17,7 +17,7 @@ RSpec.describe Fitting::Records::Spherical::Response do
     subject { described_class.new(status: 200, body: body) }
 
     it 'returns json' do
-      expect(subject.to_hash).to eq({:status => 200, :body => "{\"name\": \"noname\"}"})
+      expect(subject.to_hash).to eq({:status => 200, :body => {"name" => "noname"}})
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe Fitting::Records::Spherical::Response do
     end
 
     it 'returns body' do
-      expect(subject.body).to eq(body)
+      expect(subject.body).to eq({"name"=>"noname"})
     end
   end
 end

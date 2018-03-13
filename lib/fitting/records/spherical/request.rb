@@ -19,9 +19,9 @@ module Fitting
         def to_hash
           {
             method: method,
-            path: path,
+            path: path.to_s,
             body: body,
-            response: response.to_json,
+            response: response.to_hash,
             title: title,
             group: group
           }

@@ -14,7 +14,12 @@ module Fitting
         def to_hash
           {
             status: status,
-            body: body
+            body: JSON.load(body)
+          }
+        rescue JSON::ParserError
+          {
+            status: status,
+            body: {}
           }
         end
 
