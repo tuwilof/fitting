@@ -1,6 +1,7 @@
-require 'fitting/records/spherical/request'
-require 'fitting/statistics/test_template'
+require 'fitting/records/spherical/requests'
 require 'fitting/configuration'
+require 'fitting/records/realized_unit'
+require 'fitting/templates/realized_template'
 
 namespace :fitting do
   desc 'Fitting documentation'
@@ -15,15 +16,15 @@ namespace :fitting do
     end
   end
 
-  desc 'Fitting tests'
-  task :tests do
-    array = JSON.load(File.read('statistics.json'))
-    spherical_requests = array.inject([]) do |res, tested_request|
-      res.push(Fitting::Records::Spherical::Request.load(tested_request))
-    end
+  desc 'Fitting realization'
+  task :realization do
+    realized_unit = Fitting::Records::RealizedUnit.new(
+      Fitting::Records::Spherical::Requests.new,
+      Fitting.configuration.tomogram
+    )
+    puts Fitting::Templates::RealizedTemplate.new(realized_unit).to_s
 
-    result = Fitting::Statistics::TestTemplate.new(spherical_requests, Fitting.configuration).check
-    unless result == "\n"
+    unless realized_unit.fully_covered?
       puts 'Not all responses from the whitelist are covered!'
       exit 1
     end
