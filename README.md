@@ -1,7 +1,7 @@
 # Fitting
 
 <a href="https://funbox.ru">
-  <img src="https://funbox.ru/badges/sponsored_by_funbox.svg" alt="Sponsored by FunBox" width=250 />
+  <img src="https://funbox.ru/badges/sponsored_by_funbox_compact.svg" alt="Sponsored by FunBox" width=250 />
 </a>
 
 [![Gem Version](https://badge.fury.io/rb/fitting.svg)](https://badge.fury.io/rb/fitting)
