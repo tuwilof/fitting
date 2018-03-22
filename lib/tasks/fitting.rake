@@ -16,8 +16,8 @@ namespace :fitting do
     end
   end
 
-  desc 'Fitting realization'
-  task :realization do
+  desc 'Fitting tests'
+  task :tests do
     realized_unit = Fitting::Records::RealizedUnit.new(
       Fitting::Records::Spherical::Requests.new,
       Fitting.configuration.tomogram

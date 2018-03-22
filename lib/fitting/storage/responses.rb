@@ -1,4 +1,5 @@
 require 'fitting/statistics'
+require 'fitting/tests'
 require 'fitting/records/tested/request'
 
 module Fitting
@@ -14,6 +15,10 @@ module Fitting
 
       def statistics
         Fitting::Statistics.new(@tested_requests)
+      end
+
+      def tests
+        Fitting::Tests.new(@tested_requests)
       end
     end
   end

@@ -28,6 +28,20 @@ module Fitting
         end
       end
     end
+
+    def save_test_data
+      responses = Fitting::Storage::Responses.new
+
+      RSpec.configure do |config|
+        config.after(:each, type: :controller) do
+          responses.add(response, self.inspect)
+        end
+
+        config.after(:suite) do
+          responses.tests.save
+        end
+      end
+    end
   end
 
   def self.loaded_tasks=(val)
