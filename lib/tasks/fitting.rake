@@ -6,11 +6,13 @@ require 'fitting/templates/realized_template'
 namespace :fitting do
   desc 'Fitting documentation'
   task :documentation do
-    puts `bundle exec rspec ./spec/controllers`
-    puts `cat fitting/stats`
+    documented_unit = Fitting::Statistics::Template.new(
+      Fitting::Records::Spherical::Requests.new,
+      Fitting.configuration
+    )
+    puts documented_unit.stats
 
-    result = File.read('fitting/not_covered')
-    unless result == "\n"
+    unless documented_unit.not_covered == "\n"
       puts 'Not all responses from the whitelist are covered!'
       exit 1
     end
