@@ -1,5 +1,10 @@
 # Change log
 
+### 2.5.0 - 2018-07-05
+
+* features
+  * Add Tomograph JSON support
+
 ### 2.4.1 - 2018-03-16
 
 * fixes
