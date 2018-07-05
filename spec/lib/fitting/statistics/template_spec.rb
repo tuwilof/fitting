@@ -178,7 +178,7 @@ RSpec.describe Fitting::Statistics::Template do
   end
 
   describe '#documented' do
-    let(:config) { double(tomogram: double(to_hash: [double])) }
+    let(:config) { double(tomogram: double(to_a: [double])) }
 
     before do
       allow(Fitting::Records::Documented::Request).to receive(:new)
