@@ -73,7 +73,7 @@ module Fitting
       end
 
       def documented
-        @documented_requests ||= @config.tomogram.to_hash.inject([]) do |res, tomogram_request|
+        @documented_requests ||= @config.tomogram.to_a.inject([]) do |res, tomogram_request|
           res.push(Fitting::Records::Documented::Request.new(tomogram_request, white_list.to_a))
         end
       end

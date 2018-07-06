@@ -6,6 +6,7 @@ module Fitting
       attr_reader   :title
       attr_accessor :apib_path,
                     :drafter_yaml_path,
+                    :tomogram_json_path,
                     :strict,
                     :prefix,
                     :white_list,
@@ -17,6 +18,7 @@ module Fitting
       def initialize(yaml, title = 'fitting')
         @apib_path = yaml['apib_path']
         @drafter_yaml_path = yaml['drafter_yaml_path']
+        @tomogram_json_path = yaml['tomogram_json_path']
         @strict = yaml['strict']
         @prefix = yaml['prefix']
         @white_list = yaml['white_list']
@@ -32,7 +34,8 @@ module Fitting
         @tomogram ||= Tomograph::Tomogram.new(
           prefix: @prefix,
           apib_path: @apib_path,
-          drafter_yaml_path: @drafter_yaml_path
+          drafter_yaml_path: @drafter_yaml_path,
+          tomogram_json_path: @tomogram_json_path
         )
       end
 

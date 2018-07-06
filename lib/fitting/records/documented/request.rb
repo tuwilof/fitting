@@ -8,15 +8,11 @@ module Fitting
         end
 
         def method
-          @method ||= @tomogram_request['method']
+          @method ||= @tomogram_request.method
         end
 
         def path
-          @path ||= @tomogram_request['path']
-        end
-
-        def json_schema
-          @json_schema ||= @tomogram_request['json_schema']
+          @path ||= @tomogram_request.path
         end
 
         def responses
@@ -43,7 +39,7 @@ module Fitting
         end
 
         def groups
-          @groups ||= @tomogram_request['responses'].group_by do |tomogram_response|
+          @groups ||= @tomogram_request.responses.group_by do |tomogram_response|
             tomogram_response['status']
           end
         end
