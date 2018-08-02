@@ -108,7 +108,7 @@ expect(response).to match_schema
 
 ### strictly_match_schema
 
-Makes a strict validation against JSON Schema. All properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
+Makes a strict validation against JSON Schema. All properties are considered to have `"required": true` and all objects `"additionalProperties": false`.
 
 ```ruby
 expect(response).to strictly_match_schema
@@ -214,7 +214,7 @@ ignore_list:
   - %r{/api/v1/comments}
 ```
 
-It's work only for match_schema (NOT FOR strictly_match_schema)
+It works only for match_schema (NOT FOR strictly_match_schema)
 
 ## Contributing
 
