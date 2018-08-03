@@ -39,7 +39,7 @@ module Fitting
       end
 
       def all_documented_requests
-        @all_documented_requests ||= @documented_requests.to_hash.inject([]) do |res, tomogram_request|
+        @all_documented_requests ||= @documented_requests.to_a.inject([]) do |res, tomogram_request|
           res.push(Fitting::Records::Documented::Request.new(tomogram_request, nil))
         end
       end
