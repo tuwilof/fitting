@@ -9,6 +9,22 @@ module Fitting
       end
 
       def fully_covered?
+        test_file_paths.each do |key, requests|
+          all_good = requests.all? { |request| request.documented? }
+          return false unless all_good
+        end
+        test_file_paths.each do |key, requests|
+          all_good = requests.all? { |request| request.response_documented? }
+          return false unless all_good
+        end
+        test_file_paths.each do |key, requests|
+          all_good = requests.all? { |request| request.response_json_schemas? }
+          return false unless all_good
+        end
+        test_file_paths.each do |key, requests|
+          all_good = requests.all? { |request| request.valid_json_schemas? }
+          return false unless all_good
+        end
         true
       end
 
