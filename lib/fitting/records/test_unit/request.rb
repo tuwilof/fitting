@@ -70,7 +70,7 @@ module Fitting
 
         def valid_json_schemas
           @valid_json_schemas ||= response_json_schemas.inject([]) do |res, json_schema|
-            next res unless JSON::Validator.validate(json_schema, body)
+            next res unless JSON::Validator.validate(json_schema, response.body)
             res.push(json_schema)
           end.flatten
         end

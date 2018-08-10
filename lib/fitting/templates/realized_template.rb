@@ -26,6 +26,13 @@ module Fitting
         @realized_unit.test_file_paths.each do |key, requests|
           all_good = requests.all? { |request| request.valid_json_schemas? }
           res += "file: #{key} #{all_good ? '✔' : '✖'}\n"
+          unless all_good
+            requests.map do |request|
+              unless request.valid_json_schemas?
+                res += "  file: #{request.test_path} ✖\n"
+              end
+            end
+          end
         end
         res
       end
