@@ -75,6 +75,18 @@ module Fitting
           end.flatten
         end
 
+        def invalid_json_schemas
+          @invalid_json_schemas ||= response_json_schemas.inject([]) do |res, json_schema|
+            next res if JSON::Validator.validate(json_schema, response.body)
+            res.push(
+              {
+                json_schema: json_schema,
+                fully_validate: JSON::Validator.fully_validate(json_schema, response.body)
+              }
+            )
+          end.flatten
+        end
+
         def valid_json_schemas?
           @valid_json_schemas_present ||= valid_json_schemas.present?
         end

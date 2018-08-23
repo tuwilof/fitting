@@ -25,11 +25,19 @@ module Fitting
         res += "\n4. Check valid json-schemas:\n"
         @realized_unit.test_file_paths.each do |key, requests|
           all_good = requests.all? { |request| request.valid_json_schemas? }
-          res += "file: #{key} #{all_good ? '✔' : '✖'}\n"
+          res += "path: #{key} #{all_good ? '✔' : '✖'}\n"
           unless all_good
             requests.map do |request|
               unless request.valid_json_schemas?
-                res += "  file: #{request.test_path} ✖\n"
+                res += "  full path: #{request.test_path} ✖\n"
+                res += "    request.method #{request.method}\n"
+                res += "    request.path #{request.path}\n"
+                res += "    request.response.status #{request.response.status}\n"
+                res += "    request.response.body #{request.response.body}\n\n"
+                request.invalid_json_schemas.map do |schema|
+                  res += "    json_schemas: #{schema[:json_schema]}\n"
+                  res += "    fully_validate: #{schema[:fully_validate]}\n\n"
+                end
               end
             end
           end
