@@ -1,12 +1,14 @@
 require 'tomograph/path'
 require 'fitting/records/tested/response'
+require 'fitting/records/spherical/request'
 
 module Fitting
   class Records
     class Tested
       class Request
-        def initialize(env_response)
+        def initialize(env_response, test_title)
           @env_response = env_response
+          @test_title = test_title
         end
 
         def method
@@ -23,6 +25,25 @@ module Fitting
 
         def response
           @response ||= Fitting::Records::Tested::Response.new(@env_response)
+        end
+
+        def test_path
+          @test_path ||= @test_title[/#{'\(\.'}(.*?)#{'\)'}/m, 1] || @test_title[/#{'\.'}(.*?)#{'\"'}/m, 1]
+        end
+
+        def test_file_path
+          @test_file_path ||= test_path.split(':').first
+        end
+
+        def to_spherical
+          Fitting::Records::Spherical::Request.new(
+            method: method,
+            path: path,
+            body: body,
+            response: response.to_spherical,
+            title: test_path,
+            group: test_file_path
+          )
         end
       end
     end

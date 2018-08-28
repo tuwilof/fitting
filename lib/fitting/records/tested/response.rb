@@ -1,3 +1,5 @@
+require 'fitting/records/spherical/response'
+
 module Fitting
   class Records
     class Tested
@@ -12,6 +14,13 @@ module Fitting
 
         def body
           @body ||= @env_response.body
+        end
+
+        def to_spherical
+          Fitting::Records::Spherical::Response.new(
+            status: status,
+            body: body
+          )
         end
       end
     end

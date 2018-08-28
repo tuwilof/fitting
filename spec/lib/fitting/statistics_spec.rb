@@ -4,7 +4,7 @@ require 'fitting/statistics'
 RSpec.describe Fitting::Statistics do
   subject { described_class.new(tested_requests) }
 
-  let(:tested_requests) { double }
+  let(:tested_requests) { [] }
 
   describe '#save' do
     before do
