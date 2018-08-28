@@ -1,5 +1,10 @@
 # Change log
 
+### 2.6.0 - 2018-08-28
+
+* features
+  * Add two rake tasks fitting:documentation and fitting:tests
+
 ### 2.5.0 - 2018-07-05
 
 * features
