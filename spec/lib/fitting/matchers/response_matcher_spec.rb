@@ -22,12 +22,10 @@ RSpec.describe Fitting::Matchers::Response do
   let(:response) { double(fully_validates: double(valid?: true), within_prefix?: true) }
 
   before do
-    allow(Fitting::Storage::Documentation).to receive(:tomogram)
+    allow(response).to receive(:ignored?).and_return(false)
     allow(Fitting::Response).to receive(:new).and_return(response)
-    allow(Fitting).to receive(:configuration).and_return(double(prefix: ''))
+    allow(Fitting).to receive(:configuration).and_return(double(prefix: '', ignore_list: [], tomogram: nil))
   end
-
-  subject { described_class.new }
 
   describe '#matches?' do
     it 'returns true' do
@@ -36,6 +34,26 @@ RSpec.describe Fitting::Matchers::Response do
 
     context 'within_prefix? false' do
       let(:response) { double(fully_validates: double(valid?: true), within_prefix?: false) }
+
+      it 'returns true' do
+        expect(subject.matches?(nil)).to be_truthy
+      end
+    end
+
+    context 'path ignored' do
+      before do
+        allow(response).to receive(:ignored?).and_return(true)
+      end
+
+      it 'returns true' do
+        expect(subject.matches?(nil)).to be_truthy
+      end
+    end
+
+    context 'config is array' do
+      before do
+        allow(Fitting).to receive(:configuration).and_return([double(prefix: '', ignore_list: [], tomogram: nil)])
+      end
 
       it 'returns true' do
         expect(subject.matches?(nil)).to be_truthy
@@ -91,8 +109,8 @@ RSpec.describe Fitting::Matchers::StrictResponse do
   let(:response) { double(strict_fully_validates: double(valid?: true)) }
 
   before do
-    allow(Fitting::Storage::Documentation).to receive(:tomogram)
     allow(Fitting::Response).to receive(:new).and_return(response)
+    allow(Fitting).to receive(:configuration).and_return(double(tomogram: nil))
   end
 
   subject { described_class.new }
@@ -100,6 +118,14 @@ RSpec.describe Fitting::Matchers::StrictResponse do
   describe '#matches?' do
     it 'returns true' do
       expect(subject.matches?(nil)).to be_truthy
+    end
+
+    context 'config is array' do
+      before { allow(Fitting).to receive(:configuration).and_return([double(tomogram: nil)]) }
+
+      it 'returns true' do
+        expect(subject.matches?(nil)).to be_truthy
+      end
     end
   end
 

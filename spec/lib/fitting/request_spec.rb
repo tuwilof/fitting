@@ -1,15 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe Fitting::Request do
-  let(:env_request) { double(request_method: nil, env: {}, fullpath: nil) }
+  let(:env_request) { double(request_method: 'method', env: {}, fullpath: 'path') }
   let(:tomogram) { double(find_request: nil) }
   subject { described_class.new(env_request, tomogram) }
-
-  describe '.new' do
-    it 'returns described class object' do
-      expect(subject).to be_a(described_class)
-    end
-  end
 
   describe '#route' do
     before { subject.instance_variable_set(:@schema, double(method: 'method', path: 'path')) }
@@ -20,11 +14,6 @@ RSpec.describe Fitting::Request do
   end
 
   describe '#real_method_with_path' do
-    before do
-      subject.instance_variable_set(:@method, 'method')
-      subject.instance_variable_set(:@path, 'path')
-    end
-
     it 'returns real method with path' do
       expect(subject.real_method_with_path).to eq("method\tpath")
     end
@@ -43,6 +32,16 @@ RSpec.describe Fitting::Request do
 
     it 'returns true' do
       expect(subject.within_prefix?('')).to be_truthy
+    end
+  end
+
+  describe '#ignored?' do
+    it 'matchs with ignore list' do
+      expect(subject.ignored?([/path/])).to eq(true)
+    end
+
+    it 'does not matchs with ignore list' do
+      expect(subject.ignored?([/smthing/])).to eq(false)
     end
   end
 end

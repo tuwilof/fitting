@@ -5,6 +5,8 @@ require 'multi_json'
 
 module Fitting
   class Response
+    attr_reader :body
+
     def initialize(env_response, tomogram)
       @request = Fitting::Request.new(env_response.request, tomogram)
       @status = env_response.status
@@ -58,7 +60,9 @@ module Fitting
       @schemas[index.first]
     end
 
-    attr_reader :body
+    def ignored?(ignore_list)
+      @request.ignored?(ignore_list)
+    end
 
     private
 

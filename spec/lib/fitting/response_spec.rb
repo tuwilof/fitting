@@ -4,7 +4,7 @@ require 'fitting/response'
 RSpec.describe Fitting::Response do
   let(:env_response) { double(request: nil, status: nil, body: nil) }
   let(:tomogram) { double }
-  let(:request) { double(schemas_of_possible_responses: schemas_of_possible_responses) }
+  let(:request) { double(schemas_of_possible_responses: schemas_of_possible_responses, path: 'path') }
   let(:schemas_of_possible_responses) { nil }
 
   before { allow(Fitting::Request).to receive(:new).with(env_response.request, tomogram).and_return(request) }
@@ -129,6 +129,14 @@ RSpec.describe Fitting::Response do
 
     it 'returns json_schema' do
       expect(subject.body).to eq(body)
+    end
+  end
+
+  describe '#ignored?' do
+    before { allow(request).to receive(:ignored?).and_return(true) }
+
+    it 'call #ignored? to request' do
+      expect(subject.ignored?([/path/])).to eq(true)
     end
   end
 end

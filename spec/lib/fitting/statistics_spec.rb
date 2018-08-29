@@ -1,70 +1,36 @@
 require 'spec_helper'
+require 'fitting/statistics'
 
 RSpec.describe Fitting::Statistics do
-  let(:documentation) { double(black: black, white: white) }
-  let(:all_responses) { nil }
-  let(:strict) { nil }
+  subject { described_class.new(tested_requests) }
 
-  let(:white) { nil }
-  let(:black) { nil }
-
-  subject { described_class.new(documentation, all_responses, strict) }
+  let(:tested_requests) { [] }
 
   describe '#save' do
-    let(:black) { double(any?: false) }
-    let(:white_route) do
-      double(statistics_with_conformity_lists: 'white_route statistics_with_conformity_lists', errors: [])
-    end
-
     before do
-      allow(Fitting::Route).to receive(:new).with(all_responses, white, strict).and_return(white_route)
-      allow(Fitting::Route).to receive(:new).with(all_responses, black, strict).and_return(nil)
+      allow(subject).to receive(:make_dir)
+      allow(Fitting).to receive(:configuration).and_return(double(is_a?: false))
+      allow(Fitting::Statistics::Template).to receive(:new).and_return(double(save: nil))
     end
 
-    it 'no error' do
+    it 'does not raise expection' do
       expect { subject.save }.not_to raise_exception
-      FileUtils.rm_r 'fitting'
-    end
-  end
-
-  describe '#cover_save' do
-    let(:white_route) { double(cover_save: nil) }
-
-    before do
-      allow(Fitting::Route).to receive(:new).with(all_responses, white, strict).and_return(white_route)
     end
 
-    it 'no error' do
-      expect { subject.cover_save }.not_to raise_exception
-      FileUtils.rm_r 'fitting'
-    end
-  end
+    context 'config is array' do
+      before { allow(Fitting).to receive(:configuration).and_return([double(title: nil)]) }
 
-  describe '#to_s' do
-    let(:black) { double(any?: false) }
-    let(:white_route) { double(statistics_with_conformity_lists: 'white_route statistics_with_conformity_lists') }
-
-    before do
-      allow(Fitting::Route).to receive(:new).with(all_responses, white, strict).and_return(white_route)
-      allow(Fitting::Route).to receive(:new).with(all_responses, black, strict).and_return(nil)
-    end
-
-    it 'return statistics' do
-      expect(subject.to_s).to eq("white_route statistics_with_conformity_lists\n\n")
-    end
-
-    context 'has black' do
-      let(:black) { double(any?: true) }
-      let(:black_route) { double(statistics_with_conformity_lists: 'black_route statistics_with_conformity_lists') }
-
-      before { allow(Fitting::Route).to receive(:new).with(all_responses, black, strict).and_return(black_route) }
-
-      it 'return statistics' do
-        expect(subject.to_s).to eq(
-          "[Black list]\nblack_route statistics_with_conformity_lists\n\n"\
-          "[White list]\nwhite_route statistics_with_conformity_lists\n\n"
-        )
+      it 'does not raise expection' do
+        expect { subject.save }.not_to raise_exception
       end
+    end
+  end
+
+  describe '#make_dir' do
+    after { FileUtils.rm_r 'test' }
+
+    it 'does not raise expection' do
+      expect { subject.make_dir('test') }.not_to raise_exception
     end
   end
 end

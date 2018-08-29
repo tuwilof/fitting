@@ -1,36 +1,25 @@
-require 'fitting/route'
-require 'fileutils'
-require 'multi_json'
+require 'fitting/statistics/template'
 
 module Fitting
   class Statistics
-    def initialize(documentation, all_responses, strict)
-      @documentation = documentation
-      @black_route = Fitting::Route.new(all_responses, @documentation.black, strict)
-      @white_route = Fitting::Route.new(all_responses, @documentation.white, strict)
+    def initialize(tested_requests)
+      @tested_requests = tested_requests
     end
 
     def save
-      FileUtils.mkdir_p 'fitting'
-      File.open('fitting/stats', 'w') { |file| file.write(to_s) }
-      File.open('fitting/not_covered', 'w') { |file| file.write(@white_route.errors) }
-    end
-
-    def cover_save
-      FileUtils.mkdir_p 'fitting'
-      File.open('fitting/response_cover.html', 'w') { |file| file.write(@white_route.cover_save) }
-    end
-
-    def to_s
-      if @documentation.black.any?
-        [
-          ['[Black list]', @black_route.statistics_with_conformity_lists].join("\n"),
-          ['[White list]', @white_route.statistics_with_conformity_lists].join("\n"),
-          ''
-        ].join("\n\n")
+      make_dir('fitting')
+      if Fitting.configuration.is_a?(Array)
+        Fitting.configuration.each do |config|
+          make_dir("fitting/#{config.title}")
+          Fitting::Statistics::Template.new(@tested_requests, config).save
+        end
       else
-        [@white_route.statistics_with_conformity_lists, "\n\n"].join
+        Fitting::Statistics::Template.new(@tested_requests, Fitting.configuration).save
       end
+    end
+
+    def make_dir(dir_name)
+      FileUtils.mkdir_p(dir_name)
     end
   end
 end

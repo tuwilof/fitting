@@ -1,19 +1,16 @@
 require 'fitting/response'
-require 'fitting/storage/documentation'
 require 'fitting/configuration'
 
 module Fitting
   module Matchers
     class Response
       def matches?(response)
-        @response = Fitting::Response.new(
-          response,
-          Fitting::Storage::Documentation.tomogram
-        )
-        if @response.within_prefix?(Fitting.configuration.prefix)
-          @response.fully_validates.valid?
+        if Fitting.configuration.is_a?(Array)
+          Fitting.configuration.all? do |config|
+            one_match(response, config)
+          end
         else
-          true
+          one_match(response, Fitting.configuration)
         end
       end
 
@@ -34,15 +31,28 @@ module Fitting
           "got: #{@response.got}\n\n"\
           "errors: \n#{@response.fully_validates}\n"
       end
+
+      private
+
+      def one_match(response, config)
+        response = Fitting::Response.new(response, config.tomogram)
+        if response.within_prefix?(config.prefix)
+          @response = response
+          return true if @response.ignored?(config.ignore_list)
+          return @response.fully_validates.valid?
+        else
+          true
+        end
+      end
     end
 
     class StrictResponse
       def matches?(response)
-        @response = Fitting::Response.new(
-          response,
-          Fitting::Storage::Documentation.tomogram
-        )
-        @response.strict_fully_validates.valid?
+        if Fitting.configuration.is_a?(Array)
+          one_match(response, Fitting.configuration[0])
+        else
+          one_match(response, Fitting.configuration)
+        end
       end
 
       def ===(other)
@@ -61,6 +71,16 @@ module Fitting
           "schemas: \n#{@response.expected}\n\n"\
           "got: #{@response.got}\n\n"\
           "errors: \n#{@response.strict_fully_validates}\n"
+      end
+
+      private
+
+      def one_match(response, config)
+        @response = Fitting::Response.new(
+          response,
+          config.tomogram
+        )
+        @response.strict_fully_validates.valid?
       end
     end
 

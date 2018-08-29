@@ -1,5 +1,10 @@
 # Fitting
 
+<a href="https://funbox.ru">
+  <img src="https://funbox.ru/badges/sponsored_by_funbox_compact.svg" alt="Sponsored by FunBox" width=250 />
+</a>
+
+[![Gem Version](https://badge.fury.io/rb/fitting.svg)](https://badge.fury.io/rb/fitting)
 [![Build Status](https://travis-ci.org/funbox/fitting.svg?branch=master)](https://travis-ci.org/funbox/fitting)
 
 This gem will help you implement your API in strict accordance to the documentation in [API Blueprint](https://apiblueprint.org/) format.
@@ -23,16 +28,18 @@ Or install it yourself as:
 
 ## Usage
 
+In your `.fitting.yml`:
+
+```yaml
+apib_path: /path/to/doc.apib
+```
+
 In your `spec_helper.rb`:
 
 ```ruby
 require 'fitting'
 
 Fitting.statistics
-
-Fitting.configure do |config|
-  config.apib_path = '/path/to/doc.apib'
-end
 ```
 
 or
@@ -50,10 +57,6 @@ RSpec.configure do |config|
   config.after(:suite) do
     responses.statistics.save
   end
-end
-
-Fitting.configure do |config|
-  config.apib_path = '/path/to/doc.apib'
 end
 ```
 
@@ -105,13 +108,16 @@ expect(response).to match_schema
 
 ### strictly_match_schema
 
-Makes a strict validation against JSON Schema. All properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
+Makes a strict validation against JSON Schema. All properties are considered to have `"required": true` and all objects `"additionalProperties": false`.
 
 ```ruby
 expect(response).to strictly_match_schema
 ```
 
 ## Config
+
+You can specify the settings either in a yaml file `.fitting.yml` or in config.
+If your project uses several prefixes, for each one you need to create a separate yaml file in the folder `fitting` (`fitting/*.yml`).
 
 ### apib_path
 
@@ -135,13 +141,17 @@ Default: all paths. This is an array of paths that are mandatory for implementat
 This list does not affect the work of the matcher.
 This list is only for the report in the console.
 
-```ruby
-config.white_list = {
-  '/users' =>                ['DELETE', 'POST'],
-  '/users/{id}' =>           ['GET', 'PATCH'],
-  '/users/{id}/employees' => ['GET'],
-  '/sessions' =>             []
-}
+```yaml
+white_list:
+  /users:
+    - DELETE
+    - POST
+  /users/{id}:
+    - GET
+    - PATCH
+  /users/{id}/employees:
+    - GET
+  /sessions: []
 ```
 
 Empty array `[]` means all methods.
@@ -152,12 +162,16 @@ Default: all resources. This is an array of resources that are mandatory for imp
 This list does not affect the work of the matcher.
 This list is only for the report in the console.
 
-```ruby
-config.resource_white_list = {
-  '/users' =>                ['DELETE /users/{id}', 'POST /users', 'GET /users/{id}', 'PATCH /users/{id}'],
-  '/users/{id}/employees' => ['GET /users/{id}/employees'],
-  '/sessions' =>             []
-}
+```yaml
+resource_white_list:
+  /users:
+    - DELETE /users/{id}
+    - POST /users
+    - GET /users/{id}
+    - PATCH /users/{id}
+  /users/{id}/employees:
+    - GET /users/{id}/employees
+  /sessions: []
 ```
 
 Empty array `[]` means all methods.
@@ -166,6 +180,46 @@ Empty array `[]` means all methods.
 
 Default: false. Json-schema covering becomes mandatory.
 Or you can call `responses.statistics.cover_save` if you don't use call `Fitting.statistics`.
+
+### include_resources
+
+Default: all resources if  `include_resources` and `include_actions` is not used.
+This is an array of resources that are mandatory for implementation.
+This list does not affect the work of the matcher.
+This list is only for the report in the console.
+
+```yaml
+include_resources:
+  - /sessions
+```
+
+### include_actions
+
+Default: all paths if `include_resources` and `include_actions` is not used.
+This is an array of paths that are mandatory for implementation.
+This list does not affect the work of the matcher.
+This list is only for the report in the console.
+
+```yaml
+include_actions:
+  - DELETE /users/{id}
+  - POST /users
+  - GET /users/{id}
+  - PATCH /users/{id}
+  - GET /users/{id}/employees
+```
+
+### ignore_list
+
+You can use ignore list for omit checks with matchers.
+
+```yaml
+ignore_list:
+  - %r{/api/v1/users/[1-9].}
+  - %r{/api/v1/comments}
+```
+
+It works only for match_schema (NOT FOR strictly_match_schema)
 
 ## Contributing
 
