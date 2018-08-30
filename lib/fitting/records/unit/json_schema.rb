@@ -37,6 +37,18 @@ module Fitting
           end
           @combinations
         end
+
+        def cover
+          @cover ||= if bodies == []
+                       0
+                     else
+                       count = 0
+                       combinations.map do |combination|
+                         count += 1 unless combination.valid_bodies == []
+                       end
+                       (count + 1) * 100 / (combinations.size + 1)
+                     end
+        end
       end
     end
   end

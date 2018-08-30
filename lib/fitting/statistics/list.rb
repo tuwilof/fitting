@@ -34,19 +34,7 @@ module Fitting
       end
 
       def json_schema_stat(res, json_schema, response)
-        if json_schema.bodies == []
-          res.push("0% #{response.status}")
-        else
-          count = 0
-          json_schema.combinations.map do |combination|
-            count += 1 unless combination.valid_bodies ==[]
-          end
-          if json_schema.combinations.size == 0
-            res.push("100% #{response.status}")
-          else
-            res.push("#{count * 100 / json_schema.combinations.size}% #{response.status}")
-          end
-        end
+        res.push("#{json_schema.cover}% #{response.status}")
       end
     end
   end
