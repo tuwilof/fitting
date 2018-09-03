@@ -19,9 +19,9 @@ namespace :fitting do
     end
   end
 
-  desc 'Fitting documentation response cover'
-  task :documentation_response, [:size] => :environment do |_, args|
-    if  args.size == 'xs'
+  desc 'Fitting documentation responses cover'
+  task :documentation_responses, [:size] => :environment do |_, args|
+    if args.size == 'xs'
       documented_unit = Fitting::Statistics::Template.new(
         Fitting::Records::Spherical::Requests.new,
         Fitting.configuration
@@ -49,8 +49,8 @@ namespace :fitting do
     end
   end
 
-  desc 'Fitting documentation response cover error'
-  task :documentation_response_error, [:size] => :environment do |_, args|
+  desc 'Fitting documentation responses cover error'
+  task :documentation_responses_error, [:size] => :environment do |_, args|
     if args.size == 's'
       documented_unit = Fitting::Statistics::TemplateCoverError.new(
         Fitting::Records::Spherical::Requests.new,
@@ -73,6 +73,24 @@ namespace :fitting do
     unless realized_unit.fully_covered?
       puts 'Not all responses from the whitelist are covered!'
       exit 1
+    end
+  end
+
+  desc 'Fitting tests'
+  task :tests_responses, [:size] => :environment do |_, args|
+    if args.size == 'xs'
+      realized_unit = Fitting::Records::RealizedUnit.new(
+        Fitting::Records::Spherical::Requests.new,
+        Fitting.configuration.tomogram
+      )
+      puts Fitting::Templates::RealizedTemplate.new(realized_unit).to_s
+
+      unless realized_unit.fully_covered?
+        puts 'Not all responses from the whitelist are covered!'
+        exit 1
+      end
+    else
+      puts 'need key xs'
     end
   end
 end
