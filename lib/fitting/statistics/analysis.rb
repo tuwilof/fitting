@@ -7,13 +7,14 @@ require 'fitting/statistics/not_covered_responses'
 module Fitting
   class Statistics
     class Analysis
-      def initialize(measurement)
+      def initialize(measurement, depth)
         @measurement = measurement
+        @depth = depth
       end
 
       def to_s
         [
-          Fitting::Statistics::Lists.new(@measurement).to_s,
+          Fitting::Statistics::Lists.new(@measurement, @depth).to_s,
           Fitting::Statistics::RequestsStats.new(@measurement).to_s,
           Fitting::Statistics::ResponsesStats.new(@measurement).to_s,
           Fitting::Statistics::Great.new(@measurement).to_s

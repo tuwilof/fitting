@@ -18,6 +18,21 @@ namespace :fitting do
     end
   end
 
+  desc 'Fitting documentation cover'
+  task :documentation_cover do
+    documented_unit = Fitting::Statistics::Template.new(
+      Fitting::Records::Spherical::Requests.new,
+      Fitting.configuration,
+      'cover'
+    )
+    puts documented_unit.stats
+
+    unless documented_unit.not_covered == "\n"
+      puts 'Not all responses from the whitelist are covered!'
+      exit 1
+    end
+  end
+
   desc 'Fitting tests'
   task :tests do
     realized_unit = Fitting::Records::RealizedUnit.new(

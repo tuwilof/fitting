@@ -1,6 +1,7 @@
 require 'fitting/statistics/not_covered_responses'
 require 'fitting/statistics/analysis'
 require 'fitting/statistics/measurement'
+require 'fitting/statistics/measurement_cover'
 require 'fitting/records/unit/request'
 require 'fitting/storage/white_list'
 require 'fitting/records/documented/request'
@@ -8,9 +9,10 @@ require 'fitting/records/documented/request'
 module Fitting
   class Statistics
     class Template
-      def initialize(tested_requests, config)
+      def initialize(tested_requests, config, depth = 'valid')
         @tested_requests = tested_requests
         @config = config
+        @depth = depth
       end
 
       def save
@@ -35,19 +37,29 @@ module Fitting
       end
 
       def white_statistics
-        @white_statistics ||= Fitting::Statistics::Analysis.new(white_measurement)
+        @white_statistics ||= Fitting::Statistics::Analysis.new(white_measurement, @depth)
       end
 
       def black_statistics
-        @black_statistics ||= Fitting::Statistics::Analysis.new(black_measurement)
+        @black_statistics ||= Fitting::Statistics::Analysis.new(black_measurement, @depth)
       end
 
       def white_measurement
-        @white_measurement ||= Fitting::Statistics::Measurement.new(white_unit)
+        @white_measurement ||=
+          if @depth == 'valid'
+            Fitting::Statistics::Measurement.new(white_unit)
+          else
+            Fitting::Statistics::MeasurementCover.new(white_unit)
+          end
       end
 
       def black_measurement
-        @black_measurement ||= Fitting::Statistics::Measurement.new(black_unit)
+        @black_measurement ||=
+          if @depth == 'valid'
+            Fitting::Statistics::Measurement.new(black_unit)
+          else
+            Fitting::Statistics::MeasurementCover.new(black_unit)
+          end
       end
 
       def white_unit

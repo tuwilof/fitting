@@ -1,6 +1,6 @@
 module Fitting
   class Statistics
-    class Measurement
+    class MeasurementCover
       attr_reader :requests, :all_responses, :cover_responses, :not_cover_responses, :max_response_path,
                   :coverage_fully, :coverage_non, :coverage_partially, :not_covered_responses
 
@@ -49,7 +49,7 @@ module Fitting
       end
 
       def check_json_schema(json_schema, request, response, json_schema_index)
-        if json_schema.bodies == []
+        if json_schema.cover != 100
           @not_cover_responses += 1
           @not_covered_responses.push("#{request.method}\t#{request.path} #{response.status} #{json_schema_index}")
         else
@@ -83,7 +83,7 @@ module Fitting
 
       def count_cover(json_schema)
         @all += 1
-        if json_schema.bodies == []
+        if json_schema.cover != 100
           @not_cover += 1
         else
           @cover += 1
