@@ -19,32 +19,46 @@ namespace :fitting do
     end
   end
 
-  desc 'Fitting documentation cover'
-  task :documentation_cover, [:depth] => :environment do |_, args|
-    return puts 'need key just_require' unless args.depth == ''
-    documented_unit = Fitting::Statistics::Template.new(
-      Fitting::Records::Spherical::Requests.new,
-      Fitting.configuration,
-      'cover'
-    )
-    puts documented_unit.stats
+  desc 'Fitting documentation response cover'
+  task :documentation_response, [:size] => :environment do |_, args|
+    if  args.size == 'xs'
+      documented_unit = Fitting::Statistics::Template.new(
+        Fitting::Records::Spherical::Requests.new,
+        Fitting.configuration
+      )
+      puts documented_unit.stats
 
-    unless documented_unit.not_covered == "\n"
-      puts 'Not all responses from the whitelist are covered!'
-      exit 1
+      unless documented_unit.not_covered == "\n"
+        puts 'Not all responses from the whitelist are covered!'
+        exit 1
+      end
+    elsif args.size == 's'
+      documented_unit = Fitting::Statistics::Template.new(
+        Fitting::Records::Spherical::Requests.new,
+        Fitting.configuration,
+        'cover'
+      )
+      puts documented_unit.stats
+
+      unless documented_unit.not_covered == "\n"
+        puts 'Not all responses from the whitelist are covered!'
+        exit 1
+      end
+    else
+      puts 'need key xs or s'
     end
   end
 
-  desc 'Fitting documentation cover error'
-  task :documentation_cover_error, [:depth] => :environment do |_, args|
-    unless args.depth == 'just_require'
-      puts 'need key just_require'
-    else
+  desc 'Fitting documentation response cover error'
+  task :documentation_response_error, [:size] => :environment do |_, args|
+    if args.size == 's'
       documented_unit = Fitting::Statistics::TemplateCoverError.new(
         Fitting::Records::Spherical::Requests.new,
         Fitting.configuration
       )
       puts documented_unit.stats
+    else
+      puts 'need key s'
     end
   end
 
