@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'fitting/statistics/list'
 
 RSpec.describe Fitting::Statistics::List do
-  subject { described_class.new(coverage, max_response_path) }
+  subject { described_class.new(coverage, max_response_path, 'valid') }
 
   let(:coverage) { double }
   let(:max_response_path) { double }
