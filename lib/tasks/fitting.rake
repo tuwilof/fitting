@@ -2,6 +2,7 @@ require 'fitting/records/spherical/requests'
 require 'fitting/configuration'
 require 'fitting/records/realized_unit'
 require 'fitting/templates/realized_template'
+require 'fitting/statistics/template_cover_error'
 
 namespace :fitting do
   desc 'Fitting documentation'
@@ -31,6 +32,15 @@ namespace :fitting do
       puts 'Not all responses from the whitelist are covered!'
       exit 1
     end
+  end
+
+  desc 'Fitting documentation cover error'
+  task :documentation_cover_error do
+    documented_unit = Fitting::Statistics::TemplateCoverError.new(
+      Fitting::Records::Spherical::Requests.new,
+      Fitting.configuration
+    )
+    puts documented_unit.stats
   end
 
   desc 'Fitting tests'
