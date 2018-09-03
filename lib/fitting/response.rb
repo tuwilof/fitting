@@ -5,6 +5,8 @@ require 'multi_json'
 
 module Fitting
   class Response
+    attr_reader :body
+
     def initialize(env_response, tomogram)
       @request = Fitting::Request.new(env_response.request, tomogram)
       @status = env_response.status
@@ -52,6 +54,10 @@ module Fitting
       @expected ||= @schemas.inject([]) do |res, schema|
         res.push(JSON.pretty_generate(schema).to_s)
       end.join("\n\n")
+    end
+
+    def json_schema
+      @schemas[index.first]
     end
 
     def ignored?(ignore_list)

@@ -1,9 +1,10 @@
 module Fitting
   class Statistics
     class List
-      def initialize(coverage, max_response_path)
+      def initialize(coverage, max_response_path, depth)
         @coverage = coverage
         @max_response_path = max_response_path
+        @depth = depth
       end
 
       def to_s
@@ -34,10 +35,14 @@ module Fitting
       end
 
       def json_schema_stat(res, json_schema, response)
-        if json_schema.bodies == []
-          res.push("✖ #{response.status}")
+        if @depth == 'valid'
+          if json_schema.bodies == []
+            res.push("✖ #{response.status}")
+          else
+            res.push("✔ #{response.status}")
+          end
         else
-          res.push("✔ #{response.status}")
+          res.push("#{json_schema.cover}% #{response.status}")
         end
       end
     end

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'fitting/statistics/analysis'
 
 RSpec.describe Fitting::Statistics::Analysis do
-  subject { described_class.new(measurement) }
+  subject { described_class.new(measurement, '') }
 
   describe '#to_s' do
     let(:measurement) { double }

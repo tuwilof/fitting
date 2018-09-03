@@ -176,6 +176,11 @@ resource_white_list:
 
 Empty array `[]` means all methods.
 
+### json_schema_cover
+
+Default: false. Json-schema covering becomes mandatory.
+Or you can call `responses.statistics.cover_save` if you don't use call `Fitting.statistics`.
+
 ### include_resources
 
 Default: all resources if  `include_resources` and `include_actions` is not used.

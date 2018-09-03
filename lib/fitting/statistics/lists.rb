@@ -3,8 +3,9 @@ require 'fitting/statistics/list'
 module Fitting
   class Statistics
     class Lists
-      def initialize(measurement)
+      def initialize(measurement, depth)
         @measurement = measurement
+        @depth = depth
       end
 
       def to_s
@@ -21,7 +22,7 @@ module Fitting
         else
           [
             'Fully conforming requests:',
-            Fitting::Statistics::List.new(@measurement.coverage_fully, @measurement.max_response_path).to_s
+            Fitting::Statistics::List.new(@measurement.coverage_fully, @measurement.max_response_path, @depth).to_s
           ].join("\n")
         end
       end
@@ -32,7 +33,7 @@ module Fitting
         else
           [
             'Partially conforming requests:',
-            Fitting::Statistics::List.new(@measurement.coverage_partially, @measurement.max_response_path).to_s
+            Fitting::Statistics::List.new(@measurement.coverage_partially, @measurement.max_response_path, @depth).to_s
           ].join("\n")
         end
       end
@@ -43,7 +44,7 @@ module Fitting
         else
           [
             'Non-conforming requests:',
-            Fitting::Statistics::List.new(@measurement.coverage_non, @measurement.max_response_path).to_s
+            Fitting::Statistics::List.new(@measurement.coverage_non, @measurement.max_response_path, @depth).to_s
           ].join("\n")
         end
       end
