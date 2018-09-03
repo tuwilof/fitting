@@ -20,7 +20,8 @@ namespace :fitting do
   end
 
   desc 'Fitting documentation cover'
-  task :documentation_cover do
+  task :documentation_cover, [:depth] => :environment do |_, args|
+    return puts 'need key just_require' unless args.depth == ''
     documented_unit = Fitting::Statistics::Template.new(
       Fitting::Records::Spherical::Requests.new,
       Fitting.configuration,
@@ -35,12 +36,16 @@ namespace :fitting do
   end
 
   desc 'Fitting documentation cover error'
-  task :documentation_cover_error do
-    documented_unit = Fitting::Statistics::TemplateCoverError.new(
-      Fitting::Records::Spherical::Requests.new,
-      Fitting.configuration
-    )
-    puts documented_unit.stats
+  task :documentation_cover_error, [:depth] => :environment do |_, args|
+    unless args.depth == 'just_require'
+      puts 'need key just_require'
+    else
+      documented_unit = Fitting::Statistics::TemplateCoverError.new(
+        Fitting::Records::Spherical::Requests.new,
+        Fitting.configuration
+      )
+      puts documented_unit.stats
+    end
   end
 
   desc 'Fitting tests'
