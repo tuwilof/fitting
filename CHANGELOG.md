@@ -1,5 +1,10 @@
 # Change log
 
+### 2.7.0 - 2018-09-04
+
+* features
+  * Add three rake tasks fitting:documentation_responses, fitting:documentation_responses_error and fitting:tests_responses
+
 ### 2.6.0 - 2018-08-28
 
 * features
