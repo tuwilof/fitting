@@ -39,30 +39,52 @@ In your `spec_helper.rb`:
 ```ruby
 require 'fitting'
 
-Fitting.statistics
+Fitting.save_test_data
 ```
 
-or
+The tests.json file will be created
 
-```ruby
-require 'fitting'
+Example:
 
-responses = Fitting::Storage::Responses.new
-
-RSpec.configure do |config|
-  config.after(:each, type: :controller) do
-    responses.add(response)
-  end
-
-  config.after(:suite) do
-    responses.statistics.save
-  end
-end
+```
+[
+  {
+    "method": "GET",
+    "path": "/api/v1/book",
+    "body": {},
+    "response": {
+      "status": 200,
+      "body": {
+        "title": "The Martian Chronicles"
+      }
+    },
+    "title": "/spec/controllers/api/v1/books_controller_spec.rb:11",
+    "group": "/spec/controllers/api/v1/books_controller_spec.rb"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/book",
+    "body": {},
+    "response": {
+      "status": 200,
+      "body": {
+        "title": "The Old Man and the Sea"
+      }
+    },
+    "title": "/spec/controllers/api/v1/books_controller_spec.rb:22",
+    "group": "/spec/controllers/api/v1/books_controller_spec.rb"
+  },
+  ...
 ```
 
-## Example output
 
-After running tests you will get statistics in the file `fitting/stats`:
+## Check documentation cover
+
+### xs size
+
+For match routes and valid json-schemas run `rake fitting:documentation_responses[xs]`
+
+You will get statistics:
 
 ```
 Fully conforming requests:
@@ -88,31 +110,50 @@ API responses conforming to the blueprint: 16 (64.00% of 25).
 API responses with validation errors or untested: 9 (36.00% of 25).
 ```
 
-Also you will get not covered responses in the file `fitting/not_covered`.
+### s size
 
-## Matchers
+In addition to the previous comand, you will learn the coverage json-schemas with task `rake fitting:documentation_responses[s]`
 
-If you want to know why you get crosses instead of checkmarks you can use matchers for RSpec.
+```
+Fully conforming requests:
+DELETE  /api/v1/book                 100% 200 100% 201 100% 404
+DELETE  /api/v1/book/{id}            100% 200 100% 201 100% 404
+GET     /api/v1/book/{id}/seller     100% 200 100% 201 100% 404
 
-```ruby
-config.include Fitting::Matchers, type: :controller
+Partially conforming requests:
+GET     /api/v1/book                 0% 200 66% 404
+POST    /api/v1/book                 0% 200 90% 201 100% 404
+GET     /api/v1/book/{id}            0% 200 88% 404 10% 200
+PATCH   /api/v1/book/{id}            0% 200 100% 201 10% 404
+
+Non-conforming requests:
+GET     /api/v1/seller               0% 200 0% 201 0 404
+GET     /api/v1/buyer                0% 200 0% 404
+
+API requests with fully implemented responses: 3 (33.33% of 9).
+API requests with partially implemented responses: 4 (44.44% of 9).
+API requests with no implemented responses: 2 (22.22% of 9).
+
+API responses conforming to the blueprint: 16 (64.00% of 25).
+API responses with validation errors or untested: 9 (36.00% of 25).
 ```
 
-### match_schema
+For details `rake fitting:documentation_responses_error[s]`
 
-Makes a simple validation against JSON Schema.
-
-```ruby
-expect(response).to match_schema
+```
+request metohd: GET
+request path: /api/v1/book
+response staus: 200
+source json-schema: {"$schema"=>"http://json-schema.org/draft-04/schema#", "type"=>"object", ...}
+combination: ["required", "pages"]
+new json-schema: {"$schema"=>"http://json-schema.org/draft-04/schema#", "type"=>"object", ...}
 ```
 
-### strictly_match_schema
+## Check tests cover
 
-Makes a strict validation against JSON Schema. All properties are considered to have `"required": true` and all objects `"additionalProperties": false`.
+### xs size
 
-```ruby
-expect(response).to strictly_match_schema
-```
+`rake fitting:tests_responses[xs]`
 
 ## Config
 
