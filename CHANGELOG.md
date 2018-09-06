@@ -1,5 +1,10 @@
 # Change log
 
+### 2.7.1 - 2018-09-06
+
+* fixes
+  * Output fitting:documentation_responses_error if not all covered
+
 ### 2.7.0 - 2018-09-04
 
 * features

@@ -9,9 +9,7 @@ module Fitting
         res = ''
         @request_unit.map do |request|
           request.responses.map do |response|
-            if response.tested_bodies == []
-              return 'Error, not all responses valid without cover!'
-            else
+            if response.tested_bodies != []
               response.json_schemas.map do |json_schema|
                 json_schema.combinations.map do |combination|
                   if combination.valid_bodies == []

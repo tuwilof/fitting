@@ -12,10 +12,7 @@ module Fitting
       end
 
       def stats
-        [
-          ['[White list]', white_statistics].join("\n"),
-          ''
-        ].join("\n\n")
+        "#{white_statistics}\n\n"
       end
 
 
