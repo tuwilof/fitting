@@ -6,9 +6,9 @@ module Fitting
       class Combination
         attr_reader :description, :json_schema, :bodies
 
-        def initialize(description, json_schema, bodies)
-          @description = description
-          @json_schema = json_schema
+        def initialize(comb, bodies)
+          @description = comb[1]
+          @json_schema = comb[0]
           @bodies = bodies
         end
 

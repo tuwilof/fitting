@@ -28,10 +28,9 @@ module Fitting
           return @combinations if @combinations
           @combinations = []
           cover_json_schema = Fitting::Cover::JSONSchema.new(@json_schema)
-          cover_json_schema.json_schemas.each_index do |index|
+          cover_json_schema.combi.map do |comb|
             @combinations.push(Fitting::Records::Unit::Combination.new(
-                                 cover_json_schema.combinations[index],
-                                 cover_json_schema.json_schemas[index],
+              comb,
                                  bodies
             ))
           end
