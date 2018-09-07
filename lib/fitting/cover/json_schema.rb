@@ -6,46 +6,32 @@ module Fitting
       end
 
       def combi
-        return @json_schemas if @json_schemas
-        @json_schemas = new_required(@json_schema)
+        return @combinations if @combinations
+        @combinations = new_required(@json_schema)
 
-        return @json_schemas unless @json_schema['properties']
-        @json_schemas = new_super_each(@json_schema['properties'], {'properties' => nil}, @json_schema, @json_schemas)
+        return @combinations unless @json_schema['properties']
+        @combinations = new_super_each(@json_schema['properties'], {'properties' => nil}, @json_schema, @combinations)
 
-        @json_schemas
+        @combinations
       end
 
-      def super_each(json_schema, old_keys_hash, lol_schemas, lol_schema, kekmbinations)
+      def new_super_each(json_schema, old_keys_hash, lol_schema, combinations)
         json_schema.each do |key, value|
+          next unless value.is_a?(Hash)
+
           new_keys_hash = clone_hash(old_keys_hash)
           add_super_key(new_keys_hash, key)
-          next unless value.is_a?(Hash)
-          lol_schemas, kekmbinations = super_each(value, new_keys_hash, lol_schemas, lol_schema, kekmbinations)
+
+          combinations = new_super_each(value, new_keys_hash, lol_schema, combinations)
+
           qwe = new_required(value)
           qwe.map do |asd|
             new_json_shema = clone_hash(lol_schema)
             super_merge(new_keys_hash, asd[0], new_json_shema)
-            lol_schemas += [new_json_shema]
-            kekmbinations += [asd[1]]
+            combinations.push([new_json_shema, asd[1]])
           end
         end
-        [lol_schemas, kekmbinations]
-      end
-
-      def new_super_each(json_schema, old_keys_hash, lol_schema, kekres)
-        json_schema.each do |key, value|
-          new_keys_hash = clone_hash(old_keys_hash)
-          add_super_key(new_keys_hash, key)
-          next unless value.is_a?(Hash)
-          kekres = new_super_each(value, new_keys_hash, lol_schema, kekres)
-          qwe = new_required(value)
-          qwe.map do |asd|
-            new_json_shema = clone_hash(lol_schema)
-            super_merge(new_keys_hash, asd[0], new_json_shema)
-            kekres.push([new_json_shema, asd[1]])
-          end
-        end
-        kekres
+        combinations
       end
 
       def add_super_key(vbn, new_key)
