@@ -10,7 +10,7 @@ module Fitting
         @json_schemas, @combinations = required(@json_schema)
 
         return @json_schemas unless @json_schema['properties']
-        @json_schemas, @combinations = super_each(@json_schema['properties'], { 'properties' => nil }, @json_schemas, @json_schema, @combinations)
+        @json_schemas, @combinations = super_each(@json_schema['properties'], {'properties' => nil}, @json_schemas, @json_schema, @combinations)
 
         @json_schemas
       end
@@ -21,8 +21,13 @@ module Fitting
           add_super_key(new_keys_hash, key)
           next unless value.is_a?(Hash)
           lol_schemas, kekmbinations = super_each(value, new_keys_hash, lol_schemas, lol_schema, kekmbinations)
-          kru, lol_schemas = modify_json_shema(value, new_keys_hash, lol_schemas, lol_schema)
-          kekmbinations += kru
+          qwe = required(value)
+          qwe[0].map do |asd|
+            new_json_shema = clone_hash(lol_schema)
+            super_merge(new_keys_hash, asd, new_json_shema)
+            lol_schemas += [new_json_shema]
+          end
+          kekmbinations += qwe[1]
         end
         [lol_schemas, kekmbinations]
       end
@@ -32,7 +37,7 @@ module Fitting
           if value
             add_super_key(value, new_key)
           else
-            vbn[key] = { new_key => nil }
+            vbn[key] = {new_key => nil}
           end
         end
       end
@@ -46,16 +51,6 @@ module Fitting
           end
         end
         old_json_schema
-      end
-
-      def modify_json_shema(value, vbn, kek_schemas, kek_schema)
-        qwe = required(value)
-        qwe[0].map do |asd|
-          new_json_shema = clone_hash(kek_schema)
-          super_merge(vbn, asd, new_json_shema)
-          kek_schemas += [new_json_shema]
-        end
-        [qwe[1], kek_schemas]
       end
 
       def clone_hash(old_json_schema)
@@ -90,6 +85,20 @@ module Fitting
           new_json_shemas.push(new_json_shema)
         end
         [json_schemas, combinations]
+      end
+
+      def new_required(json_schema)
+        res = []
+        new_keys(json_schema).map do |new_key|
+          new_json_shema = json_schema.dup
+          if new_json_shema['required']
+            new_json_shema['required'] += [new_key]
+          else
+            new_json_shema['required'] = [new_key]
+          end
+          res.push([new_json_shema, ['required', new_key]])
+        end
+        res
       end
 
       def new_keys(json_schema)
