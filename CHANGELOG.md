@@ -1,5 +1,10 @@
 # Change log
 
+### 2.7.2 - 2018-09-08
+
+* fixes
+  * Output full combination key in fitting:documentation_responses_error
+
 ### 2.7.1 - 2018-09-06
 
 * fixes
