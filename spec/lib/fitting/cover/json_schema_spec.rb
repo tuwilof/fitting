@@ -93,21 +93,24 @@ RSpec.describe Fitting::Cover::JSONSchema do
       let(:json_schema) { {
         '$schema' => 'http://json-schema.org/draft-04/schema#',
         'type' => 'object',
-        'required' => %w[result]
-      }.merge('properties' => {'result' => login_password}) }
+        'required' => %w[result],
+        'properties' => {'result' => login_password}
+      } }
       let(:json_schema_two) do
         {
           '$schema' => 'http://json-schema.org/draft-04/schema#',
           'type' => 'object',
-          'required' => %w[result]
-        }.merge('properties' => {'result' => login_password.merge('required' => %w[login])})
+          'required' => %w[result],
+          'properties' => {'result' => login_password.merge('required' => %w[login])}
+        }
       end
       let(:json_schema_three) do
         {
           '$schema' => 'http://json-schema.org/draft-04/schema#',
           'type' => 'object',
-          'required' => %w[result]
-        }.merge('properties' => {'result' => login_password.merge('required' => %w[password])})
+          'required' => %w[result],
+          'properties' => {'result' => login_password.merge('required' => %w[password])}
+        }
       end
 
       it 'returns json-schemas' do
@@ -124,28 +127,25 @@ RSpec.describe Fitting::Cover::JSONSchema do
           {
             '$schema' => 'http://json-schema.org/draft-04/schema#',
             'type' => 'object',
-            'required' => %w[result]
-          }.merge(
+            'required' => %w[result],
             'properties' => {'result' => result.merge('items' => login_password)}
-          )
+          }
         end
         let(:json_schema_two) do
           {
             '$schema' => 'http://json-schema.org/draft-04/schema#',
             'type' => 'object',
-            'required' => %w[result]
-          }.merge(
+            'required' => %w[result],
             'properties' => {'result' => result.merge('items' => login_password.merge('required' => %w[login]))}
-          )
+          }
         end
         let(:json_schema_three) do
           {
             '$schema' => 'http://json-schema.org/draft-04/schema#',
             'type' => 'object',
-            'required' => %w[result]
-          }.merge(
+            'required' => %w[result],
             'properties' => {'result' => result.merge('items' => login_password.merge('required' => %w[password]))}
-          )
+          }
         end
 
         it 'returns json-schemas' do
@@ -170,34 +170,31 @@ RSpec.describe Fitting::Cover::JSONSchema do
             {
               '$schema' => 'http://json-schema.org/draft-04/schema#',
               'type' => 'object',
-              'required' => %w[status result]
-            }.merge(
+              'required' => %w[status result],
               'properties' => {'status' => status, 'result' => result.merge('items' => login_password)}
-            )
+            }
           end
           let(:json_schema_two) do
             {
               '$schema' => 'http://json-schema.org/draft-04/schema#',
               'type' => 'object',
-              'required' => %w[status result]
-            }.merge(
+              'required' => %w[status result],
               'properties' => {
                 'status' => status,
                 'result' => result.merge('items' => login_password.merge('required' => %w[login]))
               }
-            )
+            }
           end
           let(:json_schema_three) do
             {
               '$schema' => 'http://json-schema.org/draft-04/schema#',
               'type' => 'object',
-              'required' => %w[status result]
-            }.merge(
+              'required' => %w[status result],
               'properties' => {
                 'status' => status,
                 'result' => result.merge('items' => login_password.merge('required' => %w[password]))
               }
-            )
+            }
           end
 
           it 'returns json-schemas' do
@@ -270,8 +267,9 @@ RSpec.describe Fitting::Cover::JSONSchema do
       let(:json_schema) { {
         '$schema' => 'http://json-schema.org/draft-04/schema#',
         'type' => 'object',
-        'required' => %w[result]
-      }.merge('properties' => {'result' => result}) }
+        'required' => %w[result],
+        'properties' => {'result' => result}
+      } }
 
       it 'returns combinations' do
         expect(subject.combinations).to eq([%w[required login], %w[required password]])
