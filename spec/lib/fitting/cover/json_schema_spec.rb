@@ -228,21 +228,18 @@ RSpec.describe Fitting::Cover::JSONSchema do
         end
 
         context 'together' do
-          let(:status) do
-            {
-              'type' => 'string',
-              'enum' => [
-                'ok'
-              ]
-            }
-          end
           let(:json_schema) do
             {
               '$schema' => 'http://json-schema.org/draft-04/schema#',
               'type' => 'object',
               'required' => %w[status result],
               'properties' => {
-                'status' => status, 'result' => {
+                'status' => {
+                  'type' => 'string',
+                  'enum' => [
+                    'ok'
+                  ]
+                }, 'result' => {
                   'type' => 'array',
                   'items' => {
                     'type' => 'object',
@@ -265,7 +262,12 @@ RSpec.describe Fitting::Cover::JSONSchema do
               'type' => 'object',
               'required' => %w[status result],
               'properties' => {
-                'status' => status,
+                'status' => {
+                  'type' => 'string',
+                  'enum' => [
+                    'ok'
+                  ]
+                },
                 'result' => {
                   'type' => 'array',
                   'items' => {
@@ -290,7 +292,12 @@ RSpec.describe Fitting::Cover::JSONSchema do
               'type' => 'object',
               'required' => %w[status result],
               'properties' => {
-                'status' => status,
+                'status' => {
+                  'type' => 'string',
+                  'enum' => [
+                    'ok'
+                  ]
+                },
                 'result' => {
                   'type' => 'array',
                   'items' => {
