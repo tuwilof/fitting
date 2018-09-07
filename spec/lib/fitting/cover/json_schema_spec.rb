@@ -34,7 +34,6 @@ RSpec.describe Fitting::Cover::JSONSchema do
   end
 
   describe '#json_schemas' do
-    let(:json_schemas) { [json_schema_two, json_schema_three] }
     let(:json_schema_two) do
       {
         '$schema' => 'http://json-schema.org/draft-04/schema#',
@@ -79,7 +78,7 @@ RSpec.describe Fitting::Cover::JSONSchema do
     end
 
     it 'returns json-schemas' do
-      expect(subject.json_schemas).to eq(json_schemas)
+      expect(subject.json_schemas).to eq([json_schema_two, json_schema_three])
     end
 
     context 'attachments' do
@@ -326,7 +325,6 @@ RSpec.describe Fitting::Cover::JSONSchema do
   end
 
   describe '#combinations' do
-    let(:json_schemas) { [json_schema_two, json_schema_three] }
     let(:json_schema_two) do
       {
         '$schema' => 'http://json-schema.org/draft-04/schema#',
