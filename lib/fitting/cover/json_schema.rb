@@ -10,7 +10,7 @@ module Fitting
         @json_schemas, @combinations = required(@json_schema)
 
         return @json_schemas unless @json_schema['properties']
-        @json_schemas, @combinations = super_each(@json_schema['properties'], {'properties' => nil}, @json_schemas, @json_schema, @combinations)
+        @json_schemas, @combinations = super_each(@json_schema['properties'], { 'properties' => nil }, @json_schemas, @json_schema, @combinations)
 
         @json_schemas
       end
@@ -19,11 +19,10 @@ module Fitting
         json_schema.each do |key, value|
           new_keys_hash = clone_hash(old_keys_hash)
           add_super_key(new_keys_hash, key)
-          if value.is_a?(Hash)
-            lol_schemas, kekmbinations = super_each(value, new_keys_hash, lol_schemas, lol_schema, kekmbinations)
-            kru, lol_schemas = modify_json_shema(value, new_keys_hash, lol_schemas, lol_schema)
-            kekmbinations += kru
-          end
+          next unless value.is_a?(Hash)
+          lol_schemas, kekmbinations = super_each(value, new_keys_hash, lol_schemas, lol_schema, kekmbinations)
+          kru, lol_schemas = modify_json_shema(value, new_keys_hash, lol_schemas, lol_schema)
+          kekmbinations += kru
         end
         [lol_schemas, kekmbinations]
       end

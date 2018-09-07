@@ -468,4 +468,129 @@ RSpec.describe Fitting::Cover::JSONSchema do
       )
     end
   end
+
+  describe '#super_each' do
+    it do
+      expect(subject.super_each(
+               {
+                 'login' => {
+                   'type' => 'string'
+                 },
+                 'password' => {
+                   'type' => 'string'
+                 },
+                 'captcha' => {
+                   'type' => 'string'
+                 },
+                 'code' => {
+                   'type' => 'string'
+                 }
+               },
+               {
+                 'properties' => nil
+               },
+               [
+                 {
+                   '$schema' => 'http://json-schema.org/draft-04/schema#',
+                   'type' => 'object',
+                   'properties' => {
+                     'login' => {
+                       'type' => 'string'
+                     },
+                     'password' => {
+                       'type' => 'string'
+                     },
+                     'captcha' => {
+                       'type' => 'string'
+                     },
+                     'code' => {
+                       'type' => 'string'
+                     }
+                   },
+                   'required' => %w[login password captcha]
+                 },
+                 {
+                   '$schema' => 'http://json-schema.org/draft-04/schema#',
+                   'type' => 'object',
+                   'properties' => {
+                     'login' => {
+                       'type' => 'string'
+                     },
+                     'password' => {
+                       'type' => 'string'
+                     },
+                     'captcha' => {
+                       'type' => 'string'
+                     },
+                     'code' => {
+                       'type' => 'string'
+                     }
+                   },
+                   'required' => %w[login password code]
+                 }
+               ],
+               {
+                 '$schema' => 'http://json-schema.org/draft-04/schema#',
+                 'type' => 'object',
+                 'properties' => {
+                   'login' => {
+                     'type' => 'string'
+                   }, 'password' => {
+                     'type' => 'string'
+                   }, 'captcha' => {
+                     'type' => 'string'
+                   }, 'code' => {
+                     'type' => 'string'
+                   }
+                 },
+                 'required' => %w[login password]
+               },
+               [%w[required captcha], %w[required code]]
+      )).to eq(
+        [
+          [
+            {
+              '$schema' => 'http://json-schema.org/draft-04/schema#',
+              'type' => 'object',
+              'properties' => {
+                'login' => {
+                  'type' => 'string'
+                },
+                'password' => {
+                  'type' => 'string'
+                },
+                'captcha' => {
+                  'type' => 'string'
+                },
+                'code' => {
+                  'type' => 'string'
+                }
+              },
+              'required' => %w[login password captcha]
+            },
+            {
+              '$schema' => 'http://json-schema.org/draft-04/schema#',
+              'type' => 'object',
+              'properties' => {
+                'login' => {
+                  'type' => 'string'
+                },
+                'password' => {
+                  'type' => 'string'
+                },
+                'captcha' => {
+                  'type' => 'string'
+                },
+                'code' => {
+                  'type' => 'string'
+                }
+              },
+              'required' => %w[login password code]
+            }
+          ],
+          [%w[required captcha], %w[required code]]
+        ]
+      )
+    end
+  end
 end
