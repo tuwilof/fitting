@@ -77,13 +77,6 @@ RSpec.describe Fitting::Cover::JSONSchema do
     end
 
     context 'attachments' do
-      let(:main_json) do
-        {
-          '$schema' => 'http://json-schema.org/draft-04/schema#',
-          'type' => 'object',
-          'required' => %w[result]
-        }
-      end
       let(:login_password) do
         {
           'type' => 'object',
@@ -97,12 +90,24 @@ RSpec.describe Fitting::Cover::JSONSchema do
           }
         }
       end
-      let(:json_schema) { main_json.merge('properties' => {'result' => login_password}) }
+      let(:json_schema) { {
+        '$schema' => 'http://json-schema.org/draft-04/schema#',
+        'type' => 'object',
+        'required' => %w[result]
+      }.merge('properties' => {'result' => login_password}) }
       let(:json_schema_two) do
-        main_json.merge('properties' => {'result' => login_password.merge('required' => %w[login])})
+        {
+          '$schema' => 'http://json-schema.org/draft-04/schema#',
+          'type' => 'object',
+          'required' => %w[result]
+        }.merge('properties' => {'result' => login_password.merge('required' => %w[login])})
       end
       let(:json_schema_three) do
-        main_json.merge('properties' => {'result' => login_password.merge('required' => %w[password])})
+        {
+          '$schema' => 'http://json-schema.org/draft-04/schema#',
+          'type' => 'object',
+          'required' => %w[result]
+        }.merge('properties' => {'result' => login_password.merge('required' => %w[password])})
       end
 
       it 'returns json-schemas' do
@@ -116,17 +121,29 @@ RSpec.describe Fitting::Cover::JSONSchema do
           }
         end
         let(:json_schema) do
-          main_json.merge(
+          {
+            '$schema' => 'http://json-schema.org/draft-04/schema#',
+            'type' => 'object',
+            'required' => %w[result]
+          }.merge(
             'properties' => {'result' => result.merge('items' => login_password)}
           )
         end
         let(:json_schema_two) do
-          main_json.merge(
+          {
+            '$schema' => 'http://json-schema.org/draft-04/schema#',
+            'type' => 'object',
+            'required' => %w[result]
+          }.merge(
             'properties' => {'result' => result.merge('items' => login_password.merge('required' => %w[login]))}
           )
         end
         let(:json_schema_three) do
-          main_json.merge(
+          {
+            '$schema' => 'http://json-schema.org/draft-04/schema#',
+            'type' => 'object',
+            'required' => %w[result]
+          }.merge(
             'properties' => {'result' => result.merge('items' => login_password.merge('required' => %w[password]))}
           )
         end
@@ -136,13 +153,6 @@ RSpec.describe Fitting::Cover::JSONSchema do
         end
 
         context 'together' do
-          let(:main_json) do
-            {
-              '$schema' => 'http://json-schema.org/draft-04/schema#',
-              'type' => 'object',
-              'required' => %w[status result]
-            }
-          end
           let(:result) do
             {
               'type' => 'array'
@@ -157,12 +167,20 @@ RSpec.describe Fitting::Cover::JSONSchema do
             }
           end
           let(:json_schema) do
-            main_json.merge(
+            {
+              '$schema' => 'http://json-schema.org/draft-04/schema#',
+              'type' => 'object',
+              'required' => %w[status result]
+            }.merge(
               'properties' => {'status' => status, 'result' => result.merge('items' => login_password)}
             )
           end
           let(:json_schema_two) do
-            main_json.merge(
+            {
+              '$schema' => 'http://json-schema.org/draft-04/schema#',
+              'type' => 'object',
+              'required' => %w[status result]
+            }.merge(
               'properties' => {
                 'status' => status,
                 'result' => result.merge('items' => login_password.merge('required' => %w[login]))
@@ -170,7 +188,11 @@ RSpec.describe Fitting::Cover::JSONSchema do
             )
           end
           let(:json_schema_three) do
-            main_json.merge(
+            {
+              '$schema' => 'http://json-schema.org/draft-04/schema#',
+              'type' => 'object',
+              'required' => %w[status result]
+            }.merge(
               'properties' => {
                 'status' => status,
                 'result' => result.merge('items' => login_password.merge('required' => %w[password]))
@@ -232,13 +254,6 @@ RSpec.describe Fitting::Cover::JSONSchema do
     end
 
     context 'attachments' do
-      let(:main_json) do
-        {
-          '$schema' => 'http://json-schema.org/draft-04/schema#',
-          'type' => 'object',
-          'required' => %w[result]
-        }
-      end
       let(:result) do
         {
           'type' => 'object',
@@ -252,7 +267,11 @@ RSpec.describe Fitting::Cover::JSONSchema do
           }
         }
       end
-      let(:json_schema) { main_json.merge('properties' => {'result' => result}) }
+      let(:json_schema) { {
+        '$schema' => 'http://json-schema.org/draft-04/schema#',
+        'type' => 'object',
+        'required' => %w[result]
+      }.merge('properties' => {'result' => result}) }
 
       it 'returns combinations' do
         expect(subject.combinations).to eq([%w[required login], %w[required password]])
