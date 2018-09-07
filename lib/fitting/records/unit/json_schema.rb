@@ -30,7 +30,7 @@ module Fitting
           cover_json_schema = Fitting::Cover::JSONSchema.new(@json_schema)
           cover_json_schema.combi.map do |comb|
             @combinations.push(Fitting::Records::Unit::Combination.new(
-              comb,
+                                 comb,
                                  bodies
             ))
           end

@@ -10,25 +10,25 @@ module Fitting
         @combinations = new_required(@json_schema)
 
         return @combinations unless @json_schema['properties']
-        @combinations = new_super_each(@json_schema['properties'], {'properties' => nil}, @json_schema, @combinations)
+        @combinations = new_super_each(@json_schema['properties'], { 'properties' => nil }, @json_schema, @combinations, 'properties')
 
         @combinations
       end
 
-      def new_super_each(json_schema, old_keys_hash, lol_schema, combinations)
+      def new_super_each(json_schema, old_keys_hash, lol_schema, combinations, old_key)
         json_schema.each do |key, value|
           next unless value.is_a?(Hash)
 
           new_keys_hash = clone_hash(old_keys_hash)
           add_super_key(new_keys_hash, key)
 
-          combinations = new_super_each(value, new_keys_hash, lol_schema, combinations)
+          combinations = new_super_each(value, new_keys_hash, lol_schema, combinations, [old_key, key].compact.join('.'))
 
           qwe = new_required(value)
           qwe.map do |asd|
             new_json_shema = clone_hash(lol_schema)
             super_merge(new_keys_hash, asd[0], new_json_shema)
-            combinations.push([new_json_shema, asd[1]])
+            combinations.push([new_json_shema, [asd[1][0], [old_key, key, asd[1][1]].compact.join('.')]])
           end
         end
         combinations
@@ -39,7 +39,7 @@ module Fitting
           if value
             add_super_key(value, new_key)
           else
-            vbn[key] = {new_key => nil}
+            vbn[key] = { new_key => nil }
           end
         end
       end
