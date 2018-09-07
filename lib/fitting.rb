@@ -20,7 +20,7 @@ module Fitting
 
       RSpec.configure do |config|
         config.after(:each, type: :controller) do
-          responses.add(response, self.inspect)
+          responses.add(response, inspect)
         end
 
         config.after(:suite) do
@@ -34,7 +34,7 @@ module Fitting
 
       RSpec.configure do |config|
         config.after(:each, type: :controller) do
-          responses.add(response, self.inspect)
+          responses.add(response, inspect)
         end
 
         config.after(:suite) do

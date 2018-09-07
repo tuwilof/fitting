@@ -12,7 +12,7 @@ module Fitting
         res.push(request.to_spherical.to_hash)
       end
       json = JSON.dump(array)
-      File.open("tests.json", 'w') { |file| file.write(json) }
+      File.open('tests.json', 'w') { |file| file.write(json) }
     end
 
     def make_dir(dir_name)
@@ -20,4 +20,3 @@ module Fitting
     end
   end
 end
-

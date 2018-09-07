@@ -29,10 +29,10 @@ module Fitting
           @combinations = []
           cover_json_schema = Fitting::Cover::JSONSchema.new(@json_schema)
           cover_json_schema.json_schemas.each_index do |index|
-             @combinations.push(Fitting::Records::Unit::Combination.new(
-              cover_json_schema.combinations[index],
-              cover_json_schema.json_schemas[index],
-              bodies
+            @combinations.push(Fitting::Records::Unit::Combination.new(
+                                 cover_json_schema.combinations[index],
+                                 cover_json_schema.json_schemas[index],
+                                 bodies
             ))
           end
           @combinations

@@ -34,16 +34,16 @@ module Fitting
         if value['flags'] == []
           @template[key]['type'] = 'passed'
         else
-          flag_true = value['flags'].find_all{|flag| flag == true}
-          flag_false = value['flags'].find_all{|flag| flag == false}
-          if flag_false.size == 0
+          flag_true = value['flags'].find_all { |flag| flag == true }
+          flag_false = value['flags'].find_all { |flag| flag == false }
+          if flag_false.empty?
             @template[key]['type'] = 'passed'
           else
-            if flag_true.size == 0
-              @template[key]['cover'] = 0.0
-            else
-              @template[key]['cover'] = flag_false.size / flag_true.size
-            end
+            @template[key]['cover'] = if flag_true.empty?
+                                        0.0
+                                      else
+                                        flag_false.size / flag_true.size
+                                      end
             @template[key]['type'] = 'failed'
           end
         end

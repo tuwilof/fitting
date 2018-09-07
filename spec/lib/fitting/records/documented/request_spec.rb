@@ -49,7 +49,7 @@ RSpec.describe Fitting::Records::Documented::Request do
     let(:path) { double }
     let(:tomogram_request) { double }
     before do
-      allow(tomogram_request).to receive_message_chain(:path, :to_s => path)
+      allow(tomogram_request).to receive_message_chain(:path, to_s: path)
     end
 
     context 'white list nil' do

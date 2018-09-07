@@ -29,7 +29,7 @@ module Fitting
 
         class << self
           def load(hash)
-            new(status: hash["status"], body: hash["body"])
+            new(status: hash['status'], body: hash['body'])
           end
         end
       end

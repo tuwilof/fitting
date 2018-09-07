@@ -33,9 +33,7 @@ module Fitting
         check_cover(request)
         coverage_push(request)
 
-        if request.path.to_s.size / 8 > @max_response_path
-          @max_response_path = request.path.to_s.size / 8
-        end
+        @max_response_path = request.path.to_s.size / 8 if request.path.to_s.size / 8 > @max_response_path
         request.responses.map do |response|
           check_response(response, request)
         end

@@ -15,7 +15,6 @@ module Fitting
         "#{white_statistics}\n\n"
       end
 
-
       def white_statistics
         @white_statistics ||= Fitting::Statistics::CoverError.new(white_unit)
       end

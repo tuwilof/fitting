@@ -18,12 +18,8 @@ module Fitting
         return @white_list if @white_list
         return @white_list = transformation if @resource_white_list
         @white_list = {}
-        if @include_resources
-          @white_list.merge!(new_transformation)
-        end
-        if @include_actions
-          @white_list.merge!(postnew_transformation)
-        end
+        @white_list.merge!(new_transformation) if @include_resources
+        @white_list.merge!(postnew_transformation) if @include_actions
         @white_list
       end
 

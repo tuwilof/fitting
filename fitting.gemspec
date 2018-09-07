@@ -1,5 +1,3 @@
-# coding: utf-8
-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'fitting/version'
@@ -20,14 +18,14 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_runtime_dependency 'haml'
   spec.add_runtime_dependency 'json-schema', '~> 2.6', '>= 2.6.2'
   spec.add_runtime_dependency 'multi_json'
   spec.add_runtime_dependency 'tomograph', '~> 2.0', '>= 2.2.0'
-  spec.add_runtime_dependency 'haml'
   spec.add_development_dependency 'bundler', '~> 1.12'
-  spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'byebug', '~> 8.2', '>= 8.2.1'
+  spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.4', '>= 3.4.0'
-  spec.add_development_dependency 'simplecov', '~> 0.11', '>= 0.11.2'
   spec.add_development_dependency 'rubocop', '~> 0.49.1', '>= 0.49.1'
+  spec.add_development_dependency 'simplecov', '~> 0.11', '>= 0.11.2'
 end

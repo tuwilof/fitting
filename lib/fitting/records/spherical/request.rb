@@ -34,12 +34,12 @@ module Fitting
         class << self
           def load(hash)
             new(
-              method: hash["method"],
-              path: hash["path"],
-              body: hash["body"],
-              response: Fitting::Records::Spherical::Response.load(hash["response"]),
-              title: hash["title"],
-              group: hash["group"]
+              method: hash['method'],
+              path: hash['path'],
+              body: hash['body'],
+              response: Fitting::Records::Spherical::Response.load(hash['response']),
+              title: hash['title'],
+              group: hash['group']
             )
           end
         end
