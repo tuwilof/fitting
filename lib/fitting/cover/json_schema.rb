@@ -10,20 +10,22 @@ module Fitting
         @json_schemas, @combinations = required(@json_schema)
 
         return @json_schemas unless @json_schema['properties']
-        super_each(@json_schema['properties'], 'properties' => nil)
+        @json_schemas, @combinations = super_each(@json_schema['properties'], {'properties' => nil}, @json_schemas, @json_schema, @combinations)
 
         @json_schemas
       end
 
-      def super_each(json_schema, old_keys_hash)
+      def super_each(json_schema, old_keys_hash, lol_schemas, lol_schema, kekmbinations)
         json_schema.each do |key, value|
           new_keys_hash = clone_hash(old_keys_hash)
           add_super_key(new_keys_hash, key)
           if value.is_a?(Hash)
-            super_each(value, new_keys_hash)
-            @combinations += modify_json_shema(value, new_keys_hash)
+            lol_schemas, kekmbinations = super_each(value, new_keys_hash, lol_schemas, lol_schema, kekmbinations)
+            kru, lol_schemas = modify_json_shema(value, new_keys_hash, lol_schemas, lol_schema)
+            kekmbinations += kru
           end
         end
+        [lol_schemas, kekmbinations]
       end
 
       def add_super_key(vbn, new_key)
@@ -47,14 +49,14 @@ module Fitting
         old_json_schema
       end
 
-      def modify_json_shema(value, vbn)
+      def modify_json_shema(value, vbn, kek_schemas, kek_schema)
         qwe = required(value)
         qwe[0].map do |asd|
-          new_json_shema = clone_hash(@json_schema)
+          new_json_shema = clone_hash(kek_schema)
           super_merge(vbn, asd, new_json_shema)
-          @json_schemas += [new_json_shema]
+          kek_schemas += [new_json_shema]
         end
-        qwe[1]
+        [qwe[1], kek_schemas]
       end
 
       def clone_hash(old_json_schema)
