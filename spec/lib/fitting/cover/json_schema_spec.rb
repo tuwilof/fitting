@@ -666,100 +666,104 @@ RSpec.describe Fitting::Cover::JSONSchema do
 
     it do
       expect(subject.super_each(
-        {'type' => 'string'},
-        {
-          'properties' => {
-            'login' => nil
-          }
-        },
-        [
-          {
-            '$schema' => 'http://json-schema.org/draft-04/schema#',
-            'type' => 'object',
-            'properties' => {
-              'login' => {
-                'type' => 'string'
-              },
-              'password' => {
-                'type' => 'string'
-              },
-              'captcha' => {
-                'type' => 'string'
-              },
-              'code' => {
-                'type' => 'string'
-              }
-            },
-            'required' => %w[login password captcha]
-          },
-          {
-            '$schema' => 'http://json-schema.org/draft-04/schema#',
-            'type' => 'object',
-            'properties' => {
-              'login' => {
-                'type' => 'string'
-              },
-              'password' => {
-                'type' => 'string'
-              },
-              'captcha' => {
-                'type' => 'string'
-              },
-              'code' => {
-                'type' => 'string'
-              }
-            },
-            'required' => %w[login password code]
-          }
-        ],
-        {
-          '$schema' => 'http://json-schema.org/draft-04/schema#',
-          'type' => 'object',
-          'properties' => {
-            'login' => {
-              'type' => 'string'
-            },
-            'password' => {
-              'type' => 'string'
-            },
-            'captcha' => {
-              'type' => 'string'
-            },
-            'code' => {
-              'type' => 'string'
-            }
-          },
-          'required' => %w[login password]
-        },
-        [
-          %w[required captcha],
-          %w[required code]
-        ]
+        {"result" => {"type" => "object", "properties" => {"login" => {"type" => "string"}, "password" => {"type" => "string"}}}}, {"properties" => nil}, [], {"$schema" => "http://json-schema.org/draft-04/schema#", "type" => "object", "required" => ["result"], "properties" => {"result" => {"type" => "object", "properties" => {"login" => {"type" => "string"}, "password" => {"type" => "string"}}}}}, []
+      )).to eq(
+        [[{"$schema" => "http://json-schema.org/draft-04/schema#", "type" => "object", "required" => ["result"], "properties" => {"result" => {"type" => "object", "properties" => {"login" => {"type" => "string"}, "password" => {"type" => "string"}}, "required" => ["login"]}}}, {"$schema" => "http://json-schema.org/draft-04/schema#", "type" => "object", "required" => ["result"], "properties" => {"result" => {"type" => "object", "properties" => {"login" => {"type" => "string"}, "password" => {"type" => "string"}}, "required" => ["password"]}}}], [["required", "login"], ["required", "password"]]]
+      )
+    end
+  end
+
+  describe "#new_super_each" do
+    it do
+      expect(subject.new_super_each(
+        {"result" => {"type" => "object", "properties" => {"login" => {"type" => "string"}, "password" => {"type" => "string"}}}},
+        {"properties" => nil},
+        {"$schema" => "http://json-schema.org/draft-04/schema#", "type" => "object", "required" => ["result"], "properties" => {"result" => {"type" => "object", "properties" => {"login" => {"type" => "string"}, "password" => {"type" => "string"}}}}},
+        []
       )).to eq(
         [
           [
             {
-              '$schema' => 'http://json-schema.org/draft-04/schema#',
-              'type' => 'object',
-              'properties' =>
-                {
-                  'login' => {
-                    'type' => 'string'
-                  },
-                  'password' => {
-                    'type' => 'string'
-                  },
-                  'captcha' => {
-                    'type' => 'string'
-                  },
-                  'code' => {
-                    'type' => 'string'
-                  }
-                },
-              'required' => %w[login password captcha]
+              "$schema" => "http://json-schema.org/draft-04/schema#", "type" => "object", "required" => ["result"], "properties" => {"result" => {"type" => "object", "properties" => {"login" => {"type" => "string"}, "password" => {"type" => "string"}}, "required" => ["login"]}}
             },
+            ["required", "login"]
+          ],
+          [
             {
-              '$schema' => 'http://json-schema.org/draft-04/schema#',
+              "$schema" => "http://json-schema.org/draft-04/schema#", "type" => "object", "required" => ["result"], "properties" => {"result" => {"type" => "object", "properties" => {"login" => {"type" => "string"}, "password" => {"type" => "string"}}, "required" => ["password"]}}
+            },
+            ["required", "password"]
+          ]
+        ]
+      )
+    end
+  end
+
+  describe '#combi' do
+    let(:json_schema_two) do
+      {
+        '$schema' => 'http://json-schema.org/draft-04/schema#',
+        'type' => 'object',
+        'properties' => {
+          'login' => {
+            'type' => 'string'
+          },
+          'password' => {
+            'type' => 'string'
+          },
+          'captcha' => {
+            'type' => 'string'
+          },
+          'code' => {
+            'type' => 'string'
+          }
+        },
+        'required' => %w[login password captcha]
+      }
+    end
+    let(:json_schema_three) do
+      {
+        '$schema' => 'http://json-schema.org/draft-04/schema#',
+        'type' => 'object',
+        'properties' => {
+          'login' => {
+            'type' => 'string'
+          },
+          'password' => {
+            'type' => 'string'
+          },
+          'captcha' => {
+            'type' => 'string'
+          },
+          'code' => {
+            'type' => 'string'
+          }
+        },
+        'required' => %w[login password code]
+      }
+    end
+
+    it 'returns combinations' do
+      expect(subject.combi).to eq([
+        [
+          json_schema_two,
+          %w[required captcha]
+        ],
+        [
+          json_schema_three,
+          %w[required code]
+        ]
+      ])
+    end
+
+    context 'attachments' do
+      let(:json_schema) do
+        {
+          '$schema' => 'http://json-schema.org/draft-04/schema#',
+          'type' => 'object',
+          'required' => %w[result],
+          'properties' => {
+            'result' => {
               'type' => 'object',
               'properties' => {
                 'login' => {
@@ -767,23 +771,67 @@ RSpec.describe Fitting::Cover::JSONSchema do
                 },
                 'password' => {
                   'type' => 'string'
-                },
-                'captcha' => {
+                }
+              }
+            }
+          }
+        }
+      end
+      let(:json_schema_two) do
+        {
+          '$schema' => 'http://json-schema.org/draft-04/schema#',
+          'type' => 'object',
+          'required' => %w[result],
+          'properties' => {
+            'result' => {
+              'type' => 'object',
+              'properties' => {
+                'login' => {
                   'type' => 'string'
                 },
-                'code' => {
+                'password' => {
                   'type' => 'string'
                 }
               },
-              'required' => %w[login password code]
+              'required' => %w[login]
             }
+          }
+        }
+      end
+      let(:json_schema_three) do
+        {
+          '$schema' => 'http://json-schema.org/draft-04/schema#',
+          'type' => 'object',
+          'required' => %w[result],
+          'properties' => {
+            'result' => {
+              'type' => 'object',
+              'properties' => {
+                'login' => {
+                  'type' => 'string'
+                },
+                'password' => {
+                  'type' => 'string'
+                }
+              },
+              'required' => %w[password]
+            }
+          }
+        }
+      end
+
+      it 'returns combinations' do
+        expect(subject.combi).to eq([
+          [
+            json_schema_two,
+            %w[required login]
           ],
           [
-            %w[required captcha],
-            %w[required code]
+            json_schema_three,
+            %w[required password]
           ]
-        ]
-      )
+        ])
+      end
     end
   end
 end
