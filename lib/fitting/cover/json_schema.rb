@@ -20,8 +20,8 @@ module Fitting
           new_keys_hash = clone_hash(old_keys_hash)
           add_super_key(new_keys_hash, key)
           if value.is_a?(Hash)
-            modify_json_shema(value, new_keys_hash)
             super_each(value, new_keys_hash)
+            @combinations += modify_json_shema(value, new_keys_hash)
           end
         end
       end
@@ -54,7 +54,7 @@ module Fitting
           super_merge(vbn, asd, new_json_shema)
           @json_schemas += [new_json_shema]
         end
-        @combinations += qwe[1]
+        qwe[1]
       end
 
       def clone_hash(old_json_schema)
