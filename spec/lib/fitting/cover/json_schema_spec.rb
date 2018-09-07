@@ -399,4 +399,73 @@ RSpec.describe Fitting::Cover::JSONSchema do
       end
     end
   end
+
+  describe '#required' do
+    it do
+      expect(subject.required(
+               '$schema' => 'http://json-schema.org/draft-04/schema#',
+               'type' => 'object',
+               'properties' => {
+                 'login' => {
+                   'type' => 'string'
+                 },
+                 'password' => {
+                   'type' => 'string'
+                 },
+                 'captcha' => {
+                   'type' => 'string'
+                 }, 'code' => {
+                   'type' => 'string'
+                 }
+               },
+               'required' => %w[login password]
+      )).to eq(
+        [
+          [
+            {
+              '$schema' => 'http://json-schema.org/draft-04/schema#',
+              'type' => 'object',
+              'properties' => {
+                'login' => {
+                  'type' => 'string'
+                },
+                'password' => {
+                  'type' => 'string'
+                },
+                'captcha' => {
+                  'type' => 'string'
+                }, 'code' => {
+                  'type' => 'string'
+                }
+              },
+              'required' => %w[login password captcha]
+            },
+            {
+              '$schema' => 'http://json-schema.org/draft-04/schema#',
+              'type' => 'object',
+              'properties' => {
+                'login' => {
+                  'type' => 'string'
+                },
+                'password' => {
+                  'type' => 'string'
+                },
+                'captcha' => {
+                  'type' => 'string'
+                },
+                'code' => {
+                  'type' => 'string'
+                }
+              },
+              'required' => %w[login password code]
+            }
+          ],
+          [
+            %w[required captcha],
+            %w[required code]
+          ]
+        ]
+      )
+    end
+  end
 end
