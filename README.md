@@ -168,6 +168,10 @@ Path to API Blueprint documentation. There must be an installed [drafter](https:
 
 Path to API Blueprint documentation pre-parsed with `drafter` and saved to a YAML file.
 
+### tomogram_json_path
+
+Path to Tomogram documentation pre-parsed with [tomograph](https://github.com/funbox/tomograph) and saved to a JSON file.
+
 ### strict
 
 Default `false`. If `true` then all properties are condisidered to have `"required": true` and all objects `"additionalProperties": false`.
