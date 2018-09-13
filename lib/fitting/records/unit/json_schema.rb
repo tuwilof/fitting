@@ -28,8 +28,8 @@ module Fitting
         def combinations
           return @combinations if @combinations
           @combinations = []
-          cover_json_schema = Fitting::Cover::JSONSchema.new(@json_schema)
-          cover_json_schema.combi.map do |comb|
+          qwe = Fitting::Cover::JSONSchema.new(@json_schema).combi + Fitting::Cover::JSONSchemaEnum.new(@json_schema).combi
+          qwe.map do |comb|
             @combinations.push(Fitting::Records::Unit::Combination.new(
                                  comb,
                                  bodies

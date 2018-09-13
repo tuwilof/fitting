@@ -80,6 +80,7 @@ module Fitting
       end
 
       def new_keys(json_schema)
+        return [] unless json_schema['enum']
         json_schema['enum']
       end
     end
