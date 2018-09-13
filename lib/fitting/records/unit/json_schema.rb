@@ -1,5 +1,6 @@
 require 'json-schema'
 require 'fitting/cover/json_schema'
+require 'fitting/cover/json_schema_enum'
 require 'fitting/records/unit/combination'
 
 module Fitting
