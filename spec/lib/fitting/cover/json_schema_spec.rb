@@ -254,16 +254,44 @@ RSpec.describe Fitting::Cover::JSONSchema do
 
       it 'returns combinations' do
         expect(subject.combi).to eq([
-                                      [
-                                        json_schema_two,
-                                        %w[required properties.result.login]
-                                      ],
-                                      [
-                                        json_schema_three,
-                                        %w[required properties.result.password]
-                                      ]
-                                    ])
+          [
+            json_schema_two,
+            %w[required properties.result.login]
+          ],
+          [
+            json_schema_three,
+            %w[required properties.result.password]
+          ]
+        ])
       end
+    end
+  end
+
+  describe "#new_keys" do
+    it do
+      expect(subject.new_keys(
+        {
+          '$schema' => 'http://json-schema.org/draft-04/schema#',
+          'type' => 'object',
+          'properties' => {
+            'login' => {
+              'type' => 'string'
+            },
+            'password' => {
+              'type' => 'string'
+            },
+            'captcha' => {
+              'type' => 'string'
+            },
+            'code' => {
+              'type' => 'string'
+            }
+          },
+          'required' => %w[login password]
+        }
+      )).to eq(
+        ["captcha", "code"]
+      )
     end
   end
 end
