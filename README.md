@@ -112,7 +112,7 @@ API responses with validation errors or untested: 9 (36.00% of 25).
 
 ### s size
 
-In addition to the previous comand, you will learn the coverage json-schemas with task `rake fitting:documentation_responses[s]`
+In addition to the previous comand, you will learn the coverage(required) json-schemas with task `rake fitting:documentation_responses[s]`
 
 ```
 Fully conforming requests:
@@ -148,6 +148,11 @@ source json-schema: {"$schema"=>"http://json-schema.org/draft-04/schema#", "type
 combination: ["required", "pages"]
 new json-schema: {"$schema"=>"http://json-schema.org/draft-04/schema#", "type"=>"object", ...}
 ```
+
+### m size
+
+In addition to the previous comand, you will learn the coverage(enum) json-schemas with task `rake fitting:documentation_responses[m]`
+For details `rake fitting:documentation_responses_error[m]`
 
 ## Check tests cover
 

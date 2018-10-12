@@ -1,5 +1,10 @@
 # Change log
 
+### 2.8.0 - 2018-10-13
+
+* features
+  * Add m size (for cover enum in json-schema) in rake tasks fitting:documentation_responses, fitting:documentation_responses_error
+
 ### 2.7.2 - 2018-09-08
 
 * fixes
