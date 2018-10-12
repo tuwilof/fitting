@@ -41,8 +41,10 @@ module Fitting
           else
             res.push("✔ #{response.status}")
           end
-        else
+        elsif @depth == 'cover'
           res.push("#{json_schema.cover}% #{response.status}")
+        elsif @depth == 'cover_enum'
+          res.push("#{json_schema.cover_enum}% #{response.status}")
         end
       end
     end

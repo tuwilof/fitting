@@ -48,7 +48,7 @@ namespace :fitting do
       documented_unit = Fitting::Statistics::Template.new(
         Fitting::Records::Spherical::Requests.new,
         Fitting.configuration,
-        'cover'
+        'cover_enum'
       )
       puts documented_unit.stats
 
