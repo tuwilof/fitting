@@ -3,6 +3,7 @@ require 'fitting/configuration'
 require 'fitting/records/realized_unit'
 require 'fitting/templates/realized_template'
 require 'fitting/statistics/template_cover_error'
+require 'fitting/statistics/template_cover_error_enum'
 
 namespace :fitting do
   desc 'Fitting documentation'
@@ -70,7 +71,7 @@ namespace :fitting do
       )
       puts documented_unit.stats
     elsif args.size == 'm'
-      documented_unit = Fitting::Statistics::TemplateCoverError.new(
+      documented_unit = Fitting::Statistics::TemplateCoverErrorEnum.new(
         Fitting::Records::Spherical::Requests.new,
         Fitting.configuration
       )
