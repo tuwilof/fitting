@@ -44,8 +44,20 @@ namespace :fitting do
         puts 'Not all responses from the whitelist are covered!'
         exit 1
       end
+    elsif args.size == 'm'
+      documented_unit = Fitting::Statistics::Template.new(
+        Fitting::Records::Spherical::Requests.new,
+        Fitting.configuration,
+        'cover'
+      )
+      puts documented_unit.stats
+
+      unless documented_unit.not_covered == "\n"
+        puts 'Not all responses from the whitelist are covered!'
+        exit 1
+      end
     else
-      puts 'need key xs or s'
+      puts 'need key xs, s or m'
     end
   end
 
@@ -57,8 +69,14 @@ namespace :fitting do
         Fitting.configuration
       )
       puts documented_unit.stats
+    elsif args.size == 'm'
+      documented_unit = Fitting::Statistics::TemplateCoverError.new(
+        Fitting::Records::Spherical::Requests.new,
+        Fitting.configuration
+      )
+      puts documented_unit.stats
     else
-      puts 'need key s'
+      puts 'need key s or m'
     end
   end
 
