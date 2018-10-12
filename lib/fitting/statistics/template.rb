@@ -2,6 +2,7 @@ require 'fitting/statistics/not_covered_responses'
 require 'fitting/statistics/analysis'
 require 'fitting/statistics/measurement'
 require 'fitting/statistics/measurement_cover'
+require 'fitting/statistics/measurement_cover_enum'
 require 'fitting/records/unit/request'
 require 'fitting/storage/white_list'
 require 'fitting/records/documented/request'
@@ -48,8 +49,10 @@ module Fitting
         @white_measurement ||=
           if @depth == 'valid'
             Fitting::Statistics::Measurement.new(white_unit)
-          else
+          elsif @depth == 'cover'
             Fitting::Statistics::MeasurementCover.new(white_unit)
+          elsif @depth == 'cover_enum'
+            Fitting::Statistics::MeasurementCoverEnum.new(white_unit)
           end
       end
 
@@ -57,8 +60,10 @@ module Fitting
         @black_measurement ||=
           if @depth == 'valid'
             Fitting::Statistics::Measurement.new(black_unit)
-          else
+          elsif @depth == 'cover'
             Fitting::Statistics::MeasurementCover.new(black_unit)
+          elsif @depth == 'cover_enum'
+            Fitting::Statistics::MeasurementCoverEnum.new(black_unit)
           end
       end
 

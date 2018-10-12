@@ -36,23 +36,23 @@ RSpec.describe Fitting::Cover::JSONSchema do
   describe '#new_required' do
     it do
       expect(subject.new_required(
-               '$schema' => 'http://json-schema.org/draft-04/schema#',
-               'type' => 'object',
-               'properties' => {
-                 'login' => {
-                   'type' => 'string'
-                 },
-                 'password' => {
-                   'type' => 'string'
-                 },
-                 'captcha' => {
-                   'type' => 'string'
-                 },
-                 'code' => {
-                   'type' => 'string'
-                 }
-               },
-               'required' => %w[login password]
+        '$schema' => 'http://json-schema.org/draft-04/schema#',
+        'type' => 'object',
+        'properties' => {
+          'login' => {
+            'type' => 'string'
+          },
+          'password' => {
+            'type' => 'string'
+          },
+          'captcha' => {
+            'type' => 'string'
+          },
+          'code' => {
+            'type' => 'string'
+          }
+        },
+        'required' => %w[login password]
       )).to eq(
         [
           [
@@ -107,22 +107,22 @@ RSpec.describe Fitting::Cover::JSONSchema do
   describe '#new_super_each' do
     it do
       expect(subject.new_super_each(
-               { 'result' => { 'type' => 'object', 'properties' => { 'login' => { 'type' => 'string' }, 'password' => { 'type' => 'string' } } } },
-               { 'properties' => nil },
-               { '$schema' => 'http://json-schema.org/draft-04/schema#', 'type' => 'object', 'required' => ['result'], 'properties' => { 'result' => { 'type' => 'object', 'properties' => { 'login' => { 'type' => 'string' }, 'password' => { 'type' => 'string' } } } } },
-               [],
+        {'result' => {'type' => 'object', 'properties' => {'login' => {'type' => 'string'}, 'password' => {'type' => 'string'}}}},
+        {'properties' => nil},
+        {'$schema' => 'http://json-schema.org/draft-04/schema#', 'type' => 'object', 'required' => ['result'], 'properties' => {'result' => {'type' => 'object', 'properties' => {'login' => {'type' => 'string'}, 'password' => {'type' => 'string'}}}}},
+        [],
         nil
       )).to eq(
         [
           [
             {
-              '$schema' => 'http://json-schema.org/draft-04/schema#', 'type' => 'object', 'required' => ['result'], 'properties' => { 'result' => { 'type' => 'object', 'properties' => { 'login' => { 'type' => 'string' }, 'password' => { 'type' => 'string' } }, 'required' => ['login'] } }
+              '$schema' => 'http://json-schema.org/draft-04/schema#', 'type' => 'object', 'required' => ['result'], 'properties' => {'result' => {'type' => 'object', 'properties' => {'login' => {'type' => 'string'}, 'password' => {'type' => 'string'}}, 'required' => ['login']}}
             },
             %w[required result.login]
           ],
           [
             {
-              '$schema' => 'http://json-schema.org/draft-04/schema#', 'type' => 'object', 'required' => ['result'], 'properties' => { 'result' => { 'type' => 'object', 'properties' => { 'login' => { 'type' => 'string' }, 'password' => { 'type' => 'string' } }, 'required' => ['password'] } }
+              '$schema' => 'http://json-schema.org/draft-04/schema#', 'type' => 'object', 'required' => ['result'], 'properties' => {'result' => {'type' => 'object', 'properties' => {'login' => {'type' => 'string'}, 'password' => {'type' => 'string'}}, 'required' => ['password']}}
             },
             %w[required result.password]
           ]
@@ -177,15 +177,15 @@ RSpec.describe Fitting::Cover::JSONSchema do
 
     it 'returns combinations' do
       expect(subject.combi).to eq([
-                                    [
-                                      json_schema_two,
-                                      %w[required captcha]
-                                    ],
-                                    [
-                                      json_schema_three,
-                                      %w[required code]
-                                    ]
-                                  ])
+        [
+          json_schema_two,
+          %w[required captcha]
+        ],
+        [
+          json_schema_three,
+          %w[required code]
+        ]
+      ])
     end
 
     context 'attachments' do
@@ -254,16 +254,44 @@ RSpec.describe Fitting::Cover::JSONSchema do
 
       it 'returns combinations' do
         expect(subject.combi).to eq([
-                                      [
-                                        json_schema_two,
-                                        %w[required properties.result.login]
-                                      ],
-                                      [
-                                        json_schema_three,
-                                        %w[required properties.result.password]
-                                      ]
-                                    ])
+          [
+            json_schema_two,
+            %w[required properties.result.login]
+          ],
+          [
+            json_schema_three,
+            %w[required properties.result.password]
+          ]
+        ])
       end
+    end
+  end
+
+  describe "#new_keys" do
+    it do
+      expect(subject.new_keys(
+        {
+          '$schema' => 'http://json-schema.org/draft-04/schema#',
+          'type' => 'object',
+          'properties' => {
+            'login' => {
+              'type' => 'string'
+            },
+            'password' => {
+              'type' => 'string'
+            },
+            'captcha' => {
+              'type' => 'string'
+            },
+            'code' => {
+              'type' => 'string'
+            }
+          },
+          'required' => %w[login password]
+        }
+      )).to eq(
+        ["captcha", "code"]
+      )
     end
   end
 end
