@@ -20,7 +20,7 @@ RSpec.describe Fitting::Records::Unit::JsonSchema do
     let(:tested_bodies) { [valid_body, invalid_body, html_body] }
 
     it 'returns bodies' do
-      expect(subject.bodies).to eq([valid_body, html_body])
+      expect(subject.bodies).to eq([valid_body])
     end
   end
 end
