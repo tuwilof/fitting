@@ -1,5 +1,10 @@
 # Change log
 
+### 2.8.1 - 2018-12-17
+
+* features
+  * Add support for [parallel_tests](https://github.com/grosser/parallel_tests)
+
 ### 2.8.0 - 2018-10-13
 
 * features

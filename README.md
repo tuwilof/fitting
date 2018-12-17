@@ -42,7 +42,7 @@ require 'fitting'
 Fitting.save_test_data
 ```
 
-The tests.json file will be created
+The files will be created in ./fitting_tests/ path
 
 Example:
 
