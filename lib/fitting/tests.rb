@@ -7,12 +7,14 @@ module Fitting
     end
 
     def save
+      make_dir('fitting_tests')
       array = @tested_requests.inject([]) do |res, request|
         next res unless request.path.to_s.start_with?(Fitting.configuration.prefix)
         res.push(request.to_spherical.to_hash)
       end
       json = JSON.dump(array)
-      File.open('tests.json', 'w') { |file| file.write(json) }
+
+      File.open("fitting_tests/test#{ENV["TEST_ENV_NUMBER"]}.json", 'w') { |file| file.write(json) }
     end
 
     def make_dir(dir_name)

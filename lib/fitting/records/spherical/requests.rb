@@ -8,7 +8,10 @@ module Fitting
         def to_a
           return @to_a if @to_a
 
-          array = JSON.load(File.read('tests.json'))
+          array = []
+          Dir['fitting_tests/*.json'].each do |file|
+            array += JSON.load(File.read(file))
+          end
           @to_a = array.inject([]) do |res, tested_request|
             res.push(Fitting::Records::Spherical::Request.load(tested_request))
           end
