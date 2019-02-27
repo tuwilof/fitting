@@ -13,8 +13,8 @@ module Fitting
             response.json_schemas.map do |json_schema|
               json_schema.combinations.map do |combination|
                 next unless combination.valid_bodies == []
-                res += "request metohd: #{request.method}\nrequest path: #{request.path}\n"\
-                        "response staus: #{response.status}\nsource json-schema: #{json_schema.json_schema}\n"\
+                res += "request method: #{request.method}\nrequest path: #{request.path}\n"\
+                        "response status: #{response.status}\nsource json-schema: #{json_schema.json_schema}\n"\
                        "combination: #{combination.description}\nnew json-schema: #{combination.json_schema}\n\n"
               end
             end

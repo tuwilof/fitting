@@ -141,9 +141,9 @@ API responses with validation errors or untested: 9 (36.00% of 25).
 For details `rake fitting:documentation_responses_error[s]`
 
 ```
-request metohd: GET
+request method: GET
 request path: /api/v1/book
-response staus: 200
+response status: 200
 source json-schema: {"$schema"=>"http://json-schema.org/draft-04/schema#", "type"=>"object", ...}
 combination: ["required", "pages"]
 new json-schema: {"$schema"=>"http://json-schema.org/draft-04/schema#", "type"=>"object", ...}
