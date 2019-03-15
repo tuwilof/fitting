@@ -7,9 +7,9 @@ RSpec.describe Fitting::Cover::JSONSchema do
 
   describe '#combi' do
     context 'default' do
-      let(:original) { MultiJson.load(File.read('spec/fixtures/required_0.json')) }
-      let(:first_combination) { MultiJson.load(File.read('spec/fixtures/required_1.json')) }
-      let(:second_combination) { MultiJson.load(File.read('spec/fixtures/required_2.json')) }
+      let(:original) { MultiJson.load(File.read('spec/fixtures/required/0.json')) }
+      let(:first_combination) { MultiJson.load(File.read('spec/fixtures/required/1.json')) }
+      let(:second_combination) { MultiJson.load(File.read('spec/fixtures/required/2.json')) }
       let(:first_details) { %w[required captcha] }
       let(:second_details) { %w[required code] }
 
@@ -19,9 +19,9 @@ RSpec.describe Fitting::Cover::JSONSchema do
     end
 
     context 'attachments' do
-      let(:original) { MultiJson.load(File.read('spec/fixtures/required_attachments_0.json')) }
-      let(:first_combination) { MultiJson.load(File.read('spec/fixtures/required_attachments_1.json')) }
-      let(:second_combination) { MultiJson.load(File.read('spec/fixtures/required_attachments_2.json')) }
+      let(:original) { MultiJson.load(File.read('spec/fixtures/required/attachments_0.json')) }
+      let(:first_combination) { MultiJson.load(File.read('spec/fixtures/required/attachments_1.json')) }
+      let(:second_combination) { MultiJson.load(File.read('spec/fixtures/required/attachments_2.json')) }
       let(:first_details) { %w[required properties.result.login] }
       let(:second_details) { %w[required properties.result.password] }
 
