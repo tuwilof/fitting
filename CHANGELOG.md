@@ -4,6 +4,8 @@
 
 * features
   * Delete old spec json
+* fixes
+  * Improve gemspec
 
 ### 2.8.1 - 2018-12-18
 
