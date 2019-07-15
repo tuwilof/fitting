@@ -1,5 +1,10 @@
 # Change log
 
+### 2.9.0 - 2019-07-15
+
+* features
+  * Delete old spec json
+
 ### 2.8.1 - 2018-12-18
 
 * features
