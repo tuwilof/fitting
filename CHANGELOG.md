@@ -1,5 +1,12 @@
 # Change log
 
+
+### 2.9.1 - 2019-07-15
+
+* fixes
+  * Improve gemspec
+  * Delete experimental code with haml
+
 ### 2.9.0 - 2019-07-15
 
 * features
