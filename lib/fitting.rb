@@ -32,6 +32,8 @@ module Fitting
     def save_test_data
       responses = Fitting::Storage::Responses.new
 
+      FileUtils.rm_r Dir.glob("fitting_tests/*"), :force => true
+
       RSpec.configure do |config|
         config.after(:each, type: :controller) do
           responses.add(response, inspect)
