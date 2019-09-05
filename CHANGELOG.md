@@ -1,5 +1,9 @@
 # Change log
 
+### 2.10.0 - 2019-09-05
+
+* features
+  * add crafter_yaml_path
 
 ### 2.9.1 - 2019-07-15
 
