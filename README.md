@@ -173,6 +173,10 @@ Path to API Blueprint documentation. There must be an installed [drafter](https:
 
 Path to API Blueprint documentation pre-parsed with `drafter` and saved to a YAML file.
 
+### crafter_yaml_path
+
+Path to API Blueprint documentation pre-parsed with `crafter` and saved to a YAML file.
+
 ### tomogram_json_path
 
 Path to Tomogram documentation pre-parsed with [tomograph](https://github.com/funbox/tomograph) and saved to a JSON file.
