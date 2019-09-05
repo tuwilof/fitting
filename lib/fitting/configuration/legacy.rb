@@ -20,11 +20,18 @@ module Fitting
       end
 
       def tomogram
-        @tomogram ||= Tomograph::Tomogram.new(
-          prefix: @prefix,
-          apib_path: @apib_path,
-          drafter_yaml_path: @drafter_yaml_path
-        )
+        @tomogram ||= if @crafter_yaml_path
+                        Tomograph::Tomogram.new(
+                          prefix: @prefix,
+                          apib_path: @apib_path,
+                          crafter_yaml_path: @crafter_yaml_path
+                        )
+                      else Tomograph::Tomogram.new(
+                        prefix: @prefix,
+                        apib_path: @apib_path,
+                        drafter_yaml_path: @drafter_yaml_path
+                      )
+                      end
       end
 
       def title
