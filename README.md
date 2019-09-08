@@ -167,15 +167,27 @@ If your project uses several prefixes, for each one you need to create a separat
 
 ### apib_path
 
-Path to API Blueprint documentation. There must be an installed [drafter](https://github.com/apiaryio/drafter) to parse it.
+Path to API Blueprint v3 documentation. There must be an installed [drafter](https://github.com/apiaryio/drafter) to parse it.
 
 ### drafter_yaml_path
 
-Path to API Blueprint documentation pre-parsed with `drafter` and saved to a YAML file.
+Path to API Blueprint v3 documentation pre-parsed with `drafter` and saved to a YAML file.
+
+### drafter_4_apib_path
+
+Path to API Blueprint v4 documentation. There must be an installed [drafter](https://github.com/apiaryio/drafter) to parse it.
+
+### drafter_4_yaml_path
+
+Path to API Blueprint v4 documentation pre-parsed with `drafter` and saved to a YAML file.
+
+### crafter_apib_path
+
+Path to API Blueprint v4 documentation.
 
 ### crafter_yaml_path
 
-Path to API Blueprint documentation pre-parsed with `crafter` and saved to a YAML file.
+Path to API Blueprint v4 documentation pre-parsed with `crafter` and saved to a YAML file.
 
 ### tomogram_json_path
 

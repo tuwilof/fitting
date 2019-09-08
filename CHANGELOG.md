@@ -1,5 +1,15 @@
 # Change log
 
+### 2.11.0 - 2019-09-09
+
+* features
+ * crafter_apib_path
+ * drafter_4_apib_path
+ * drafter_4_yaml_path
+
+* fixes
+  * crafter_yaml_path
+
 ### 2.10.0 - 2019-09-05
 
 * features

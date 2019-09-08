@@ -6,7 +6,10 @@ module Fitting
       attr_reader   :title
       attr_accessor :apib_path,
                     :drafter_yaml_path,
+                    :crafter_apib_path,
                     :crafter_yaml_path,
+                    :drafter_4_apib_path,
+                    :drafter_4_yaml_path,
                     :tomogram_json_path,
                     :strict,
                     :prefix,
@@ -19,7 +22,10 @@ module Fitting
       def initialize(yaml, title = 'fitting')
         @apib_path = yaml['apib_path']
         @drafter_yaml_path = yaml['drafter_yaml_path']
+        @crafter_apib_path = yaml['crafter_apib_path']
         @crafter_yaml_path = yaml['crafter_yaml_path']
+        @drafter_4_apib_path = yaml['drafter_4_apib_path']
+        @drafter_4_yaml_path = yaml['drafter_4_yaml_path']
         @tomogram_json_path = yaml['tomogram_json_path']
         @strict = yaml['strict']
         @prefix = yaml['prefix']
@@ -33,12 +39,17 @@ module Fitting
       end
 
       def tomogram
-        @tomogram ||= if @crafter_yaml_path
+        @tomogram ||= if @crafter_yaml_path || @crafter_apib_path
                         Tomograph::Tomogram.new(
                           prefix: @prefix,
-                          apib_path: @apib_path,
+                          crafter_apib_path: @crafter_apib_path,
                           crafter_yaml_path: @crafter_yaml_path,
-                          tomogram_json_path: @tomogram_json_path
+                        )
+                      elsif @drafter_4_apib_path || @drafter_4_yaml_path
+                        Tomograph::Tomogram.new(
+                          prefix: @prefix,
+                          drafter_4_apib_path: @drafter_4_apib_path,
+                          drafter_4_yaml_path: @drafter_4_yaml_path,
                         )
                       else
                         Tomograph::Tomogram.new(

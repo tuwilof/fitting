@@ -5,6 +5,10 @@ module Fitting
     class Legacy
       attr_accessor :apib_path,
                     :drafter_yaml_path,
+                    :crafter_apib_path,
+                    :crafter_yaml_path,
+                    :drafter_4_apib_path,
+                    :drafter_4_yaml_path,
                     :strict,
                     :prefix,
                     :white_list,
@@ -20,11 +24,17 @@ module Fitting
       end
 
       def tomogram
-        @tomogram ||= if @crafter_yaml_path
+        @tomogram ||= if @crafter_apib_path || @crafter_yaml_path
                         Tomograph::Tomogram.new(
                           prefix: @prefix,
-                          apib_path: @apib_path,
+                          crafter_apib_path: @crafter_apib_path,
                           crafter_yaml_path: @crafter_yaml_path
+                        )
+                      elsif @drafter_4_apib_path || @drafter_4_yaml_path
+                        Tomograph::Tomogram.new(
+                          prefix: @prefix,
+                          drafter_4_apib_path: @drafter_4_apib_path,
+                          drafter_4_yaml_path: @drafter_4_yaml_path
                         )
                       else Tomograph::Tomogram.new(
                         prefix: @prefix,
