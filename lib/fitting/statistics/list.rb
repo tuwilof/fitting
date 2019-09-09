@@ -45,6 +45,8 @@ module Fitting
           res.push("#{json_schema.cover}% #{response.status}")
         elsif @depth == 'cover_enum'
           res.push("#{json_schema.cover_enum}% #{response.status}")
+        elsif @depth == 'cover_one_of'
+          res.push("#{json_schema.cover_one_of}% #{response.status}")
         end
       end
     end

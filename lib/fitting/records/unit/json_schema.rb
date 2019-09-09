@@ -1,6 +1,7 @@
 require 'json-schema'
 require 'fitting/cover/json_schema'
 require 'fitting/cover/json_schema_enum'
+require 'fitting/cover/json_schema_one_of'
 require 'fitting/records/unit/combination'
 
 module Fitting
@@ -51,6 +52,19 @@ module Fitting
           @combinations_with_enum
         end
 
+        def combinations_with_one_of
+          return @combinations_with_one_of if @combinations_with_one_of
+          @combinations_with_one_of = []
+          qwe = Fitting::Cover::JSONSchema.new(@json_schema).combi + Fitting::Cover::JSONSchemaEnum.new(@json_schema).combi + Fitting::Cover::JSONSchemaOneOf.new(@json_schema).combi
+          qwe.map do |comb|
+            @combinations_with_one_of.push(Fitting::Records::Unit::Combination.new(
+              comb,
+              bodies
+            ))
+          end
+          @combinations_with_one_of
+        end
+
         def cover
           @cover ||= if bodies == []
                        0
@@ -72,6 +86,18 @@ module Fitting
               count += 1 unless combination.valid_bodies == []
             end
             (count + 1) * 100 / (combinations_with_enum.size + 1)
+          end
+        end
+
+        def cover_one_of
+          @cover_one_of ||= if bodies == []
+            0
+          else
+            count = 0
+            combinations_with_one_of.map do |combination|
+              count += 1 unless combination.valid_bodies == []
+            end
+            (count + 1) * 100 / (combinations_with_one_of.size + 1)
           end
         end
       end

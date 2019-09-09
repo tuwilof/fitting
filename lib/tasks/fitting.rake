@@ -4,8 +4,10 @@ require 'fitting/records/realized_unit'
 require 'fitting/templates/realized_template'
 require 'fitting/statistics/template_cover_error'
 require 'fitting/statistics/template_cover_error_enum'
+require 'fitting/statistics/template_cover_error_one_of'
 
 namespace :fitting do
+  # deprecated
   desc 'Fitting documentation'
   task :documentation do
     documented_unit = Fitting::Statistics::Template.new(
@@ -57,8 +59,20 @@ namespace :fitting do
         puts 'Not all responses from the whitelist are covered!'
         exit 1
       end
+    elsif args.size == 'l'
+      documented_unit = Fitting::Statistics::Template.new(
+        Fitting::Records::Spherical::Requests.new,
+        Fitting.configuration,
+        'cover_one_of'
+      )
+      puts documented_unit.stats
+
+      unless documented_unit.not_covered == "\n"
+        puts 'Not all responses from the whitelist are covered!'
+        exit 1
+      end
     else
-      puts 'need key xs, s or m'
+      puts 'need key xs, s, m or l'
     end
   end
 
@@ -76,11 +90,18 @@ namespace :fitting do
         Fitting.configuration
       )
       puts documented_unit.stats
+    elsif args.size == 'l'
+      documented_unit = Fitting::Statistics::TemplateCoverErrorOneOf.new(
+        Fitting::Records::Spherical::Requests.new,
+        Fitting.configuration
+      )
+      puts documented_unit.stats
     else
-      puts 'need key s or m'
+      puts 'need key s, m or l'
     end
   end
 
+  # deprecated
   desc 'Fitting tests'
   task :tests do
     realized_unit = Fitting::Records::RealizedUnit.new(

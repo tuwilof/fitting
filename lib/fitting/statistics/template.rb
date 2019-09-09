@@ -3,6 +3,7 @@ require 'fitting/statistics/analysis'
 require 'fitting/statistics/measurement'
 require 'fitting/statistics/measurement_cover'
 require 'fitting/statistics/measurement_cover_enum'
+require 'fitting/statistics/measurement_cover_one_of'
 require 'fitting/records/unit/request'
 require 'fitting/storage/white_list'
 require 'fitting/records/documented/request'
@@ -53,6 +54,8 @@ module Fitting
             Fitting::Statistics::MeasurementCover.new(white_unit)
           elsif @depth == 'cover_enum'
             Fitting::Statistics::MeasurementCoverEnum.new(white_unit)
+          elsif @depth == 'cover_one_of'
+            Fitting::Statistics::MeasurementCoverOneOf.new(white_unit)
           end
       end
 
@@ -64,6 +67,8 @@ module Fitting
             Fitting::Statistics::MeasurementCover.new(black_unit)
           elsif @depth == 'cover_enum'
             Fitting::Statistics::MeasurementCoverEnum.new(black_unit)
+          elsif @depth == 'cover_one_of'
+            Fitting::Statistics::MeasurementCoverOneOf.new(black_unit)
           end
       end
 
