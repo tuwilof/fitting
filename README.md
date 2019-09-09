@@ -154,6 +154,11 @@ new json-schema: {"$schema"=>"http://json-schema.org/draft-04/schema#", "type"=>
 In addition to the previous comand, you will learn the coverage(enum) json-schemas with task `rake fitting:documentation_responses[m]`
 For details `rake fitting:documentation_responses_error[m]`
 
+### l size
+
+In addition to the previous comand, you will learn the coverage(oneOf) json-schemas with task `rake fitting:documentation_responses[l]`
+For details `rake fitting:documentation_responses_error[l]`
+
 ## Check tests cover
 
 ### xs size

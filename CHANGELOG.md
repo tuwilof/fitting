@@ -1,5 +1,10 @@
 # Change log
 
+### 2.12.0 - 2019-09-10
+
+* features
+  * Add l size (for cover oneOf in json-schema) in rake tasks fitting:documentation_responses, fitting:documentation_responses_error
+
 ### 2.11.0 - 2019-09-09
 
 * features
