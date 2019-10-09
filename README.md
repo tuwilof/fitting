@@ -12,7 +12,9 @@ To do this, when you run your RSpec tests on controllers, it automatically searc
 
 ## Installation
 
-Add this line to your application's Gemfile:
+First you need to install [drafter](https://github.com/apiaryio/drafter).
+
+Second add this line to your application's Gemfile:
 
 ```ruby
 gem 'fitting'
