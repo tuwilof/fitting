@@ -82,7 +82,17 @@ Example:
 
 ### xs size
 
-For match routes and valid json-schemas run `rake fitting:documentation_responses[xs]`
+For match routes and valid json-schemas run
+
+for bash
+```
+rake fitting:documentation_responses[xs]
+```
+
+for zsh
+```
+rake 'fitting:documentation_responses[xs]'
+```
 
 You will get statistics:
 
