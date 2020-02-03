@@ -13,7 +13,7 @@ module Fitting
         if @json_schema['oneOf']
           one_of = @json_schema.delete("oneOf")
           one_of.each_index do |index|
-            @combinations.push([@json_schema.merge(one_of[index]), ['one_of', "properties.#{index}"]])
+            @combinations.push([@json_schema.merge('oneOf' => [one_of[index]]), ['one_of', "#{index}"]])
           end
         elsif @json_schema['allOf']
           all_of = @json_schema.delete("allOf")

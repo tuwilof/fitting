@@ -1,15 +1,20 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "properties": {
-    "status": {
-      "type": "string",
-      "enum": [
-        "ok"
+  "properties": {},
+  "oneOf": [
+    {
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "ok"
+          ]
+        }
+      },
+      "required": [
+        "status"
       ]
     }
-  },
-  "required": [
-    "status"
   ]
 }
