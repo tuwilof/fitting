@@ -3,27 +3,33 @@ module Fitting
     class JSONSchemaOneOf
       def initialize(json_schema)
         @json_schema = json_schema
+        @combinations = []
       end
 
       def combi
-        @combinations = []
+        inception(@json_schema, @combinations).each do |combination|
+          combination[0] = @json_schema.merge(combination[0])
+          combination[1] = ['one_of', combination[1]]
+        end
+      end
 
-        return @combinations unless @json_schema['oneOf'] || @json_schema['allOf']
-
-        if @json_schema['oneOf']
-          one_of = @json_schema.delete("oneOf")
-          one_of.each_index do |index|
-            @combinations.push([@json_schema.merge(one_of[index]), ['one_of', "properties.#{index}"]])
-          end
-        elsif @json_schema['allOf']
-          all_of = @json_schema.delete("allOf")
-          one_of = all_of[0].delete("oneOf")
-          one_of.each_index do |index|
-            @combinations.push([@json_schema.merge(one_of[index]), ['one_of', "properties.#{index}"]])
+      def inception(json_schema, combinations)
+        json_schema.each do |key, value|
+          if key == 'oneOf'
+            one_of = json_schema.delete('oneOf')
+            one_of.each_index do |index|
+              combinations.push([json_schema.merge('oneOf' => [one_of[index]]), "oneOf.#{index}"])
+            end
+          elsif value.is_a?(Hash)
+            inception(value, combinations)
+            combinations.each do |combination|
+              combination[0] = { key => combination[0]}
+              combination[1] = "#{key}.#{combination[1]}"
+            end
           end
         end
 
-        @combinations
+        combinations
       end
     end
   end
