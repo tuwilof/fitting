@@ -18,7 +18,7 @@ module Fitting
           if key == 'enum'
             one_of = json_schema.delete('enum')
             one_of.each_index do |index|
-              combinations.push([json_schema.merge('enum' => [one_of[index]]), "#{one_of[index]}"])
+              combinations.push([json_schema.merge('enum' => [one_of[index]]), "enum.#{one_of[index]}"])
             end
           elsif value.is_a?(Hash)
             inception(value, combinations)
