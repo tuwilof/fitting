@@ -1,5 +1,10 @@
 # Change log
 
+### x.y.z - yyyy-mm-dd
+
+* patch
+  * improve combination name for enum cover
+
 ### 2.12.1 - 2020-02-07
 
 * fixes
