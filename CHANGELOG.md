@@ -4,6 +4,7 @@
 
 * patch
   * improve combination name for enum cover
+  * improve combination name for required cover
 
 ### 2.12.1 - 2020-02-07
 
