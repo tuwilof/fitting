@@ -15,8 +15,8 @@ module Fitting
 
       def inception(json_schema, combinations)
         json_schema.each do |key, value|
-          if key == 'properties'
-            one_of = json_schema.delete('required')
+          if key == 'properties' and json_schema['required'] != value.keys
+            one_of = json_schema.delete('required') || []
             json_schema['properties'].each_key do |property|
               next if one_of.include?(property)
               combinations.push([json_schema.merge('required' => one_of + [property]), "required.#{property}"])
