@@ -19,7 +19,7 @@ module Fitting
             one_of = json_schema.delete('required')
             json_schema['properties'].each_key do |property|
               next if one_of.include?(property)
-              combinations.push([json_schema.merge('required' => one_of + [property]), "#{property}"])
+              combinations.push([json_schema.merge('required' => one_of + [property]), "required.#{property}"])
             end
           elsif value.is_a?(Hash)
             inception(value, combinations)
