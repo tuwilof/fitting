@@ -16,6 +16,7 @@ module Fitting
     end
 
     def statistics
+      puts 'DEPRECATED: deprecated method statistics, use new method save_test_data'
       responses = Fitting::Storage::Responses.new
 
       RSpec.configure do |config|
@@ -35,6 +36,10 @@ module Fitting
       FileUtils.rm_r Dir.glob("fitting_tests/*"), :force => true
 
       RSpec.configure do |config|
+        config.after(:each, type: :request) do
+          responses.add(response, inspect)
+        end
+
         config.after(:each, type: :controller) do
           responses.add(response, inspect)
         end
