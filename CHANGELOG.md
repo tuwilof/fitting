@@ -1,6 +1,6 @@
 # Change log
 
-### x.y.z - yyyy-mm-dd
+### 2.13.0 - 2020-02-26
 
 * features
   * use request tests
