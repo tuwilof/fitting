@@ -2,6 +2,9 @@
 
 ### x.y.z - yyyy-mm-dd
 
+* features
+  * use request tests
+
 * patch
   * improve combination name for enum cover
   * improve combination name for required cover
