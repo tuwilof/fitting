@@ -17,7 +17,23 @@ namespace :fitting do
     Dir['fitting_tests/*.json'].each do |file|
       tests += JSON.load(File.read(file))
     end
-    actions_test = {actions: tomogram.to_a, tests: tests}
+    actions = tomogram.to_a
+    actions.map do |action|
+      action = action.to_hash
+      action["tests"] = []
+    end
+
+    tests.map do |test|
+      actions.map do |action|
+        if test['method'] == action.method && action.path.match(test['path'])
+          action.to_hash["tests"].push(test)
+          tests = tests - [test]
+          next
+        end
+      end
+    end
+
+    actions_test = {actions: actions, tests: tests}
 
     makedirs('fitting')
     File.open('fitting/report.json', 'w') { |file| file.write(MultiJson.dump(actions_test)) }
