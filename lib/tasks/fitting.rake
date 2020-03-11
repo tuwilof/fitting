@@ -8,8 +8,19 @@ require 'fitting/statistics/template_cover_error_one_of'
 
 namespace :fitting do
   task :report do
+    yaml = YAML.safe_load(File.read('.fitting.yml'))
+    tomogram = Tomograph::Tomogram.new(
+        prefix: yaml['prefix'],
+        tomogram_json_path:  yaml['tomogram_json_path']
+    )
+    tests = []
+    Dir['fitting_tests/*.json'].each do |file|
+      tests += JSON.load(File.read(file))
+    end
+    actions_test = {actions: tomogram.to_a, tests: tests}
+
     makedirs('fitting')
-    File.open('fitting/report.json', 'w') { |file| file.write('[]') }
+    File.open('fitting/report.json', 'w') { |file| file.write(MultiJson.dump(actions_test)) }
   end
 
   # deprecated
