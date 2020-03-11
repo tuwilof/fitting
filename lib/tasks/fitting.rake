@@ -7,6 +7,11 @@ require 'fitting/statistics/template_cover_error_enum'
 require 'fitting/statistics/template_cover_error_one_of'
 
 namespace :fitting do
+  task :report do
+    makedirs('fitting')
+    File.open('fitting/report.json', 'w') { |file| file.write('[]') }
+  end
+
   # deprecated
   desc 'Fitting documentation'
   task :documentation do
