@@ -29,7 +29,7 @@ namespace :fitting do
         if test['method'] == action.method && action.path.match(test['path'])
           action.to_hash["tests"].push(test)
           tests = tests - [test]
-          next
+          break
         end
       end
     end
@@ -49,13 +49,6 @@ namespace :fitting do
         end
       end
     end
-
-    actions.map do |action|
-      if action.to_hash["tests"] != []
-        puts "??? #{action.to_hash["tests"].size}"
-      end
-    end
-
 
     actions.map do |action|
       action.to_hash["responses"].map do |response|
