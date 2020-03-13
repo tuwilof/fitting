@@ -5,6 +5,7 @@ require 'fitting/templates/realized_template'
 require 'fitting/statistics/template_cover_error'
 require 'fitting/statistics/template_cover_error_enum'
 require 'fitting/statistics/template_cover_error_one_of'
+require 'fitting/cover/json_schema'
 
 namespace :fitting do
   task :report do
@@ -45,6 +46,23 @@ namespace :fitting do
               next
             end
           end
+        end
+      end
+    end
+
+    actions.map do |action|
+      if action.to_hash["tests"] != []
+        puts "??? #{action.to_hash["tests"].size}"
+      end
+    end
+
+
+    actions.map do |action|
+      action.to_hash["responses"].map do |response|
+        response['combination'] ||= []
+        combination = Fitting::Cover::JSONSchema.new(response['body']).combi
+        if combination != []
+          response['combination'].push(combination)
         end
       end
     end
