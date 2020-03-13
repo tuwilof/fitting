@@ -33,6 +33,22 @@ namespace :fitting do
       end
     end
 
+
+    actions.map do |action|
+      action.to_hash["tests"].map do |test|
+        action.to_hash["responses"].map do |response|
+          if response['status'].to_s == test['response']['status'].to_s
+            if JSON::Validator.fully_validate(response['body'], test['response']['body']) == []
+              response['tests'] ||= []
+              response['tests'].push(test)
+              action.to_hash["tests"] = action.to_hash["tests"] - [test]
+              next
+            end
+          end
+        end
+      end
+    end
+
     actions_test = {actions: actions, tests: tests}
 
     makedirs('fitting')
