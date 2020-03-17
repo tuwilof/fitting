@@ -14,6 +14,7 @@ RSpec.describe Fitting::Cover::JSONSchema do
 
     it 'returns combinations' do
       expect(subject.combi).to eq([[first_combination, first_details], [second_combination, second_details]])
+      expect(original).to eq(MultiJson.load(File.read('spec/fixtures/required/0.json')))
     end
 
     context 'attachments' do
