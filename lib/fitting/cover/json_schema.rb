@@ -25,7 +25,7 @@ module Fitting
           elsif value.is_a?(Hash)
             inception(value, combinations)
             combinations.each do |combination|
-              combination[0] = { key => combination[0]}
+              combination[0] = { key => value.merge(combination[0])}
               combination[1] = "#{key}.#{combination[1]}"
             end
           end
