@@ -22,11 +22,12 @@ module Fitting
               combinations.push([schema.merge('oneOf' => [one_of[index]]), "oneOf.#{index}"])
             end
           elsif value.is_a?(Hash)
-            inception(value, combinations)
-            combinations.each do |combination|
+            com = inception(value, [])
+            com.each do |combination|
               combination[0] = { key => combination[0]}
               combination[1] = "#{key}.#{combination[1]}"
             end
+            combinations += com
           end
         end
 

@@ -43,5 +43,16 @@ RSpec.describe Fitting::Cover::JSONSchema do
         expect(res[0][0]).to eq(MultiJson.load(File.read('spec/fixtures/required/definitions_1.json')))
       end
     end
+
+    context 'many' do
+      let(:original) { MultiJson.load(File.read('spec/fixtures/required/many_0.json')) }
+
+      it 'returns combinations' do
+        res = subject.combi
+        expect(res.size).to eq(2)
+        expect(res[0][1][1]).to eq("properties.logins.required.login")
+        expect(res[1][1][1]).to eq("properties.passwords.required.password")
+      end
+    end
   end
 end
