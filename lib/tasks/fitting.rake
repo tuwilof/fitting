@@ -53,9 +53,19 @@ namespace :fitting do
     actions.map do |action|
       action.to_hash["responses"].map do |response|
         response['combination'] ||= []
-        combination = Fitting::Cover::JSONSchema.new(response['body']).combi
-        if combination != []
-          response['combination'].push(combination)
+        combinations = Fitting::Cover::JSONSchema.new(response['body']).combi
+        if combinations != []
+          combinations.map do |combination|
+            response['combination'].push(
+                {
+                    'json_schema' => combination[0],
+                    'type' => combination[1][0],
+                    'combination' => combination[1][1],
+                    'tests' => [],
+                    'error' => []
+                }
+            )
+          end
         end
       end
     end
@@ -64,17 +74,15 @@ namespace :fitting do
       action.to_hash["responses"].map do |response|
         response['tests'].map do  |test|
           if response['combination'][0]
-            response['combination'][0].map do |combination|
+            response['combination'].map do |combination|
               begin
-                if JSON::Validator.fully_validate(combination[0], test['response']['body']) == []
-                  combination[2] ||= []
-                  combination[2].push(test)
+                if JSON::Validator.fully_validate(combination['json_schema'], test['response']['body']) == []
+                  combination['tests'].push(test)
                   response['tests'] = response['tests'] - [test]
                   next
                 end
               rescue JSON::Schema::SchemaError => error
-                combination[3] ||= []
-                combination[3].push({test: test, error: error})
+                combination['error'].push({test: test, error: error})
               end
             end
           end
