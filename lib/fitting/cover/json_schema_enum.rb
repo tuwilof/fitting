@@ -15,7 +15,7 @@ module Fitting
 
       def inception(json_schema, combinations)
         json_schema.each do |key, value|
-          if key == 'enum'
+          if key == 'enum' && value.size > 1
             schema = json_schema.dup
             one_of = schema.delete('enum')
             one_of.each_index do |index|

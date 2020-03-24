@@ -26,5 +26,13 @@ RSpec.describe Fitting::Cover::JSONSchemaEnum do
         expect(subject.combi).to eq([[first_combination, first_details], [second_combination, second_details]])
       end
     end
+
+    context 'if forever alone' do
+      let(:original) { MultiJson.load(File.read('spec/fixtures/enum/forever_alone_0.json')) }
+
+      it 'returns empty array' do
+        expect(subject.combi).to eq([])
+      end
+    end
   end
 end
