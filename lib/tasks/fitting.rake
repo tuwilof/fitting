@@ -53,7 +53,7 @@ namespace :fitting do
     actions.map do |action|
       action.to_hash["responses"].map do |response|
         response['combination'] ||= []
-        combinations = Fitting::Cover::JSONSchema.new(response['body']).combi + Fitting::Cover::JSONSchemaEnum.new(response['body']).combi
+        combinations = Fitting::Cover::JSONSchema.new(response['body']).combi + Fitting::Cover::JSONSchemaEnum.new(response['body']).combi + Fitting::Cover::JSONSchemaOneOf.new(response['body']).combi
         if combinations != []
           combinations.map do |combination|
             response['combination'].push(
