@@ -72,7 +72,8 @@ namespace :fitting do
 
     actions.map do |action|
       action.to_hash["responses"].map do |response|
-        response['tests'].map do  |test|
+        response['tests'] ||= []
+        response['tests'].map do |test|
           if response['combination'][0]
             response['combination'].map do |combination|
               begin
