@@ -77,10 +77,13 @@ namespace :fitting do
           if response['combination'][0]
             response['combination'].map do |combination|
               begin
-                if JSON::Validator.fully_validate(combination['json_schema'], test['response']['body']) == []
+                res = JSON::Validator.fully_validate(combination['json_schema'], test['response']['body'])
+                if res == []
                   combination['tests'].push(test)
                   response['tests'] = response['tests'] - [test]
                   next
+                else
+                  combination['error'].push({test: test, error: res})
                 end
               rescue JSON::Schema::SchemaError => error
                 combination['error'].push({test: test, error: error})
