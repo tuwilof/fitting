@@ -1,5 +1,10 @@
 # Change log
 
+### 2.13.1 - 2020-04-17
+
+* fixes
+  * combinations
+
 ### 2.13.0 - 2020-02-26
 
 * features
