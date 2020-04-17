@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "state": {
+      "type": "string",
+      "enum": [
+        "ok"
+      ]
+    },
+    "login": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "state",
+    "login"
+  ]
+}

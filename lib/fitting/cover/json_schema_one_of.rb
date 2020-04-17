@@ -16,16 +16,18 @@ module Fitting
       def inception(json_schema, combinations)
         json_schema.each do |key, value|
           if key == 'oneOf'
-            one_of = json_schema.delete('oneOf')
+            schema = json_schema.dup
+            one_of = schema.delete('oneOf')
             one_of.each_index do |index|
-              combinations.push([json_schema.merge('oneOf' => [one_of[index]]), "oneOf.#{index}"])
+              combinations.push([schema.merge('oneOf' => [one_of[index]]), "oneOf.#{index}"])
             end
           elsif value.is_a?(Hash)
-            inception(value, combinations)
-            combinations.each do |combination|
-              combination[0] = { key => combination[0]}
+            com = inception(value, [])
+            com.each do |combination|
+              combination[0] = { key => value.merge(combination[0])}
               combination[1] = "#{key}.#{combination[1]}"
             end
+            combinations += com
           end
         end
 

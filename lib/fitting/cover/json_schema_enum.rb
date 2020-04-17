@@ -15,17 +15,19 @@ module Fitting
 
       def inception(json_schema, combinations)
         json_schema.each do |key, value|
-          if key == 'enum'
-            one_of = json_schema.delete('enum')
+          if key == 'enum' && value.size > 1
+            schema = json_schema.dup
+            one_of = schema.delete('enum')
             one_of.each_index do |index|
-              combinations.push([json_schema.merge('enum' => [one_of[index]]), "enum.#{one_of[index]}"])
+              combinations.push([schema.merge('enum' => [one_of[index]]), "enum.#{one_of[index]}"])
             end
           elsif value.is_a?(Hash)
-            inception(value, combinations)
-            combinations.each do |combination|
-              combination[0] = { key => combination[0]}
+            com = inception(value, [])
+            com.each do |combination|
+              combination[0] = { key => value.merge(combination[0])}
               combination[1] = "#{key}.#{combination[1]}"
             end
+            combinations += com
           end
         end
 
