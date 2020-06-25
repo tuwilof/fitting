@@ -1,5 +1,10 @@
 # Change log
 
+### x.y.z - yyyy-mm-dd
+
+* features
+  * save tests for all prefixes #35
+
 ### 2.13.1 - 2020-04-17
 
 * fixes

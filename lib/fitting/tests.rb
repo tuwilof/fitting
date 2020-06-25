@@ -9,7 +9,6 @@ module Fitting
     def save
       make_dir('fitting_tests')
       array = @tested_requests.inject([]) do |res, request|
-        next res unless request.path.to_s.start_with?(Fitting.configuration.prefix)
         res.push(request.to_spherical.to_hash)
       end
       json = JSON.dump(array)
