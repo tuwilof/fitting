@@ -3,7 +3,8 @@
 ### x.y.z - yyyy-mm-dd
 
 * features
-  * save tests for all prefixes #35
+  * save tests for all prefixes [#35](https://github.com/funbox/fitting/issues/35)
+  * prefix checking [#37](https://github.com/funbox/fitting/issues/37)
 
 ### 2.13.1 - 2020-04-17
 
