@@ -6,9 +6,24 @@ require 'fitting/statistics/template_cover_error'
 require 'fitting/statistics/template_cover_error_enum'
 require 'fitting/statistics/template_cover_error_one_of'
 require 'fitting/cover/json_schema'
+require 'fitting/report/prefixes'
+require 'fitting/report/tests'
 
 namespace :fitting do
   task :report do
+    tests = Fitting::Report::Tests.new('fitting_tests/*.json')
+    prefixes = Fitting::Report::Prefixes.new('.fitting.yml')
+
+    tests.join(prefixes)
+
+    report = JSON.pretty_generate(
+        {
+            tests_without_prefixes: tests.without_prefixes,
+            prefixes_details: prefixes.to_a.map { |p| {name: p.name, tests_size: p.tests.size} }
+        }
+    )
+    File.open('fitting/report.json', 'w') { |file| file.write(report) }
+
     yaml = YAML.safe_load(File.read('.fitting.yml'))
     tomogram = Tomograph::Tomogram.new(
         prefix: yaml['prefix'],
@@ -97,7 +112,7 @@ namespace :fitting do
     actions_test = {actions: actions, tests: tests}
 
     makedirs('fitting')
-    File.open('fitting/report.json', 'w') { |file| file.write(MultiJson.dump(actions_test)) }
+    File.open('fitting/old_report.json', 'w') { |file| file.write(MultiJson.dump(actions_test)) }
   end
 
   # deprecated

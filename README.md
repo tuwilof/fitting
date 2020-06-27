@@ -171,6 +171,13 @@ For details `rake fitting:documentation_responses_error[m]`
 In addition to the previous comand, you will learn the coverage(oneOf) json-schemas with task `rake fitting:documentation_responses[l]`
 For details `rake fitting:documentation_responses_error[l]`
 
+### new experimental report
+
+For now, you can document your prefixes with it. Task will create a file `fitting/report.json`
+```bash
+bundle e rake fitting:report
+```
+
 ## Check tests cover
 
 ### xs size
@@ -303,6 +310,16 @@ ignore_list:
 ```
 
 It works only for match_schema (NOT FOR strictly_match_schema)
+
+### prefixes
+
+How use
+
+```yaml
+prefixes:
+  - name: /api/v1
+  - name: /api/v2
+```
 
 ## Contributing
 
