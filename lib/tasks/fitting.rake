@@ -24,6 +24,11 @@ namespace :fitting do
     )
     File.open('fitting/report.json', 'w') { |file| file.write(report) }
 
+    gem_path = $LOAD_PATH.find { |i| i.include?('fitting') }
+    source_path = "#{gem_path}/templates/bomboniere/dist"
+    destination = 'fitting'
+    FileUtils.copy_entry source_path, destination
+
     yaml = YAML.safe_load(File.read('.fitting.yml'))
     tomogram = Tomograph::Tomogram.new(
         prefix: yaml['prefix'],
