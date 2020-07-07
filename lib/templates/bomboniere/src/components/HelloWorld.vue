@@ -1,13 +1,13 @@
 <template>
   <div>
-      <h3>prefixes_details:</h3>
+      <h3>prefixes_details ✔</h3>
       <div v-for="prefix_details in myJson['prefixes_details']">
-          <p>{{prefix_details}}</p>
+          <p>{{prefix_details['name']}} {{prefix_details['tests_size']}} ✔</p>
       </div>
 
-      <h3>tests_without_prefixes:</h3>
+      <h3 class="pink">tests_without_prefixes ✖</h3>
       <div v-for="test_without_prefixes in myJson['tests_without_prefixes']">
-          <p>{{test_without_prefixes}}</p>
+          <p class="pink">{{test_without_prefixes}} ✖</p>
       </div>
   </div>
 </template>

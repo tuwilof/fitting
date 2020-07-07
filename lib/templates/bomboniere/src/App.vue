@@ -17,6 +17,10 @@ h1,h2,h3,h4,h5,h6,p {
   color: #42b983;
 }
 
+.pink {
+  color: #b94283
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
