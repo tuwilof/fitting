@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      myJson: {'lol': 'kek'}
+      myJson: {'stub': 'prefixes report'}
     }
   }
 }
