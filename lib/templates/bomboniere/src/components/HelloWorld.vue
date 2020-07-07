@@ -1,6 +1,8 @@
 <template>
   <div>
-      {{myJson}}
+      <p>
+          {{myJson}}
+      </p>
   </div>
 </template>
 
