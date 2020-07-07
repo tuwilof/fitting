@@ -22,7 +22,19 @@ namespace :fitting do
             prefixes_details: prefixes.to_a.map { |p| {name: p.name, tests_size: p.tests.size} }
         }
     )
+
+    destination = 'fitting'
+    FileUtils.rm_r Dir.glob("#{destination}/*"), :force => true
     File.open('fitting/report.json', 'w') { |file| file.write(report) }
+
+    gem_path = $LOAD_PATH.find { |i| i.include?('fitting') }
+    source_path = "#{gem_path}/templates/bomboniere/dist"
+    FileUtils.copy_entry source_path, destination
+
+    js_path =  Dir["#{destination}/js/*"].find { |f| f[0..14] == 'fitting/js/app.' and f[-3..-1] == '.js' }
+    js_file =  File.read(js_path)
+    new_js_file = js_file.gsub("{stub:\"prefixes report\"}", report)
+    File.open(js_path, 'w') { |file| file.write(new_js_file) }
 
     yaml = YAML.safe_load(File.read('.fitting.yml'))
     tomogram = Tomograph::Tomogram.new(
