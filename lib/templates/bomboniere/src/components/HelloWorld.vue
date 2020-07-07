@@ -1,8 +1,14 @@
 <template>
   <div>
-      <p>
-          {{myJson}}
-      </p>
+      <h3>prefixes_details:</h3>
+      <div v-for="prefix_details in myJson['prefixes_details']">
+          <p>{{prefix_details}}</p>
+      </div>
+
+      <h3>tests_without_prefixes:</h3>
+      <div v-for="test_without_prefixes in myJson['tests_without_prefixes']">
+          <p>{{test_without_prefixes}}</p>
+      </div>
   </div>
 </template>
 
