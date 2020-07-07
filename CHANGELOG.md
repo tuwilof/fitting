@@ -5,6 +5,7 @@
 * features
   * save tests for all prefixes [#35](https://github.com/funbox/fitting/issues/35)
   * prefix checking [#37](https://github.com/funbox/fitting/issues/37)
+  * html view for prefix checking [#39](https://github.com/funbox/fitting/issues/39)
 
 ### 2.13.1 - 2020-04-17
 

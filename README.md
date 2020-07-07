@@ -173,7 +173,7 @@ For details `rake fitting:documentation_responses_error[l]`
 
 ### new experimental report
 
-For now, you can document your prefixes with it. Task will create a file `fitting/report.json`
+For now, you can document your prefixes with it. Task will create a file `fitting/report.json` and html view `fitting/index.html`
 ```bash
 bundle e rake fitting:report
 ```
