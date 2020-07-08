@@ -13,20 +13,15 @@ module Fitting
         @tests.sort { |a, b| b.path <=> a.path }
       end
 
-      def join(prefixes)
-        @tests.map do |test|
-          if prefixes.is_there_a_suitable_prefix?(test.path)
-            prefixes.cram_into_the_appropriate_prefix(test)
-            test.mark_prefix
-          end
-        end
-      end
-
       def without_prefixes
         @tests.inject([]) do |result, test|
           result.push(test.path) unless test.is_there_a_prefix?
           result
         end
+      end
+
+      def to_a
+        @tests
       end
     end
   end

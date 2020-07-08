@@ -27,6 +27,15 @@ module Fitting
         end
       end
 
+      def join(tests)
+        tests.to_a.map do |test|
+          if is_there_a_suitable_prefix?(test.path)
+            cram_into_the_appropriate_prefix(test)
+            test.mark_prefix
+          end
+        end
+      end
+
       def to_a
         @prefixes
       end

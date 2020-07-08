@@ -14,7 +14,7 @@ namespace :fitting do
     tests = Fitting::Report::Tests.new('fitting_tests/*.json')
     prefixes = Fitting::Report::Prefixes.new('.fitting.yml')
 
-    tests.join(prefixes)
+    prefixes.join(tests)
 
     report = JSON.pretty_generate(
         {
