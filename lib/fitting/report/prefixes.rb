@@ -6,7 +6,7 @@ module Fitting
       def initialize(config_path)
         @prefixes = []
         YAML.safe_load(File.read(config_path))['prefixes'].map do |prefix|
-          @prefixes.push(Fitting::Report::Prefix.new(prefix['name']))
+          @prefixes.push(Fitting::Report::Prefix.new(prefix['name'], prefix['tomogram_json_path'], prefix['skip']))
         end
       end
 
