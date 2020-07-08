@@ -1,16 +1,15 @@
+require 'fitting/report/actions'
+
 module Fitting
   module Report
     class Prefix
       def initialize(name, tomogram_json_path, skip = false)
         @name = name
         @tomogram_json_path = tomogram_json_path
-        @tests = []
+        @tests = Fitting::Report::Tests.new([])
         @skip = skip
         unless skip
-          @tomogram = Tomograph::Tomogram.new(
-              prefix: name,
-              tomogram_json_path: tomogram_json_path
-          )
+          @actions = Fitting::Report::Actions.new(name, tomogram_json_path)
         end
       end
 
@@ -27,7 +26,23 @@ module Fitting
       end
 
       def actions
-        @tomogram.to_a
+        @actions
+      end
+
+      def details
+        if @skip
+          {
+              name: @name,
+              tests_size: @tests.size,
+              actions: {}
+          }
+        else
+          {
+              name: @name,
+              tests_size: @tests.size,
+              actions: @actions.details(self)
+          }
+        end
       end
 
       def add_test(test)
