@@ -1,13 +1,26 @@
 <template>
   <div>
-      <h3>prefixes_details ✔</h3>
       <div v-for="prefix_details in myJson['prefixes_details']">
-          <p>{{prefix_details['name']}} {{prefix_details['tests_size']}} ✔</p>
+
+          <div class="prefix">
+              <div class="prefix-name">{{prefix_details['name']}}</div>
+              <div class="tests_size">{{prefix_details['tests_size']}} ✔</div>
+          </div>
+          <div v-for="action_details in prefix_details['actions']['actions_details']">
+              <div class="action">
+                  <div class="method">{{action_details['method']}} </div>
+                  <div class="path">{{action_details['path']}}</div>
+                  <div class="tests_size">{{action_details['tests_size']}} ✔</div>
+              </div>
+          </div>
+
+          <div v-for="test_without_actions in prefix_details['actions']['tests_without_actions']">
+              <h4>{{test_without_actions}} ✖</h4>
+          </div>
       </div>
 
-      <h3 class="pink">tests_without_prefixes ✖</h3>
       <div v-for="test_without_prefixes in myJson['tests_without_prefixes']">
-          <p class="pink">{{test_without_prefixes}} ✖</p>
+          <h2 class="pink">{{test_without_prefixes}} ✖</h2>
       </div>
   </div>
 </template>
@@ -41,5 +54,82 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.prefix {
+    background-color: #273645;
+    color: #42b983;
+    margin: 2px 0px;
+    padding: 0px 8px;
+    height: 20px;
+}
+
+.prefix-name {
+    width: 300px;
+    float: left;
+    text-align: left;
+}
+
+.tests_size {
+    float: left;
+    text-align: left;
+}
+
+.action {
+  background-color: #273645;
+  color: #42b983;
+  margin: 2px 16px;
+  height: 20px;
+}
+
+.action:hover {
+  background-color: #2b2b2b;
+}
+
+.method {
+    width: 100px;
+    float: left;
+    padding: 0px 8px;
+    text-align: left;
+}
+
+.path {
+    width: 400px;
+    float: left;
+    text-align: left;
+}
+
+
+.response {
+    width: 50px;
+    float: left;
+    text-align: left;
+}
+
+.error {
+    color: red;
+    width: 10px;
+    float: left;
+    text-align: left;
+}
+
+a:link {
+    color: #bababa;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #bababa;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #bababa;
+    text-decoration: none;
+}
+
+a:active {
+    color: #bababa;
+    text-decoration: none;
 }
 </style>

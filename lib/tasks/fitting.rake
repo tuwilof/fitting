@@ -11,15 +11,19 @@ require 'fitting/report/tests'
 
 namespace :fitting do
   task :report do
-    tests = Fitting::Report::Tests.new('fitting_tests/*.json')
+    tests = Fitting::Report::Tests.new_from_config('fitting_tests/*.json')
     prefixes = Fitting::Report::Prefixes.new('.fitting.yml')
 
-    tests.join(prefixes)
+    prefixes.join(tests)
+
+    prefixes.to_a.map do |prefix|
+      prefix.actions.join(prefix.tests) unless prefix.skip?
+    end
 
     report = JSON.pretty_generate(
         {
             tests_without_prefixes: tests.without_prefixes,
-            prefixes_details: prefixes.to_a.map { |p| {name: p.name, tests_size: p.tests.size} }
+            prefixes_details: prefixes.to_a.map { |p| p.details }
         }
     )
 
@@ -36,31 +40,7 @@ namespace :fitting do
     new_js_file = js_file.gsub("{stub:\"prefixes report\"}", report)
     File.open(js_path, 'w') { |file| file.write(new_js_file) }
 
-    yaml = YAML.safe_load(File.read('.fitting.yml'))
-    tomogram = Tomograph::Tomogram.new(
-        prefix: yaml['prefix'],
-        tomogram_json_path:  yaml['tomogram_json_path']
-    )
-    tests = []
-    Dir['fitting_tests/*.json'].each do |file|
-      tests += JSON.load(File.read(file))
-    end
-    actions = tomogram.to_a
-    actions.map do |action|
-      action = action.to_hash
-      action["tests"] = []
-    end
-
-    tests.map do |test|
-      actions.map do |action|
-        if test['method'] == action.method && action.path.match(test['path'])
-          action.to_hash["tests"].push(test)
-          tests = tests - [test]
-          break
-        end
-      end
-    end
-
+    exit 0
 
     actions.map do |action|
       action.to_hash["tests"].map do |test|
