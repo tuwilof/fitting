@@ -1,13 +1,18 @@
 <template>
   <div>
-      <h3>prefixes_details ✔</h3>
       <div v-for="prefix_details in myJson['prefixes_details']">
-          <p>{{prefix_details['name']}} {{prefix_details['tests_size']}} ✔</p>
+          <h2>{{prefix_details['name']}} {{prefix_details['tests_size']}} ✔</h2>
+          <div v-for="action_details in prefix_details['actions']['actions_details']">
+              <h4>{{action_details['method']}} {{action_details['path']}} {{action_details['tests_size']}} ✔</h4>
+          </div>
+
+          <div v-for="test_without_actions in prefix_details['actions']['tests_without_actions']">
+              <h4>{{test_without_actions}} ✖</h4>
+          </div>
       </div>
 
-      <h3 class="pink">tests_without_prefixes ✖</h3>
       <div v-for="test_without_prefixes in myJson['tests_without_prefixes']">
-          <p class="pink">{{test_without_prefixes}} ✖</p>
+          <h2 class="pink">{{test_without_prefixes}} ✖</h2>
       </div>
   </div>
 </template>

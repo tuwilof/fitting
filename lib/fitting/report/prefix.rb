@@ -34,7 +34,7 @@ module Fitting
           {
               name: @name,
               tests_size: @tests.size,
-              actions: {}
+              actions: {tests_without_actions: [], actions_details: []}
           }
         else
           {
