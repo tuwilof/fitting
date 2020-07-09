@@ -6,6 +6,7 @@
   * save tests for all prefixes [#35](https://github.com/funbox/fitting/issues/35)
   * prefix checking [#37](https://github.com/funbox/fitting/issues/37)
   * html view for prefix checking [#39](https://github.com/funbox/fitting/issues/39)
+  * add actions join in new html report [#41](https://github.com/funbox/fitting/issues/41)
 
 ### 2.13.1 - 2020-04-17
 
