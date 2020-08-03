@@ -1,9 +1,12 @@
+require 'fitting/report/responses'
+
 module Fitting
   module Report
     class Action
       def initialize(action)
         @action = action
-        @tests = []
+        @tests = Fitting::Report::Tests.new([])
+        @responses = Fitting::Report::Responses.new(@action.responses)
       end
 
       def method
@@ -12,6 +15,10 @@ module Fitting
 
       def path
         @action.path.to_s
+      end
+
+      def responses
+        @responses
       end
 
       def add_test(test)
@@ -33,6 +40,13 @@ module Fitting
 
       def tests
         @tests
+      end
+
+      def details
+        {
+            tests_without_responses: @tests.without_responses,
+            responses_details: @responses.to_a.map { |r| {method: r.status, tests_size: r.tests.size} }
+        }
       end
     end
   end

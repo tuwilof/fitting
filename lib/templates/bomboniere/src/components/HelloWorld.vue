@@ -4,13 +4,14 @@
 
           <div class="prefix">
               <div class="prefix-name">{{prefix_details['name']}}</div>
-              <div class="tests_size">{{prefix_details['tests_size']}} ✔</div>
           </div>
           <div v-for="action_details in prefix_details['actions']['actions_details']">
               <div class="action">
                   <div class="method">{{action_details['method']}} </div>
                   <div class="path">{{action_details['path']}}</div>
-                  <div class="tests_size">{{action_details['tests_size']}} ✔</div>
+                <div v-for="responses_details in action_details['responses']['responses_details']">
+                  <div class="responses_details">✔ {{responses_details['method']}}</div>
+                </div>
               </div>
           </div>
 
@@ -70,9 +71,10 @@ a {
     text-align: left;
 }
 
-.tests_size {
+.responses_details {
     float: left;
     text-align: left;
+    padding: 0px 2px;
 }
 
 .action {
