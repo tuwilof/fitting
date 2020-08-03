@@ -5,6 +5,7 @@ module Fitting
         @test = test
         @prefix = false
         @action = false
+        @response = false
       end
 
       def path
@@ -15,6 +16,14 @@ module Fitting
         @test['method']
       end
 
+      def status
+        @test['response']['status'].to_s
+      end
+
+      def body
+        @test['response']['body']
+      end
+
       def mark_prefix
         @prefix = true
       end
@@ -23,11 +32,19 @@ module Fitting
         @action = true
       end
 
+      def mark_response
+        @response = true
+      end
+
       def is_there_a_prefix?
         @prefix
       end
 
       def is_there_an_actions?
+        @action
+      end
+
+      def is_there_an_responses?
         @action
       end
     end

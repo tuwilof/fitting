@@ -14,6 +14,10 @@ module Fitting
         end
       end
 
+      def to_a
+        @actions
+      end
+
       def join(tests)
         tests.to_a.map do |test|
           if is_there_a_suitable_action?(test)
@@ -43,7 +47,7 @@ module Fitting
       def details(prefix)
         {
             tests_without_actions: prefix.tests.without_actions,
-            actions_details: @actions.map { |a| {method: a.method, path: a.path, tests_size: a.tests.size} }
+            actions_details: @actions.map { |a| {method: a.method, path: a.path, tests_size: a.tests.size, responses: a.details} }
         }
       end
     end

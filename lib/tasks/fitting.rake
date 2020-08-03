@@ -20,6 +20,12 @@ namespace :fitting do
       prefix.actions.join(prefix.tests) unless prefix.skip?
     end
 
+    prefixes.to_a.map do |prefix|
+      prefix.actions.to_a.map do |action|
+        action.responses.join(action.tests)
+      end unless prefix.skip?
+    end
+
     report = JSON.pretty_generate(
         {
             tests_without_prefixes: tests.without_prefixes,
@@ -41,21 +47,6 @@ namespace :fitting do
     File.open(js_path, 'w') { |file| file.write(new_js_file) }
 
     exit 0
-
-    actions.map do |action|
-      action.to_hash["tests"].map do |test|
-        action.to_hash["responses"].map do |response|
-          if response['status'].to_s == test['response']['status'].to_s
-            if JSON::Validator.fully_validate(response['body'], test['response']['body']) == []
-              response['tests'] ||= []
-              response['tests'].push(test)
-              action.to_hash["tests"] = action.to_hash["tests"] - [test]
-              break
-            end
-          end
-        end
-      end
-    end
 
     actions.map do |action|
       action.to_hash["responses"].map do |response|
