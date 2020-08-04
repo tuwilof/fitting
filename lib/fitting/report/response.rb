@@ -1,6 +1,7 @@
 require 'fitting/statistics/template_cover_error'
 require 'fitting/statistics/template_cover_error_enum'
 require 'fitting/statistics/template_cover_error_one_of'
+require 'fitting/report/combinations'
 
 module Fitting
   module Report
@@ -29,11 +30,11 @@ module Fitting
       def combinations
         return @combinations if @combinations
 
-        @combinations = []
+        cmbntns = []
         combinations = Fitting::Cover::JSONSchema.new(body).combi + Fitting::Cover::JSONSchemaEnum.new(body).combi + Fitting::Cover::JSONSchemaOneOf.new(body).combi
         if combinations != []
           combinations.map do |combination|
-            @combinations.push(
+            cmbntns.push(
                 {
                     'json_schema' => combination[0],
                     'type' => combination[1][0],
@@ -45,6 +46,7 @@ module Fitting
           end
         end
 
+        @combinations = Fitting::Report::Combinations.new(cmbntns)
       end
     end
   end
