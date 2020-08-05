@@ -39,6 +39,13 @@ module Fitting
         end
       end
 
+      def without_combinations
+        @tests.inject([]) do |result, test|
+          result.push(test.path) unless test.is_there_an_combinations?
+          result
+        end
+      end
+
       def push(test)
         @tests.push(test)
       end
