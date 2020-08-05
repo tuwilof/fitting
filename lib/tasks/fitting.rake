@@ -29,7 +29,7 @@ namespace :fitting do
     prefixes.to_a.map do |prefix|
       prefix.actions.to_a.map do |action|
         action.responses.to_a.map do |response|
-          response.combinations#.join(response.tests)
+          response.combinations.join(response.tests)
         end
       end unless prefix.skip?
     end

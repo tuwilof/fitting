@@ -5,8 +5,27 @@ module Fitting
         @json_schema = json_schema
         @type = type
         @combination = combination
-        @test = []
-        @error = []
+        @tests = Fitting::Report::Tests.new([])
+      end
+
+      def json_schema
+        @json_schema
+      end
+
+      def type
+        @type
+      end
+
+      def name
+        @combination
+      end
+
+      def tests
+        @tests
+      end
+
+      def add_test(test)
+        @tests.push(test)
       end
     end
   end

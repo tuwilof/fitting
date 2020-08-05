@@ -6,6 +6,7 @@ module Fitting
         @prefix = false
         @action = false
         @response = false
+        @combination = false
       end
 
       def path
@@ -36,6 +37,10 @@ module Fitting
         @response = true
       end
 
+      def mark_combination
+        @combination = true
+      end
+
       def is_there_a_prefix?
         @prefix
       end
@@ -45,7 +50,11 @@ module Fitting
       end
 
       def is_there_an_responses?
-        @action
+        @response
+      end
+
+      def is_there_an_combinations?
+        @combination
       end
     end
   end

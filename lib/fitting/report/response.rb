@@ -47,6 +47,16 @@ module Fitting
 
         @combinations = Fitting::Report::Combinations.new(cmbntns)
       end
+
+      def details
+        {
+            combinations_size: @combinations.size,
+            combinations_size_with_tests: @combinations.size_with_tests,
+            combinations_cover_percent: @combinations.cover_percent,
+            tests_without_combinations: @tests.without_combinations,
+            combinations_details: @combinations.to_a.map { |c| {json_schema: c.json_schema, tests_size: c.tests.size, type: c.type, name: c.name} }
+        }
+      end
     end
   end
 end
