@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="main">
       <div v-for="prefix_details in myJson['prefixes_details']">
 
           <div class="prefix">
@@ -10,7 +10,7 @@
                   <div class="method">{{action_details['method']}} </div>
                   <div class="path">{{action_details['path']}}</div>
                 <div v-for="responses_details in action_details['responses']['responses_details']">
-                  <div class="responses_details">✔ {{responses_details['method']}}</div>
+                  <div class="responses_details">{{responses_details['combinations']['combinations_cover_percent']}} {{responses_details['method']}}</div>
                 </div>
               </div>
           </div>
@@ -55,6 +55,10 @@ li {
 }
 a {
   color: #42b983;
+}
+
+#main {
+  font-size: 10pt;
 }
 
 .prefix {
