@@ -7,11 +7,13 @@
           </div>
           <div v-for="action_details in prefix_details['actions']['actions_details']">
               <div class="action">
+                <router-link :to="{ path: 'action', query: { method: action_details['method'], path: action_details['path'] }}">
                   <div class="method">{{action_details['method']}} </div>
                   <div class="path">{{action_details['path']}}</div>
                 <div v-for="responses_details in action_details['responses']['responses_details']">
                   <div class="responses_details">{{responses_details['combinations']['combinations_cover_percent']}} {{responses_details['method']}}</div>
                 </div>
+                </router-link>
               </div>
           </div>
 
@@ -120,22 +122,22 @@ a {
 }
 
 a:link {
-    color: #bababa;
+    color: #42b983;
     text-decoration: none;
 }
 
 a:visited {
-    color: #bababa;
+    color: #42b983;
     text-decoration: none;
 }
 
 a:hover {
-    color: #bababa;
+    color: #42b983;
     text-decoration: none;
 }
 
 a:active {
-    color: #bababa;
+    color: #42b983;
     text-decoration: none;
 }
 </style>
