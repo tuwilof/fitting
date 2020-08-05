@@ -7,6 +7,8 @@
   * prefix checking [#37](https://github.com/funbox/fitting/issues/37)
   * html view for prefix checking [#39](https://github.com/funbox/fitting/issues/39)
   * add actions join in new html report [#41](https://github.com/funbox/fitting/issues/41)
+  * add responses join in new report [#43](https://github.com/funbox/fitting/issues/43)
+  * add combinations join in new report [#47](https://github.com/funbox/fitting/issues/47)
 
 ### 2.13.1 - 2020-04-17
 
