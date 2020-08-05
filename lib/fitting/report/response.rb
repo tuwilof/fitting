@@ -2,6 +2,7 @@ require 'fitting/statistics/template_cover_error'
 require 'fitting/statistics/template_cover_error_enum'
 require 'fitting/statistics/template_cover_error_one_of'
 require 'fitting/report/combinations'
+require 'fitting/report/combination'
 
 module Fitting
   module Report
@@ -35,13 +36,11 @@ module Fitting
         if combinations != []
           combinations.map do |combination|
             cmbntns.push(
-                {
-                    'json_schema' => combination[0],
-                    'type' => combination[1][0],
-                    'combination' => combination[1][1],
-                    'tests' => [],
-                    'error' => []
-                }
+                Fitting::Report::Combination.new(
+                    json_schema: combination[0],
+                    type: combination[1][0],
+                    combination: combination[1][1]
+                )
             )
           end
         end
