@@ -7,7 +7,7 @@
           </div>
           <div v-for="action_details in prefix_details['actions']['actions_details']">
               <div class="action">
-                <router-link :to="{ path: 'action', query: { method: action_details['method'], path: action_details['path'] }}">
+                <router-link :to="{ path: 'action', query: { prefix: prefix_details['name'], method: action_details['method'], path: action_details['path'] }}">
                   <div class="method">{{action_details['method']}} </div>
                   <div class="path">{{action_details['path']}}</div>
                 <div v-for="responses_details in action_details['responses']['responses_details']">
