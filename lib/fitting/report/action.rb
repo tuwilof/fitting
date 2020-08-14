@@ -45,7 +45,7 @@ module Fitting
       def details
         {
             tests_without_responses: @tests.without_responses,
-            responses_details: @responses.to_a.map { |r| {method: r.status, tests_size: r.tests.size, combinations: r.details} }
+            responses_details: @responses.to_a.map { |r| {method: r.status, tests_size: r.tests.size, json_schema: r.body, combinations: r.details} }
         }
       end
     end

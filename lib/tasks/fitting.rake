@@ -52,6 +52,7 @@ namespace :fitting do
     js_path =  Dir["#{destination}/js/*"].find { |f| f[0..14] == 'fitting/js/app.' and f[-3..-1] == '.js' }
     js_file =  File.read(js_path)
     new_js_file = js_file.gsub("{stub:\"prefixes report\"}", report)
+    new_js_file = new_js_file.gsub("{stub:\"for action page\"}", report)
     File.open(js_path, 'w') { |file| file.write(new_js_file) }
 
     exit 0
