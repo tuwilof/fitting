@@ -9,6 +9,7 @@
   * add actions join in new html report [#41](https://github.com/funbox/fitting/issues/41)
   * add responses join in new report [#43](https://github.com/funbox/fitting/issues/43)
   * add combinations join in new report [#47](https://github.com/funbox/fitting/issues/47)
+  * add action page [#49](https://github.com/funbox/fitting/issues/49)
 
 ### 2.13.1 - 2020-04-17
 
