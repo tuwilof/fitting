@@ -13,7 +13,14 @@
                 <div class="response">response code {{ response.method }}, tests_size {{ response.tests_size }}</div>
                 <div v-for="combination in response.combinations.combinations_details">
                   <div class="combination">
-                    <vue-json-compare :oldData="combination" :newData="combination"></vue-json-compare>
+                    <div class="accordion-item">
+                      <div class="accordion-item-head" v-on:click="accordion">
+                        type: {{combination.type}}, name: {{combination.name}}, tests_size: {{combination.tests_size}}
+                      </div>
+                      <div class="accordion-item-body">
+                        <vue-json-compare :oldData="combination.json_schema" :newData="combination.json_schema"></vue-json-compare>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -39,6 +46,11 @@ export default {
   data() {
     return {
       myJson: {'stub': 'for action page'}
+    }
+  },
+  methods: {
+    accordion: function (event) {
+      event.target.classList.toggle('active');
     }
   }
 }
@@ -75,5 +87,34 @@ export default {
 }
 .alpaca-upd{
   background-color: #423200;
+}
+
+/* accordion */
+.accordion-item{
+  position: relative;
+}
+.accordion-item-head{
+  border-top-left-radius: 5px ;
+  border-top-right-radius: 5px;
+  cursor: pointer;
+  padding:10px;
+}
+.accordion-item-head:after{
+  content: ' > ';
+  display: block;
+  height: 29px;
+  position: absolute;
+  right: 25px;
+  transform: rotate(90deg) scaleY(2);
+  top: 8px;
+}
+.accordion-item-head.active:after{
+  content: ' < ';
+}
+.accordion-item-body{
+  display: none;
+}
+.accordion-item-head.active + .accordion-item-body{
+  display: block !important;
 }
 </style>
