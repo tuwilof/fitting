@@ -41,4 +41,42 @@ h1,h2,h3,h4,h5,h6,p {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+#main {
+  font-size: 10pt;
+}
+
+.prefix {
+  background-color: #273645;
+  color: #42b983;
+  margin: 2px 0px;
+  padding: 0px 8px;
+  height: 20px;
+}
+
+.prefix-name {
+  width: 300px;
+  float: left;
+  text-align: left;
+}
+
+.action {
+  background-color: #273645;
+  color: #42b983;
+  margin: 2px 16px;
+  height: 20px;
+}
+
+.method {
+  width: 100px;
+  float: left;
+  padding: 0px 8px;
+  text-align: left;
+}
+
+.path {
+  width: 400px;
+  float: left;
+  text-align: left;
+}
 </style>

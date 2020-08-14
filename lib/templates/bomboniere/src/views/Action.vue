@@ -1,16 +1,20 @@
 <template>
-  <div>
-    Action page
-    <p>{{this.$route.query.prefix}}</p>
-    <p>{{this.$route.query.method}} {{this.$route.query.path}}</p>
-    <div v-for="data in myJson.prefixes_details">
-      <div v-if="$route.query.prefix == data.name" class="accordion-item">
-        <div v-for="action in data.actions.actions_details">
+  <div id="main">
+    <div v-for="prefix in myJson.prefixes_details">
+      <div v-if="$route.query.prefix == prefix.name" class="accordion-item">
+        <div class="prefix">
+          <div class="prefix-name">{{prefix.name}}</div>
+        </div>
+        <div v-for="action in prefix.actions.actions_details">
           <div v-if="$route.query.method == action.method && $route.query.path == action.path" class="accordion-item">
             <div class="action">
-              <div class="request">{{action.method}} {{action.path}}, test {{action.tests_size}}</div>
+              <div class="method">{{action.method}}</div>
+              <div class="path">{{action.path}}</div>
+            </div>
               <div v-for="response in action.responses.responses_details">
-                <div class="response">response code {{ response.method }}, tests_size {{ response.tests_size }}</div>
+                <div class="response">
+                  {{response.combinations.combinations_cover_percent}} {{response.method}}
+                </div>
                 <div v-for="combination in response.combinations.combinations_details">
                   <div class="combination">
                     <div class="accordion-item">
@@ -24,7 +28,6 @@
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
@@ -57,23 +60,30 @@ export default {
 </script>
 
 <style>
-.action {
-  color: #42b983;
-}
-
 .request {
+  color: #42b983;
   background-color: #273645;
   padding: 0px 0px 0px 8px;
 }
 
 .response {
+  text-align: left;
+  padding: 0px 2px;
+  color: #42b983;
   background-color: #273645;
-  margin: 2px 0px 0px 16px;
+  margin: 2px 0px 0px 24px;
 }
 
 .combination {
+  text-align: left;
+  padding: 0px 2px;
+  color: #42b983;
   background-color: #273645;
-  margin: 2px 0px 0px 24px;
+  margin: 2px 0px 0px 32px;
+}
+
+.combination:hover {
+  background-color: #2b2b2b;
 }
 /* darkmode */
 .alpaca-json{
@@ -97,16 +107,14 @@ export default {
   border-top-left-radius: 5px ;
   border-top-right-radius: 5px;
   cursor: pointer;
-  padding:10px;
 }
 .accordion-item-head:after{
   content: ' > ';
   display: block;
-  height: 29px;
   position: absolute;
   right: 25px;
   transform: rotate(90deg) scaleY(2);
-  top: 8px;
+  top: 0px;
 }
 .accordion-item-head.active:after{
   content: ' < ';
