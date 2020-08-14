@@ -63,7 +63,7 @@ h1,h2,h3,h4,h5,h6,p {
 .action {
   background-color: #273645;
   color: #42b983;
-  margin: 2px 16px;
+  margin: 2px 0px 0px 16px;
   height: 20px;
 }
 

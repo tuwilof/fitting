@@ -13,7 +13,14 @@
             </div>
               <div v-for="response in action.responses.responses_details">
                 <div class="response">
-                  {{response.combinations.combinations_cover_percent}} {{response.method}}
+                  <div class="accordion-item">
+                    <div class="accordion-item-head" v-on:click="accordion">
+                      {{response.combinations.combinations_cover_percent}} {{response.method}}
+                    </div>
+                    <div class="accordion-item-body">
+                      <vue-json-compare :oldData="response.json_schema" :newData="response.json_schema"></vue-json-compare>
+                    </div>
+                  </div>
                 </div>
                 <div v-for="combination in response.combinations.combinations_details">
                   <div class="combination">
@@ -22,7 +29,7 @@
                         type: {{combination.type}}, name: {{combination.name}}, tests_size: {{combination.tests_size}}
                       </div>
                       <div class="accordion-item-body">
-                        <vue-json-compare :oldData="combination.json_schema" :newData="combination.json_schema"></vue-json-compare>
+                        <vue-json-compare :oldData="response.json_schema" :newData="combination.json_schema"></vue-json-compare>
                       </div>
                     </div>
                   </div>
@@ -68,15 +75,19 @@ export default {
 
 .response {
   text-align: left;
-  padding: 0px 2px;
+  padding: 0px 0px 0px 8px;
   color: #42b983;
   background-color: #273645;
   margin: 2px 0px 0px 24px;
 }
 
+.response:hover {
+  background-color: #2b2b2b;
+}
+
 .combination {
   text-align: left;
-  padding: 0px 2px;
+  padding: 0px 0px 0px 8px;
   color: #42b983;
   background-color: #273645;
   margin: 2px 0px 0px 32px;
@@ -85,6 +96,7 @@ export default {
 .combination:hover {
   background-color: #2b2b2b;
 }
+
 /* darkmode */
 .alpaca-json{
   background-color: #131a20;
