@@ -1,29 +1,30 @@
 <template>
   <div id="main">
-      <div v-for="prefix_details in myJson.prefixes_details">
-          <div class="prefix">
-              <div class="prefix-name">{{prefix_details.name}}</div>
-          </div>
-          <div v-for="action_details in prefix_details.actions.actions_details">
-              <div class="action">
-                <router-link :to="{ path: 'action', query: { prefix: prefix_details.name, method: action_details.method, path: action_details.path }}">
-                  <div class="method">{{action_details.method}} </div>
-                  <div class="path">{{action_details.path}}</div>
-                <div v-for="responses_details in action_details.responses.responses_details">
-                  <div class="responses_details">{{responses_details.combinations.combinations_cover_percent}} {{responses_details.method}}</div>
-                </div>
-                </router-link>
+    <div class="tests_without_prefixes">tests without prefixes: {{ myJson.tests_without_prefixes.length}} ✖</div>
+    <div v-for="test_without_prefixes in myJson.tests_without_prefixes">
+      <div class="test_without_prefixes">{{ test_without_prefixes }} ✖</div>
+    </div>
+    <div v-for="prefix_details in myJson.prefixes_details">
+      <div class="prefix">{{ prefix_details.name }}</div>
+      <div v-for="action_details in prefix_details.actions.actions_details">
+        <div class="action">
+          <router-link
+              :to="{ path: 'action', query: { prefix: prefix_details.name, method: action_details.method, path: action_details.path }}">
+            <div class="method">{{ action_details.method }}</div>
+            <div class="path">{{ action_details.path }}</div>
+            <div v-for="responses_details in action_details.responses.responses_details">
+              <div class="responses_details">{{ responses_details.combinations.combinations_cover_percent }}
+                {{ responses_details.method }}
               </div>
-          </div>
-
-          <div v-for="test_without_actions in prefix_details.actions.tests_without_actions">
-              <h4>{{test_without_actions}} ✖</h4>
-          </div>
+            </div>
+          </router-link>
+        </div>
       </div>
 
-      <div v-for="test_without_prefixes in myJson.tests_without_prefixes">
-          <h2 class="pink">{{test_without_prefixes}} ✖</h2>
+      <div v-for="test_without_actions in prefix_details.actions.tests_without_actions">
+        <h4>{{ test_without_actions }} ✖</h4>
       </div>
+    </div>
   </div>
 </template>
 
@@ -56,6 +57,24 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.tests_without_prefixes {
+  background-color: #273645;
+  color: #b94283;
+  margin: 2px 0px;
+  padding: 0px 8px;
+  height: 20px;
+  text-align: left;
+}
+
+.test_without_prefixes {
+  background-color: #273645;
+  color: #b94283;
+  margin: 2px 0px 0px 16px;
+  height: 20px;
+  text-align: left;
+  padding: 0px 8px;
 }
 
 .responses_details {

@@ -2,9 +2,7 @@
   <div id="main">
     <div v-for="prefix in myJson.prefixes_details">
       <div v-if="$route.query.prefix == prefix.name" class="accordion-item">
-        <div class="prefix">
-          <div class="prefix-name">{{prefix.name}}</div>
-        </div>
+        <div class="prefix">{{prefix.name}}</div>
         <div v-for="action in prefix.actions.actions_details">
           <div v-if="$route.query.method == action.method && $route.query.path == action.path" class="accordion-item">
             <div class="action">

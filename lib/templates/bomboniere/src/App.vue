@@ -52,11 +52,6 @@ h1,h2,h3,h4,h5,h6,p {
   margin: 2px 0px;
   padding: 0px 8px;
   height: 20px;
-}
-
-.prefix-name {
-  width: 300px;
-  float: left;
   text-align: left;
 }
 
