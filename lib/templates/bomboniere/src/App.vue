@@ -80,8 +80,6 @@ h1,h2,h3,h4,h5,h6,p {
   position: relative;
 }
 .accordion-item-head{
-  border-top-left-radius: 5px ;
-  border-top-right-radius: 5px;
   cursor: pointer;
 }
 .accordion-item-head:after{

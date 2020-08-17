@@ -15,6 +15,20 @@
 
     <div v-for="prefix_details in myJson.prefixes_details">
       <div class="prefix">{{ prefix_details.name }}</div>
+
+      <div>
+        <div class="accordion-item">
+          <div class="tests_without_actions accordion-item-head" v-on:click="accordion">
+            tests without actions: {{ prefix_details.actions.tests_without_actions.length }} ✖
+          </div>
+          <div class="accordion-item-body">
+            <div v-for="test_without_actions in prefix_details.actions.tests_without_actions">
+              <div class="test_without_actions">{{ test_without_actions }} ✖</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div v-for="action_details in prefix_details.actions.actions_details">
         <div class="action">
           <router-link
@@ -30,10 +44,8 @@
         </div>
       </div>
 
-      <div v-for="test_without_actions in prefix_details.actions.tests_without_actions">
-        <h4>{{ test_without_actions }} ✖</h4>
-      </div>
     </div>
+
   </div>
 </template>
 
@@ -90,6 +102,28 @@ a {
   background-color: #273645;
   color: #b94283;
   margin: 2px 0px 0px 16px;
+  height: 20px;
+  text-align: left;
+  padding: 0px 8px;
+}
+
+.tests_without_actions {
+  background-color: #273645;
+  color: #b94283;
+  margin: 2px 0px 0px 16px;
+  padding: 0px 8px;
+  height: 20px;
+  text-align: left;
+}
+
+.tests_without_actions:hover {
+  background-color: #2b2b2b;
+}
+
+.test_without_actions {
+  background-color: #273645;
+  color: #b94283;
+  margin: 2px 0px 0px 24px;
   height: 20px;
   text-align: left;
   padding: 0px 8px;
