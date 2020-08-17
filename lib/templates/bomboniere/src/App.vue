@@ -74,4 +74,31 @@ h1,h2,h3,h4,h5,h6,p {
   float: left;
   text-align: left;
 }
+
+/* accordion */
+.accordion-item{
+  position: relative;
+}
+.accordion-item-head{
+  border-top-left-radius: 5px ;
+  border-top-right-radius: 5px;
+  cursor: pointer;
+}
+.accordion-item-head:after{
+  content: ' > ';
+  display: block;
+  position: absolute;
+  right: 25px;
+  transform: rotate(90deg) scaleY(2);
+  top: 0px;
+}
+.accordion-item-head.active:after{
+  content: ' < ';
+}
+.accordion-item-body{
+  display: none;
+}
+.accordion-item-head.active + .accordion-item-body{
+  display: block !important;
+}
 </style>

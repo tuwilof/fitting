@@ -1,9 +1,18 @@
 <template>
   <div id="main">
-    <div class="tests_without_prefixes">tests without prefixes: {{ myJson.tests_without_prefixes.length}} ✖</div>
-    <div v-for="test_without_prefixes in myJson.tests_without_prefixes">
-      <div class="test_without_prefixes">{{ test_without_prefixes }} ✖</div>
+    <div>
+      <div class="accordion-item">
+        <div class="tests_without_prefixes accordion-item-head" v-on:click="accordion">
+          tests without prefixes: {{ myJson.tests_without_prefixes.length }} ✖
+        </div>
+        <div class="accordion-item-body">
+          <div v-for="test_without_prefixes in myJson.tests_without_prefixes">
+            <div class="test_without_prefixes">{{ test_without_prefixes }} ✖</div>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div v-for="prefix_details in myJson.prefixes_details">
       <div class="prefix">{{ prefix_details.name }}</div>
       <div v-for="action_details in prefix_details.actions.actions_details">
@@ -38,6 +47,11 @@ export default {
     return {
       myJson: {'stub': 'prefixes report'}
     }
+  },
+  methods: {
+    accordion: function (event) {
+      event.target.classList.toggle('active');
+    }
   }
 }
 </script>
@@ -66,6 +80,10 @@ a {
   padding: 0px 8px;
   height: 20px;
   text-align: left;
+}
+
+.tests_without_prefixes:hover {
+  background-color: #2b2b2b;
 }
 
 .test_without_prefixes {
