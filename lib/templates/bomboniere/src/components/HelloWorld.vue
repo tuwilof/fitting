@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <div>
+    <div v-if="myJson.tests_without_prefixes.length != 0">
       <div class="accordion-item">
         <div class="tests_without_prefixes accordion-item-head" v-on:click="accordion">
           tests without prefixes: {{ myJson.tests_without_prefixes.length }} ✖
@@ -16,7 +16,7 @@
     <div v-for="prefix_details in myJson.prefixes_details">
       <div class="prefix">{{ prefix_details.name }}</div>
 
-      <div>
+      <div v-if="prefix_details.actions.tests_without_actions.length != 0">
         <div class="accordion-item">
           <div class="tests_without_actions accordion-item-head" v-on:click="accordion">
             tests without actions: {{ prefix_details.actions.tests_without_actions.length }} ✖
