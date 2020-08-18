@@ -16,7 +16,7 @@
                       {{response.combinations.combinations_cover_percent}} {{response.method}}
                     </div>
                     <div class="accordion-item-body">
-                      <vue-json-compare :oldData="response.json_schema" :newData="response.json_schema"></vue-json-compare>
+                      <vue-json-compare :oldData="jsonSchemas[response.json_schema]" :newData="jsonSchemas[response.json_schema]"></vue-json-compare>
                     </div>
                   </div>
                 </div>
@@ -27,7 +27,7 @@
                         type: {{combination.type}}, name: {{combination.name}}, tests_size: {{combination.tests_size}}
                       </div>
                       <div class="accordion-item-body">
-                        <vue-json-compare :oldData="response.json_schema" :newData="combination.json_schema"></vue-json-compare>
+                        <vue-json-compare :oldData="jsonSchemas[response.json_schema]" :newData="combinations[combination.json_schema]"></vue-json-compare>
                       </div>
                     </div>
                   </div>
@@ -53,7 +53,9 @@ export default {
   },
   data() {
     return {
-      myJson: {'stub': 'for action page'}
+      myJson: {'stub': 'for action page'},
+      jsonSchemas: {'stub': 'json-schemas'},
+      combinations: {'stub': 'combinations'}
     }
   },
   methods: {

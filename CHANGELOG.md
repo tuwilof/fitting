@@ -12,6 +12,7 @@
   * add action page [#49](https://github.com/funbox/fitting/issues/49)
   * show more information in new report [#51](https://github.com/funbox/fitting/issues/51)
   * add accordion for prefixes [#55](https://github.com/funbox/fitting/issues/55)
+  * move json-schemas to separate files [#57](https://github.com/funbox/fitting/issues/57)
 * fixes
   * fix vulnerability CVE-2020-7660 [#53](https://github.com/funbox/fitting/issues/53)
 

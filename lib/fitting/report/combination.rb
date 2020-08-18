@@ -6,10 +6,15 @@ module Fitting
         @type = type
         @combination = combination
         @tests = Fitting::Report::Tests.new([])
+        @id = SecureRandom.hex
       end
 
       def json_schema
         @json_schema
+      end
+
+      def id
+        @id
       end
 
       def type
