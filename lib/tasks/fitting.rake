@@ -49,10 +49,27 @@ namespace :fitting do
     source_path = "#{gem_path}/templates/bomboniere/dist"
     FileUtils.copy_entry source_path, destination
 
+    json_schemas = {}
+    combinations = {}
+    prefixes.to_a.map do |prefix|
+      prefix.actions.to_a.map do |action|
+        action.responses.to_a.map do |response|
+          json_schemas.merge!(response.id => response.body)
+          response.combinations.to_a.map do |combination|
+            combinations.merge!(combination.id => combination.json_schema)
+          end
+        end
+      end unless prefix.skip?
+    end
+    File.open('fitting/json_schemas.json', 'w') { |file| file.write(JSON.pretty_generate(json_schemas)) }
+    File.open('fitting/combinations.json', 'w') { |file| file.write(JSON.pretty_generate(combinations)) }
+
     js_path =  Dir["#{destination}/js/*"].find { |f| f[0..14] == 'fitting/js/app.' and f[-3..-1] == '.js' }
     js_file =  File.read(js_path)
     new_js_file = js_file.gsub("{stub:\"prefixes report\"}", report)
     new_js_file = new_js_file.gsub("{stub:\"for action page\"}", report)
+    new_js_file = new_js_file.gsub("{stub:\"json-schemas\"}", JSON.pretty_generate(json_schemas))
+    new_js_file = new_js_file.gsub("{stub:\"combinations\"}", JSON.pretty_generate(combinations))
     File.open(js_path, 'w') { |file| file.write(new_js_file) }
 
     exit 0

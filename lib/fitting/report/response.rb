@@ -10,6 +10,7 @@ module Fitting
       def initialize(response)
         @response = response
         @tests = Fitting::Report::Tests.new([])
+        @id = SecureRandom.hex
       end
 
       def status
@@ -18,6 +19,10 @@ module Fitting
 
       def body
         @response['body']
+      end
+
+      def id
+        @id
       end
 
       def add_test(test)
@@ -54,7 +59,7 @@ module Fitting
             combinations_size_with_tests: @combinations.size_with_tests,
             combinations_cover_percent: @combinations.cover_percent,
             tests_without_combinations: @tests.without_combinations,
-            combinations_details: @combinations.to_a.map { |c| {json_schema: c.json_schema, tests_size: c.tests.size, type: c.type, name: c.name} }
+            combinations_details: @combinations.to_a.map { |c| {json_schema: c.id, tests_size: c.tests.size, type: c.type, name: c.name} }
         }
       end
     end
