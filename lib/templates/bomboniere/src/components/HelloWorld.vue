@@ -14,34 +14,48 @@
     </div>
 
     <div v-for="prefix_details in myJson.prefixes_details">
-      <div class="prefix">{{ prefix_details.name }}</div>
 
-      <div v-if="prefix_details.actions.tests_without_actions.length != 0">
+      <div>
         <div class="accordion-item">
-          <div class="tests_without_actions accordion-item-head" v-on:click="accordion">
-            tests without actions: {{ prefix_details.actions.tests_without_actions.length }} ✖
-          </div>
-          <div class="accordion-item-body">
-            <div v-for="test_without_actions in prefix_details.actions.tests_without_actions">
-              <div class="test_without_actions">{{ test_without_actions }} ✖</div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div v-for="action_details in prefix_details.actions.actions_details">
-        <div class="action">
-          <router-link
-              :to="{ path: 'action', query: { prefix: prefix_details.name, method: action_details.method, path: action_details.path }}">
-            <div class="method">{{ action_details.method }}</div>
-            <div class="path">{{ action_details.path }}</div>
-            <div v-for="responses_details in action_details.responses.responses_details">
-              <div class="responses_details">{{ responses_details.combinations.combinations_cover_percent }}
-                {{ responses_details.method }}
+          <div class="prefix accordion-item-head active" v-on:click="accordion">
+            {{ prefix_details.name }}
+          </div>
+
+          <div class="accordion-item-body">
+
+            <div v-if="prefix_details.actions.tests_without_actions.length != 0">
+              <div class="accordion-item">
+                <div class="tests_without_actions accordion-item-head" v-on:click="accordion">
+                  tests without actions: {{ prefix_details.actions.tests_without_actions.length }} ✖
+                </div>
+                <div class="accordion-item-body">
+                  <div v-for="test_without_actions in prefix_details.actions.tests_without_actions">
+                    <div class="test_without_actions">{{ test_without_actions }} ✖</div>
+                  </div>
+                </div>
               </div>
             </div>
-          </router-link>
+
+            <div v-for="action_details in prefix_details.actions.actions_details">
+              <div class="action">
+                <router-link
+                    :to="{ path: 'action', query: { prefix: prefix_details.name, method: action_details.method, path: action_details.path }}">
+                  <div class="method">{{ action_details.method }}</div>
+                  <div class="path">{{ action_details.path }}</div>
+                  <div v-for="responses_details in action_details.responses.responses_details">
+                    <div class="responses_details">{{ responses_details.combinations.combinations_cover_percent }}
+                      {{ responses_details.method }}
+                    </div>
+                  </div>
+                </router-link>
+              </div>
+            </div>
+
+          </div>
+
         </div>
+
       </div>
 
     </div>
