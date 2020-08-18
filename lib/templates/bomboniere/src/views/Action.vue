@@ -13,7 +13,7 @@
                 <div class="response">
                   <div class="accordion-item">
                     <div class="accordion-item-head" v-on:click="accordion">
-                      {{response.combinations.combinations_cover_percent}} {{response.method}}
+                      {{response.combinations.cover_percent}} {{response.method}}
                     </div>
                     <div class="accordion-item-body">
                       <vue-json-compare :oldData="jsonSchemas[response.json_schema]" :newData="jsonSchemas[response.json_schema]"></vue-json-compare>

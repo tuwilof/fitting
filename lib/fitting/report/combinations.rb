@@ -17,11 +17,6 @@ module Fitting
         @combinations.count { |c| c.tests.size != 0 }
       end
 
-      def cover_percent
-        return '100%' if size == 0
-        "#{size_with_tests / size * 100}%"
-      end
-
       def join(tests)
         tests.to_a.map do |test|
           if is_there_a_suitable_combination?(test)

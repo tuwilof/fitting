@@ -53,11 +53,15 @@ module Fitting
         @combinations = Fitting::Report::Combinations.new(cmbntns)
       end
 
+      def cover_percent
+        return '0%' if @tests.size == 0
+        return '100%' if @combinations.size == 0
+        "#{(@combinations.size_with_tests + 1) / (@combinations.size + 1) * 100}%"
+      end
+
       def details
         {
-            combinations_size: @combinations.size,
-            combinations_size_with_tests: @combinations.size_with_tests,
-            combinations_cover_percent: @combinations.cover_percent,
+            cover_percent: cover_percent,
             tests_without_combinations: @tests.without_combinations,
             combinations_details: @combinations.to_a.map { |c| {json_schema: c.id, tests_size: c.tests.size, type: c.type, name: c.name} }
         }
