@@ -2,9 +2,7 @@
   <div id="main">
     <div v-for="prefix in myJson.prefixes_details">
       <div v-if="$route.query.prefix == prefix.name" class="accordion-item">
-        <div class="prefix">
-          <div class="prefix-name">{{prefix.name}}</div>
-        </div>
+        <div class="prefix">{{prefix.name}}</div>
         <div v-for="action in prefix.actions.actions_details">
           <div v-if="$route.query.method == action.method && $route.query.path == action.path" class="accordion-item">
             <div class="action">
@@ -109,32 +107,5 @@ export default {
 }
 .alpaca-upd{
   background-color: #423200;
-}
-
-/* accordion */
-.accordion-item{
-  position: relative;
-}
-.accordion-item-head{
-  border-top-left-radius: 5px ;
-  border-top-right-radius: 5px;
-  cursor: pointer;
-}
-.accordion-item-head:after{
-  content: ' > ';
-  display: block;
-  position: absolute;
-  right: 25px;
-  transform: rotate(90deg) scaleY(2);
-  top: 0px;
-}
-.accordion-item-head.active:after{
-  content: ' < ';
-}
-.accordion-item-body{
-  display: none;
-}
-.accordion-item-head.active + .accordion-item-body{
-  display: block !important;
 }
 </style>
