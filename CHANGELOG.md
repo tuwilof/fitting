@@ -11,6 +11,8 @@
   * add combinations join in new report [#47](https://github.com/funbox/fitting/issues/47)
   * add action page [#49](https://github.com/funbox/fitting/issues/49)
   * show more information in new report [#51](https://github.com/funbox/fitting/issues/51)
+* fixes
+  * fix vulnerability CVE-2020-7660 [#53](https://github.com/funbox/fitting/issues/53)
 
 ### 2.13.1 - 2020-04-17
 
