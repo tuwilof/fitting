@@ -27,7 +27,7 @@ module Fitting
 
       def without_actions
         @tests.inject([]) do |result, test|
-          result.push(test.path) unless test.is_there_an_actions?
+          result.push("#{test.method} #{test.path}") unless test.is_there_an_actions?
           result
         end
       end

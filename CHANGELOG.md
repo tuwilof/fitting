@@ -13,6 +13,7 @@
   * show more information in new report [#51](https://github.com/funbox/fitting/issues/51)
   * add accordion for prefixes [#55](https://github.com/funbox/fitting/issues/55)
   * move json-schemas to separate files [#57](https://github.com/funbox/fitting/issues/57)
+  * add method for tests without actions [#61](https://github.com/funbox/fitting/issues/61)
 * fixes
   * fix vulnerability CVE-2020-7660 [#53](https://github.com/funbox/fitting/issues/53)
   * fix cover if response without combinations [#59](https://github.com/funbox/fitting/issues/59)
