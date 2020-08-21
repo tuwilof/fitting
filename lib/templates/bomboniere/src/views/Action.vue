@@ -9,30 +9,47 @@
               <div class="method">{{action.method}}</div>
               <div class="path">{{action.path}}</div>
             </div>
-              <div v-for="response in action.responses.responses_details">
-                <div class="response">
-                  <div class="accordion-item">
-                    <div class="accordion-item-head" v-on:click="accordion">
-                      {{response.combinations.cover_percent}} {{response.method}}
-                    </div>
-                    <div class="accordion-item-body">
-                      <vue-json-compare :oldData="jsonSchemas[response.json_schema]" :newData="jsonSchemas[response.json_schema]"></vue-json-compare>
-                    </div>
+
+            <div v-if="action.responses.tests_without_responses.length != 0">
+              <div class="accordion-item">
+                <div class="tests_without_responses accordion-item-head" v-on:click="accordion">
+                  tests without responses: {{ action.responses.tests_without_responses.length }} ✖
+                </div>
+                <div class="accordion-item-body">
+                  <div v-for="test_without_responses in action.responses.tests_without_responses">
+                    <div class="test_without_responses">{{ test_without_responses }} ✖</div>
                   </div>
                 </div>
-                <div v-for="combination in response.combinations.combinations_details">
-                  <div class="combination">
-                    <div class="accordion-item">
-                      <div class="accordion-item-head" v-on:click="accordion">
-                        type: {{combination.type}}, name: {{combination.name}}, tests_size: {{combination.tests_size}}
-                      </div>
-                      <div class="accordion-item-body">
-                        <vue-json-compare :oldData="jsonSchemas[response.json_schema]" :newData="combinations[combination.json_schema]"></vue-json-compare>
-                      </div>
+              </div>
+            </div>
+
+            <div v-for="response in action.responses.responses_details">
+              <div class="response">
+                <div class="accordion-item">
+                  <div class="accordion-item-head" v-on:click="accordion">
+                    {{ response.combinations.cover_percent }} {{ response.method }}
+                  </div>
+                  <div class="accordion-item-body">
+                    <vue-json-compare :oldData="jsonSchemas[response.json_schema]"
+                                      :newData="jsonSchemas[response.json_schema]"></vue-json-compare>
+                  </div>
+                </div>
+              </div>
+              <div v-for="combination in response.combinations.combinations_details">
+                <div class="combination">
+                  <div class="accordion-item">
+                    <div class="accordion-item-head" v-on:click="accordion">
+                      type: {{ combination.type }}, name: {{ combination.name }}, tests_size:
+                      {{ combination.tests_size }}
+                    </div>
+                    <div class="accordion-item-body">
+                      <vue-json-compare :oldData="jsonSchemas[response.json_schema]"
+                                        :newData="combinations[combination.json_schema]"></vue-json-compare>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
@@ -71,6 +88,30 @@ export default {
   color: #42b983;
   background-color: #273645;
   padding: 0px 0px 0px 8px;
+}
+
+.tests_without_responses {
+  text-align: left;
+  padding: 0px 0px 0px 8px;
+  color: #b94283;
+  background-color: #273645;
+  margin: 2px 0px 0px 24px;
+}
+
+.tests_without_responses:hover {
+  background-color: #2b2b2b;
+}
+
+.test_without_responses {
+  text-align: left;
+  padding: 0px 0px 0px 8px;
+  color: #b94283;
+  background-color: #273645;
+  margin: 2px 0px 0px 32px;
+}
+
+.test_without_responses:hover {
+  background-color: #2b2b2b;
 }
 
 .response {
