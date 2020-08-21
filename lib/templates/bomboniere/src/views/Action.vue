@@ -10,10 +10,14 @@
               <div class="path">{{action.path}}</div>
             </div>
 
-            <div class="tests_without_responses">tests without responses: {{action.responses.tests_without_responses.length}}</div>
-            <div v-for="test_without_responses in action.responses.tests_without_responses">
-              <div class="test_without_responses">
-              {{ test_without_responses }}
+            <div v-if="action.responses.tests_without_responses.length != 0">
+              <div class="tests_without_responses">tests without responses:
+                {{ action.responses.tests_without_responses.length }}
+              </div>
+              <div v-for="test_without_responses in action.responses.tests_without_responses">
+                <div class="test_without_responses">
+                  {{ test_without_responses }}
+                </div>
               </div>
             </div>
 
