@@ -18,6 +18,7 @@
 * fixes
   * fix vulnerability CVE-2020-7660 [#53](https://github.com/funbox/fitting/issues/53)
   * fix cover if response without combinations [#59](https://github.com/funbox/fitting/issues/59)
+  * fix cover if combinations without tests [#66](https://github.com/funbox/fitting/issues/66)
 
 ### 2.13.1 - 2020-04-17
 
