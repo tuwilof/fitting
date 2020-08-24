@@ -56,7 +56,7 @@ module Fitting
       def cover_percent
         return '0%' if @tests.size == 0
         return '100%' if @combinations.size == 0
-        "#{(@combinations.size_with_tests + 1) / (@combinations.size + 1) * 100}%"
+        "#{(@combinations.size_with_tests + 1) * 100 / (@combinations.size + 1)}%"
       end
 
       def details
