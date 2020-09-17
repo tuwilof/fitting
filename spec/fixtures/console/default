@@ -1,0 +1,6 @@
+/api/v1
+POST	/api/v1/book					 100% 200
+PATCH	/api/v2/book/{id}				 100% 200
+/api/v2
+GET	/api/v2/book					 100% 200
+DELETE	/api/v2/book/{id}				 100% 200
