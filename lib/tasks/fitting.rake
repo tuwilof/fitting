@@ -8,6 +8,7 @@ require 'fitting/statistics/template_cover_error_one_of'
 require 'fitting/cover/json_schema'
 require 'fitting/report/prefixes'
 require 'fitting/report/tests'
+require 'fitting/report/console'
 
 namespace :fitting do
   task :report do
@@ -71,6 +72,15 @@ namespace :fitting do
     new_js_file = new_js_file.gsub("{stub:\"json-schemas\"}", JSON.pretty_generate(json_schemas))
     new_js_file = new_js_file.gsub("{stub:\"combinations\"}", JSON.pretty_generate(combinations))
     File.open(js_path, 'w') { |file| file.write(new_js_file) }
+
+    console = Fitting::Report::Console.new(
+        tests.without_prefixes,
+        prefixes.to_a.map { |p| p.details }
+    )
+
+    puts console.output
+
+    exit 1 unless console.good?
 
     exit 0
 
