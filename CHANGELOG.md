@@ -1,6 +1,6 @@
 # Change log
 
-### x.y.z - yyyy-mm-dd
+### 2.14.0 - 2020-09-18
 
 * features
   * save tests for all prefixes [#35](https://github.com/funbox/fitting/issues/35)
