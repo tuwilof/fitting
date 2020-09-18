@@ -7,7 +7,6 @@ module Fitting
         @good = true
         @tests_without_actions = []
         @tests_without_responses = []
-        @tests_without_combinations = []
       end
 
       def output
@@ -19,7 +18,6 @@ module Fitting
             tab = "\t" * ((3 - action[:path].size / 8) + 3)
             @tests_without_responses += action[:responses][:tests_without_responses]
             res_actions += tab + action[:responses][:responses_details].inject('') do |res_responses, response|
-              @tests_without_combinations += response[:combinations][:tests_without_combinations]
               @good = false if response[:combinations][:cover_percent] != '100%'
               res_responses += " #{response[:combinations][:cover_percent]} #{response[:method]}"
             end
@@ -30,14 +28,12 @@ module Fitting
         doc_res += "tests_without_prefixes: #{@tests_without_prefixes.size}\n"
         doc_res += "tests_without_actions: #{@tests_without_actions.size}\n"
         doc_res += "tests_without_responses: #{@tests_without_responses.size}\n"
-        doc_res += "tests_without_combinations: #{@tests_without_combinations.size}\n"
       end
 
       def good?
         return false if @tests_without_prefixes.size != 0
         return false if @tests_without_actions.size != 0
         return false if @tests_without_responses.size != 0
-        return false if @tests_without_combinations.size != 0
         @good
       end
     end

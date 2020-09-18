@@ -8,4 +8,3 @@ DELETE	/api/v2/book/{id}				 100% 200
 tests_without_prefixes: 0
 tests_without_actions: 0
 tests_without_responses: 0
-tests_without_combinations: 0
