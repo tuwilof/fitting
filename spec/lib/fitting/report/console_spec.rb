@@ -9,15 +9,18 @@ RSpec.describe Fitting::Report::Console do
           {
               "name": "/api/v1",
               "actions": {
+                  "tests_without_actions": [],
                   "actions_details": [
                       {
                           "method": "POST",
                           "path": "/api/v1/book",
                           "responses": {
+                              "tests_without_responses": [],
                               "responses_details": [
                                   {
                                       "method": "200",
                                       "combinations": {
+                                          "tests_without_combinations": [],
                                           "cover_percent": "100%"
                                       }
                                   }
@@ -28,10 +31,12 @@ RSpec.describe Fitting::Report::Console do
                           "method": "PATCH",
                           "path": "/api/v2/book/{id}",
                           "responses": {
+                              "tests_without_responses": [],
                               "responses_details": [
                                   {
                                       "method": "200",
                                       "combinations": {
+                                          "tests_without_combinations": [],
                                           "cover_percent": "100%"
                                       }
                                   }
@@ -44,15 +49,18 @@ RSpec.describe Fitting::Report::Console do
           {
               "name": "/api/v2",
               "actions": {
+                  "tests_without_actions": [],
                   "actions_details": [
                       {
                           "method": "GET",
                           "path": "/api/v2/book",
                           "responses": {
+                              "tests_without_responses": [],
                               "responses_details": [
                                   {
                                       "method": "200",
                                       "combinations": {
+                                          "tests_without_combinations": [],
                                           "cover_percent": "100%"
                                       }
                                   }
@@ -63,10 +71,12 @@ RSpec.describe Fitting::Report::Console do
                           "method": "DELETE",
                           "path": "/api/v2/book/{id}",
                           "responses": {
+                              "tests_without_responses": [],
                               "responses_details": [
                                   {
                                       "method": "200",
                                       "combinations": {
+                                          "tests_without_combinations": [],
                                           "cover_percent": "100%"
                                       }
                                   }
