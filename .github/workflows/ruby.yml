@@ -29,6 +29,7 @@ jobs:
         ruby-version: 2.3
     - name: Install dependencies
       run: |
+        gem install bundle
         bundle update --bundler
         bundle install
     - name: Run tests
