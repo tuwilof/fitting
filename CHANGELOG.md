@@ -4,6 +4,7 @@
 
 * fixes
   * fix directory error [#75](https://github.com/funbox/fitting/issues/75)
+  * upgrade node-forge [#77](https://github.com/funbox/fitting/issues/77)
 
 ### 2.14.0 - 2020-09-18
 
