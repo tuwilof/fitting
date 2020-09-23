@@ -43,6 +43,7 @@ namespace :fitting do
     )
 
     destination = 'fitting'
+    FileUtils.mkdir_p(destination)
     FileUtils.rm_r Dir.glob("#{destination}/*"), :force => true
     File.open('fitting/report.json', 'w') { |file| file.write(report) }
 
