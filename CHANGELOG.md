@@ -1,6 +1,6 @@
 # Change log
 
-### x.x.x - yyyy-mm-dd
+### 2.14.1 - 2020-09-23
 
 * fixes
   * fix directory error [#75](https://github.com/funbox/fitting/issues/75)
