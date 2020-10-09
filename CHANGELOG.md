@@ -1,5 +1,10 @@
 # Change log
 
+### x.y.z - yyyy-mm-dd
+
+* features
+  * color for bad response [#79](https://github.com/funbox/fitting/issues/79)
+
 ### 2.14.1 - 2020-09-23
 
 * fixes
