@@ -27,7 +27,14 @@
               <div class="response">
                 <div class="accordion-item">
                   <div class="accordion-item-head" v-on:click="accordion">
-                    {{ response.combinations.cover_percent }} {{ response.method }}
+                    <div v-if="response.combinations.cover_percent == '100%'" class="response_good">
+                      {{ response.combinations.cover_percent }}
+                      {{ response.method }}
+                    </div>
+                    <div v-else class="response_bad">
+                      {{ response.combinations.cover_percent }}
+                      {{ response.method }}
+                    </div>
                   </div>
                   <div class="accordion-item-body">
                     <vue-json-compare :oldData="jsonSchemas[response.json_schema]"
@@ -124,6 +131,14 @@ export default {
 
 .response:hover {
   background-color: #2b2b2b;
+}
+
+.response_good {
+  color: #42b983;
+}
+
+.response_bad {
+  color: #b94283;
 }
 
 .combination {

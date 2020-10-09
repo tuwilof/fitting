@@ -44,7 +44,12 @@
                   <div class="method">{{ action_details.method }}</div>
                   <div class="path">{{ action_details.path }}</div>
                   <div v-for="responses_details in action_details.responses.responses_details">
-                    <div class="responses_details">{{ responses_details.combinations.cover_percent }}
+                    <div v-if="responses_details.combinations.cover_percent == '100%'" class="response_good">
+                      {{ responses_details.combinations.cover_percent }}
+                      {{ responses_details.method }}
+                    </div>
+                    <div v-else class="response_bad">
+                      {{ responses_details.combinations.cover_percent }}
                       {{ responses_details.method }}
                     </div>
                   </div>
@@ -143,10 +148,18 @@ a {
   padding: 0px 8px;
 }
 
-.responses_details {
-    float: left;
-    text-align: left;
-    padding: 0px 2px;
+.response_good {
+  float: left;
+  text-align: left;
+  padding: 0px 2px;
+  color: #42b983;
+}
+
+.response_bad {
+  float: left;
+  text-align: left;
+  padding: 0px 2px;
+  color: #b94283;
 }
 
 .action:hover {
