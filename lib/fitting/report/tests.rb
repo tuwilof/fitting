@@ -34,7 +34,7 @@ module Fitting
 
       def without_responses
         @tests.inject([]) do |result, test|
-          result.push("#{test.method} #{test.path}") unless test.is_there_an_responses?
+          result.push(test.id) unless test.is_there_an_responses?
           result
         end
       end

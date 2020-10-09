@@ -73,6 +73,7 @@ namespace :fitting do
     new_js_file = new_js_file.gsub("{stub:\"for action page\"}", report)
     new_js_file = new_js_file.gsub("{stub:\"json-schemas\"}", JSON.pretty_generate(json_schemas))
     new_js_file = new_js_file.gsub("{stub:\"combinations\"}", JSON.pretty_generate(combinations))
+    new_js_file = new_js_file.gsub("{stub:\"tests\"}", JSON.pretty_generate(tests.to_h))
     File.open(js_path, 'w') { |file| file.write(new_js_file) }
 
     console = Fitting::Report::Console.new(
