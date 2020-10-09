@@ -7,6 +7,20 @@ module Fitting
         @action = false
         @response = false
         @combination = false
+        @id = SecureRandom.hex
+      end
+
+      def id
+        @id
+      end
+
+      def to_h
+        {
+            path: path,
+            method: method,
+            status: status,
+            body: body
+        }
       end
 
       def path

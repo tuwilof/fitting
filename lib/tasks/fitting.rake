@@ -65,6 +65,7 @@ namespace :fitting do
     end
     File.open('fitting/json_schemas.json', 'w') { |file| file.write(JSON.pretty_generate(json_schemas)) }
     File.open('fitting/combinations.json', 'w') { |file| file.write(JSON.pretty_generate(combinations)) }
+    File.open('fitting/tests.json', 'w') { |file| file.write(JSON.pretty_generate(tests.to_h)) }
 
     js_path =  Dir["#{destination}/js/*"].find { |f| f[0..14] == 'fitting/js/app.' and f[-3..-1] == '.js' }
     js_file =  File.read(js_path)
