@@ -4,6 +4,7 @@
 
 * features
   * color for bad response [#79](https://github.com/funbox/fitting/issues/79)
+  * show test details [#81](https://github.com/funbox/fitting/issues/81)
 
 ### 2.14.1 - 2020-09-23
 

@@ -34,7 +34,7 @@ module Fitting
 
       def without_responses
         @tests.inject([]) do |result, test|
-          result.push("#{test.method} #{test.path}") unless test.is_there_an_responses?
+          result.push(test.id) unless test.is_there_an_responses?
           result
         end
       end
@@ -56,6 +56,13 @@ module Fitting
 
       def to_a
         @tests
+      end
+
+      def to_h
+        return @hash if @hash
+        @hash = @tests.inject({}) do |res, test|
+          res.merge!(test.id => test.to_h)
+        end
       end
     end
   end

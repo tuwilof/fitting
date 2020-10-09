@@ -17,7 +17,10 @@
                 </div>
                 <div class="accordion-item-body">
                   <div v-for="test_without_responses in action.responses.tests_without_responses">
-                    <div class="test_without_responses">{{ test_without_responses }} ✖</div>
+                    <div class="test_without_responses">
+                      {{ test_without_responses }} ✖
+                      {{tests[test_without_responses]}}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -79,7 +82,8 @@ export default {
     return {
       myJson: {'stub': 'for action page'},
       jsonSchemas: {'stub': 'json-schemas'},
-      combinations: {'stub': 'combinations'}
+      combinations: {'stub': 'combinations'},
+      tests: {'stub': 'tests'}
     }
   },
   methods: {
