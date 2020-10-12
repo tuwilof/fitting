@@ -1,12 +1,15 @@
 # Change log
 
-### x.y.z - yyyy-mm-dd
+### 2.15.0 - 2020-10-12
 
 * features
   * color for bad response [#79](https://github.com/funbox/fitting/issues/79)
   * show test details [#81](https://github.com/funbox/fitting/issues/81)
 * patch
   * update ruby [#83](https://github.com/funbox/fitting/issues/83)
+  * update bundler [#84](https://github.com/funbox/fitting/issues/84)
+  * update tomograph [#85](https://github.com/funbox/fitting/issues/85)
+  * use github actions for CI instead of Travis [#30](https://github.com/funbox/fitting/issues/30)
 
 ### 2.14.1 - 2020-09-23
 
