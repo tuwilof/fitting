@@ -5,6 +5,8 @@
 * features
   * color for bad response [#79](https://github.com/funbox/fitting/issues/79)
   * show test details [#81](https://github.com/funbox/fitting/issues/81)
+* patch
+  * update ruby [#83](https://github.com/funbox/fitting/issues/83)
 
 ### 2.14.1 - 2020-09-23
 
