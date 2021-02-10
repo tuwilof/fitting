@@ -125,6 +125,15 @@ More information on action coverage
 
 ![exmaple2](example2.png)
 
+## prefix name
+
+Setting the prefix name is optional. For example, you can do this:
+
+```yaml
+prefixes:
+  - openapi2_json_path: doc.json
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [github.com/funbox/fitting](https://github.com/funbox/fitting).
