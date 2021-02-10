@@ -1,9 +1,9 @@
 /api/v1
-POST	/api/v1/book					 100% 200
-PATCH	/api/v2/book/{id}				 100% 200
+POST	/api/v1/book							 100% 200
+PATCH	/api/v2/book/{id}						 100% 200
 /api/v2
-GET	/api/v2/book					 100% 200
-DELETE	/api/v2/book/{id}				 100% 200
+GET	/api/v2/book							 100% 200
+DELETE	/api/v2/book/{id}						 100% 200
 
 tests_without_prefixes: 0
 tests_without_actions: 0

@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['d.efimov']
   spec.email         = ['d.efimov@fun-box.ru']
 
-  spec.summary       = 'Validation in the rspec of API Blueprint'
-  spec.description   = 'Validation responses in the rspec with the help of API Blueprint'
+  spec.summary       = 'Coverage API Blueprint, Swagger and OpenAPI with rspec tests'
+  spec.description   = 'Coverage API Blueprint, Swagger and OpenAPI with rspec tests for easily make high-quality API and documenatiton.'
   spec.homepage      = 'https://github.com/funbox/fitting'
   spec.license       = 'MIT'
 
@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'json-schema', '~> 2.6', '>= 2.6.2'
   spec.add_runtime_dependency 'multi_json', '~> 1.11'
-  spec.add_runtime_dependency 'tomograph', '~> 3.0', '>= 3.0.0'
+  spec.add_runtime_dependency 'tomograph', '~> 3.1', '>= 3.1.0'
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'byebug', '~> 8.2', '>= 8.2.1'
   spec.add_development_dependency 'rake', '>= 12.3.3'

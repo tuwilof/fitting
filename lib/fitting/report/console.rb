@@ -15,7 +15,7 @@ module Fitting
           @tests_without_actions += prefix_details[:actions][:tests_without_actions]
           res += prefix_details[:actions][:actions_details].inject('') do |res_actions, action|
             res_actions += "#{action[:method]}\t#{action[:path]}"
-            tab = "\t" * ((3 - action[:path].size / 8) + 3)
+            tab = "\t" * (8 - action[:path].size / 8)
             @tests_without_responses += action[:responses][:tests_without_responses]
             res_actions += tab + action[:responses][:responses_details].inject('') do |res_responses, response|
               @good = false if response[:combinations][:cover_percent] != '100%'

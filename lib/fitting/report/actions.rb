@@ -3,11 +3,7 @@ require 'fitting/report/action'
 module Fitting
   module Report
     class Actions
-      def initialize(prefix, tomogram_json_path)
-        actions = Tomograph::Tomogram.new(
-            prefix: prefix,
-            tomogram_json_path: tomogram_json_path
-        )
+      def initialize(actions)
         @actions = []
         actions.to_a.map do |action|
           @actions.push(Fitting::Report::Action.new(action))
