@@ -1,5 +1,9 @@
 # Change log
 
+### 2.16.1 - 2021-02-10
+* patch
+  * make prefix optional [#98](https://github.com/funbox/fitting/issues/98)
+
 ### 2.16.0 - 2021-02-10
 
 * features
