@@ -121,6 +121,10 @@ And task will create HTML (`fitting/index.html`) reports.
 
 ![exmaple](example.png)
 
+More information on action coverage
+
+![exmaple2](example2.png)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [github.com/funbox/fitting](https://github.com/funbox/fitting).
