@@ -14,11 +14,11 @@ module Fitting
       end
 
       def status
-        @response['status']
+        @response['status'] || @response[:status]
       end
 
       def body
-        @response['body']
+        @response['body'] || @response[:body]
       end
 
       def id

@@ -82,6 +82,12 @@ prefixes:
 ```
 
 ## Run
+Run tests first to get run artifacts
+```bash
+bundle e rspec
+```
+
+and then
 ```bash
 bundle e rake fitting:report
 ```
