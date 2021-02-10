@@ -95,27 +95,32 @@ bundle e rake fitting:report
 Console ouptut
 
 ```text
-Fully conforming requests:
-DELETE  /api/v1/book                 100% 200 100% 201 100% 404
-DELETE  /api/v1/book/{id}            100% 200 100% 201 100% 404
-GET     /api/v1/book/{id}/seller     100% 200 100% 201 100% 404
+/api/v1
+POST	/api/v1/accounts/{account_id}/inboxes				 0% 200 0% 404 0% 403
+PATCH	/api/v1/accounts/{account_id}/inboxes/{id}			 0% 200 0% 404 0% 403
+POST	/api/v1/accounts/{account_id}/inboxes/{id}/set_agent_bot	 0% 204 100% 404 0% 403
+GET	/api/v1/agent_bots						 0% 200 0% 404 0% 403
+GET	/api/v1/accounts/{account_id}/conversations			 0% 200 0% 400 0% description
+POST	/api/v1/accounts/{account_id}/conversations			 0% 200 0% 403
+GET	/api/v1/accounts/{account_id}/conversations/{id}		 59% 200 0% 404 0% 403
+POST	/api/v1/accounts/{account_id}/conversations/{id}/toggle_status	 80% 200 0% 404 0% 403
+GET	/api/v1/accounts/{account_id}/conversations/{id}/messages	 47% 200 0% 404 0% 403
+POST	/api/v1/accounts/{account_id}/conversations/{id}/messages	 0% 200 0% 404 0% 403
+GET	/api/v1/accounts/{account_id}/conversations/{id}/labels		 100% 200 0% 404 0% 403
+POST	/api/v1/accounts/{account_id}/conversations/{id}/labels		 100% 200 0% 404 0% 403
+POST	/api/v1/accounts/{account_id}/conversations/{id}/assignments	 77% 200 0% 404 0% 403
+GET	/api/v1/accounts/{account_id}/contacts				 0% 200 0% 400
+POST	/api/v1/accounts/{account_id}/contacts				 14% 200 0% 400
+GET	/api/v1/accounts/{account_id}/contacts/{id}			 14% 200 0% 404 0% 403
+PUT	/api/v1/accounts/{account_id}/contacts/{id}			 0% 204 0% 404 0% 403
+GET	/api/v1/accounts/{account_id}/contacts/{id}/conversations	 0% 200 0% 404 0% 403
+GET	/api/v1/accounts/{account_id}/contacts/search			 0% 200 0% 401
+POST	/api/v1/accounts/{account_id}/contacts/{id}/contact_inboxes	 0% 200 0% 401 100% 422
+GET	/api/v1/profile							 88% 200 100% 401
 
-Partially conforming requests:
-GET     /api/v1/book                 0% 200 66% 404
-POST    /api/v1/book                 0% 200 90% 201 100% 404
-GET     /api/v1/book/{id}            0% 200 88% 404 10% 200
-PATCH   /api/v1/book/{id}            0% 200 100% 201 10% 404
-
-Non-conforming requests:
-GET     /api/v1/seller               0% 200 0% 201 0 404
-GET     /api/v1/buyer                0% 200 0% 404
-
-API requests with fully implemented responses: 3 (33.33% of 9).
-API requests with partially implemented responses: 4 (44.44% of 9).
-API requests with no implemented responses: 2 (22.22% of 9).
-
-API responses conforming to the blueprint: 16 (64.00% of 25).
-API responses with validation errors or untested: 9 (36.00% of 25).
+tests_without_prefixes: 42
+tests_without_actions: 144
+tests_without_responses: 43
 ```
 
 And task will create HTML (`fitting/index.html`) reports.
