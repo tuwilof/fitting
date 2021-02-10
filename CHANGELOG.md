@@ -1,5 +1,12 @@
 # Change log
 
+### 2.16.0 - 2021-02-10
+
+* features
+  * support swagger and openapi [#96](https://github.com/funbox/fitting/issues/96)
+* patch
+  * let's bump to tomograph '3.0.1' [#95](https://github.com/funbox/fitting/issues/95)
+
 ### 2.15.0 - 2020-10-12
 
 * features
