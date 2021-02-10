@@ -1,25 +1,19 @@
 # Fitting
-
-Coverage API Blueprint, Swagger and OpenAPI with rspec tests for easily make high-quality.
-
+Coverage API Blueprint, Swagger and OpenAPI with rspec tests for easily make high-quality API and documenatiton.
 ![exmaple](example.png)
 
 ## Installation
-
 Add this line to your application's Gemfile:
-
 ```ruby
 gem 'fitting'
 ```
 
 After that execute:
-
 ```bash
 $ bundle
 ```
 
 Or install the gem by yourself:
-
 ```bash
 $ gem install fitting
 ```
