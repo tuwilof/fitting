@@ -1,5 +1,13 @@
 # Fitting
-Coverage API Blueprint, Swagger and OpenAPI with rspec tests for easily make high-quality API and documenatiton.
+There are such ways of describing the API documentation as API Blueprint, Swagger and OpenAPI. And using the tests already writed for your code, you can reuse them to find out the documentation coverage.
+This makes it easy to find out how much the documentation matches the implementation.
+
+* Cool if you already have a project with tests and documentation, you can check how good everything is and fix microbags.
+
+* If are you going developing API and  write documentation for it, this tool will help you document-driven development easily create high-quality write API documentation and API.
+
+* Also, if you have an undocumented API, this is an easy way to describe it.
+
 ![exmaple](example.png)
 
 ## Installation

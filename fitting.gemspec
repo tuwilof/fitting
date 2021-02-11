@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['d.efimov']
   spec.email         = ['d.efimov@fun-box.ru']
 
-  spec.summary       = 'Coverage API Blueprint, Swagger and OpenAPI with rspec tests'
-  spec.description   = 'Coverage API Blueprint, Swagger and OpenAPI with rspec tests for easily make high-quality API and documenatiton.'
+  spec.summary       = 'Coverage API Blueprint, Swagger and OpenAPI with RSpec'
+  spec.description   = 'Coverage API Blueprint, Swagger and OpenAPI with RSpec for easily make high-quality API and documenatiton'
   spec.homepage      = 'https://github.com/funbox/fitting'
   spec.license       = 'MIT'
 
