@@ -142,6 +142,17 @@ prefixes:
   - openapi2_json_path: doc.json
 ```
 
+## prefix skip
+
+It is not necessary to immediately describe each prefix in detail, you can only specify its name and skip it until you are ready to documented it
+```yaml
+prefixes:
+- name: /api/v1
+  openapi2_json_path: doc.json
+- name: /api/v3
+  skip: true
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [github.com/funbox/fitting](https://github.com/funbox/fitting).
