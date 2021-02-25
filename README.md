@@ -1,4 +1,9 @@
 # Fitting
+
+<img align="right" width="192" height="192"
+alt="Optimizt avatar: OK sign with Mona Lisa picture between the fingers"
+src="./logo.png">
+
 There are such ways of describing the API documentation as API Blueprint, Swagger and OpenAPI. And using the tests already writed for your code, you can reuse them to find out the documentation coverage.
 This makes it easy to find out how much the documentation matches the implementation.
 
