@@ -2,7 +2,7 @@
 
 <img align="right" width="192" height="192"
 alt="Optimizt avatar: OK sign with Mona Lisa picture between the fingers"
-src="./logo.png">
+src="./images/logo.png">
 
 There are such ways of describing the API documentation as API Blueprint, Swagger and OpenAPI. And using the tests already writed for your code, you can reuse them to find out the documentation coverage.
 This makes it easy to find out how much the documentation matches the implementation.
@@ -13,7 +13,7 @@ This makes it easy to find out how much the documentation matches the implementa
 
 * Also, if you have an undocumented API, this is an easy way to describe it.
 
-![exmaple](example.png)
+![exmaple](images/example.png)
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -132,11 +132,11 @@ tests_without_responses: 43
 
 And task will create HTML (`fitting/index.html`) reports.
 
-![exmaple](example.png)
+![exmaple](images/example.png)
 
 More information on action coverage
 
-![exmaple2](example2.png)
+![exmaple2](images/example2.png)
 
 ## prefix name
 
