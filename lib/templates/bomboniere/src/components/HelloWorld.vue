@@ -53,6 +53,9 @@
                       {{ responses_details.method }}
                     </div>
                   </div>
+                  <div style="color: #b94283;" v-if="action_details.responses.tests_without_responses.length != 0">
+                    &#9888;
+                  </div>
                 </router-link>
               </div>
             </div>
