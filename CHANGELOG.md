@@ -1,5 +1,10 @@
 # Change log
 
+### 2.17.0 - 2021-09-20
+
+* features
+  * display tests_without_responses details on the main page [#115](https://github.com/funbox/fitting/issues/115)
+
 ### 2.16.1 - 2021-02-10
 * patch
   * make prefix optional [#98](https://github.com/funbox/fitting/issues/98)
