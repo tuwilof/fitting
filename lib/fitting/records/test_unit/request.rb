@@ -37,6 +37,7 @@ module Fitting
           @documented_requests ||= @all_documented_requests.inject([]) do |res, documented_request|
             next res unless @tested_request.method == documented_request.method &&
                             documented_request.path.match(@tested_request.path.to_s)
+
             res.push(documented_request)
           end
         end
@@ -49,6 +50,7 @@ module Fitting
           @documented_responses ||= documented_requests.inject([]) do |res, documented_request|
             documented_request.responses.map do |documented_response|
               next unless documented_response['status'] == response.status.to_s
+
               res.push(documented_response)
             end
           end.flatten.compact
@@ -71,6 +73,7 @@ module Fitting
         def valid_json_schemas
           @valid_json_schemas ||= response_json_schemas.inject([]) do |res, json_schema|
             next res unless JSON::Validator.validate(json_schema, response.body)
+
             res.push(json_schema)
           end.flatten
         end
@@ -78,6 +81,7 @@ module Fitting
         def invalid_json_schemas
           @invalid_json_schemas ||= response_json_schemas.inject([]) do |res, json_schema|
             next res if JSON::Validator.validate(json_schema, response.body)
+
             res.push(
               json_schema: json_schema,
               fully_validate: JSON::Validator.fully_validate(json_schema, response.body)

@@ -36,11 +36,12 @@ module Fitting
                           drafter_4_apib_path: @drafter_4_apib_path,
                           drafter_4_yaml_path: @drafter_4_yaml_path
                         )
-                      else Tomograph::Tomogram.new(
-                        prefix: @prefix,
-                        apib_path: @apib_path,
-                        drafter_yaml_path: @drafter_yaml_path
-                      )
+                      else
+                        Tomograph::Tomogram.new(
+                          prefix: @prefix,
+                          apib_path: @apib_path,
+                          drafter_yaml_path: @drafter_yaml_path
+                        )
                       end
       end
 

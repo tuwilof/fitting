@@ -16,7 +16,6 @@ module Fitting
     end
 
     def statistics
-      puts 'DEPRECATED: deprecated method statistics, use new method save_test_data'
       responses = Fitting::Storage::Responses.new
 
       RSpec.configure do |config|
@@ -30,10 +29,13 @@ module Fitting
       end
     end
 
+    extend Gem::Deprecate
+    deprecate :statistics, :save_test_data, 2022, 1
+
     def save_test_data
       responses = Fitting::Storage::Responses.new
 
-      FileUtils.rm_r Dir.glob("fitting_tests/*"), :force => true
+      FileUtils.rm_r Dir.glob('fitting_tests/*'), force: true
 
       RSpec.configure do |config|
         config.after(:each, type: :request) do
@@ -61,6 +63,7 @@ module Fitting
 
   def self.load_tasks
     return if loaded_tasks
+
     self.loaded_tasks = true
 
     Dir[File.join(File.dirname(__FILE__), 'tasks', '**/*.rake')].each do |rake|

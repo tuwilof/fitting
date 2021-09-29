@@ -157,7 +157,7 @@ RSpec.describe Fitting::Storage::WhiteList do
     let(:resource_white_list) { [[[], []]] }
     let(:resources) { {} }
 
-    before { allow(STDOUT).to receive(:puts) }
+    before { allow($stdout).to receive(:puts) }
 
     it 'returns without_group' do
       expect(subject.without_group).to eq([])
@@ -217,7 +217,7 @@ RSpec.describe Fitting::Storage::WhiteList do
     end
 
     context 'warning' do
-      before { allow(STDOUT).to receive(:puts) }
+      before { allow($stdout).to receive(:puts) }
       let(:include_resources) do
         [
           '/lol'

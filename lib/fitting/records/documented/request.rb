@@ -35,6 +35,7 @@ module Fitting
           return false if @white_list[path.to_s] == nil
           return true if @white_list[path.to_s] == []
           return true if @white_list[path.to_s].include?(method)
+
           false
         end
 

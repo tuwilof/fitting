@@ -1,5 +1,3 @@
-require 'multi_json'
-
 module Fitting
   class Documentation
     def initialize(tomogram, white_list)

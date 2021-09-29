@@ -27,7 +27,7 @@ module Fitting
           }
         end
 
-        def to_json
+        def to_json(*_args)
           JSON.dump(to_hash)
         end
 

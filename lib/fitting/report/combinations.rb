@@ -14,20 +14,21 @@ module Fitting
       end
 
       def size_with_tests
-        @combinations.count { |c| c.tests.size != 0 }
+        @combinations.count { |c| !c.tests.empty? }
       end
 
       def join(tests)
         tests.to_a.map do |test|
-          if is_there_a_suitable_combination?(test)
+          if there_a_suitable_combination?(test)
             cram_into_the_appropriate_combinations(test)
             test.mark_combination
           end
         end
       end
 
-      def is_there_a_suitable_combination?(test)
+      def there_a_suitable_combination?(test)
         return false if @combinations.nil?
+
         @combinations.map do |combination|
           return true if JSON::Validator.fully_validate(combination.json_schema, test.body) == []
         end
@@ -37,9 +38,7 @@ module Fitting
 
       def cram_into_the_appropriate_combinations(test)
         @combinations.map do |combination|
-          if JSON::Validator.fully_validate(combination.json_schema, test.body) == []
-            combination.add_test(test)
-          end
+          combination.add_test(test) if JSON::Validator.fully_validate(combination.json_schema, test.body) == []
         end
       end
     end

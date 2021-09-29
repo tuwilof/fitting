@@ -17,6 +17,7 @@ module Fitting
         return nil if @white_list == nil && @resource_white_list == nil && @include_resources == nil && @include_actions == nil
         return @white_list if @white_list
         return @white_list = transformation if @resource_white_list
+
         @white_list = {}
         @white_list.merge!(new_transformation) if @include_resources
         @white_list.merge!(postnew_transformation) if @include_actions
@@ -25,6 +26,7 @@ module Fitting
 
       def without_group
         return @without_group_list if @without_group_list
+
         @without_group_list = @resource_white_list.inject([]) do |all_requests, resource|
           resource_selection(resource, all_requests)
         end.flatten.uniq
@@ -43,6 +45,7 @@ module Fitting
 
       def find_warnings(resource)
         return nil if @resources[resource]
+
         @warnings.push(
           "FITTING WARNING: In the documentation there isn't resource from the resource_white_list #{resource}"
         )
@@ -50,6 +53,7 @@ module Fitting
 
       def puts_warnings
         return nil if @warnings == []
+
         warnings_string = @warnings.join("\n")
         puts "\n#{warnings_string}"
       end
@@ -93,6 +97,7 @@ module Fitting
 
       def new_without_group
         return @newwithout_group_list if @newwithout_group_list
+
         @newwithout_group_list = @include_resources.inject([]) do |all_requests, resource|
           if resource[0] == '/'
             new_resource_selection(resource, all_requests)
@@ -120,6 +125,7 @@ module Fitting
 
       def new_find_warnings(resource)
         return nil if @new_resources[resource]
+
         @warnings.push(
           "FITTING WARNING: In the documentation there isn't resource from the resource_white_list #{resource}"
         )
@@ -135,6 +141,7 @@ module Fitting
 
       def postnew_without_group
         return @postnewwithout_group_list if @postnewwithout_group_list
+
         @postnewwithout_group_list = @include_actions.inject([]) do |all_requests, resource|
           method, path = resource.split(' ')
           if path[0] == '/'

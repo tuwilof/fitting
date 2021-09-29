@@ -6,7 +6,7 @@ module Fitting
       end
 
       def to_s
-        @measurement.not_covered_responses.join("\n") + "\n"
+        "#{@measurement.not_covered_responses.join("\n")}\n"
       end
     end
   end

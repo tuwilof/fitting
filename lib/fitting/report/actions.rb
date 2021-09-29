@@ -16,14 +16,14 @@ module Fitting
 
       def join(tests)
         tests.to_a.map do |test|
-          if is_there_a_suitable_action?(test)
+          if there_a_suitable_action?(test)
             cram_into_the_appropriate_action(test)
             test.mark_action
           end
         end
       end
 
-      def is_there_a_suitable_action?(test)
+      def there_a_suitable_action?(test)
         @actions.map do |action|
           return true if test.method == action.method && action.path_match(test.path)
         end
@@ -35,15 +35,17 @@ module Fitting
         @actions.map do |action|
           if test.method == action.method && action.path_match(test.path)
             action.add_test(test)
-            return
+            break
           end
         end
       end
 
       def details(prefix)
         {
-            tests_without_actions: prefix.tests.without_actions,
-            actions_details: @actions.map { |a| {method: a.method, path: a.path, tests_size: a.tests.size, responses: a.details} }
+          tests_without_actions: prefix.tests.without_actions,
+          actions_details: @actions.map do |a|
+                             { method: a.method, path: a.path, tests_size: a.tests.size, responses: a.details }
+                           end
         }
       end
     end

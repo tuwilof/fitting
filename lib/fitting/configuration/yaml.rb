@@ -43,13 +43,13 @@ module Fitting
                         Tomograph::Tomogram.new(
                           prefix: @prefix,
                           crafter_apib_path: @crafter_apib_path,
-                          crafter_yaml_path: @crafter_yaml_path,
+                          crafter_yaml_path: @crafter_yaml_path
                         )
                       elsif @drafter_4_apib_path || @drafter_4_yaml_path
                         Tomograph::Tomogram.new(
                           prefix: @prefix,
                           drafter_4_apib_path: @drafter_4_apib_path,
-                          drafter_4_yaml_path: @drafter_4_yaml_path,
+                          drafter_4_yaml_path: @drafter_4_yaml_path
                         )
                       else
                         Tomograph::Tomogram.new(

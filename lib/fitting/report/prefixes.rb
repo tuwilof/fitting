@@ -20,7 +20,7 @@ module Fitting
         end
       end
 
-      def is_there_a_suitable_prefix?(test_path)
+      def there_a_suitable_prefix?(test_path)
         @prefixes.map do |prefix|
           return true if prefix.name.nil?
           return true if prefix.name == ''
@@ -34,14 +34,14 @@ module Fitting
         @prefixes.map do |prefix|
           if prefix.name.nil? || prefix.name == '' || test.path[0..prefix.name.size - 1] == prefix.name
             prefix.add_test(test)
-            return
+            break
           end
         end
       end
 
       def join(tests)
         tests.to_a.map do |test|
-          if is_there_a_suitable_prefix?(test.path)
+          if there_a_suitable_prefix?(test.path)
             cram_into_the_appropriate_prefix(test)
             test.mark_prefix
           end

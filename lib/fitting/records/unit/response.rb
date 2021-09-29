@@ -22,6 +22,7 @@ module Fitting
         def tested_bodies
           @tested_bodies ||= @tested_responses.inject([]) do |res, tested_response|
             next res unless status == tested_response.status.to_s
+
             res.push(tested_response.body)
           end
         end

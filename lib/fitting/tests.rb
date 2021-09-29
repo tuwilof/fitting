@@ -13,7 +13,7 @@ module Fitting
       end
       json = JSON.dump(array)
 
-      File.open("fitting_tests/test#{ENV["TEST_ENV_NUMBER"]}.json", 'w') { |file| file.write(json) }
+      File.open("fitting_tests/test#{ENV['TEST_ENV_NUMBER']}.json", 'w') { |file| file.write(json) }
     end
 
     def make_dir(dir_name)

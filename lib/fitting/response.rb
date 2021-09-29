@@ -1,7 +1,6 @@
 require 'fitting/request'
 require 'fitting/response/fully_validates'
 require 'json'
-require 'multi_json'
 
 module Fitting
   class Response
@@ -27,7 +26,7 @@ module Fitting
     end
 
     def documented?
-      @schemas && @schemas.present?
+      @schemas&.present?
     end
 
     def route
@@ -47,7 +46,7 @@ module Fitting
     end
 
     def got
-      JSON.pretty_generate(MultiJson.load(@body))
+      JSON.pretty_generate(JSON.parse(@body))
     end
 
     def expected
@@ -68,6 +67,7 @@ module Fitting
 
     def index
       return @index_res if @index_res
+
       @index_res = []
       @schemas.size.times do |i|
         @index_res.push(i) if fully_validates[i] == []
@@ -77,6 +77,7 @@ module Fitting
 
     def strict_index
       return @strict_index_res if @strict_index_res
+
       @strict_index_res = []
       @schemas.size.times do |i|
         @strict_index_res.push(i) if strict_fully_validates[i] == []

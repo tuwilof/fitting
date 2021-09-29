@@ -10,16 +10,14 @@ module Fitting
         @id = SecureRandom.hex
       end
 
-      def id
-        @id
-      end
+      attr_reader :id
 
       def to_h
         {
-            path: path,
-            method: method,
-            status: status,
-            body: body
+          path: path,
+          method: method,
+          status: status,
+          body: body
         }
       end
 
@@ -55,19 +53,19 @@ module Fitting
         @combination = true
       end
 
-      def is_there_a_prefix?
+      def there_a_prefix?
         @prefix
       end
 
-      def is_there_an_actions?
+      def there_an_actions?
         @action
       end
 
-      def is_there_an_responses?
+      def there_an_responses?
         @response
       end
 
-      def is_there_an_combinations?
+      def there_an_combinations?
         @combination
       end
     end
