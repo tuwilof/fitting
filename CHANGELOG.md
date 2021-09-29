@@ -1,5 +1,10 @@
 # Change log
 
+### 2.18.0 - 2021-09-29
+
+* patch
+  * remove multi_json [#119](https://github.com/funbox/fitting/issues/119)
+
 ### 2.17.0 - 2021-09-20
 
 * features

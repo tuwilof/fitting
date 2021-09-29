@@ -17,9 +17,7 @@ module Fitting
         @action.path.to_s
       end
 
-      def responses
-        @responses
-      end
+      attr_reader :responses, :tests
 
       def add_test(test)
         @tests.push(test)
@@ -38,14 +36,13 @@ module Fitting
         @regexp = Regexp.new(str)
       end
 
-      def tests
-        @tests
-      end
-
       def details
         {
-            tests_without_responses: @tests.without_responses,
-            responses_details: @responses.to_a.map { |r| {method: r.status, tests_size: r.tests.size, json_schema: r.id, combinations: r.details} }
+          tests_without_responses: @tests.without_responses,
+          responses_details: @responses.to_a.map do |r|
+                               { method: r.status, tests_size: r.tests.size, json_schema: r.id,
+                                 combinations: r.details }
+                             end
         }
       end
     end

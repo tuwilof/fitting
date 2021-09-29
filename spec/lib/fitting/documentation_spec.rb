@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'multi_json'
 
 RSpec.describe Fitting::Documentation do
   let(:tomogram) { double(to_hash: [{ 'responses' => [{ 'status' => 200 }], 'method' => nil, 'path' => nil }]) }

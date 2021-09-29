@@ -27,8 +27,10 @@ module Fitting
           all_good = requests.all?(&:valid_json_schemas?)
           res += "path: #{key} #{all_good ? '✔' : '✖'}\n"
           next if all_good
+
           requests.map do |request|
             next if request.valid_json_schemas?
+
             res += "  full path: #{request.test_path} ✖\n"
             res += "    request.method #{request.method}\n"
             res += "    request.path #{request.path}\n"

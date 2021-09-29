@@ -13,11 +13,7 @@ module Fitting
         end
       end
 
-      attr_reader :json_schemas
-
-      attr_reader :combinations
-
-      attr_reader :flags
+      attr_reader :json_schemas, :combinations, :flags
 
       def update(response)
         index = 0

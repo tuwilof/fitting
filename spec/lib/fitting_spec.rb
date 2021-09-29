@@ -21,7 +21,7 @@ RSpec.describe Fitting do
       allow(Fitting::Storage::Responses).to receive(:new).and_return(double(
                                                                        add: nil,
                                                                        statistics: double(save: nil)
-      ))
+                                                                     ))
       expect { subject.statistics }.not_to raise_exception
     end
   end

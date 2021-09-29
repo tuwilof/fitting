@@ -35,17 +35,18 @@ module Fitting
       end
 
       def json_schema_stat(res, json_schema, response)
-        if @depth == 'valid'
+        case @depth
+        when 'valid'
           if json_schema.bodies == []
             res.push("✖ #{response.status}")
           else
             res.push("✔ #{response.status}")
           end
-        elsif @depth == 'cover'
+        when 'cover'
           res.push("#{json_schema.cover}% #{response.status}")
-        elsif @depth == 'cover_enum'
+        when 'cover_enum'
           res.push("#{json_schema.cover_enum}% #{response.status}")
-        elsif @depth == 'cover_one_of'
+        when 'cover_one_of'
           res.push("#{json_schema.cover_one_of}% #{response.status}")
         end
       end

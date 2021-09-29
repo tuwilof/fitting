@@ -9,24 +9,10 @@ module Fitting
         @id = SecureRandom.hex
       end
 
-      def json_schema
-        @json_schema
-      end
-
-      def id
-        @id
-      end
-
-      def type
-        @type
-      end
+      attr_reader :json_schema, :id, :type, :tests
 
       def name
         @combination
-      end
-
-      def tests
-        @tests
       end
 
       def add_test(test)

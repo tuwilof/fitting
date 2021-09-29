@@ -48,26 +48,28 @@ module Fitting
 
       def white_measurement
         @white_measurement ||=
-          if @depth == 'valid'
+          case @depth
+          when 'valid'
             Fitting::Statistics::Measurement.new(white_unit)
-          elsif @depth == 'cover'
+          when 'cover'
             Fitting::Statistics::MeasurementCover.new(white_unit)
-          elsif @depth == 'cover_enum'
+          when 'cover_enum'
             Fitting::Statistics::MeasurementCoverEnum.new(white_unit)
-          elsif @depth == 'cover_one_of'
+          when 'cover_one_of'
             Fitting::Statistics::MeasurementCoverOneOf.new(white_unit)
           end
       end
 
       def black_measurement
         @black_measurement ||=
-          if @depth == 'valid'
+          case @depth
+          when 'valid'
             Fitting::Statistics::Measurement.new(black_unit)
-          elsif @depth == 'cover'
+          when 'cover'
             Fitting::Statistics::MeasurementCover.new(black_unit)
-          elsif @depth == 'cover_enum'
+          when 'cover_enum'
             Fitting::Statistics::MeasurementCoverEnum.new(black_unit)
-          elsif @depth == 'cover_one_of'
+          when 'cover_one_of'
             Fitting::Statistics::MeasurementCoverOneOf.new(black_unit)
           end
       end

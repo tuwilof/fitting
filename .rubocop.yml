@@ -1,8 +1,8 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.6
 
-Metrics/LineLength:
-  Max: 120
+Layout/LineLength:
+  Max: 130
 
 Style/Documentation:
   Enabled: false
@@ -17,4 +17,32 @@ Style/CaseEquality:
   Enabled: false
 
 Style/NilComparison:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Lint/UnreachableCode:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 50
+
+# FIXME
+Metrics/AbcSize:
+  Max: 50
+
+Metrics/PerceivedComplexity:
+  Max: 20
+
+Metrics/CyclomaticComplexity:
+  Max: 20
+
+Metrics/ParameterLists:
+  Max: 7
+
+Metrics/ClassLength:
+  Max: 150
+
+Lint/UselessAssignment:
   Enabled: false

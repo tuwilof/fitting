@@ -31,9 +31,10 @@ module Fitting
       end
 
       def good?
-        return false if @tests_without_prefixes.size != 0
-        return false if @tests_without_actions.size != 0
-        return false if @tests_without_responses.size != 0
+        return false unless @tests_without_prefixes.empty?
+        return false unless @tests_without_actions.empty?
+        return false unless @tests_without_responses.empty?
+
         @good
       end
     end

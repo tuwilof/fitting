@@ -39,7 +39,8 @@ module Fitting
         if response.within_prefix?(config.prefix)
           @response = response
           return true if @response.ignored?(config.ignore_list)
-          return @response.fully_validates.valid?
+
+          @response.fully_validates.valid?
         else
           true
         end

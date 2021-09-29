@@ -10,9 +10,11 @@ module Fitting
         @request_unit.map do |request|
           request.responses.map do |response|
             next unless response.tested_bodies != []
+
             response.json_schemas.map do |json_schema|
               json_schema.combinations_with_enum.map do |combination|
                 next unless combination.valid_bodies == []
+
                 res += "request method: #{request.method}\nrequest path: #{request.path}\n"\
                         "response status: #{response.status}\nsource json-schema: #{json_schema.json_schema}\n"\
                        "combination: #{combination.description}\nnew json-schema: #{combination.json_schema}\n\n"

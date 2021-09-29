@@ -2,8 +2,14 @@ require 'spec_helper'
 require 'fitting/records/spherical/request'
 
 RSpec.describe Fitting::Records::Spherical::Request do
-  let(:json) { '{"method":"GET","path":"users","body":"{\\"name\\": \\"noname\\"}","response":"{\\"name\\": \\"John\\"}","title":"spec/spec_users.rb:4","group":"spec/spec_users.rb"}' }
-  let(:hash) { { 'method' => 'GET', 'path' => 'users', 'body' => '{"name": "noname"}', 'response' => '{"name": "John"}', 'title' => 'spec/spec_users.rb:4', 'group' => 'spec/spec_users.rb' } }
+  let(:json) do
+    '{"method":"GET","path":"users","body":"{\\"name\\": \\"noname\\"}","response":'\
+    '"{\\"name\\": \\"John\\"}","title":"spec/spec_users.rb:4","group":"spec/spec_users.rb"}'
+  end
+  let(:hash) do
+    { 'method' => 'GET', 'path' => 'users', 'body' => '{"name": "noname"}', 'response' => '{"name": "John"}',
+      'title' => 'spec/spec_users.rb:4', 'group' => 'spec/spec_users.rb' }
+  end
 
   describe '#to_json' do
     subject do
@@ -33,7 +39,12 @@ RSpec.describe Fitting::Records::Spherical::Request do
       )
     end
     it 'returns json' do
-      expect(subject.to_hash).to eq(method: 'GET', path: 'users', body: '{"name": "noname"}', response: '{"name": "John"}', title: 'spec/spec_users.rb:4', group: 'spec/spec_users.rb')
+      expect(subject.to_hash).to eq(method: 'GET',
+                                    path: 'users',
+                                    body: '{"name": "noname"}',
+                                    response: '{"name": "John"}',
+                                    title: 'spec/spec_users.rb:4',
+                                    group: 'spec/spec_users.rb')
     end
   end
 
