@@ -14,7 +14,7 @@ module Fitting
       end
 
       def size_with_tests
-        @combinations.count { |c| !c.tests.empty? }
+        @combinations.count { |c| c.tests.size != 0 }
       end
 
       def join(tests)

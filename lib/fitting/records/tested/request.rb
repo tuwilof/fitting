@@ -6,9 +6,9 @@ module Fitting
   class Records
     class Tested
       class Request
-        def initialize(env_response, test_title)
+        def initialize(env_response, metadata)
           @env_response = env_response
-          @test_title = test_title
+          @metadata = metadata
         end
 
         def method
@@ -28,11 +28,11 @@ module Fitting
         end
 
         def test_path
-          @test_path ||= @test_title[/\\(\\.(.*?)\\)/m, 1] || @test_title[/\\.(.*?)\\"/m, 1]
+          @test_path ||= @metadata.fetch(:location)
         end
 
         def test_file_path
-          @test_file_path ||= test_path.split(':').first
+          @test_file_path ||= @metadata.fetch(:file_path)
         end
 
         def to_spherical
