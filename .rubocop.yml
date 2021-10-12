@@ -46,3 +46,6 @@ Metrics/ClassLength:
 
 Lint/UselessAssignment:
   Enabled: false
+
+Style/ZeroLengthPredicate:
+  Enabled: false

@@ -38,12 +38,12 @@ module Fitting
       FileUtils.rm_r Dir.glob('fitting_tests/*'), force: true
 
       RSpec.configure do |config|
-        config.after(:each, type: :request) do
-          responses.add(response, inspect)
+        config.after(:each, type: :request) do |example|
+          responses.add(response, example.metadata)
         end
 
-        config.after(:each, type: :controller) do
-          responses.add(response, inspect)
+        config.after(:each, type: :controller) do |example|
+          responses.add(response, example.metadata)
         end
 
         config.after(:suite) do
