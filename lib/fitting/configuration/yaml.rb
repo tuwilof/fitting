@@ -39,24 +39,24 @@ module Fitting
       end
 
       def tomogram
-        @tomogram ||= if @crafter_yaml_path || @crafter_apib_path
+        @tomogram ||= if crafter_yaml_path || crafter_apib_path
                         Tomograph::Tomogram.new(
-                          prefix: @prefix,
-                          crafter_apib_path: @crafter_apib_path,
-                          crafter_yaml_path: @crafter_yaml_path
+                          prefix: prefix,
+                          crafter_apib_path: crafter_apib_path,
+                          crafter_yaml_path: crafter_yaml_path
                         )
-                      elsif @drafter_4_apib_path || @drafter_4_yaml_path
+                      elsif drafter_4_apib_path || drafter_4_yaml_path
                         Tomograph::Tomogram.new(
-                          prefix: @prefix,
-                          drafter_4_apib_path: @drafter_4_apib_path,
-                          drafter_4_yaml_path: @drafter_4_yaml_path
+                          prefix: prefix,
+                          drafter_4_apib_path: drafter_4_apib_path,
+                          drafter_4_yaml_path: drafter_4_yaml_path
                         )
                       else
                         Tomograph::Tomogram.new(
-                          prefix: @prefix,
-                          apib_path: @apib_path,
-                          drafter_yaml_path: @drafter_yaml_path,
-                          tomogram_json_path: @tomogram_json_path
+                          prefix: prefix,
+                          apib_path: apib_path,
+                          drafter_yaml_path: drafter_yaml_path,
+                          tomogram_json_path: tomogram_json_path
                         )
                       end
       end
@@ -80,7 +80,7 @@ module Fitting
       private
 
       def default
-        @strict ||= false if @strict.nil?
+        @strict ||= false if strict.nil?
         @prefix ||= ''
         @ignore_list ||= []
       end
