@@ -84,13 +84,5 @@ module Fitting
         @response.strict_fully_validates.valid?
       end
     end
-
-    def match_schema
-      Response.new
-    end
-
-    def strictly_match_schema
-      StrictResponse.new
-    end
   end
 end

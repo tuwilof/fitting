@@ -4,20 +4,6 @@ RSpec.configure do |config|
   config.include Fitting::Matchers
 end
 
-RSpec.describe Fitting::Matchers do
-  describe '.match_schema' do
-    it 'returns matcher response object' do
-      expect(match_schema).to be_a(described_class::Response)
-    end
-  end
-
-  describe '.strictly_match_schema' do
-    it 'returns matcher strict response object' do
-      expect(strictly_match_schema).to be_a(described_class::StrictResponse)
-    end
-  end
-end
-
 RSpec.describe Fitting::Matchers::Response do
   let(:response) { double(fully_validates: double(valid?: true), within_prefix?: true) }
 

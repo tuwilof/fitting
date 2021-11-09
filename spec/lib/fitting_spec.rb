@@ -3,6 +3,8 @@ require 'spec_helper'
 RSpec.describe Fitting do
   describe '.configure' do
     it 'makes settings' do
+      allow(File).to receive(:read).and_return("--- {}\n")
+
       Fitting.configure do |config|
         config.drafter_yaml_path = 'doc/api.yaml'
       end
