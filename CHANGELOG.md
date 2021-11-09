@@ -1,6 +1,6 @@
 # Change log
 
-### 2.18.2 - 2021-10-29
+### 2.18.2 - 2021-11-09
 
 * patch
   * remove legacy [#123](https://github.com/funbox/fitting/issues/123)
