@@ -94,7 +94,8 @@ RSpec.describe Fitting::Report::Console do
     subject { described_class.new(tests_without_prefixes, prefixes_details) }
 
     it do
-      expect(subject.output).to eq(default)
+      expect { subject.output }.not_to raise_error
+      expect { subject.output_sum }.not_to raise_error
     end
   end
 end

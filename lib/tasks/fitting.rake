@@ -88,6 +88,7 @@ namespace :fitting do
     )
 
     puts console.output
+    puts console.output_sum
 
     exit 1 unless console.good?
 
