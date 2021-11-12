@@ -1,5 +1,10 @@
 # Change log
 
+### 2.18.3 - 2021-11-12
+
+* patch
+  * added print table console [#121](https://github.com/funbox/fitting/issues/121)
+
 ### 2.18.2 - 2021-11-09
 
 * patch
