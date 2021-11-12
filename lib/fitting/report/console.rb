@@ -19,6 +19,8 @@ module Fitting
           title = prefix_details[:name]
           @tests_without_actions += prefix_details[:actions][:tests_without_actions] # непонятно что такое
 
+          next if prefix_details[:actions][:actions_details].count.zero?
+
           tables << Terminal::Table.new do |t|
             t.title = title
             t.headings = %w[method path cover]
@@ -33,6 +35,8 @@ module Fitting
 
               t.add_row [action[:method], action[:path], path_details]
             end
+
+            t.style = { all_separators: true, border: :unicode }
           end
         end
 
