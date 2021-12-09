@@ -1,14 +1,16 @@
 module Fitting
   class Cover
     class JSONSchemaOneOf
+      attr_reader :json_schema, :combinations
+
       def initialize(json_schema)
         @json_schema = json_schema
         @combinations = []
       end
 
       def combi
-        inception(@json_schema, @combinations).each do |combination|
-          combination[0] = @json_schema.merge(combination[0])
+        inception(json_schema, combinations).each do |combination|
+          combination[0] = json_schema.merge(combination[0])
           combination[1] = ['one_of', combination[1]]
         end
       end

@@ -1,6 +1,3 @@
-require 'fitting/statistics/template_cover_error'
-require 'fitting/statistics/template_cover_error_enum'
-require 'fitting/statistics/template_cover_error_one_of'
 require 'fitting/report/combinations'
 require 'fitting/report/combination'
 

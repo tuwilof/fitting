@@ -4,16 +4,16 @@ module Fitting
   class Records
     class Tested
       class Response
-        def initialize(env_response)
-          @env_response = env_response
+        def initialize(response)
+          @response = response
         end
 
         def status
-          @status ||= @env_response.status
+          @status ||= @response.status
         end
 
         def body
-          @body ||= @env_response.body
+          @body ||= @response.body
         end
 
         def to_spherical

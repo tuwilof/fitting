@@ -4,9 +4,9 @@ require 'fitting/report/prefixes'
 require 'fitting/report/tests'
 require 'fitting/report/console'
 
-namespace :fitting do
+namespace :fitting_out do
   task :report do
-    tests = Fitting::Report::Tests.new_from_config
+    tests = Fitting::Report::Tests.new_from_outgoing_config
     prefixes = Fitting::Report::Prefixes.new(Fitting.configuration.prefixes)
 
     prefixes.join(tests)
@@ -56,7 +56,7 @@ namespace :fitting do
 
       prefix.actions.to_a.map do |action|
         action.responses.to_a.map do |response|
-          json_schemas.merge!(response.id => response.body)
+          json_schemas[response.id] = response.body
           response.combinations.to_a.map do |combination|
             combinations.merge!(combination.id => combination.json_schema)
           end

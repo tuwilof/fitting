@@ -13,27 +13,18 @@ Style/FrozenStringLiteralComment:
 Metrics/BlockLength:
   Enabled: false
 
-Style/CaseEquality:
-  Enabled: false
-
-Style/NilComparison:
-  Enabled: false
-
 Naming/MemoizedInstanceVariableName:
   Enabled: false
 
-Lint/UnreachableCode:
-  Enabled: false
-
 Metrics/MethodLength:
-  Max: 50
+  Max: 60
 
 # FIXME
 Metrics/AbcSize:
   Max: 50
 
 Metrics/PerceivedComplexity:
-  Max: 20
+  Max: 30
 
 Metrics/CyclomaticComplexity:
   Max: 20

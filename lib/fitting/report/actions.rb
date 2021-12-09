@@ -14,6 +14,10 @@ module Fitting
         @actions
       end
 
+      def push(actions)
+        @actions += actions.to_a
+      end
+
       def join(tests)
         tests.to_a.map do |test|
           if there_a_suitable_action?(test)
