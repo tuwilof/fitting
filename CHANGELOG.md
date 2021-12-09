@@ -1,5 +1,10 @@
 # Change log
 
+### 3.0.1 - 2021-12-09
+
+* patch
+  * fix init prefixes
+
 ### 3.0.0 - 2021-12-09
 
 * features
