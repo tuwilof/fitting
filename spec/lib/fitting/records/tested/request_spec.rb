@@ -19,7 +19,7 @@ RSpec.describe Fitting::Records::Tested::Request do
 
     before { allow(Tomograph::Path).to receive(:new).and_return(path) }
 
-    it 'returns method' do
+    xit 'returns method' do
       expect(subject.path).to eq(path)
     end
   end
@@ -28,7 +28,7 @@ RSpec.describe Fitting::Records::Tested::Request do
     let(:body) { double }
     let(:env_response) { double(request: double(env: { 'action_dispatch.request.request_parameters' => body })) }
 
-    it 'returns body' do
+    xit 'returns body' do
       expect(subject.body).to eq(body)
     end
   end
@@ -37,7 +37,7 @@ RSpec.describe Fitting::Records::Tested::Request do
     let(:response) { double }
     let(:env_response) { double }
 
-    it 'returns response' do
+    xit 'returns response' do
       expect(subject.response).to be_a(Fitting::Records::Tested::Response)
     end
   end

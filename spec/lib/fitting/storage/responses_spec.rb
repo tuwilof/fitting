@@ -9,15 +9,4 @@ RSpec.describe Fitting::Storage::Responses do
       expect { subject.add(double, double) }.not_to raise_exception
     end
   end
-
-  describe '#statistics' do
-    before do
-      allow(Fitting::Statistics).to receive(:new)
-      allow(subject).to receive(:documented)
-    end
-
-    it 'does not raise an error' do
-      expect { subject.statistics }.not_to raise_exception
-    end
-  end
 end

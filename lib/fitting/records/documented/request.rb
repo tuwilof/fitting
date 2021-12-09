@@ -2,9 +2,8 @@ module Fitting
   class Records
     class Documented
       class Request
-        def initialize(tomogram_request, white_list)
+        def initialize(tomogram_request)
           @tomogram_request = tomogram_request
-          @white_list = white_list
         end
 
         def method
@@ -24,20 +23,7 @@ module Fitting
           end
         end
 
-        def white
-          @white ||= white?
-        end
-
         private
-
-        def white?
-          return true if @white_list == nil
-          return false if @white_list[path.to_s] == nil
-          return true if @white_list[path.to_s] == []
-          return true if @white_list[path.to_s].include?(method)
-
-          false
-        end
 
         def groups
           @groups ||= @tomogram_request.responses.group_by do |tomogram_response|

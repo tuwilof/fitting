@@ -1,5 +1,11 @@
 # Change log
 
+### 3.0.0 - 2021-12-09
+
+* features
+  * update configuration
+  * support outgoing WebMock request
+
 ### 2.18.3 - 2021-11-12
 
 * patch

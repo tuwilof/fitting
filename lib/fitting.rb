@@ -1,73 +1,68 @@
 require 'fitting/version'
 require 'fitting/configuration'
-require 'fitting/matchers/response_matcher'
-require 'fitting/documentation'
+
 require 'fitting/storage/responses'
+require 'fitting/tests'
+require 'fitting/cover/json_schema_enum'
+require 'fitting/cover/json_schema_one_of'
+require 'fitting/records/documented/request'
 require 'fitting/railtie' if defined?(Rails)
 
 module Fitting
   class << self
-    def configure
-      yield configuration
-    end
-
     def configuration
-      @configuration ||= Configuration.craft
+      yaml = YAML.safe_load(File.read('.fitting.yml'))
+      @configuration ||= Configuration.new(yaml)
     end
 
-    def statistics
-      responses = Fitting::Storage::Responses.new
-
-      RSpec.configure do |config|
-        config.after(:each, type: :controller) do
-          responses.add(response, inspect)
-        end
-
-        config.after(:suite) do
-          responses.statistics.save
-        end
-      end
+    def configure
+      yield(configuration)
     end
 
-    extend Gem::Deprecate
-    deprecate :statistics, :save_test_data, 2022, 1
+    def clear_tests_directory
+      FileUtils.rm_r Dir.glob(configuration.rspec_json_path), force: true
+      FileUtils.rm_r Dir.glob(configuration.webmock_json_path), force: true
+    end
 
     def save_test_data
+      clear_tests_directory
+
+      outgoing_responses = Fitting::Storage::Responses.new
       responses = Fitting::Storage::Responses.new
 
-      FileUtils.rm_r Dir.glob('fitting_tests/*'), force: true
-
       RSpec.configure do |config|
+        if defined?(WebMock)
+          config.before(:each) do |example|
+            WebMock.after_request do |request_signature, response|
+              env = Rack::MockRequest.env_for(request_signature.uri, { method: request_signature.method })
+              # Парсим в тот формат с которым работает fitting
+              mock_request = ActionDispatch::Request.new(env)
+              mock_response = ActionDispatch::Response.create(response.status.first || 200, response.headers || {},
+                                                              response.body || {})
+              mock_response.instance_variable_set(:@request, mock_request)
+
+              outgoing_responses.add(mock_response, example)
+            end
+          end
+        end
+
         config.after(:each, type: :request) do |example|
-          responses.add(response, example.metadata)
+          responses.add(response, example)
         end
 
         config.after(:each, type: :controller) do |example|
-          responses.add(response, example.metadata)
+          responses.add(response, example)
+        end
+
+        config.after(:each) do
+          WebMock::CallbackRegistry.reset
         end
 
         config.after(:suite) do
           responses.tests.save
+          outgoing_responses.tests.outgoing_save
         end
       end
-    end
-  end
-
-  def self.loaded_tasks=(val)
-    @loaded_tasks = val
-  end
-
-  def self.loaded_tasks
-    @loaded_tasks
-  end
-
-  def self.load_tasks
-    return if loaded_tasks
-
-    self.loaded_tasks = true
-
-    Dir[File.join(File.dirname(__FILE__), 'tasks', '**/*.rake')].each do |rake|
-      load rake
     end
   end
 end

@@ -3,53 +3,32 @@ require 'fitting/report/actions'
 module Fitting
   module Report
     class Prefix
-      def initialize(name: '', openapi2_json_path: nil, openapi3_yaml_path: nil,
-                     drafter_yaml_path: nil, tomogram_json_path: nil, crafter_yaml_path: nil, skip: false)
+      KEYS = {
+        'openapi2' => :openapi2_json_path,
+        'openapi3' => :openapi3_yaml_path,
+        'drafter' => :drafter_yaml_path,
+        'crafter' => :crafter_yaml_path,
+        'tomogram' => :tomogram_json_path
+      }.freeze
+
+      attr_reader :name, :tests, :actions
+
+      def initialize(schema_paths: nil, type: nil, name: '', skip: false, only: [])
         @name = name
-        @tomogram_json_path = tomogram_json_path
         @tests = Fitting::Report::Tests.new([])
         @skip = skip
         return if skip
 
-        @actions = if openapi2_json_path
-                     Fitting::Report::Actions.new(
-                       Tomograph::Tomogram.new(
-                         prefix: name,
-                         openapi2_json_path: openapi2_json_path
-                       )
-                     )
-                   elsif openapi3_yaml_path
-                     Fitting::Report::Actions.new(
-                       Tomograph::Tomogram.new(
-                         prefix: name,
-                         openapi3_yaml_path: openapi3_yaml_path
-                       )
-                     )
-                   elsif drafter_yaml_path
-                     Fitting::Report::Actions.new(
-                       Tomograph::Tomogram.new(
-                         prefix: name,
-                         drafter_yaml_path: drafter_yaml_path
-                       )
-                     )
-                   elsif crafter_yaml_path
-                     Fitting::Report::Actions.new(
-                       Tomograph::Tomogram.new(
-                         prefix: name,
-                         crafter_yaml_path: crafter_yaml_path
-                       )
-                     )
-                   else
-                     Fitting::Report::Actions.new(
-                       Tomograph::Tomogram.new(
-                         prefix: name,
-                         tomogram_json_path: tomogram_json_path
-                       )
-                     )
-                   end
-      end
+        @actions = Fitting::Report::Actions.new([])
 
-      attr_reader :name, :tests, :actions
+        schema_paths.each do |path|
+          tomogram = Tomograph::Tomogram.new(prefix: name, KEYS[type] => path)
+
+          tomogram.to_a.filter! { |action| only.include?("#{action.method} #{action.path}") } if only.present?
+
+          @actions.push(Fitting::Report::Actions.new(tomogram))
+        end
+      end
 
       def skip?
         @skip

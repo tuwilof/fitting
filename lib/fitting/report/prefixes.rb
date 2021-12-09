@@ -3,18 +3,17 @@ require 'fitting/report/prefix'
 module Fitting
   module Report
     class Prefixes
-      def initialize(config_path)
+      def initialize(configuration_prefixes)
         @prefixes = []
-        YAML.safe_load(File.read(config_path))['prefixes'].map do |prefix|
+
+        configuration_prefixes.map do |prefix|
           @prefixes.push(
             Fitting::Report::Prefix.new(
+              schema_paths: prefix['schema_paths'],
+              type: prefix['type'],
               name: prefix['name'],
-              openapi2_json_path: prefix['openapi2_json_path'],
-              openapi3_yaml_path: prefix['openapi3_yaml_path'],
-              drafter_yaml_path: prefix['drafter_yaml_path'],
-              tomogram_json_path: prefix['tomogram_json_path'],
-              crafter_yaml_path: prefix['crafter_yaml_path'],
-              skip: prefix['skip']
+              skip: prefix['skip'],
+              only: prefix['only']
             )
           )
         end

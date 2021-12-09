@@ -48,7 +48,9 @@ Also Swagger
 ```yaml
 prefixes:
   - name: /api/v1
-    openapi2_json_path: doc.json
+    type: openapi2
+    schema_paths:
+      - doc.json
 ```
 
 ### OpenAPI 3.0
@@ -57,7 +59,9 @@ Also OpenAPI
 ```yaml
 prefixes:
   - name: /api/v1
-    openapi3_yaml_path: doc.yaml
+    type: openapi3
+    schema_paths:
+      - doc.yaml
 ```
 
 ### API Blueprint
@@ -75,7 +79,9 @@ and then
 ```yaml
 prefixes:
   - name: /api/v1
-    drafter_yaml_path: doc.yaml
+    type: drafter
+    schema_paths:
+      - doc.yaml
 ```
 
 ### Tomograph
@@ -85,7 +91,9 @@ To use additional features of the pre-converted [tomograph](https://github.com/f
 ```yaml
 prefixes:
   - name: /api/v1
-    tomogram_json_path: doc.json
+    type: tomogram
+    schema_paths:
+      - doc.json
 ```
 
 ## Run
@@ -97,6 +105,11 @@ bundle e rspec
 and then
 ```bash
 bundle e rake fitting:report
+```
+
+Run tests by outgoing request first to get run artifacts
+```bash
+bundle e rake fitting_out:report
 ```
 
 Console ouptut
@@ -144,7 +157,9 @@ Setting the prefix name is optional. For example, you can do this:
 
 ```yaml
 prefixes:
-  - openapi2_json_path: doc.json
+  - type: openapi2
+    schema_paths:
+      - doc.json
 ```
 
 ## prefix skip
@@ -153,9 +168,34 @@ It is not necessary to immediately describe each prefix in detail, you can only 
 ```yaml
 prefixes:
 - name: /api/v1
-  openapi2_json_path: doc.json
+  type: openapi2
+  schema_paths:
+    - doc.json
 - name: /api/v3
   skip: true
+```
+
+For work with WebMock outgoing request, you should set up outgoing prefixes
+```yaml
+outgoing_prefixes:
+- name: /api/v1
+  type: openapi2
+  schema_paths:
+    - doc.json
+- name: /api/v3
+  skip: true
+```
+
+You can choose location that must be teste
+
+```yaml
+prefixes:
+  - type: openapi2
+    schema_paths:
+      - doc.json
+    only:
+      - POST /api/v1/users
+      - GET /api/v1/user/{id}
 ```
 
 ## Contributing

@@ -10,7 +10,7 @@ module Fitting
 
           array = []
           Dir['fitting_tests/*.json'].each do |file|
-            array += JSON.parse(File.read(file))
+            array += JSON.parse(file)
           end
           @to_a = array.inject([]) do |res, tested_request|
             request = Fitting::Records::Spherical::Request.load(tested_request)
