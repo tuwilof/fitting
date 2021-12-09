@@ -7,7 +7,7 @@ require 'fitting/report/console'
 namespace :fitting_out do
   task :report do
     tests = Fitting::Report::Tests.new_from_outgoing_config
-    prefixes = Fitting::Report::Prefixes.new(Fitting.configuration.prefixes)
+    prefixes = Fitting::Report::Prefixes.new(Fitting.configuration.outgoing_prefixes)
 
     prefixes.join(tests)
 
