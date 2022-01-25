@@ -1,5 +1,10 @@
 # Change log
 
+### 3.0.2 - 2022-01-25
+
+* patch
+  * fix require
+
 ### 3.0.1 - 2021-12-09
 
 * patch

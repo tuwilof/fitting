@@ -1,6 +1,6 @@
+require 'json-schema'
 require 'fitting/version'
 require 'fitting/configuration'
-
 require 'fitting/storage/responses'
 require 'fitting/tests'
 require 'fitting/cover/json_schema_enum'
