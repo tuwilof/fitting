@@ -7,6 +7,7 @@ module Fitting
     def save
       make_dir(Fitting.configuration.rspec_json_path)
       array = @tested_requests.inject([]) do |res, request|
+        Rails.logger.debug "FITTING incoming request🚧#{request.to_spherical.to_json}"
         res.push(request.to_spherical.to_hash)
       end
       json = JSON.dump(array)
@@ -17,6 +18,7 @@ module Fitting
     def outgoing_save
       make_dir('./outgoing_request_tests')
       array = @tested_requests.inject([]) do |res, request|
+        Rails.logger.debug "FITTING outgoing request🚧#{request.to_spherical.to_json}"
         res.push(request.to_spherical.to_hash)
       end
       json = JSON.dump(array)
