@@ -31,19 +31,19 @@ module Fitting
               mock_response.instance_variable_set(:@request, mock_request)
 
               request = Fitting::Records::Tested::Request.new(mock_response, example)
-              Rails.logger.debug "FITTING outgoing request🚧#{request.to_spherical.to_json}"
+              Rails.logger.debug "FITTING outgoing request #{request.to_spherical.to_json}"
             end
           end
         end
 
         config.after(:each, type: :request) do |example|
           request = Fitting::Records::Tested::Request.new(response, example)
-          Rails.logger.debug "FITTING incoming request🚧#{request.to_spherical.to_json}"
+          Rails.logger.debug "FITTING incoming request #{request.to_spherical.to_json}"
         end
 
         config.after(:each, type: :controller) do |example|
           request = Fitting::Records::Tested::Request.new(response, example)
-          Rails.logger.debug "FITTING incoming request🚧#{request.to_spherical.to_json}"
+          Rails.logger.debug "FITTING incoming request #{request.to_spherical.to_json}"
         end
 
         config.after(:each) do
