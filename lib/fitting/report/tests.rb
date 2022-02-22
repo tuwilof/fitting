@@ -21,7 +21,7 @@ module Fitting
       def self.new_from_outgoing_config
         tests = []
         File.read('log/test.log').split("\n").select{|f|f.include?('outgoing request ')}.each do |test|
-          tests.push(Fitting::Report::Test.new(JSON.load(test.split('incoming request ')[1])))
+          tests.push(Fitting::Report::Test.new(JSON.load(test.split('outgoing request ')[1])))
         end
         tests.sort { |a, b| b.path <=> a.path }
         new(tests)
