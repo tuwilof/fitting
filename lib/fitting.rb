@@ -18,7 +18,7 @@ module Fitting
       yield(configuration)
     end
 
-    def save_test_data
+    def logger
       RSpec.configure do |config|
         if defined?(WebMock)
           config.before(:each) do |example|
