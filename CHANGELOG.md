@@ -1,5 +1,10 @@
 # Change log
 
+### 4.0.0 - 2022-02-25
+
+* features
+  * use test.log instead of new two dirs
+
 ### 3.0.2 - 2022-01-25
 
 * patch
