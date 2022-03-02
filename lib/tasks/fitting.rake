@@ -9,23 +9,12 @@ namespace :fitting do
     prefixes = Fitting::Report::Prefixes.new(Fitting.configuration.prefixes)
 
     prefixes.join(tests)
-
-    prefixes.to_a.map do |prefix|
-      prefix.actions.join(prefix.tests) unless prefix.skip?
-    end
-
     prefixes.to_a.map do |prefix|
       next if prefix.skip?
-
+      prefix.actions.join(prefix.tests)
       prefix.actions.to_a.map do |action|
+
         action.responses.join(action.tests)
-      end
-    end
-
-    prefixes.to_a.map do |prefix|
-      next if prefix.skip?
-
-      prefix.actions.to_a.map do |action|
         action.responses.to_a.map do |response|
           response.combinations.join(response.tests)
         end
