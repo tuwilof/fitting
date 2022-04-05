@@ -9,6 +9,10 @@ module Fitting
         @responses = Fitting::Report::Responses.new(@action.responses)
       end
 
+      def mark!(test)
+        @tests.push(test)
+      end
+
       def method
         @action.method
       end

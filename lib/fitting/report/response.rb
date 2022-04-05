@@ -10,6 +10,10 @@ module Fitting
         @id = SecureRandom.hex
       end
 
+      def mark!(test)
+        @tests.push(test)
+      end
+
       def status
         @response['status'] || @response[:status]
       end

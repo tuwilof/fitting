@@ -19,6 +19,14 @@ module Fitting
         end
       end
 
+      def find!(test)
+        @prefixes.map do |prefix|
+          if test.path[0..prefix.name.size - 1] == prefix.name
+            return prefix
+          end
+        end
+      end
+
       def there_a_suitable_prefix?(test_path)
         @prefixes.map do |prefix|
           return true if prefix.name.nil?

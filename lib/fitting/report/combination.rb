@@ -11,6 +11,10 @@ module Fitting
 
       attr_reader :json_schema, :id, :type, :tests
 
+      def mark!(test)
+        @tests.push(test)
+      end
+
       def name
         @combination
       end

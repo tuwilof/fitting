@@ -17,9 +17,9 @@ module Fitting
         @name = name
         @tests = Fitting::Report::Tests.new([])
         @skip = skip
-        return if skip
 
         @actions = Fitting::Report::Actions.new([])
+        return if skip
 
         schema_paths.each do |path|
           tomogram = Tomograph::Tomogram.new(prefix: name, KEYS[type] => path)
@@ -28,6 +28,10 @@ module Fitting
 
           @actions.push(Fitting::Report::Actions.new(tomogram))
         end
+      end
+
+      def mark!(test)
+        @tests.push(test)
       end
 
       def skip?

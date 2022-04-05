@@ -8,17 +8,22 @@ namespace :fitting do
     tests = Fitting::Report::Tests.new_from_config
     prefixes = Fitting::Report::Prefixes.new(Fitting.configuration.prefixes)
 
-    prefixes.join(tests)
-    prefixes.to_a.map do |prefix|
-      next if prefix.skip?
-      prefix.actions.join(prefix.tests)
-      prefix.actions.to_a.map do |action|
+    tests.to_a.map do |test|
+      prefix = prefixes.find!(test)
+      prefix.mark!(test)
 
-        action.responses.join(action.tests)
-        action.responses.to_a.map do |response|
-          response.combinations.join(response.tests)
-        end
-      end
+      action = prefix.actions.find!(test)
+      action.mark!(test)
+
+      response = action.responses.find!(test)
+      response.mark!(test)
+
+      combination = response.combinations.find!(test)
+      combination.mark!(test)
+    rescue Fitting::Report::Combinations::Empty,
+      Fitting::Report::Combinations::NotFound,
+      Fitting::Report::Actions::Empty => e
+      puts e
     end
 
     report = JSON.pretty_generate(
@@ -55,8 +60,8 @@ namespace :fitting do
     File.open('fitting/combinations.json', 'w') { |file| file.write(JSON.pretty_generate(combinations)) }
     File.open('fitting/tests.json', 'w') { |file| file.write(JSON.pretty_generate(tests.to_h)) }
 
-    js_path =  Dir["#{destination}/js/*"].find { |f| f[0..14] == 'fitting/js/app.' and f[-3..] == '.js' }
-    js_file =  File.read(js_path)
+    js_path = Dir["#{destination}/js/*"].find { |f| f[0..14] == 'fitting/js/app.' and f[-3..] == '.js' }
+    js_file = File.read(js_path)
     new_js_file = js_file.gsub('{stub:"prefixes report"}', report)
     new_js_file = new_js_file.gsub('{stub:"for action page"}', report)
     new_js_file = new_js_file.gsub('{stub:"json-schemas"}', JSON.pretty_generate(json_schemas))
