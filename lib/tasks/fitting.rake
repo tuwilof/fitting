@@ -21,9 +21,10 @@ namespace :fitting do
       combination = response.combinations.find!(test)
       combination.mark!(test)
       print "\e[32m.\e[0m"
+    rescue  Fitting::Report::Actions::Empty
+      print "\e[33m*\e[0m"
     rescue Fitting::Report::Combinations::Empty,
-      Fitting::Report::Combinations::NotFound,
-      Fitting::Report::Actions::Empty
+      Fitting::Report::Combinations::NotFound
     end
 
     console = Fitting::Report::Console.new(
