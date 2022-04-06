@@ -10,16 +10,16 @@ namespace :fitting do
 
     tests.to_a.map do |test|
       prefix = prefixes.find!(test)
-      prefix.mark!
+      prefix.cover!
 
       action = prefix.actions.find!(test)
-      action.mark!(test)
+      action.cover!
 
       response = action.responses.find!(test)
-      response.mark!(test)
+      response.cover!
 
       combination = response.combinations.find!(test)
-      combination.mark!(test)
+      combination.cover!
       print "\e[32m.\e[0m"
     rescue  Fitting::Report::Actions::Empty
       print "\e[33m*\e[0m"

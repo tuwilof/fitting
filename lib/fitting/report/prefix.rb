@@ -29,7 +29,7 @@ module Fitting
         end
       end
 
-      def mark!
+      def cover!
         @cover = true
       end
 

@@ -15,7 +15,7 @@ module Fitting
         @cover
       end
 
-      def mark!(test)
+      def cover!
         @cover = true
       end
 
