@@ -5,22 +5,22 @@ module Fitting
         @json_schema = json_schema
         @type = type
         @combination = combination
-        @tests = Fitting::Report::Tests.new([])
         @id = SecureRandom.hex
+        @cover = false
       end
 
-      attr_reader :json_schema, :id, :type, :tests
+      attr_reader :json_schema, :id, :type
+
+      def cover?
+        @cover
+      end
 
       def mark!(test)
-        @tests.push(test)
+        @cover = true
       end
 
       def name
         @combination
-      end
-
-      def add_test(test)
-        @tests.push(test)
       end
     end
   end

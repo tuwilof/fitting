@@ -6,12 +6,16 @@ module Fitting
     class Response
       def initialize(response)
         @response = response
-        @tests = Fitting::Report::Tests.new([])
         @id = SecureRandom.hex
+        @cover = false
+      end
+
+      def cover?
+        @cover
       end
 
       def mark!(test)
-        @tests.push(test)
+        @cover = true
       end
 
       def status
@@ -23,10 +27,6 @@ module Fitting
       end
 
       attr_reader :id, :tests
-
-      def add_test(test)
-        @tests.push(test)
-      end
 
       def combinations
         return @combinations if @combinations
@@ -48,23 +48,6 @@ module Fitting
         end
 
         @combinations = Fitting::Report::Combinations.new(cmbntns)
-      end
-
-      def cover_percent
-        return '0%' if @tests.size.zero?
-        return '100%' if @combinations.size.zero?
-
-        "#{(@combinations.size_with_tests + 1) * 100 / (@combinations.size + 1)}%"
-      end
-
-      def details
-        {
-          cover_percent: cover_percent,
-          tests_without_combinations: @tests.without_combinations,
-          combinations_details: @combinations.to_a.map do |c|
-                                  { json_schema: c.id, tests_size: c.tests.size, type: c.type, name: c.name }
-                                end
-        }
       end
     end
   end

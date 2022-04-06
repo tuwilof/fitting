@@ -10,7 +10,7 @@ namespace :fitting do
 
     tests.to_a.map do |test|
       prefix = prefixes.find!(test)
-      prefix.mark!(test)
+      prefix.mark!
 
       action = prefix.actions.find!(test)
       action.mark!(test)
@@ -27,14 +27,32 @@ namespace :fitting do
       Fitting::Report::Combinations::NotFound
     end
 
-    console = Fitting::Report::Console.new(
-      tests.without_prefixes,
-      prefixes.to_a.map(&:details)
-    )
+    all = 0
+    cover = 0
+    prefixes.to_a.map do |prefix|
+      all += 1
+      break unless prefix.cover?
+      cover += 1
+      prefix.actions.to_a.map do |action|
+        all += 1
+        break unless action.cover?
+        cover += 1
+        action.responses.to_a.map do |response|
+          all += 1
+          break unless action.cover?
+          cover += 1
+          response.combinations.to_a.map do |combination|
+            all += 1
+            break unless combination.cover?
+            cover += 1
+          end
+        end
+      end
+    end
 
     puts
-    puts
-    exit 1 unless console.good?
+    puts "Coverage #{(cover.to_f /  all.to_f * 100).round(2)}%"
+    exit 1 unless false
 
     exit 0
   end
