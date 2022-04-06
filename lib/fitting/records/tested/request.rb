@@ -11,6 +11,10 @@ module Fitting
           @response = response
         end
 
+        def host
+          @host ||= @response.request.host
+        end
+
         def method
           @method ||= @response.request.request_method
         end
@@ -42,7 +46,8 @@ module Fitting
             body: body,
             response: fitting_response.to_spherical,
             title: test_path,
-            group: test_file_path
+            group: test_file_path,
+            host: host
           )
         end
       end

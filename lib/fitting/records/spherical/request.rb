@@ -5,15 +5,16 @@ module Fitting
   class Records
     class Spherical
       class Request
-        attr_reader :method, :path, :body, :response, :title, :group
+        attr_reader :method, :path, :body, :response, :title, :group, :host
 
-        def initialize(method:, path:, body:, response:, title:, group:)
+        def initialize(method:, path:, body:, response:, title:, group:, host:)
           @method = method
           @path = path
           @body = body
           @response = response
           @title = title
           @group = group
+          @host = host
         end
 
         def to_hash
@@ -23,7 +24,8 @@ module Fitting
             body: body,
             response: response.to_hash,
             title: title,
-            group: group
+            group: group,
+            host: host
           }
         end
 
@@ -39,7 +41,8 @@ module Fitting
               body: hash['body'],
               response: Fitting::Records::Spherical::Response.load(hash['response']),
               title: hash['title'],
-              group: hash['group']
+              group: hash['group'],
+              host: hash['host']
             )
           end
         end
