@@ -4,6 +4,14 @@ module Fitting
   module Report
     class Actions
       class Empty < RuntimeError; end
+      class NotFound < RuntimeError
+        attr_reader :log
+
+        def initialize(msg, log)
+          @log = log
+          super(msg)
+        end
+      end
 
       def initialize(actions)
         @actions = []
@@ -12,13 +20,14 @@ module Fitting
         end
       end
 
-      def find!(test)
+      def find!(log)
         raise Empty if @actions.empty?
         @actions.map do |action|
-          if test.method == action.method && action.path_match(test.path)
+          if log.method == action.method && action.path_match(log.path)
             return action
           end
         end
+        raise NotFound.new("method: #{log.method}, host: #{log.host}, path: #{log.path}", log)
       end
 
       def to_a

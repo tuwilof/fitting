@@ -11,7 +11,7 @@ module Fitting
         'tomogram' => :tomogram_json_path
       }.freeze
 
-      attr_reader :name, :tests, :actions
+      attr_reader :name, :actions
 
       def initialize(schema_paths: nil, type: nil, name: '', skip: false, only: [])
         @name = name
