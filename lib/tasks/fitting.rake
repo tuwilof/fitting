@@ -8,6 +8,10 @@ namespace :fitting do
     logs = Fitting::Log.all
     errors = []
 
+    examples = 0
+    failure = 0
+    pending = 0
+
     logs.map do |log|
       host = Fitting::Host.find!(log)
       host.cover!
@@ -28,6 +32,7 @@ namespace :fitting do
       Fitting::Host::Skip,
       Fitting::Prefix::Skip
       print "\e[33m*\e[0m"
+      pending += 1
     rescue Fitting::Report::Combinations::Empty,
       Fitting::Report::Combinations::NotFound
     rescue Fitting::Host::NotFound,
@@ -36,6 +41,9 @@ namespace :fitting do
       Fitting::Report::Responses::NotFound => e
       errors.push(e)
       print "\e[31mF\e[0m"
+      failure += 1
+    ensure
+      examples += 1
     end
 
     puts
@@ -44,6 +52,12 @@ namespace :fitting do
            "  #{index+1}) #{error.class} #{error.message}\n"\
             "\e[0m"
     end
+
+    puts
+    puts
+    print "\e[31m#{examples} examples, #{failure} failure, #{pending} pending\e[0m"
+    puts
+    puts
 
     all = 0
     cover = 0
