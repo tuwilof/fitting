@@ -5,8 +5,16 @@ module Fitting
     class Action
       def initialize(action)
         @action = action
-        @tests = Fitting::Report::Tests.new([])
         @responses = Fitting::Report::Responses.new(@action.responses)
+        @cover = false
+      end
+
+      def cover?
+        @cover
+      end
+
+      def cover!
+        @cover = true
       end
 
       def method
@@ -19,10 +27,6 @@ module Fitting
 
       attr_reader :responses, :tests
 
-      def add_test(test)
-        @tests.push(test)
-      end
-
       def path_match(find_path)
         regexp =~ find_path
       end
@@ -34,16 +38,6 @@ module Fitting
         str = str.gsub(/\\{\w+\\}/, '[^&=\/]+')
         str = "\\A#{str}\\z"
         @regexp = Regexp.new(str)
-      end
-
-      def details
-        {
-          tests_without_responses: @tests.without_responses,
-          responses_details: @responses.to_a.map do |r|
-                               { method: r.status, tests_size: r.tests.size, json_schema: r.id,
-                                 combinations: r.details }
-                             end
-        }
       end
     end
   end

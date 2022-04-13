@@ -15,11 +15,10 @@ module Fitting
 
       def initialize(schema_paths: nil, type: nil, name: '', skip: false, only: [])
         @name = name
-        @tests = Fitting::Report::Tests.new([])
-        @skip = skip
-        return if skip
+        @cover = false
 
         @actions = Fitting::Report::Actions.new([])
+        return if skip
 
         schema_paths.each do |path|
           tomogram = Tomograph::Tomogram.new(prefix: name, KEYS[type] => path)
@@ -30,28 +29,12 @@ module Fitting
         end
       end
 
-      def skip?
-        @skip
+      def cover!
+        @cover = true
       end
 
-      def details
-        if @skip
-          {
-            name: @name,
-            tests_size: @tests.size,
-            actions: { tests_without_actions: [], actions_details: [] }
-          }
-        else
-          {
-            name: @name,
-            tests_size: @tests.size,
-            actions: @actions.details(self)
-          }
-        end
-      end
-
-      def add_test(test)
-        @tests.push(test)
+      def cover?
+        @cover
       end
     end
   end
