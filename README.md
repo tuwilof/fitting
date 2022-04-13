@@ -1,17 +1,15 @@
 # Fitting
 
 <img align="right" width="192" height="192"
-alt="Optimizt avatar: OK sign with Mona Lisa picture between the fingers"
+alt="Fitting avatar: Documents with hangers"
 src="./images/logo.png">
 
-There are such ways of describing the API documentation as API Blueprint, Swagger and OpenAPI. And using the tests already writed for your code, you can reuse them to find out the documentation coverage.
-This makes it easy to find out how much the documentation matches the implementation.
+We set up test logs, validate them according to your API documentation and show the documentation coverage with logs.
 
-* Cool if you already have a project with tests and documentation, you can check how good everything is and fix microbags.
+Test logs setting supports RSpec test for Ruby On Rails application and API documentation supports API Blueprint, 
+Swagger and OpenAPI.
 
-* If are you going developing API and  write documentation for it, this tool will help you document-driven development easily create high-quality write API documentation and API.
-
-* Also, if you have an undocumented API, this is an easy way to describe it.
+This reduces the costs of support, testers and analysts.
 
 ![exmaple](images/example.png)
 
@@ -32,6 +30,7 @@ $ gem install fitting
 ```
 
 ## Usage
+### Log
 Firstly, improve `test.log`.
 
 To your `spec_helper.rb`:
@@ -42,16 +41,64 @@ require 'fitting'
 Fitting.logger
 ```
 
-Delete `log/test.log`, run rspec and you get more information about incoming and outgoing request in `log/test.log`.
+Delete `log/test.log` and run rspec
+
+You get more information about incoming and outgoing request in `log/test.log`.
 
 ```
 2022-02-22T14:20:37.888049+04:00 - 59698 DEBUG - FITTING incoming request {"method":"POST","path":"/api/v1/profile","body":{"ids":[]},"response":{"status":200,"body":{"status":"unauthorized"}},"title":"./spec/support/shared_examples/unauthorized.rb:8","group":"./spec/support/shared_examples/unauthorized.rb"}
 2022-02-22T14:20:37.883550+04:00 - 59696 DEBUG - FITTING outgoing request {"method":"POST","path":"/sso/oauth2/access_token","body":{},"response":{"status":404,"body":{"error":"Not found","error_description":"any error_description"}},"title":"./spec/jobs/sso_create_link_job_spec.rb:93","group":"./spec/jobs/sso_create_link_job_spec.rb"}
 ```
 
-Secondly, search the logs in the documentation.
+### Validation
+Secondly, validate the logs to the documentation.
 
 Add this to your `.fitting.yml`:
+
+```yaml
+prefixes:
+  - name: /api/v1
+    type: openapi2
+    schema_paths:
+      - doc.json
+```
+
+Run 
+```bash
+bundle e rake fitting:report
+```
+
+Console output
+
+```text
+..*.....F.
+
+  1) Fitting::Report::Responses::NotFound method: GET, host: books.local, path: /api/v1/users, status: 200, body: {"name"=>"test"}
+
+
+body: {"$schema"=>"http://json-schema.org/draft-04/schema#", "type"=>"enum"}
+validate: ["The property '#/' did not contain a required property of 'test' in schema 5115a024-5312-540f-8666-3102097d8c17"]
+
+status: 401
+
+status: 500
+
+
+10 examples, 1 failure, 1 pending
+
+Coverage 90%
+```
+
+### Coverage
+And task will create HTML (`fitting/index.html`) reports.
+
+![exmaple](images/example.png)
+
+More information on action coverage
+
+![exmaple2](images/example2.png)
+
+## type
 
 ### OpenAPI 2.0
 Also Swagger
@@ -106,61 +153,6 @@ prefixes:
     schema_paths:
       - doc.json
 ```
-
-## Run
-Run tests first to get run artifacts
-```bash
-bundle e rspec
-```
-
-and then
-```bash
-bundle e rake fitting:report
-```
-
-Run tests by outgoing request first to get run artifacts
-```bash
-bundle e rake fitting_out:report
-```
-
-Console ouptut
-
-```text
-/api/v1
-POST	/api/v1/accounts/{account_id}/inboxes				 0% 200 0% 404 0% 403
-PATCH	/api/v1/accounts/{account_id}/inboxes/{id}			 0% 200 0% 404 0% 403
-POST	/api/v1/accounts/{account_id}/inboxes/{id}/set_agent_bot	 0% 204 100% 404 0% 403
-GET	/api/v1/agent_bots						 0% 200 0% 404 0% 403
-GET	/api/v1/accounts/{account_id}/conversations			 0% 200 0% 400 0% description
-POST	/api/v1/accounts/{account_id}/conversations			 0% 200 0% 403
-GET	/api/v1/accounts/{account_id}/conversations/{id}		 59% 200 0% 404 0% 403
-POST	/api/v1/accounts/{account_id}/conversations/{id}/toggle_status	 80% 200 0% 404 0% 403
-GET	/api/v1/accounts/{account_id}/conversations/{id}/messages	 47% 200 0% 404 0% 403
-POST	/api/v1/accounts/{account_id}/conversations/{id}/messages	 0% 200 0% 404 0% 403
-GET	/api/v1/accounts/{account_id}/conversations/{id}/labels		 100% 200 0% 404 0% 403
-POST	/api/v1/accounts/{account_id}/conversations/{id}/labels		 100% 200 0% 404 0% 403
-POST	/api/v1/accounts/{account_id}/conversations/{id}/assignments	 77% 200 0% 404 0% 403
-GET	/api/v1/accounts/{account_id}/contacts				 0% 200 0% 400
-POST	/api/v1/accounts/{account_id}/contacts				 14% 200 0% 400
-GET	/api/v1/accounts/{account_id}/contacts/{id}			 14% 200 0% 404 0% 403
-PUT	/api/v1/accounts/{account_id}/contacts/{id}			 0% 204 0% 404 0% 403
-GET	/api/v1/accounts/{account_id}/contacts/{id}/conversations	 0% 200 0% 404 0% 403
-GET	/api/v1/accounts/{account_id}/contacts/search			 0% 200 0% 401
-POST	/api/v1/accounts/{account_id}/contacts/{id}/contact_inboxes	 0% 200 0% 401 100% 422
-GET	/api/v1/profile							 88% 200 100% 401
-
-tests_without_prefixes: 42
-tests_without_actions: 144
-tests_without_responses: 43
-```
-
-And task will create HTML (`fitting/index.html`) reports.
-
-![exmaple](images/example.png)
-
-More information on action coverage
-
-![exmaple2](images/example2.png)
 
 ## prefix name
 
