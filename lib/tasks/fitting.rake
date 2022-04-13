@@ -1,4 +1,3 @@
-require 'fitting/records/spherical/requests'
 require 'fitting/cover/json_schema'
 require 'fitting/report/prefixes'
 require 'fitting/report/tests'
