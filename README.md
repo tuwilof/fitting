@@ -11,6 +11,40 @@ Swagger and OpenAPI.
 
 This reduces the costs of support, testers and analysts.
 
+Log
+```text
+2022-02-22T14:20:37.888049+04:00 - 59698 DEBUG - FITTING incoming request {"method":"POST","path":"/api/v1/profile",
+"body":{"ids":[]},"response":{"status":200,"body":{"status":"unauthorized"}},
+"title":"./spec/support/shared_examples/unauthorized.rb:8","group":"./spec/support/shared_examples/unauthorized.rb"}
+2022-02-22T14:20:37.883550+04:00 - 59696 DEBUG - FITTING outgoing request {"method":"POST",
+"path":"/sso/oauth2/access_token","body":{},"response":{"status":404,"body":{
+"error":"Not found","error_description":"any error_description"}},"title":"./spec/jobs/sso_create_link_job_spec.rb:93",
+"group":"./spec/jobs/sso_create_link_job_spec.rb"}
+```
+
+validation
+```console
+..*.....F.
+
+  1) Fitting::Report::Responses::NotFound method: GET, host: books.local, path: /api/v1/users, status: 200,
+  body: {"name"=>"test"}
+
+
+body: {"$schema"=>"http://json-schema.org/draft-04/schema#", "type"=>"enum"}
+validate: ["The property '#/' did not contain a required property of 'test' in schema
+5115a024-5312-540f-8666-3102097d8c17"]
+
+status: 401
+
+status: 500
+
+
+10 examples, 1 failure, 1 pending
+
+Coverage 90%
+```
+
+and cover
 ![exmaple](images/example.png)
 
 ## Installation
@@ -45,9 +79,14 @@ Delete `log/test.log` and run rspec
 
 You get more information about incoming and outgoing request in `log/test.log`.
 
-```
-2022-02-22T14:20:37.888049+04:00 - 59698 DEBUG - FITTING incoming request {"method":"POST","path":"/api/v1/profile","body":{"ids":[]},"response":{"status":200,"body":{"status":"unauthorized"}},"title":"./spec/support/shared_examples/unauthorized.rb:8","group":"./spec/support/shared_examples/unauthorized.rb"}
-2022-02-22T14:20:37.883550+04:00 - 59696 DEBUG - FITTING outgoing request {"method":"POST","path":"/sso/oauth2/access_token","body":{},"response":{"status":404,"body":{"error":"Not found","error_description":"any error_description"}},"title":"./spec/jobs/sso_create_link_job_spec.rb:93","group":"./spec/jobs/sso_create_link_job_spec.rb"}
+```text
+2022-02-22T14:20:37.888049+04:00 - 59698 DEBUG - FITTING incoming request {"method":"POST","path":"/api/v1/profile",
+"body":{"ids":[]},"response":{"status":200,"body":{"status":"unauthorized"}},
+"title":"./spec/support/shared_examples/unauthorized.rb:8","group":"./spec/support/shared_examples/unauthorized.rb"}
+2022-02-22T14:20:37.883550+04:00 - 59696 DEBUG - FITTING outgoing request {"method":"POST",
+"path":"/sso/oauth2/access_token","body":{},"response":{"status":404,"body":{
+"error":"Not found","error_description":"any error_description"}},"title":"./spec/jobs/sso_create_link_job_spec.rb:93",
+"group":"./spec/jobs/sso_create_link_job_spec.rb"}
 ```
 
 ### Validation
@@ -70,14 +109,16 @@ bundle e rake fitting:report
 
 Console output
 
-```text
+```console
 ..*.....F.
 
-  1) Fitting::Report::Responses::NotFound method: GET, host: books.local, path: /api/v1/users, status: 200, body: {"name"=>"test"}
+  1) Fitting::Report::Responses::NotFound method: GET, host: books.local, path: /api/v1/users, status: 200,
+  body: {"name"=>"test"}
 
 
 body: {"$schema"=>"http://json-schema.org/draft-04/schema#", "type"=>"enum"}
-validate: ["The property '#/' did not contain a required property of 'test' in schema 5115a024-5312-540f-8666-3102097d8c17"]
+validate: ["The property '#/' did not contain a required property of 'test' in schema
+5115a024-5312-540f-8666-3102097d8c17"]
 
 status: 401
 
