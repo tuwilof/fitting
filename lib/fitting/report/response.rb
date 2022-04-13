@@ -1,5 +1,8 @@
 require 'fitting/report/combinations'
 require 'fitting/report/combination'
+require 'fitting/cover/json_schema'
+require 'fitting/cover/json_schema_enum'
+require 'fitting/cover/json_schema_one_of'
 
 module Fitting
   module Report

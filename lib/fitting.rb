@@ -1,6 +1,5 @@
 require 'json-schema'
 require 'fitting/version'
-require 'fitting/configuration'
 require 'fitting/cover/json_schema_enum'
 require 'fitting/cover/json_schema_one_of'
 require 'fitting/records/documented/request'
@@ -9,15 +8,6 @@ require 'fitting/records/tested/request'
 
 module Fitting
   class << self
-    def configuration
-      yaml = YAML.safe_load(File.read('.fitting.yml'))
-      @configuration ||= Configuration.new(yaml)
-    end
-
-    def configure
-      yield(configuration)
-    end
-
     def logger
       RSpec.configure do |config|
         if defined?(WebMock)

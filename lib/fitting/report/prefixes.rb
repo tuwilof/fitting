@@ -25,6 +25,12 @@ module Fitting
 
       def find!(test)
         @prefixes.map do |prefix|
+          puts test.path
+          puts test.host
+          puts test.method
+          puts test.status
+          puts test.body
+          puts prefix.name
           if test.path[0..prefix.name.size - 1] == prefix.name
             return prefix
           end
