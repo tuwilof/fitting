@@ -1,5 +1,6 @@
 require 'fitting/log'
 require 'fitting/action'
+require 'fitting/rept'
 
 namespace :fitting do
   task :report do
@@ -15,6 +16,6 @@ namespace :fitting do
     end
 
     Fitting::Log.report(logs)
-    Fitting::Action.report(actions)
+    Fitting::Rept.new(actions).save!
   end
 end
