@@ -1,21 +1,21 @@
 require 'fitting/log'
-require 'fitting/action'
-require 'fitting/rept'
+require 'fitting/doc'
+require 'fitting/rep'
 
 namespace :fitting do
   task :report do
     logs = Fitting::Log.all
-    actions = Fitting::Action.all
+    docs = Fitting::Doc.all(YAML.safe_load(File.read('.fitting.yml')))
 
     logs.each do |log|
-      Fitting::Action.find!(actions, log).cover!(log)
-    rescue Fitting::Action::Skip
+      Fitting::Doc.find!(docs, log).cover!
+    rescue Fitting::Doc::Skip
       log.pending!
-    rescue Fitting::Action::NotFound => error
-      log.failure!(error)
+    rescue Fitting::Doc::NotFound => e
+      log.failure!(e)
     end
 
     Fitting::Log.report(logs)
-    Fitting::Rept.new(actions).save!
+    Fitting::Rep.new(docs).save!
   end
 end
