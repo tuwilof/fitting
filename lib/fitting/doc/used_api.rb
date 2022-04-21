@@ -5,7 +5,7 @@ module Fitting
 
       class NotFound < RuntimeError; end
 
-      attr_accessor :host, :prefix, :path, :type
+      attr_accessor :host, :path
 
       def initialize(path, host)
         @path = path
@@ -16,6 +16,10 @@ module Fitting
         yaml['UsedAPIs'].map do |host|
           new(host['path'], host['host'])
         end
+      end
+
+      def prefix
+        ''
       end
 
       def self.find!(docs, log)

@@ -1,17 +1,18 @@
 module Fitting
   class Log
-    def initialize(log)
+    def initialize(log, type)
       @log = log
+      @type = type
       @error = nil
     end
 
     def self.all(testlog)
       logs = []
       testlog.split("\n").select { |f| f.include?('incoming request ') }.each do |test|
-        logs.push(new(JSON.load(test.split('incoming request ')[1])))
+        logs.push(new(JSON.load(test.split('incoming request ')[1]), 'incoming'))
       end
       testlog.split("\n").select { |f| f.include?('outgoing request ') }.each do |test|
-        logs.push(new(JSON.load(test.split('outgoing request ')[1])))
+        logs.push(new(JSON.load(test.split('outgoing request ')[1]), 'outgoing'))
       end
       logs.sort { |a, b| b.path <=> a.path }
     end
@@ -34,6 +35,10 @@ module Fitting
 
     def host
       @log['host']
+    end
+
+    def type
+      @type
     end
 
     def pending!
