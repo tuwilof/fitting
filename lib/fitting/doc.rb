@@ -11,7 +11,7 @@ module Fitting
     end
 
     def self.find!(docs, log)
-      new
+
     end
 
     def cover!

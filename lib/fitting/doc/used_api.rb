@@ -22,6 +22,9 @@ module Fitting
         new
       end
 
+      def actions
+      end
+
       def cover!
       end
     end
