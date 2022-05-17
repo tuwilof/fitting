@@ -1,15 +1,21 @@
+require 'fitting/doc/api/action'
+require 'fitting/report/actions'
+
 module Fitting
   class Doc
     class ProvidedAPI
       class Skip < RuntimeError; end
-
       class NotFound < RuntimeError; end
 
-      attr_accessor :prefix, :path
+      attr_accessor :prefix, :path, :actions
 
       def initialize(path, prefix)
         @path = path
         @prefix = prefix
+        tomogram = Tomograph::Tomogram.new(prefix: @prefix, tomogram_json_path: path)
+
+        @actions = Fitting::Report::Actions.new([])
+        @actions.push(Fitting::Report::Actions.new(tomogram))
       end
 
       def self.all(yaml)
@@ -20,13 +26,6 @@ module Fitting
 
       def host
         'www.example.com'
-      end
-
-      def self.find!(docs, log)
-        new
-      end
-
-      def actions
       end
 
       def cover!

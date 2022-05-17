@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'fitting/doc'
+require 'tomograph'
 
 RSpec.describe Fitting::Doc do
   describe '.all' do

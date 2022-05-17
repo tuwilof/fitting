@@ -22,7 +22,7 @@ module Fitting
             doc.prefix['name'].nil? || log.path[0..prefix['name'].size - 1] == doc.prefix['name']
           end
         end
-      end
+      end&.actions
     end
 
     def cover!

@@ -1,3 +1,5 @@
+require 'fitting/doc/api/action'
+
 module Fitting
   class Doc
     class UsedAPI
@@ -5,11 +7,15 @@ module Fitting
 
       class NotFound < RuntimeError; end
 
-      attr_accessor :host, :path
+      attr_accessor :host, :path, :actions
 
       def initialize(path, host)
         @path = path
         @host = host
+        tomogram = Tomograph::Tomogram.new(tomogram_json_path: path)
+
+        @actions = Fitting::Report::Actions.new([])
+        @actions.push(Fitting::Report::Actions.new(tomogram))
       end
 
       def self.all(yaml)
@@ -20,13 +26,6 @@ module Fitting
 
       def prefix
         ''
-      end
-
-      def self.find!(docs, log)
-        new
-      end
-
-      def actions
       end
 
       def cover!

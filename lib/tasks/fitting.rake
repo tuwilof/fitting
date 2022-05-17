@@ -8,7 +8,7 @@ namespace :fitting do
     docs = Fitting::Doc.all(YAML.safe_load(File.read('.fitting.yml')))
 
     logs.each do |log|
-      Fitting::Doc.find!(docs, log).cover!
+      Fitting::Doc.find!(docs, log)#.cover!
     rescue Fitting::Doc::Skip
       log.pending!
     rescue Fitting::Doc::NotFound => e

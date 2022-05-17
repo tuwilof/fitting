@@ -1,7 +1,7 @@
 module Fitting
   class Rep
-    def initialize(actions)
-      @actions = actions
+    def initialize(apis)
+      @apis = apis
     end
 
     def save!
@@ -12,10 +12,12 @@ module Fitting
       source_path = "#{gem_path}/templates/htmlcss/fitting.html"
 
       res = ""
-      @actions.each do |action|
+      @apis.each do |api|
+        api.actions.to_a.each do |action|
         res +=
           "    <tr>"\
-          "        <td>#{action.action.method} #{action.action.path}</td>"\
+          "        <td>#{action.method}</td>"\
+          "        <td>#{api.host}#{api.prefix}#{action.path}</td>"\
           "        <td>47.37 %</td>"\
           "        <td>89</td>"\
           "        <td>19</td>"\
@@ -23,6 +25,7 @@ module Fitting
           "        <td>10</td>"\
           "        <td>3.79</td>"\
           "    </tr>"
+        end
       end
 
       file =  File.read(source_path)
