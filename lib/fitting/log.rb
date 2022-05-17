@@ -64,13 +64,15 @@ module Fitting
       end
     end
 
-    def self.pending(logs) end
+    def self.pending(logs)
+      0
+    end
 
     def self.report(logs)
       Fitting::Log.failure(logs).each_with_index do |log, index|
         puts "\e[31m  #{index + 1}) #{log.error.class} #{log.error.message}\n\e[0m"
       end
-      print "\e[31m#{logs.size} examples, #{Fitting::Log.failure(logs)} failure, #{Fitting::Log.pending(logs)} pending\e[0m"
+      print "\e[31m#{logs.size} examples, #{Fitting::Log.failure(logs).size} failure, #{Fitting::Log.pending(logs)} pending\e[0m\n"
     end
   end
 end

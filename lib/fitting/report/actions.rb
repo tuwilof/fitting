@@ -13,6 +13,10 @@ module Fitting
         end
       end
 
+      def cover!
+
+      end
+
       def initialize(actions)
         @actions = []
         actions.to_a.map do |action|
