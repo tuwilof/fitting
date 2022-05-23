@@ -15,7 +15,7 @@ module Fitting
 
         @actions = []
         tomogram.to_a.map do |action|
-          @actions.push(Fitting::Doc::Api::Action.new(action))
+          @actions.push(Fitting::Doc::Api::Action.new(action, 'www.example.com', prefix))
         end
       end
 
@@ -37,9 +37,6 @@ module Fitting
 
       def host
         'www.example.com'
-      end
-
-      def cover!
       end
     end
   end

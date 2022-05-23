@@ -15,7 +15,7 @@ module Fitting
 
         @actions = []
         tomogram.to_a.map do |action|
-          @actions.push(Fitting::Doc::Api::Action.new(action))
+          @actions.push(Fitting::Doc::Api::Action.new(action, host, ''))
         end
       end
 

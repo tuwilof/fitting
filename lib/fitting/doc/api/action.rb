@@ -5,22 +5,32 @@ module Fitting
   class Doc
     class Api
       class Action
-        def initialize(action)
+        def initialize(action, host, prefix)
+          @host = host
+          @prefix = prefix
           @action = action
           @responses = Fitting::Doc::Api::Response.new(@action.responses)
-          @cover = false
+          @cover = 0
+        end
+
+        def host
+          @host
+        end
+
+        def prefix
+          @prefix
         end
 
         def find!
           nil
         end
 
-        def cover?
+        def cover
           @cover
         end
 
         def cover!
-          @cover = true
+          @cover = 100
         end
 
         def method
