@@ -18,7 +18,7 @@ module Fitting
           "    <tr>"\
           "        <td>#{action.method}</td>"\
           "        <td>#{action.host}#{action.prefix}#{action.path}</td>"\
-          "        <td>#{action.cover}%</td>"\
+          "        <td#{action.cover == 100 ? ' class="green"' : ' class="red"'}>#{action.cover}%</td>"\
           "        <td>89</td>"\
           "        <td>19</td>"\
           "        <td>9</td>"\
