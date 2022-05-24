@@ -5,6 +5,7 @@
 * features
   * use test.log instead of new two dirs
   * output validation details
+  * new cover report
 
 ### 3.0.2 - 2022-01-25
 

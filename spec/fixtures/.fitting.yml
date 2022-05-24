@@ -1,0 +1,11 @@
+ProvidedAPIs:
+  - path: json_schemas/main_api.json
+    prefix: /api/v1
+  - path: json_schemas/admin_api.json
+    prefix: /api/admin
+
+UsedAPIs:
+  - path: json_schemas/tarifficator.json
+    host: tarifficator.local
+  - path: json_schemas/sso.json
+    host: sso.local
