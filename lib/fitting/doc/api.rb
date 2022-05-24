@@ -3,8 +3,6 @@ require 'fitting/doc/api/action'
 module Fitting
   class Doc
     class API
-      class Skip < RuntimeError; end
-
       class NotFound < RuntimeError; end
 
       attr_accessor :type, :host, :prefix, :path, :actions

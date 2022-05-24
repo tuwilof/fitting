@@ -2,8 +2,6 @@ require 'fitting/doc/api'
 
 module Fitting
   class Doc
-    class Skip < RuntimeError; end
-
     class NotFound < RuntimeError; end
 
     def self.all(yaml)
