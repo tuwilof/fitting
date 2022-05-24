@@ -13,6 +13,14 @@ module Fitting
           @cover = 0
         end
 
+        def to_yaml
+          YAML.dump(@action.to_hash)
+        end
+
+        def to_json
+          JSON.pretty_generate(@action.to_hash)
+        end
+
         def host
           @host
         end

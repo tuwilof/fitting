@@ -30,10 +30,10 @@ module Fitting
         divs +=
           "<div id='#{key}' class='overlay'>"\
           "    <div class='popup'>"\
-          "        <h2>#{action.host}#{action.prefix}#{action.path}</h2>"\
+          "        <h2>#{action.method} #{action.host}#{action.prefix}#{action.path}</h2>"\
           "        <a class='close' href='#'>&times;</a>"\
           "        <div class='content'>"\
-          "            Thank to pop me out of that button, but now i'm done so you can close this window."\
+          "            <code>#{action.to_yaml.gsub("\n", "<Br>").gsub(" ", "&nbsp;")}</code>"\
           "        </div>"\
           "    </div>"\
           "</div>"
