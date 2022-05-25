@@ -1,7 +1,8 @@
 require 'fitting/log'
 require 'fitting/doc'
-require 'fitting/rep'
 require 'fitting/skip'
+require 'fitting/nocov'
+require 'fitting/rep'
 
 namespace :fitting do
   task :report do
@@ -16,8 +17,11 @@ namespace :fitting do
       next log.pending! if Fitting::Skip.find(skips, log)
       log.failure!(e)
     end
-
     Fitting::Log.report(logs)
+
+    Fitting::NoCov.all(YAML.safe_load(File.read('.fitting.yml'))).each do |nocov|
+      nocov.find(docs).cover!
+    end
     Fitting::Rep.new(docs).save!
   end
 end

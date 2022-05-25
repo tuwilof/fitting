@@ -7,6 +7,7 @@
   * output validation details
   * new cover report
   * smart skip
+  * smart nocov
 
 ### 3.0.2 - 2022-01-25
 

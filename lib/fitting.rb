@@ -9,6 +9,7 @@ require 'fitting/records/tested/request'
 module Fitting
   class << self
     def logger
+      # :nocov:
       RSpec.configure do |config|
         if defined?(WebMock)
           config.before(:each) do |example|
@@ -40,6 +41,7 @@ module Fitting
           WebMock::CallbackRegistry.reset
         end
       end
+      # :nocov:
     end
   end
 end
