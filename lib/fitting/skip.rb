@@ -1,27 +1,20 @@
 require 'fitting/skip/api'
+require 'fitting/skip/action'
 
 module Fitting
   class Skip
     def self.all(yaml)
-      yaml['SkipProvidedAPIs'].map do |host|
-        Fitting::Skip::API.new('provided', 'www.example.com', host['prefix'])
-      end + yaml['SkipUsedAPIs'].map do |host|
-        Fitting::Skip::API. new( 'used', host['host'], '')
-      end
+      {
+        apis: Fitting::Skip::API.all(yaml),
+        actions: Fitting::Skip::Action.all(yaml)
+      }
     end
 
     def self.find(skips, log)
-      skips.find do |skip|
-        if skip.type == 'provided' && log.type == 'incoming'
-          if log.host == skip.host
-            skip.prefix['name'].nil? || log.path[0..prefix['name'].size - 1] == skip.prefix['name']
-          end
-        elsif skip.type == 'used' && log.type == 'outgoing'
-          if log.host == skip.host
-            skip.prefix['name'].nil? || log.path[0..prefix['name'].size - 1] == skip.prefix['name']
-          end
-        end
-      end
+      api = Fitting::Skip::API.find(skips[:apis], log)
+      return api if api
+
+      Fitting::Skip::Action.find(skips[:actions], log)
     end
   end
 end
