@@ -4,6 +4,7 @@ module Fitting
       @log = log
       @type = type
       @error = nil
+      @skip = false
     end
 
     def self.all(testlog)
@@ -41,7 +42,12 @@ module Fitting
       @type
     end
 
+    def access!
+      print "\e[32m.\e[0m"
+    end
+
     def pending!
+      @skip = true
       print "\e[33m*\e[0m"
     end
 
@@ -64,15 +70,22 @@ module Fitting
       end
     end
 
+    def pending?
+      @skip
+    end
+
     def self.pending(logs)
-      0
+      logs.select do |log|
+        log.pending?
+      end
     end
 
     def self.report(logs)
+      puts "\n\n"
       Fitting::Log.failure(logs).each_with_index do |log, index|
-        puts "\e[31m  #{index + 1}) #{log.error.class} #{log.error.message}\n\e[0m"
+        puts "\e[31m  #{index + 1}) #{log.error.class} #{log.error.message}\n#{log.method} #{log.host}#{log.path} #{log.status}\n\e[0m"
       end
-      print "\e[31m#{logs.size} examples, #{Fitting::Log.failure(logs).size} failure, #{Fitting::Log.pending(logs)} pending\e[0m\n"
+      print "\e[31m#{logs.size} examples, #{Fitting::Log.failure(logs).size} failure, #{Fitting::Log.pending(logs).size} pending\e[0m\n"
     end
   end
 end
