@@ -15,10 +15,8 @@ module Fitting
     end
 
     def find(docs)
-      docs.find do |doc|
-        doc.host == host
-      end.actions.find do |action|
-        action.method == method && action.path_match(path)
+      docs[:used].find do |action|
+        action.host == host && action.method == method && action.path_match(path)
       end
     end
   end

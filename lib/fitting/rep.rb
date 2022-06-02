@@ -1,7 +1,7 @@
 module Fitting
   class Rep
     def initialize(apis)
-      @apis = apis
+      @apis = apis[:provided] + apis[:used]
     end
 
     def save!

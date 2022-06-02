@@ -11,7 +11,7 @@ namespace :fitting do
     skips = Fitting::Skip.all(YAML.safe_load(File.read('.fitting.yml')))
 
     logs.each do |log|
-      Fitting::Doc.find!(docs, log)&.cover!
+      Fitting::Doc.cover!(docs, log)
       log.access!
     rescue Fitting::Doc::NotFound => e
       next log.pending! if Fitting::Skip.find(skips, log)
