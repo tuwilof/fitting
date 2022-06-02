@@ -18,6 +18,10 @@ module Fitting
       logs.sort { |a, b| b.path <=> a.path }
     end
 
+    def url
+      "#{host}#{path}"
+    end
+
     def path
       @log['path']
     end

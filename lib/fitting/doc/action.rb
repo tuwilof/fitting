@@ -12,6 +12,10 @@ module Fitting
         @cover = 0
       end
 
+      def url
+        "#{@host}#{@prefix}#{@path}"
+      end
+
       def to_hash
         {
           host: host,
@@ -19,6 +23,10 @@ module Fitting
           method: method,
           path: path,
         }
+      end
+
+      def to_yaml
+        YAML.dump(to_hash)
       end
 
       def self.provided_all(apis)
@@ -50,17 +58,35 @@ module Fitting
       end
 
       def cover!(log)
-        return unless log.host == host
-        @cover = 25
+        Rails.logger.debug "DOC NAME | #{method} #{url}"
+        unless log.host == host
+          Rails.logger.debug "FALSE | log.host == host | #{log.host} == #{host}"
+          return
+        end
+        Rails.logger.debug "TRUE | log.host == host | #{log.host} == #{host}"
+        @cover = 25 if @cover < 25
 
-        return unless prefix.empty? || log.path[0..prefix.size - 1] == prefix
-        @cover = 50
+        unless prefix.size == 0 || log.path[0..prefix.size - 1] == prefix
+          Rails.logger.debug "FALSE | prefix.size == 0 | prefix.size = #{prefix.size} || log.path[0..prefix.size - 1] == prefix | #{log.path[0..prefix.size - 1]} == #{prefix}"
+          return
+        end
+        Rails.logger.debug "TRUE | prefix.size == 0 | prefix.size = #{prefix.size} || log.path[0..prefix.size - 1] == prefix | #{log.path[0..prefix.size - 1]} == #{prefix}"
+        @cover = 50 if @cover < 50
 
-        return unless path_match(log.path)
-        @cover = 75
+        unless path_match(log.path)
+          Rails.logger.debug "FALSE | path_match(log.path) | log.path = #{log.path} | path #{path}"
+          return
+        end
+        Rails.logger.debug "TRUE | path_match(log.path) | log.path = #{log.path} | path #{path}"
+        @cover = 75 if @cover < 75
 
-        return unless log.method == method
-        @cover = 100
+        unless log.method == method
+          Rails.logger.debug "FALSE | log.method == method | #{log.method} == #{method}"
+          return
+        end
+        Rails.logger.debug "TRUE | log.method == method | #{log.method} == #{method}"
+        @cover = 100 if @cover < 100
+        true
       end
 
       def cover

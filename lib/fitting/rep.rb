@@ -18,7 +18,7 @@ module Fitting
         res +=
           "    <tr>"\
           "        <td>#{action.method}</td>"\
-          "        <td><a href='##{key}'>#{action.host}#{action.prefix}#{action.path}</a></td>"\
+          "        <td><a href='##{key}'>#{action.url}</a></td>"\
           "        <td#{action.cover == 100 ? ' class="green"' : ' class="red"'}>#{action.cover}%</td>"\
           "        <td>89</td>"\
           "        <td>19</td>"\
