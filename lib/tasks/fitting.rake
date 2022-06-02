@@ -20,7 +20,7 @@ namespace :fitting do
     Fitting::Log.report(logs)
 
     Fitting::NoCov.all(YAML.safe_load(File.read('.fitting.yml'))).each do |nocov|
-      nocov.find(docs).cover!
+      nocov.find(docs).nocover!
     end
     Fitting::Rep.new(docs).save!
   end

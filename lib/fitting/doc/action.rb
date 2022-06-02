@@ -9,6 +9,7 @@ module Fitting
         @prefix = prefix
         @method = method
         @path = path
+        @cover = 0
       end
 
       def to_hash
@@ -50,14 +51,24 @@ module Fitting
 
       def cover!(log)
         return unless log.host == host
+        @cover = 25
 
         return unless prefix.empty? || log.path[0..prefix.size - 1] == prefix
+        @cover = 50
 
         return unless path_match(log.path)
+        @cover = 75
 
         return unless log.method == method
+        @cover = 100
+      end
 
-        log
+      def cover
+        @cover
+      end
+
+      def nocover!
+        @cover = 100
       end
 
       def path_match(find_path)

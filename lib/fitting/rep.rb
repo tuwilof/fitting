@@ -1,7 +1,7 @@
 module Fitting
   class Rep
     def initialize(apis)
-      @apis = apis[:provided] + apis[:used]
+      @actions = apis[:provided] + apis[:used]
     end
 
     def save!
@@ -13,7 +13,6 @@ module Fitting
 
       divs = ""
       res = ""
-      @actions = @apis.inject([]) { |res, api| res += api.actions }
       @actions.sort{|a, b| a.cover <=> b.cover }.each do |action|
         key = SecureRandom.hex
         res +=
