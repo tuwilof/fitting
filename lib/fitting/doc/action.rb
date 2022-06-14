@@ -35,7 +35,7 @@ module Fitting
           Tomograph::Tomogram.new(prefix: api['prefix'], tomogram_json_path: api['path']).to_a.map do |action|
             Fitting::Doc::Action.new(
               'provided',
-              'www.example.com',
+              YAML.safe_load(File.read('.fitting.yml'))['Host'],
               api['prefix'],
               action.to_hash['method'],
               action.to_hash['path'].path
