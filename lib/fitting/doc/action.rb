@@ -3,9 +3,10 @@ require 'fitting/doc/response'
 module Fitting
   class Doc
     class Action
-      attr_accessor :type, :host, :prefix, :path, :method, :responses
+      attr_accessor :key, :type, :host, :prefix, :path, :method, :responses, :host_cover, :prefix_cover, :path_cover, :method_cover
 
       def initialize(type, host, prefix, method, path, responses)
+        @key = SecureRandom.hex
         @type = type
         @host = host
         @prefix = prefix
@@ -13,6 +14,11 @@ module Fitting
         @path = path
         @cover = 0
         @responses = Fitting::Doc::Response.all(responses)
+
+        @host_cover = 0
+        @prefix_cover = 0
+        @path_cover = 0
+        @method_cover = 0
       end
 
       def url
@@ -80,6 +86,7 @@ module Fitting
         end
         Rails.logger.debug "TRUE | log.host == host | #{log.host} == #{host}"
         @cover = 25 if @cover < 25
+        @host_cover += 1
 
         unless prefix.size == 0 || log.path[0..prefix.size - 1] == prefix
           Rails.logger.debug "FALSE | prefix.size == 0 | prefix.size = #{prefix.size} || log.path[0..prefix.size - 1] == prefix | #{log.path[0..prefix.size - 1]} == #{prefix}"
@@ -87,6 +94,7 @@ module Fitting
         end
         Rails.logger.debug "TRUE | prefix.size == 0 | prefix.size = #{prefix.size} || log.path[0..prefix.size - 1] == prefix | #{log.path[0..prefix.size - 1]} == #{prefix}"
         @cover = 50 if @cover < 50
+        @prefix_cover += 1
 
         unless path_match(log.path)
           Rails.logger.debug "FALSE | path_match(log.path) | log.path = #{log.path} | path #{path}"
@@ -94,6 +102,7 @@ module Fitting
         end
         Rails.logger.debug "TRUE | path_match(log.path) | log.path = #{log.path} | path #{path}"
         @cover = 75 if @cover < 75
+        @path_cover += 1
 
         unless log.method == method
           Rails.logger.debug "FALSE | log.method == method | #{log.method} == #{method}"
@@ -101,6 +110,7 @@ module Fitting
         end
         Rails.logger.debug "TRUE | log.method == method | #{log.method} == #{method}"
         @cover = 100 if @cover < 100
+        @method_cover += 1
 
         true
       end
