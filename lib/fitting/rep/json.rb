@@ -4,15 +4,15 @@ module Fitting
       def self.to_s(actions)
         ::JSON.pretty_generate(
           actions.inject({}) do |sum, action|
+            res = []
+            (action.to_yaml.split("\n").size).times{res.push(nil)}
+            res[1] = action.host_cover
+            res[2] = action.prefix_cover
+            res[3] = action.path_cover
+            res[4] = action.method_cover
+
             sum.merge({
-                        action.key => [
-                          nil,
-                          action.host_cover,
-                          action.prefix_cover,
-                          action.path_cover,
-                          action.method_cover,
-                          0
-                        ]
+                        action.key => res
                       })
           end
         )
