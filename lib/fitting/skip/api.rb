@@ -9,10 +9,16 @@ module Fitting
         @prefix = prefix
       end
 
-      def self.all(yaml)
-        yaml['SkipProvidedAPIs'].map do |api|
+      def self.provided_all(apis)
+        return [] unless apis
+        apis.map do |api|
           new('provided', 'www.example.com', api['prefix'])
-        end + yaml['SkipUsedAPIs'].map do |api|
+        end
+      end
+
+      def self.used_all(apis)
+        return [] unless apis
+        apis.map do |api|
           new( 'used', api['host'], '')
         end
       end

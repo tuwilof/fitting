@@ -30,6 +30,7 @@ module Fitting
       end
 
       def self.provided_all(apis)
+        return [] unless apis
         apis.map do |api|
           Tomograph::Tomogram.new(prefix: api['prefix'], tomogram_json_path: api['path']).to_a.map do |action|
             Fitting::Doc::Action.new(
@@ -44,6 +45,7 @@ module Fitting
       end
 
       def self.used_all(apis)
+        return [] unless apis
         apis.map do |api|
           Tomograph::Tomogram.new(prefix: '', tomogram_json_path: api['path']).to_a.map do |action|
             Fitting::Doc::Action.new(

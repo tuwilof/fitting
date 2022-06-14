@@ -5,8 +5,8 @@ module Fitting
   class Skip
     def self.all(yaml)
       {
-        apis: Fitting::Skip::API.all(yaml),
-        actions: Fitting::Skip::Action.all(yaml)
+        apis: Fitting::Skip::API.provided_all(yaml['SkipProvidedAPIs']) + Fitting::Skip::API.used_all(yaml['SkipUsedAPIs']),
+        actions: Fitting::Skip::Action.all(yaml['SkipUsedActions'])
       }
     end
 
