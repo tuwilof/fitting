@@ -1,15 +1,18 @@
+require 'fitting/doc/response'
+
 module Fitting
   class Doc
     class Action
-      attr_accessor :type, :host, :prefix, :method, :path
+      attr_accessor :type, :host, :prefix, :path, :method, :responses
 
-      def initialize(type, host, prefix, method, path)
+      def initialize(type, host, prefix, method, path, responses)
         @type = type
         @host = host
         @prefix = prefix
         @method = method
         @path = path
         @cover = 0
+        @responses = Fitting::Doc::Response.all(responses)
       end
 
       def url
@@ -18,10 +21,18 @@ module Fitting
 
       def to_hash
         {
-          host: host,
-          prefix: prefix,
-          method: method,
-          path: path,
+          host => {
+            prefix => {
+              path => {
+                method => {
+                  responses[0].code => {
+                    responses[0].content_type =>
+                      responses[0].body
+                  }
+                }
+              }
+            }
+          }
         }
       end
 
@@ -33,12 +44,13 @@ module Fitting
         return [] unless apis
         apis.map do |api|
           Tomograph::Tomogram.new(prefix: api['prefix'], tomogram_json_path: api['path']).to_a.map do |action|
-            Fitting::Doc::Action.new(
+            new(
               'provided',
               YAML.safe_load(File.read('.fitting.yml'))['Host'],
               api['prefix'],
               action.to_hash['method'],
-              action.to_hash['path'].path
+              action.to_hash['path'].path,
+              action.responses
             )
           end
         end.flatten
@@ -48,12 +60,13 @@ module Fitting
         return [] unless apis
         apis.map do |api|
           Tomograph::Tomogram.new(prefix: '', tomogram_json_path: api['path']).to_a.map do |action|
-            Fitting::Doc::Action.new(
+            new(
               'used',
               api['host'],
               '',
               action.to_hash['method'],
-              action.to_hash['path'].path
+              action.to_hash['path'].path,
+              action.responses
             )
           end
         end.flatten
@@ -88,6 +101,7 @@ module Fitting
         end
         Rails.logger.debug "TRUE | log.method == method | #{log.method} == #{method}"
         @cover = 100 if @cover < 100
+
         true
       end
 
