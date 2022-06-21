@@ -6,7 +6,6 @@ module Fitting
       attr_accessor :key, :type, :host, :prefix, :path, :method, :responses, :host_cover, :prefix_cover, :path_cover, :method_cover
 
       def initialize(type, host, prefix, method, path, responses)
-        @key = SecureRandom.hex
         @type = type
         @host = host
         @prefix = prefix
@@ -14,6 +13,7 @@ module Fitting
         @path = path
         @cover = 0
         @responses = Fitting::Doc::Response.all(responses)
+        @key = "#{method} #{host}#{prefix}#{path}"
 
         @host_cover = 0
         @prefix_cover = 0
