@@ -79,36 +79,27 @@ module Fitting
       end
 
       def cover!(log)
-        Rails.logger.debug "DOC NAME | #{method} #{url}"
         unless log.host == host
-          Rails.logger.debug "FALSE | log.host == host | #{log.host} == #{host}"
           return
         end
-        Rails.logger.debug "TRUE | log.host == host | #{log.host} == #{host}"
         @cover = 25 if @cover < 25
         @host_cover += 1
 
         unless prefix.size == 0 || log.path[0..prefix.size - 1] == prefix
-          Rails.logger.debug "FALSE | prefix.size == 0 | prefix.size = #{prefix.size} || log.path[0..prefix.size - 1] == prefix | #{log.path[0..prefix.size - 1]} == #{prefix}"
           return
         end
-        Rails.logger.debug "TRUE | prefix.size == 0 | prefix.size = #{prefix.size} || log.path[0..prefix.size - 1] == prefix | #{log.path[0..prefix.size - 1]} == #{prefix}"
         @cover = 50 if @cover < 50
         @prefix_cover += 1
 
         unless path_match(log.path)
-          Rails.logger.debug "FALSE | path_match(log.path) | log.path = #{log.path} | path #{path}"
           return
         end
-        Rails.logger.debug "TRUE | path_match(log.path) | log.path = #{log.path} | path #{path}"
         @cover = 75 if @cover < 75
         @path_cover += 1
 
         unless log.method == method
-          Rails.logger.debug "FALSE | log.method == method | #{log.method} == #{method}"
           return
         end
-        Rails.logger.debug "TRUE | log.method == method | #{log.method} == #{method}"
         @cover = 100 if @cover < 100
         @method_cover += 1
 

@@ -12,7 +12,6 @@ module Fitting
     end
 
     def self.cover!(docs, log)
-      Rails.logger.debug "LOG NAME | #{log.method} #{log.url}"
       if log.type == 'incoming'
         docs[:provided].each do |doc|
           return if doc.cover!(log)
@@ -22,7 +21,6 @@ module Fitting
           return if doc.cover!(log)
         end
       end
-      Rails.logger.debug "RAISE LOG NAME | #{log.method} #{log.url}"
       raise NotFound
     end
   end
