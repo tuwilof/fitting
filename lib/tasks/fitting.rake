@@ -6,7 +6,8 @@ require 'fitting/rep'
 
 namespace :fitting do
   task :report do
-    logs = Fitting::Log.all(File.read('log/test.log'))
+    log_format = YAML.safe_load(File.read('.fitting.yml'))['LogFormat']
+    logs = Fitting::Log.all(File.read('log/test.log'), log_format)
     docs = Fitting::Doc.all(YAML.safe_load(File.read('.fitting.yml')))
     skips = Fitting::Skip.all(YAML.safe_load(File.read('.fitting.yml')))
 
