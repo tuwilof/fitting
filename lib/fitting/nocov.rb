@@ -1,5 +1,7 @@
 module Fitting
   class NoCov
+    class NotFound < RuntimeError; end
+
     attr_accessor :host, :method, :path
 
     def initialize(host, method, path)
@@ -16,9 +18,11 @@ module Fitting
     end
 
     def find(docs)
-      docs[:used].find do |action|
+      res = docs[:used].find do |action|
         action.host == host && action.method == method && action.path_match(path)
       end
+      return res if res.present?
+      raise NotFound.new("host: #{host}, method: #{method}, path: #{path}")
     end
   end
 end
