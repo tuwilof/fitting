@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = '>= 2.6.0'
+  spec.required_ruby_version = '>= 2.5.0'
   spec.add_runtime_dependency 'json-schema', '~> 2.6', '>= 2.6.2'
   spec.add_runtime_dependency 'terminal-table', '~> 3.0', '>= 3.0.2'
   spec.add_runtime_dependency 'tomograph', '~> 3.1', '>= 3.1.0'
