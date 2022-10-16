@@ -1,15 +1,17 @@
 module Fitting
   class Rep
     class HTML
-      def self.to_s(actions)
+      def self.to_s(fitting_json, fitting_lock_json)
         divs = ""
         res = ""
-        actions.sort{|a, b| a.cover <=> b.cover }.each do |action|
+        fitting_json.sort do |a, b|
+            (a[1].count(0) == 0 ? 100 : 0) <=> (b[1].count(0) == 0 ? 100 : 0)
+          end.each do |action|
           res +=
             "    <tr>"\
-          "        <td>#{action.method}</td>"\
-          "        <td><a href='##{action.key}'>#{action.url}</a></td>"\
-          "        <td#{action.cover == 100 ? ' class="green"' : ' class="red"'}>#{action.cover}%</td>"\
+          "        <td>#{action[0].split(' ')[0]}</td>"\
+          "        <td><a href='##{action[0]}'>#{action[0].split(' ')[1]}</a></td>"\
+          "        <td#{(action[1].count(0) == 0 ? 100 : 0) == 100 ? ' class="green"' : ' class="red"'}>#{(action[1].count(0) == 0 ? 100 : 0)}%</td>"\
           "        <td>89</td>"\
           "        <td>19</td>"\
           "        <td>9</td>"\
@@ -17,12 +19,12 @@ module Fitting
           "        <td>3.79</td>"\
           "    </tr>"
           divs +=
-            "<div id='#{action.key}' class='overlay'>"\
+            "<div id='#{action[0]}' class='overlay'>"\
           "    <div class='popup'>"\
-          "        <h2>#{action.method} #{action.host}#{action.prefix}#{action.path}</h2>"\
+          "        <h2>#{action[0]}</h2>"\
           "        <a class='close' href='#'>&times;</a>"\
           "        <div class='content'>"\
-          "            <code>#{action.to_yaml.gsub("\n", "<Br>").gsub(" ", "&nbsp;")}</code>"\
+          "            <code>#{fitting_lock_json[action[0]].join("<Br>").gsub(" ", "&nbsp;")}</code>"\
           "        </div>"\
           "    </div>"\
           "</div>"
