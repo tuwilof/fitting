@@ -1,6 +1,10 @@
 module Fitting
   class Rep
     class HTML
+      def self.bootstrap(fitting_json, fitting_lock_json)
+        File.read("#{$LOAD_PATH.find { |i| i.include?('fitting') }}/templates/htmlcss/bootstrap.html")
+      end
+
       def self.to_s(fitting_json, fitting_lock_json)
         divs = ""
         res = ""
