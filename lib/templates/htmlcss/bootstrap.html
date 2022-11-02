@@ -3,8 +3,69 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="bootstrap-nightshade.min.css">
     <script src="darkmode.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+    ></script>
+    <script>
+        function init() {
+            if (localStorage.getItem("user-theme") == null) {
+                $mode = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? 'dark' : 'light';
+
+                if ($mode == 'dark') {
+                    localStorage.setItem("user-theme", 'dark');
+                } else {
+                    localStorage.setItem("user-theme", 'light');
+                }
+            } else {
+                $mode = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? 'dark' : 'light';
+
+                if ($mode == 'dark' && localStorage.getItem("user-theme") == 'dark') {
+                    document.getElementById("flexSwitchCheckChecked").checked = true;
+                    $("html").removeClass('light').addClass("dark");
+                } else if ($mode == 'light' && localStorage.getItem("user-theme") == 'light') {
+                    document.getElementById("flexSwitchCheckChecked").checked = false;
+                    $("html").removeClass("dark").addClass('light');
+                } else if ($mode == 'dark' && localStorage.getItem("user-theme") == 'light') {
+                    document.getElementById("flexSwitchCheckChecked").checked = false;
+                    $("html").removeClass("dark").addClass('light');
+                } else if ($mode == 'light' && localStorage.getItem("user-theme") == 'dark') {
+                    document.getElementById("flexSwitchCheckChecked").checked = true;
+                    $("html").removeClass('light').addClass("dark");
+                }
+            }
+        }
+
+        function toggle_color_scheme_css() {
+            if (localStorage.getItem("user-theme") == 'dark') {
+                $("html").removeClass("dark").addClass('light');
+                localStorage.setItem("user-theme", 'light');
+            } else {
+                $("html").removeClass('light').addClass("dark");
+                localStorage.setItem("user-theme", 'dark');
+            }
+        }
+    </script>
 </head>
-<body>
+<body onload="init();">
+
+<header class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark">
+    <div class="container-fluid d-flex align-items-center">
+        <h1 class="d-flex align-items-center fs-4 text-white mb-0">
+            Fitting
+        </h1>
+        <!-- ***** ***** ***** THE BUTTON GOES HERE ***** ***** ***** -->
+        <div class="btn-group ms-auto" role="group">
+            <div class="mb-3 form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                       onclick="toggle_color_scheme_css()">
+            </div>
+        </div>
+        <!-- ***** ***** ***** THE BUTTON GOES HERE ***** ***** ***** -->
+    </div>
+</header>
+
 <table class="table table-striped">
     <thead>
     <tr>
