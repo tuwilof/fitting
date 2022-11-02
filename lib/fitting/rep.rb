@@ -16,7 +16,7 @@ module Fitting
       File.open('coverage/fitting.json', 'w') { |file| file.write(::JSON.pretty_generate(fitting_json)) }
       File.open('coverage/fitting.lock.json', 'w') { |file| file.write(::JSON.pretty_generate(fitting_lock_json)) }
       File.open('coverage/fitting.html', 'w') { |file| file.write(Fitting::Rep::HTML.to_s(fitting_json, fitting_lock_json)) }
-      File.open('coverage/fitting2.html', 'w') { |file| file.write(Fitting::Rep::HTML.bootstrap(fitting_json, fitting_lock_json)) }
+      Fitting::Rep::HTML.bootstrap('coverage', fitting_json, fitting_lock_json)
     end
   end
 end

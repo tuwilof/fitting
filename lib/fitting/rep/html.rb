@@ -1,16 +1,27 @@
 module Fitting
   class Rep
     class HTML
-      def self.bootstrap(fitting_json, fitting_lock_json)
-        File.read("#{$LOAD_PATH.find { |i| i.include?('fitting') }}/templates/htmlcss/bootstrap.html")
+      def self.copy_file(folder, name)
+        File.open("#{folder}/#{name}", 'w') do |file|
+          file.write(
+            File.read("#{$LOAD_PATH.find { |i| i.include?('fitting') }}/templates/htmlcss/#{name}")
+          )
+        end
+      end
+
+      def self.bootstrap(folder, fitting_json, fitting_lock_json)
+        copy_file(folder, 'bootstrap.html')
+        copy_file(folder, 'bootstrap-nightshade.min.css')
+        copy_file(folder, 'darkmode.min.js')
+        copy_file(folder, 'jquery-3.6.0.min.js')
       end
 
       def self.to_s(fitting_json, fitting_lock_json)
         divs = ""
         res = ""
         fitting_json.sort do |a, b|
-            (a[1].count(0) == 0 ? 100 : 0) <=> (b[1].count(0) == 0 ? 100 : 0)
-          end.each do |action|
+          (a[1].count(0) == 0 ? 100 : 0) <=> (b[1].count(0) == 0 ? 100 : 0)
+        end.each do |action|
           res +=
             "    <tr>"\
           "        <td>#{action[0].split(' ')[0]}</td>"\
@@ -34,7 +45,7 @@ module Fitting
           "</div>"
         end
 
-        file =  File.read("#{$LOAD_PATH.find { |i| i.include?('fitting') }}/templates/htmlcss/fitting.html")
+        file = File.read("#{$LOAD_PATH.find { |i| i.include?('fitting') }}/templates/htmlcss/fitting.html")
         file.gsub('<tr></tr>', res).gsub('<div></div>', divs)
       end
     end
