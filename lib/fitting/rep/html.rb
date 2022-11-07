@@ -13,7 +13,7 @@ module Fitting
         res = File.read("#{$LOAD_PATH.find { |i| i.include?('fitting') }}/templates/htmlcss/#{name}")
         File.open("#{folder}/#{name}", 'w') do |file|
           file.write(
-            res.gsub("{'fitting json': []}", fitting_json)
+            res.gsub("{'fitting json': []}", ::JSON.pretty_generate(fitting_json))
           )
         end
       end

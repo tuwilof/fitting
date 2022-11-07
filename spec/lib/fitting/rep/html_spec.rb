@@ -30,6 +30,6 @@ RSpec.describe Fitting::Rep::HTML do
     }
   }
   it do
-    expect { described_class.bootstrap('spec/fixtures/report', JSON.dump(fitting_json), {}) }.not_to raise_error
+    expect { described_class.bootstrap('spec/fixtures/report', fitting_json, {}) }.not_to raise_error
   end
 end
