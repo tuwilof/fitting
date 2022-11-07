@@ -9,8 +9,17 @@ module Fitting
         end
       end
 
+      def self.copy_file_with_json(folder, name, fitting_json)
+        res = File.read("#{$LOAD_PATH.find { |i| i.include?('fitting') }}/templates/htmlcss/#{name}")
+        File.open("#{folder}/#{name}", 'w') do |file|
+          file.write(
+            res.gsub("{'fitting json': []}", fitting_json)
+          )
+        end
+      end
+
       def self.bootstrap(folder, fitting_json, fitting_lock_json)
-        copy_file(folder, 'bootstrap.html')
+        copy_file_with_json(folder, 'bootstrap.html', fitting_json)
         copy_file(folder, 'bootstrap-nightshade.min.css')
         copy_file(folder, 'darkmode.min.js')
         copy_file(folder, 'jquery-3.6.0.min.js')
