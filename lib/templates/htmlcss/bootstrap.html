@@ -31,6 +31,86 @@
                     $("html").removeClass('light').addClass("dark");
                 }
             }
+
+            var json =
+                {
+                    "POST project.test/user": [
+                        null,
+                        4612,
+                        3828,
+                        10,
+                        10
+                    ],
+                    "GET project.test/user": [
+                        null,
+                        4612,
+                        3828,
+                        10,
+                        0,
+                        0
+                    ],
+                    "DELETE project.test/user": [
+                        null,
+                        4612,
+                        3828,
+                        0,
+                        0,
+                        0
+                    ],
+                }
+            ;
+
+            var index = 1;
+            for (var key in json){
+                console.log(index + "|" + key.split(" ")[0] + "|" + key.split(" ")[1] + " -> " + json[key]);
+
+                var all_string = json[key].filter(element => {
+                    return element !== null;
+                });
+                console.log(all_string);
+
+                var covered_length = all_string.filter(x => x > 0).length
+                console.log(covered_length);
+
+                var not_covered_length = all_string.filter(x => x === 0).length
+                console.log(not_covered_length);
+
+
+                if (not_covered_length == 0) {
+                    cover_percent = 100
+                } else {
+                    cover_percent = not_covered_length / all_string.length * 100
+                }
+                console.log(cover_percent);
+
+            var table = document.getElementById("myTable");
+            var row = table.insertRow(index);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            var cell5 = row.insertCell(4);
+            var cell6 = row.insertCell(5);
+            var cell7 = row.insertCell(6);
+            var cell8 = row.insertCell(7);
+            cell1.innerHTML = key.split(" ")[0];
+            cell2.innerHTML = key.split(" ")[1];
+
+            if (cover_percent == 100) {
+                cell3.innerHTML = "<span class=\"badge rounded-pill bg-success text-dark\">"+ cover_percent +"%</span>";
+            } else if (cover_percent >= 60) {
+                cell3.innerHTML = "<span class=\"badge rounded-pill bg-warning text-dark\">" + cover_percent + "%</span>\n"
+            } else {
+                cell3.innerHTML = "<span class=\"badge rounded-pill bg-danger text-dark\">" + cover_percent + "%</span>\n"
+            }
+            cell4.innerHTML = "89";
+            cell5.innerHTML = "19";
+            cell6.innerHTML = "9";
+            cell7.innerHTML = "10";
+            cell8.innerHTML = "3.79";
+
+                index += 1;
+            }
         }
 
         function toggle_color_scheme_css() {
@@ -63,7 +143,7 @@
 </header>
 
 <div class="bd-cheatsheet container-fluid">
-        <table class="table table-striped">
+        <table class="table table-striped" id="myTable">
             <thead>
             <tr>
                 <th>METHOD</th>
@@ -77,42 +157,6 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>POST</td>
-                <td>project.test/user</td>
-                <td>
-                    <span class="badge rounded-pill bg-success">100%</span>
-                </td>
-                <td>89</td>
-                <td>19</td>
-                <td>9</td>
-                <td>10</td>
-                <td>3.79</td>
-            </tr>
-            <tr>
-                <td>GET</td>
-                <td>project.test/user</td>
-                <td>
-                    <span class="badge rounded-pill bg-danger">60%</span>
-                </td>
-                <td>89</td>
-                <td>19</td>
-                <td>9</td>
-                <td>10</td>
-                <td>3.79</td>
-            </tr>
-            <tr>
-                <td>DELETE</td>
-                <td>project.test/user</td>
-                <td>
-                    <span class="badge rounded-pill bg-warning text-dark">40%</span>
-                </td>
-                <td>89</td>
-                <td>19</td>
-                <td>9</td>
-                <td>10</td>
-                <td>3.79</td>
-            </tr>
             </tbody>
         </table>
 </div>
