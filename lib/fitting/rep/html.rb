@@ -16,7 +16,7 @@ module Fitting
         copy_file(folder, 'jquery-3.6.0.min.js')
       end
 
-      def self.to_s(fitting_json, fitting_lock_json)
+      def self.to_str(fitting_json, fitting_lock_json)
         divs = ""
         res = ""
         fitting_json.sort do |a, b|
