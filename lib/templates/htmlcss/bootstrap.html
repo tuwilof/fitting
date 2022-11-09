@@ -70,10 +70,10 @@
             var cell6 = row.insertCell(5);
             var cell7 = row.insertCell(6);
             var cell8 = row.insertCell(7);
-            cell1.innerHTML = key.split(" ")[0];
+            cell1.innerHTML = "<a href=\"#\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal"+index+"\">" + key.split(" ")[0] + "</a>";
             cell2.innerHTML = "<a href=\"#\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal"+index+"\">" + key.split(" ")[1] + "</a>\n" +
                 "<div class=\"modal fade\" id=\"exampleModal"+index+"\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n" +
-                "    <div class=\"modal-dialog\">\n" +
+                "    <div class=\"modal-dialog modal-fullscreen\">\n" +
                 "        <div class=\"modal-content\">\n" +
                 "            <div class=\"modal-header\">\n" +
                 "                <h1 class=\"modal-title fs-5\" id=\"exampleModalLabel\">" + key + "</h1>\n" +
