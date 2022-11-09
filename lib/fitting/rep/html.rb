@@ -23,6 +23,7 @@ module Fitting
         copy_file(folder, 'bootstrap-nightshade.min.css')
         copy_file(folder, 'darkmode.min.js')
         copy_file(folder, 'jquery-3.6.0.min.js')
+        copy_file(folder, 'bootstrap.min.js')
       end
 
       def self.to_str(fitting_json, fitting_lock_json)

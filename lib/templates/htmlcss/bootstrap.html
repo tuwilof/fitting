@@ -71,7 +71,23 @@
             var cell7 = row.insertCell(6);
             var cell8 = row.insertCell(7);
             cell1.innerHTML = key.split(" ")[0];
-            cell2.innerHTML = key.split(" ")[1];
+            cell2.innerHTML = "<a href=\"#\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal"+index+"\">" + key.split(" ")[1] + "</a>\n" +
+                "<div class=\"modal fade\" id=\"exampleModal"+index+"\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n" +
+                "    <div class=\"modal-dialog\">\n" +
+                "        <div class=\"modal-content\">\n" +
+                "            <div class=\"modal-header\">\n" +
+                "                <h1 class=\"modal-title fs-5\" id=\"exampleModalLabel\">" + key + "</h1>\n" +
+                "                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n" +
+                "            </div>\n" +
+                "            <div class=\"modal-body\">\n" +
+                "                ...\n" +
+                "            </div>\n" +
+                "            <div class=\"modal-footer\">\n" +
+                "                <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Close</button>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "</div>";
 
             if (cover_percent == 100) {
                 cell3.innerHTML = "<span class=\"badge rounded-pill bg-success\">"+ cover_percent +"%</span>";
@@ -118,27 +134,6 @@
         <!-- ***** ***** ***** THE BUTTON GOES HERE ***** ***** ***** -->
     </div>
 </header>
-
-<!-- Button trigger modal -->
-<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">test</a>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="bd-cheatsheet container-fluid">
         <table class="table table-striped" id="myTable">
