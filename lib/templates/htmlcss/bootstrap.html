@@ -81,7 +81,7 @@
                     "                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n" +
                     "            </div>\n" +
                     "            <div class=\"modal-body\" id=\"rep"+index+"\">\n" +
-                    "                <table class=\"table\" id=\"rep"+index+"\">" +
+                    "                <table class=\"table table-borderless table-sm\" id=\"rep"+index+"\">" +
                     "                  <tbody>\n" +
                     "                  </tbody>\n"
                 "                </table>\n"
@@ -125,9 +125,11 @@
                     var cellRep2 = rowRep.insertCell(1);
                     var cellRep3 = rowRep.insertCell(2);
 
-                    cellRep1.innerHTML = repIndex;
-                    cellRep2.innerHTML = lock_json[key][repIndex];
-                    cellRep3.innerHTML = json[key][repIndex];
+                    cellRep1.innerHTML = repIndex + 1;
+                    cellRep2.innerHTML = lock_json[key][repIndex].replace(/\s/g, '&nbsp;');
+                    if (json[key][repIndex] != null) {
+                        cellRep3.innerHTML = "<span class=\"badge rounded-pill bg-dark\">" + json[key][repIndex] + "</span>";
+                    }
 
                     repIndex += 1;
                 }
