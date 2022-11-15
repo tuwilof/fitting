@@ -114,6 +114,13 @@
 
                     var rowRep = repTable.insertRow();
 
+
+                    if (json[key][repIndex] != null && json[key][repIndex] > 0) {
+                        rowRep.className = "table-success";
+                    } else if (json[key][repIndex] == 0) {
+                        rowRep.className = "table-danger";
+                    }
+
                     var cellRep1 = rowRep.insertCell(0);
                     var cellRep2 = rowRep.insertCell(1);
                     var cellRep3 = rowRep.insertCell(2);
