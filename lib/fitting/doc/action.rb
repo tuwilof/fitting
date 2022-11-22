@@ -112,6 +112,10 @@ module Fitting
 
       def nocover!
         @cover = 100
+        @host_cover = nil
+        @prefix_cover = nil
+        @path_cover = nil
+        @method_cover = nil
       end
 
       def path_match(find_path)
