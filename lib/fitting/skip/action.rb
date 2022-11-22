@@ -9,8 +9,9 @@ module Fitting
         @path = path
       end
 
-      def self.all(yaml)
-        yaml['SkipUsedActions'].map do |action|
+      def self.all(actions)
+        return [] unless actions
+        actions.map do |action|
           new(action['host'], action['method'], action['path'])
         end
       end

@@ -5,7 +5,7 @@ RSpec.describe Fitting::Log do
   describe '.all' do
     let(:testlog) { File.read('spec/fixtures/test.log') }
 
-    subject { described_class.all(testlog) }
+    subject { described_class.all(testlog, 'text') }
 
     it 'parses path and prefix for provided APIs' do
       expect(subject.first.path).to eq('/sso/oauth2/access_token')

@@ -1,141 +1,196 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <style>
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: black;
-                color: white;
+    <link rel="stylesheet" href="bootstrap-nightshade.min.css">
+    <script src="darkmode.min.js"></script>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script>
+        function init() {
+            if (localStorage.getItem("user-theme") == null) {
+                $mode = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? 'dark' : 'light';
+
+                if ($mode == 'dark') {
+                    localStorage.setItem("user-theme", 'dark');
+                } else {
+                    localStorage.setItem("user-theme", 'light');
+                }
+            } else {
+                $mode = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? 'dark' : 'light';
+
+                if ($mode == 'dark' && localStorage.getItem("user-theme") == 'dark') {
+                    document.getElementById("flexSwitchCheckChecked").checked = true;
+                    $("html").removeClass('light').addClass("dark");
+                } else if ($mode == 'light' && localStorage.getItem("user-theme") == 'light') {
+                    document.getElementById("flexSwitchCheckChecked").checked = false;
+                    $("html").removeClass("dark").addClass('light');
+                } else if ($mode == 'dark' && localStorage.getItem("user-theme") == 'light') {
+                    document.getElementById("flexSwitchCheckChecked").checked = false;
+                    $("html").removeClass("dark").addClass('light');
+                } else if ($mode == 'light' && localStorage.getItem("user-theme") == 'dark') {
+                    document.getElementById("flexSwitchCheckChecked").checked = true;
+                    $("html").removeClass('light').addClass("dark");
+                }
+            }
+
+            var json = {'fitting json': []};
+            var lock_json = {'fitting lock json': []};
+
+            var index = 1;
+            for (var key in json){
+                console.log(index + "|" + key.split(" ")[0] + "|" + key.split(" ")[1] + " -> " + json[key]);
+
+                var all_string = json[key].filter(element => {
+                    return element !== null;
+                });
+                console.log(all_string);
+
+                var covered_length = all_string.filter(x => x > 0).length
+                console.log(covered_length);
+
+                var not_covered_length = all_string.filter(x => x === 0).length
+                console.log(not_covered_length);
+
+
+                if (not_covered_length == 0) {
+                    cover_percent = 100
+                } else {
+                    cover_percent = not_covered_length / all_string.length * 100
+                }
+                console.log(cover_percent);
+
+                var myTable = document.getElementById('myTable').getElementsByTagName('tbody')[0];
+
+                var row = myTable.insertRow();
+
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                var cell6 = row.insertCell(5);
+                var cell7 = row.insertCell(6);
+                var cell8 = row.insertCell(7);
+                cell1.innerHTML = "<a href=\"#\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal"+index+"\">" + key.split(" ")[0] + "</a>";
+                cell2.innerHTML = "<a href=\"#\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal"+index+"\">" + key.split(" ")[1] + "</a>\n" +
+                    "<div class=\"modal fade\" id=\"exampleModal"+index+"\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n" +
+                    "    <div class=\"modal-dialog modal-fullscreen\">\n" +
+                    "        <div class=\"modal-content\">\n" +
+                    "            <div class=\"modal-header\">\n" +
+                    "                <h1 class=\"modal-title fs-5\" id=\"exampleModalLabel\">" + key + "</h1>\n" +
+                    "                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"modal-body\" id=\"rep"+index+"\">\n" +
+                    "                <table class=\"table table-borderless table-sm table-striped\" id=\"rep"+index+"\">" +
+                    "                  <tbody>\n" +
+                    "                  </tbody>\n"
+                "                </table>\n"
+                "                </table>\n"
+                "            </div>\n" +
+                "            <div class=\"modal-footer\">\n" +
+                "                <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Close</button>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "</div>";
+
+                if (cover_percent == 100) {
+                    cell3.innerHTML = "<span class=\"badge rounded-pill bg-success\">"+ cover_percent +"%</span>";
+                } else if (cover_percent >= 60) {
+                    cell3.innerHTML = "<span class=\"badge rounded-pill bg-warning\">" + cover_percent + "%</span>\n"
+                } else {
+                    cell3.innerHTML = "<span class=\"badge rounded-pill bg-danger\">" + cover_percent + "%</span>\n"
+                }
+                cell4.innerHTML = json[key].length;
+                cell5.innerHTML = all_string.length;
+                cell6.innerHTML = covered_length;
+                cell7.innerHTML = not_covered_length;
+                cell8.innerHTML = "3.79";
+
+                var repTable = document.getElementById('rep'+index).getElementsByTagName('tbody')[0];
+
+                var repIndex = 0;
+                for (var repKey in lock_json[key]) {
+
+                    var rowRep = repTable.insertRow();
+
+
+                    if (json[key][repIndex] != null && json[key][repIndex] > 0) {
+                        rowRep.className = "table-success";
+                    } else if (json[key][repIndex] == 0) {
+                        rowRep.className = "table-danger";
+                    }
+
+                    var cellRep1 = rowRep.insertCell(0);
+                    var cellRep2 = rowRep.insertCell(1);
+                    var cellRep3 = rowRep.insertCell(2);
+
+                    cellRep1.innerHTML = repIndex + 1;
+                    res = lock_json[key][repIndex]
+                    res = res.replace(/\s/g, '&nbsp;');
+                    if (res.includes(":") && res.split(":").length == 1) {
+                        res = "<code style=\"color: #007bff!important;\">" + res + "</code>"
+                    } else if (res.includes(":") && res.split(":").length == 2) {
+                        res = "<code style=\"color: #007bff!important;\">" + res.split(":")[0] + ":</code>" + "<code>" + res.split(":")[1] +"</code>"
+                    } else if (res.includes(":") && res.split(":").length == 3) {
+                        res = "<code style=\"color: #007bff!important;\">" + res.split(":")[0] + ":</code>" + "<code>" + res.split(":")[1] + res.split(":")[2] + "</code>"
+                    } else {
+                        res = "<code>" + res + "</code>"
+                    }
+
+                    cellRep2.innerHTML = res
+                    if (json[key][repIndex] != null) {
+                        cellRep3.innerHTML = "<span class=\"badge rounded-pill bg-dark\">" + json[key][repIndex] + "</span>";
+                    }
+
+                    repIndex += 1;
+                }
+
+                index += 1;
             }
         }
-        @media (prefers-color-scheme: light) {
-            body {
-                background-color: white;
-                color: black;
+
+        function toggle_color_scheme_css() {
+            if (localStorage.getItem("user-theme") == 'dark') {
+                $("html").removeClass("dark").addClass('light');
+                localStorage.setItem("user-theme", 'light');
+            } else {
+                $("html").removeClass('light').addClass("dark");
+                localStorage.setItem("user-theme", 'dark');
             }
         }
-
-        a:link {
-            color: white;
-            text-decoration: none;
-        }
-
-        a:visited {
-            color: white;
-        }
-
-        a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
-        a:active {
-            color: white;
-        }
-
-        .table {
-            width: 100%;
-            border: none;
-            margin-bottom: 20px;
-        }
-        .table thead th {
-            font-weight: bold;
-            text-align: left;
-            border: none;
-            padding: 10px 15px;
-            background: #232323;
-            font-size: 14px;
-        }
-        .table tbody td {
-            text-align: left;
-            border: none;
-            padding: 10px 15px;
-            font-size: 14px;
-            vertical-align: top;
-        }
-        .table tbody tr:nth-child(even){
-            background: #2d2d2d;
-        }
-        .red {
-            color: #900;
-        }
-
-        .green {
-            color: #090;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(64, 64, 64, 0.7);
-            transition: opacity 500ms;
-            visibility: hidden;
-            opacity: 0;
-        }
-
-        .overlay:target {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .popup {
-            margin: 70px auto;
-            padding: 20px;
-            background: black;
-            border-radius: 5px;
-            width: 90%;
-            position: relative;
-            transition: all 5s ease-in-out;
-        }
-
-        .popup h2 {
-            margin-top: 0;
-            color: white;
-            font-family: Tahoma, Arial, sans-serif;
-        }
-        .popup .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            transition: all 200ms;
-            font-size: 30px;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-        }
-        .popup .content {
-            max-height: 70%;
-            overflow: auto;
-        }
-
-        @media screen and (max-width: 700px){
-            .popup{
-                width: 70%;
-            }
-        }
-    </style>
+    </script>
 </head>
-<body>
-<table class="table">
-    <thead>
-    <tr>
-        <th>METHOD</th>
-        <th>URL</th>
-        <th>% covered</th>
-        <th>Lines</th>
-        <th>Relevant Lines</th>
-        <th>Lines covered</th>
-        <th>Lines missed</th>
-        <th>Avg. Hits / Line</th>
-    </tr>
-    </thead>
-    <tbody>
-<tr></tr>
-    </tbody>
-</table>
-<div></div>
+<body onload="init();">
+
+<nav class="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand">Fitting</a>
+        <div class="mb-3 form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                   onclick="toggle_color_scheme_css()">
+        </div>
+    </div>
+</nav>
+
+<div class="bd-cheatsheet container-fluid">
+        <table class="table table-striped" id="myTable">
+            <thead>
+            <tr>
+                <th>METHOD</th>
+                <th>URL</th>
+                <th>% covered</th>
+                <th>Lines</th>
+                <th>Relevant Lines</th>
+                <th>Lines covered</th>
+                <th>Lines missed</th>
+                <th>Avg. Hits / Line</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+</div>
+
 </body>
 </html>

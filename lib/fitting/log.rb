@@ -7,15 +7,27 @@ module Fitting
       @skip = false
     end
 
-    def self.all(testlog)
+    def self.all(testlog, log_format)
       logs = []
       testlog.split("\n").select { |f| f.include?('incoming request ') }.each do |test|
-        logs.push(new(JSON.load(test.split('incoming request ')[1]), 'incoming'))
+        if log_format == 'text'
+          logs.push(new(JSON.load(test.split('incoming request ')[1]), 'incoming'))
+        elsif log_format == 'json'
+          logs.push(new(JSON.load(JSON.load(test)['message'].split('incoming request ')[1]), 'incoming'))
+        end
       end
       testlog.split("\n").select { |f| f.include?('outgoing request ') }.each do |test|
-        logs.push(new(JSON.load(test.split('outgoing request ')[1]), 'outgoing'))
+        if log_format == 'text'
+          logs.push(new(JSON.load(test.split('outgoing request ')[1]), 'outgoing'))
+        elsif log_format == 'json'
+          logs.push(new(JSON.load(JSON.load(test)['message'].split('outgoing request ')[1]), 'outgoing'))
+        end
       end
       logs.sort { |a, b| b.path <=> a.path }
+    end
+
+    def url
+      "#{host}#{path}"
     end
 
     def path
