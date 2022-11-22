@@ -126,7 +126,19 @@
                     var cellRep3 = rowRep.insertCell(2);
 
                     cellRep1.innerHTML = repIndex + 1;
-                    cellRep2.innerHTML = lock_json[key][repIndex].replace(/\s/g, '&nbsp;');
+                    res = lock_json[key][repIndex]
+                    res = res.replace(/\s/g, '&nbsp;');
+                    if (res.includes(":") && res.split(":").length == 1) {
+                        res = "<code style=\"color: #007bff!important;\">" + res + "</code>"
+                    } else if (res.includes(":") && res.split(":").length == 2) {
+                        res = "<code style=\"color: #007bff!important;\">" + res.split(":")[0] + ":</code>" + "<code>" + res.split(":")[1] +"</code>"
+                    } else if (res.includes(":") && res.split(":").length == 3) {
+                        res = "<code style=\"color: #007bff!important;\">" + res.split(":")[0] + ":</code>" + "<code>" + res.split(":")[1] + res.split(":")[2] + "</code>"
+                    } else {
+                        res = "<code>" + res + "</code>"
+                    }
+
+                    cellRep2.innerHTML = res
                     if (json[key][repIndex] != null) {
                         cellRep3.innerHTML = "<span class=\"badge rounded-pill bg-dark\">" + json[key][repIndex] + "</span>";
                     }
