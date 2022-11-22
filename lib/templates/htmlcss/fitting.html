@@ -101,10 +101,10 @@
                 } else {
                     cell3.innerHTML = "<span class=\"badge rounded-pill bg-danger\">" + cover_percent + "%</span>\n"
                 }
-                cell4.innerHTML = "89";
-                cell5.innerHTML = "19";
-                cell6.innerHTML = "9";
-                cell7.innerHTML = "10";
+                cell4.innerHTML = json[key].length;
+                cell5.innerHTML = all_string.length;
+                cell6.innerHTML = covered_length;
+                cell7.innerHTML = not_covered_length;
                 cell8.innerHTML = "3.79";
 
                 var repTable = document.getElementById('rep'+index).getElementsByTagName('tbody')[0];
