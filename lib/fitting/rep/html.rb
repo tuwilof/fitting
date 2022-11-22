@@ -21,7 +21,7 @@ module Fitting
       end
 
       def self.bootstrap(folder, fitting_json, fitting_lock_json)
-        copy_file_with_json(folder, 'bootstrap.html', fitting_json, fitting_lock_json)
+        copy_file_with_json(folder, 'fitting.html', fitting_json, fitting_lock_json)
         copy_file(folder, 'bootstrap-nightshade.min.css')
         copy_file(folder, 'darkmode.min.js')
         copy_file(folder, 'jquery-3.6.0.min.js')
