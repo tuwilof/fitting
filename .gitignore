@@ -9,4 +9,4 @@
 /tmp/
 .idea/
 .byebug_history
-spec/fixtures/report
+spec/fixtures/report/*
