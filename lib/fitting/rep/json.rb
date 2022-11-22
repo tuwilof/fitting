@@ -2,7 +2,7 @@ module Fitting
   class Rep
     class JSON
       def self.to_s(actions)
-        actions.inject({}) do |sum, action|
+        actions.sort { |a, b| a.cover <=> b.cover }.inject({}) do |sum, action|
           res = []
           (action.to_yaml.split("\n").size).times { res.push(nil) }
           res[1] = action.host_cover
