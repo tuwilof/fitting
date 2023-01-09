@@ -25,25 +25,33 @@ module Fitting
         "#{@host}#{@prefix}#{@path}"
       end
 
-      def to_hash
-        {
-          host => {
-            prefix => {
-              path => {
-                method => {
-                  responses[0].code => {
-                    responses[0].content_type =>
-                      responses[0].body
+      def to_yaml
+        YAML.dump(
+          {
+            host => {
+              prefix => {
+                path => {
+                  method => {
+                    responses[0].code => {
+                      responses[0].content_type =>
+                        responses[0].body
+                    }
                   }
                 }
               }
             }
           }
-        }
+        ).split("\n")
       end
 
-      def to_yaml
-        YAML.dump(to_hash)
+      def to_lock
+        res = []
+        (to_yaml.size).times { res.push(nil) }
+        res[1] = host_cover
+        res[2] = prefix_cover
+        res[3] = path_cover
+        res[4] = method_cover
+        res
       end
 
       def self.provided_all(apis)
