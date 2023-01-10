@@ -25,8 +25,8 @@ module Fitting
         "#{@host}#{@prefix}#{@path}"
       end
 
-      def to_yaml
-        YAML.dump(
+      def to_hash_lock
+        res = YAML.dump(
           {
             host => {
               prefix => {
@@ -42,16 +42,17 @@ module Fitting
             }
           }
         ).split("\n")
+        { @key => res }
       end
 
-      def to_lock
+      def to_hash
         res = []
-        (to_yaml.size).times { res.push(nil) }
+        (to_hash_lock[@key ].size).times { res.push(nil) }
         res[1] = host_cover
         res[2] = prefix_cover
         res[3] = path_cover
         res[4] = method_cover
-        res
+        { @key => res }
       end
 
       def self.provided_all(apis)
