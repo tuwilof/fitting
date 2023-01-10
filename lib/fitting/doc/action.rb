@@ -44,16 +44,38 @@ module Fitting
                 res2.merge!(
                   {
                     code => {
-                      content_type =>
-                        subvalue.inject([]){|res, sv| res.push(sv['body'])}
+                      content_type => {
+                        "$schema" => "http://json-schema.org/draft-07/schema#",
+                        "type" => "object",
+                        "oneOf" => []
+                      },
                     }
                   })
+                subvalue.each do |sv|
+                  res2[code][content_type]["oneOf"].push(
+                    {
+                      "properties" => sv['body']["properties"],
+                      "required" => sv['body']["required"]
+                    }
+                  )
+                end
               elsif res2[code] != nil
                 res2[code].merge!(
                   {
-                    content_type =>
-                      subvalue.inject([]){|res, sv| res.push(sv['body'])}
+                    content_type => {
+                      "$schema" => "http://json-schema.org/draft-07/schema#",
+                      "type" => "object",
+                      "oneOf" => []
+                    },
                   })
+                subvalue.each do |sv|
+                  res2[code][content_type]["oneOf"].push(
+                    {
+                      "properties" => sv['body']["properties"],
+                      "required" => sv['body']["required"]
+                    }
+                  )
+                end
               end
             end
           end
