@@ -1,5 +1,3 @@
-require 'fitting/doc/response'
-
 module Fitting
   class Doc
     class Action
@@ -11,7 +9,7 @@ module Fitting
         @prefix = prefix
         @method = method
         @path = path
-        @responses = Fitting::Doc::Response.all(responses)
+        @responses = responses
         @key = "#{method} #{host}#{prefix}#{path}"
 
         @host_cover = 0
@@ -21,17 +19,52 @@ module Fitting
       end
 
       def to_hash_lock
+        res2 = {}
+
+        responses.group_by { |response| response['status'] }.each do |code, value|
+          value.group_by { |val| val['content-type'] }.each do |content_type, subvalue|
+            if subvalue.size == 1
+              if res2[code] == nil
+                res2.merge!(
+                  {
+                    code => {
+                      content_type =>
+                        subvalue[0]['body']
+                    }
+                  })
+              elsif res2[code] != nil
+                res2[code].merge!(
+                  {
+                    content_type =>
+                      subvalue[0]['body']
+                  })
+              end
+            else
+              if res2[code] == nil
+                res2.merge!(
+                  {
+                    code => {
+                      content_type =>
+                        subvalue.inject([]){|res, sv| res.push(sv['body'])}
+                    }
+                  })
+              elsif res2[code] != nil
+                res2[code].merge!(
+                  {
+                    content_type =>
+                      subvalue.inject([]){|res, sv| res.push(sv['body'])}
+                  })
+              end
+            end
+          end
+        end
+
         res = YAML.dump(
           {
             host => {
               prefix => {
                 path => {
-                  method => {
-                    responses[0].code => {
-                      responses[0].content_type =>
-                        responses[0].body
-                    }
-                  }
+                  method => res2
                 }
               }
             }
@@ -41,12 +74,14 @@ module Fitting
       end
 
       def to_hash
-        res = []
-        (to_hash_lock[@key ].size).times { res.push(nil) }
-        res[1] = @host_cover
-        res[2] = @prefix_cover
-        res[3] = @path_cover
-        res[4] = @method_cover
+        res = [
+          nil,
+          @host_cover,
+          @prefix_cover,
+          @path_cover,
+          @method_cover
+        ]
+        (to_hash_lock[@key].size - 5).times { res.push(nil) }
         { @key => res }
       end
 
