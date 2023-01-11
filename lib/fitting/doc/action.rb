@@ -26,7 +26,7 @@ module Fitting
             host => {
               prefix => {
                 path => {
-                  method => @responses
+                  method => @responses.to_hash
                 }
               }
             }

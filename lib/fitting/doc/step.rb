@@ -66,6 +66,11 @@ module Fitting
 
         @step = res2
       end
+
+      def to_hash
+        @step
+      end
+
       def valid?
 
       end
