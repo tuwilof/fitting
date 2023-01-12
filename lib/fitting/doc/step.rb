@@ -1,11 +1,7 @@
 module Fitting
   class Doc
     class Step
-      attr_accessor :step_cover_size, :step_value
-
-      def next_steps
-
-      end
+      attr_accessor :step_cover_size, :step_value, :step_key
 
       def to_hash
         {
@@ -13,16 +9,20 @@ module Fitting
         }
       end
 
-      def valid?
+      def nocover!
+        @step_cover_size = nil
+      end
 
+      def next_steps
+      end
+
+      def valid?
       end
 
       def range
-
       end
 
       def next
-
       end
     end
   end
