@@ -1,4 +1,4 @@
-require 'fitting/doc/step'
+require 'fitting/doc/code'
 
 module Fitting
   class Doc
@@ -11,7 +11,10 @@ module Fitting
         @prefix = prefix
         @method = method
         @path = path
-        @responses = Step.new(responses)
+        @responses = {}
+        responses.group_by { |response| response['status'] }.each do |code, value|
+          @responses.merge!(Code.new(code, value))
+        end
         @key = "#{method} #{host}#{prefix}#{path}"
 
         @host_cover = 0
@@ -26,7 +29,7 @@ module Fitting
             host => {
               prefix => {
                 path => {
-                  method => @responses.to_hash
+                  method => @responses
                 }
               }
             }
