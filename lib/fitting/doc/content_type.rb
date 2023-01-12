@@ -1,4 +1,5 @@
 require 'fitting/doc/step'
+require 'fitting/doc/json_schema'
 
 module Fitting
   class Doc
@@ -6,37 +7,33 @@ module Fitting
       def initialize(content_type, subvalue)
         @step_cover_size = 0
         @step_key = content_type
-        @next_steps = []
         if subvalue.size == 1
-          @next_steps.push(subvalue[0]['body'])
+          @next_steps = [JsonSchema.new(subvalue[0]['body'])]
         else
-          @next_steps.push(
+          @next_steps = [JsonSchema.new(
             {
-              "$schema" => "http://json-schema.org/draft-07/schema#",
+              "$schema" => "http://json-schema.org/draft-04/schema#",
               "type" => "object",
-              "oneOf" => []
-            })
-          subvalue.each do |sv|
-            @next_steps[0]["oneOf"].push(
-              {
-                "properties" => sv['body']["properties"],
-                "required" => sv['body']["required"]
-              }
-            )
-          end
+              "oneOf" => subvalue.inject([]) do |sum, sv|
+                sum.push(
+                  {
+                    "properties" => sv['body']["properties"],
+                    "required" => sv['body']["required"]
+                  }
+                )
+              end
+            }
+          )]
         end
       end
 
       def cover!(log)
         if @step_key == 'application/json'
           @step_cover_size += 1
+          @next_steps.each { |json_schema| json_schema.cover!(log) }
         else
-          @step_cover_size = nil
+          nocover!
         end
-      end
-
-      def nocover!
-        @step_cover_size = nil
       end
     end
   end
