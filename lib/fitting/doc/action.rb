@@ -1,9 +1,9 @@
-require 'fitting/doc/response'
+require 'fitting/doc/code'
 
 module Fitting
   class Doc
     class Action
-      attr_accessor :key, :type, :host, :prefix, :path, :method, :responses, :host_cover, :prefix_cover, :path_cover, :method_cover
+      attr_accessor :type, :host, :prefix, :path, :method, :responses
 
       def initialize(type, host, prefix, method, path, responses)
         @type = type
@@ -11,8 +11,10 @@ module Fitting
         @prefix = prefix
         @method = method
         @path = path
-        @cover = 0
-        @responses = Fitting::Doc::Response.all(responses)
+        @responses = []
+        responses.group_by { |response| response['status'] }.each do |code, value|
+          @responses.push(Code.new(code, value))
+        end
         @key = "#{method} #{host}#{prefix}#{path}"
 
         @host_cover = 0
@@ -21,29 +23,40 @@ module Fitting
         @method_cover = 0
       end
 
-      def url
-        "#{@host}#{@prefix}#{@path}"
-      end
-
-      def to_hash
-        {
-          host => {
-            prefix => {
-              path => {
-                method => {
-                  responses[0].code => {
-                    responses[0].content_type =>
-                      responses[0].body
-                  }
+      def to_hash_lock
+        res = YAML.dump(
+          {
+            host => {
+              prefix => {
+                path => {
+                  method => @responses.inject({}) { |sum, response| sum.merge!(response) }
                 }
               }
             }
           }
-        }
+        ).split("\n")
+        { @key => res }
       end
 
-      def to_yaml
-        YAML.dump(to_hash)
+      def to_hash
+        res = [
+          nil,
+          @host_cover,
+          @prefix_cover,
+          @path_cover,
+          @method_cover
+        ]
+        (to_hash_lock[@key].size - 5).times { res.push(nil) }
+
+        if @method_cover != nil && @method_cover != 0
+          response_index = 5
+          @responses.each do |response|
+            res[response_index] = response.step_cover_size
+            response_index += YAML.dump(response.step_value).split("\n").size
+          end
+        end
+
+        { @key => res }
       end
 
       def self.provided_all(apis)
@@ -82,36 +95,29 @@ module Fitting
         unless log.host == host
           return
         end
-        @cover = 25 if @cover < 25
         @host_cover += 1
 
         unless prefix.size == 0 || log.path[0..prefix.size - 1] == prefix
           return
         end
-        @cover = 50 if @cover < 50
         @prefix_cover += 1
 
         unless path_match(log.path)
           return
         end
-        @cover = 75 if @cover < 75
         @path_cover += 1
 
         unless log.method == method
           return
         end
-        @cover = 100 if @cover < 100
         @method_cover += 1
+
+        @responses.each { |response| response.cover!(log) }
 
         true
       end
 
-      def cover
-        @cover
-      end
-
       def nocover!
-        @cover = 100
         @host_cover = nil
         @prefix_cover = nil
         @path_cover = nil
