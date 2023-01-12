@@ -95,7 +95,7 @@ module Fitting
     def self.report(logs)
       puts "\n\n"
       Fitting::Log.failure(logs).each_with_index do |log, index|
-        puts "\e[31m  #{index + 1}) #{log.error.class} #{log.error.message}\n#{log.method} #{log.host}#{log.path} #{log.status}\n\e[0m"
+        puts "\e[31m  #{index + 1}) #{log.error.class} #{log.error.message}\n\n\e[0m"
       end
       print "\e[31m#{logs.size} examples, #{Fitting::Log.failure(logs).size} failure, #{Fitting::Log.pending(logs).size} pending\e[0m\n"
     end

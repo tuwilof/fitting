@@ -15,12 +15,20 @@ module Fitting
               "$schema" => "http://json-schema.org/draft-04/schema#",
               "type" => "object",
               "oneOf" => subvalue.inject([]) do |sum, sv|
-                sum.push(
-                  {
-                    "properties" => sv['body']["properties"],
-                    "required" => sv['body']["required"]
-                  }
-                )
+                if sv['body']["required"] == nil
+                  sum.push(
+                    {
+                      "properties" => sv['body']["properties"]
+                    }
+                  )
+                else
+                  sum.push(
+                    {
+                      "properties" => sv['body']["properties"],
+                      "required" => sv['body']["required"]
+                    }
+                  )
+                end
               end
             }
           )]

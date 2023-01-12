@@ -128,6 +128,13 @@ module Fitting
         @responses.each { |response| response.cover!(log) }
 
         true
+      rescue Fitting::Doc::Code::NotFound => e
+        raise NotFound.new "\n\ntype: #{@type}\n"\
+          "host: #{@host}\n" \
+          "prefix: #{@prefix}\n" \
+          "method: #{@method}\n" \
+          "path: #{@path}\n" \
+          "#{e.message}"
       end
 
       def nocover!
