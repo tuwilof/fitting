@@ -1,19 +1,19 @@
 module Fitting
   class Doc
     class Step
-      attr_accessor :step_cover_size, :step_value, :step_key
+      attr_accessor :step_cover_size, :step_key, :next_steps
 
       def to_hash
         {
-          @step_key => @step_value
+          @step_key => @next_steps.inject({}) { |sum, value| sum.merge!(value) }
         }
       end
 
       def nocover!
         @step_cover_size = nil
-      end
-
-      def next_steps
+        @next_steps.each do |next_step|
+          next_step.nocover!
+        end
       end
 
       def valid?
