@@ -49,10 +49,17 @@ module Fitting
         (to_hash_lock[@key].size - 5).times { res.push(nil) }
 
         if @method_cover != nil && @method_cover != 0
-          response_index = 5
-          @responses.each do |response|
-            res[response_index] = response.step_cover_size
-            response_index += YAML.dump(response.step_value).split("\n").size
+          code_index = 5
+          @responses.each do |code|
+            res[code_index] = code.step_cover_size
+
+            content_type_index = code_index + 1
+            code.next_steps.each do |content_type|
+              res[content_type_index] = content_type.step_cover_size
+              content_type_index += YAML.dump(content_type.next_steps.inject({}) { |sum, value| sum.merge!(value) }).split("\n").size
+            end
+
+            code_index += YAML.dump(code.next_steps.inject({}) { |sum, value| sum.merge!(value) }).split("\n").size
           end
         end
 
