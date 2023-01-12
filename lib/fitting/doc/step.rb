@@ -1,6 +1,8 @@
 module Fitting
   class Doc
     class Step
+      attr_accessor :step_cover_size, :step_value
+
       def next_steps
 
       end
@@ -12,10 +14,6 @@ module Fitting
       end
 
       def valid?
-
-      end
-
-      def increment!
 
       end
 

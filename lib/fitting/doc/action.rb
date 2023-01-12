@@ -11,9 +11,9 @@ module Fitting
         @prefix = prefix
         @method = method
         @path = path
-        @responses = {}
+        @responses = []
         responses.group_by { |response| response['status'] }.each do |code, value|
-          @responses.merge!(Code.new(code, value))
+          @responses.push(Code.new(code, value))
         end
         @key = "#{method} #{host}#{prefix}#{path}"
 
@@ -29,7 +29,7 @@ module Fitting
             host => {
               prefix => {
                 path => {
-                  method => @responses
+                  method => @responses.inject({}) { |sum, response| sum.merge!(response) }
                 }
               }
             }
@@ -47,6 +47,15 @@ module Fitting
           @method_cover
         ]
         (to_hash_lock[@key].size - 5).times { res.push(nil) }
+
+        if @method_cover != nil && @method_cover != 0
+          response_index = 5
+          @responses.each do |response|
+            res[response_index] = response.step_cover_size
+            response_index += YAML.dump(response.step_value).split("\n").size
+          end
+        end
+
         { @key => res }
       end
 
@@ -102,6 +111,8 @@ module Fitting
           return
         end
         @method_cover += 1
+
+        @responses.each { |response| response.cover!(log) }
 
         true
       end
