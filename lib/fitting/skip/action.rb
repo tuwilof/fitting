@@ -1,18 +1,19 @@
 module Fitting
   class Skip
     class Action
-      attr_accessor :host, :method, :path
+      attr_accessor :host, :method, :path, :code
 
-      def initialize(host, method, path)
+      def initialize(host, method, path, code)
         @host = host
         @method = method
         @path = path
+        @code = code
       end
 
       def self.all(actions)
         return [] unless actions
         actions.map do |action|
-          new(action['host'], action['method'], action['path'])
+          new(action['host'], action['method'], action['path'], action['code'])
         end
       end
 
@@ -21,7 +22,8 @@ module Fitting
           if action.host == log.host &&
             action.method == log.method &&
             action.path_match(log.path)
-            return action
+            return action if action.code == nil
+            return action if action.code.to_s == log.status
           end
         end
       end
