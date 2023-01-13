@@ -5,12 +5,14 @@ module Fitting
   class Doc
     class ContentType < Step
       def initialize(content_type, subvalue)
-        @step_cover_size = 0
         @step_key = content_type
+        @next_steps = []
+        return self if content_type != 'application/json'
+        @step_cover_size = 0
         if subvalue.size == 1
-          @next_steps = [JsonSchema.new(subvalue[0]['body'])]
+          @next_steps.push(JsonSchema.new(subvalue[0]['body']))
         else
-          @next_steps = [JsonSchema.new(
+          @next_steps.push(JsonSchema.new(
             {
               "$schema" => "http://json-schema.org/draft-04/schema#",
               "type" => "object",
@@ -31,7 +33,7 @@ module Fitting
                 end
               end
             }
-          )]
+          ))
         end
       end
 

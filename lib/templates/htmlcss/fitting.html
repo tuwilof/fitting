@@ -53,9 +53,9 @@
 
 
                 if (not_covered_length == 0) {
-                    cover_percent = 100
+                    cover_percent = (100).toFixed(2)
                 } else {
-                    cover_percent = not_covered_length / all_string.length * 100
+                    cover_percent = (covered_length / all_string.length * 100).toFixed(2)
                 }
                 console.log(cover_percent);
 
@@ -95,11 +95,11 @@
                 "</div>";
 
                 if (cover_percent == 100) {
-                    cell3.innerHTML = "<span class=\"badge rounded-pill bg-success\">"+ cover_percent +"%</span>";
+                    cell3.innerHTML = "<span class=\"badge rounded-pill bg-success\" style=\"width: 70px;\">"+ cover_percent +"%</span>";
                 } else if (cover_percent >= 60) {
-                    cell3.innerHTML = "<span class=\"badge rounded-pill bg-warning\">" + cover_percent + "%</span>\n"
+                    cell3.innerHTML = "<span class=\"badge rounded-pill bg-warning\" style=\"width: 70px;\">" + cover_percent + "%</span>\n"
                 } else {
-                    cell3.innerHTML = "<span class=\"badge rounded-pill bg-danger\">" + cover_percent + "%</span>\n"
+                    cell3.innerHTML = "<span class=\"badge rounded-pill bg-danger\" style=\"width: 70px;\">" + cover_percent + "%</span>\n"
                 }
                 cell4.innerHTML = json[key].length;
                 cell5.innerHTML = all_string.length;
