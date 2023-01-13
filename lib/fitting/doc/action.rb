@@ -5,6 +5,8 @@ module Fitting
     class Action
       attr_accessor :type, :host, :prefix, :path, :method, :responses
 
+      class NotFound < RuntimeError; end
+
       def initialize(type, host, prefix, method, path, responses)
         @type = type
         @host = host

@@ -4,6 +4,8 @@ require 'fitting/doc/json_schema'
 module Fitting
   class Doc
     class ContentType < Step
+      class NotFound < RuntimeError; end
+
       def initialize(content_type, subvalue)
         @step_key = content_type
         @next_steps = []
@@ -76,6 +78,9 @@ module Fitting
         else
           nocover!
         end
+      rescue Fitting::Doc::JsonSchema::NotFound => e
+        raise NotFound.new "content-type: #{@step_key}\n\n"\
+          "#{e.message}"
       end
     end
   end

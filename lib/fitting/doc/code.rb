@@ -20,7 +20,7 @@ module Fitting
           @step_cover_size += 1
           @next_steps.each { |content_type| content_type.cover!(log) }
         end
-      rescue Fitting::Doc::JsonSchema::NotFound => e
+      rescue Fitting::Doc::ContentType::NotFound => e
         raise NotFound.new "code: #{@step_key}\n\n"\
           "#{e.message}"
       end
