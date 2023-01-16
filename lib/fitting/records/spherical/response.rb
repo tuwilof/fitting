@@ -14,11 +14,13 @@ module Fitting
         def to_hash
           {
             status: status,
+            content_type: 'application/json',
             body: JSON.parse(body)
           }
         rescue JSON::ParserError
           {
             status: status,
+            content_type: 'text/plain',
             body: {}
           }
         end

@@ -9,8 +9,8 @@ module Fitting
       def initialize(content_type, subvalue)
         @step_key = content_type
         @next_steps = []
-        return self if content_type != 'application/json'
         @step_cover_size = 0
+        return self if content_type != 'application/json'
         if subvalue.size == 1
           @next_steps.push(JsonSchema.new(subvalue[0]['body']))
         else
@@ -72,11 +72,9 @@ module Fitting
       end
 
       def cover!(log)
-        if @step_key == 'application/json'
+        if @step_key == log.content_type
           @step_cover_size += 1
           @next_steps.each { |json_schema| json_schema.cover!(log) }
-        else
-          nocover!
         end
       rescue Fitting::Doc::JsonSchema::NotFound => e
         raise NotFound.new "content-type: #{@step_key}\n\n"\
