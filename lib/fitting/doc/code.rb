@@ -37,20 +37,6 @@ module Fitting
         raise NotFound.new "code: #{@step_key}\n\n"\
           "#{e.message}"
       end
-
-      def report(res, code_index)
-        res[code_index] = @step_cover_size
-
-        if @next_steps != []
-          content_type_index = code_index + 1
-          @next_steps.each do |content_type|
-            res, content_type_index = content_type.report(res, content_type_index)
-          end
-        end
-
-        code_index += YAML.dump(@next_steps.inject({}) { |sum, value| sum.merge!(value) }).split("\n").size
-        [res, code_index]
-      end
     end
   end
 end

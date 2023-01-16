@@ -32,6 +32,11 @@ module Fitting
         #  raise Fitting::Doc::JsonSchema::NotFound.new "#{e.message}\n\nsource json-schema: #{::JSON.pretty_generate(@step_key)}\n\n"\
       end
 
+      def report(res, index)
+        res[index] = @step_cover_size
+        [res, index]
+      end
+
       def nocover!
         @step_cover_size = nil
       end
