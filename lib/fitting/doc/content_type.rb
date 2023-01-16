@@ -72,9 +72,11 @@ module Fitting
       end
 
       def cover!(log)
-        if @step_key == log.content_type
+        if @step_key == log.content_type && log.content_type == 'application/json'
           @step_cover_size += 1
           @next_steps.each { |json_schema| json_schema.cover!(log) }
+        elsif @step_key != 'application/json' && log.content_type != 'application/json'
+          @step_cover_size += 1
         end
       rescue Fitting::Doc::JsonSchema::NotFound => e
         raise NotFound.new "content-type: #{@step_key}\n\n"\
