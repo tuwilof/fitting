@@ -32,6 +32,14 @@ module Fitting
         #  raise Fitting::Doc::JsonSchema::NotFound.new "#{e.message}\n\nsource json-schema: #{::JSON.pretty_generate(@step_key)}\n\n"\
       end
 
+      def new_index_offset
+        if @step_key["definitions"]
+          YAML.dump(@step_key["definitions"]).split("\n").size + 3
+        else
+          3
+        end
+      end
+
       def nocover!
         @step_cover_size = nil
       end

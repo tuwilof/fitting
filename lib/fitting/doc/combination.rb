@@ -27,9 +27,8 @@ module Fitting
         end
       end
 
-      def report(res, index)
-        res[index] = @step_cover_size
-        [res, index]
+      def index_offset
+        YAML.dump(@step_key['oneOf'][0]).split("\n").size - 1
       end
     end
   end
