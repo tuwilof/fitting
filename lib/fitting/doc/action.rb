@@ -55,16 +55,18 @@ module Fitting
           @responses.each do |code|
             res[code_index] = code.step_cover_size
 
-            content_type_index = code_index + 1
-            code.next_steps.each do |content_type|
-              res[content_type_index] = content_type.step_cover_size
+            if code.next_steps != []
+              content_type_index = code_index + 1
+              code.next_steps.each do |content_type|
+                res[content_type_index] = content_type.step_cover_size
 
-              json_schema_index = content_type_index + 1
-              content_type.next_steps.each do |json_schema|
-                res[json_schema_index] = json_schema.step_cover_size
+                json_schema_index = content_type_index + 1
+                content_type.next_steps.each do |json_schema|
+                  res[json_schema_index] = json_schema.step_cover_size
+                end
+
+                content_type_index += YAML.dump(content_type.next_steps.inject({}) { |sum, value| sum.merge!(value) }).split("\n").size
               end
-
-              content_type_index += YAML.dump(content_type.next_steps.inject({}) { |sum, value| sum.merge!(value) }).split("\n").size
             end
 
             code_index += YAML.dump(code.next_steps.inject({}) { |sum, value| sum.merge!(value) }).split("\n").size

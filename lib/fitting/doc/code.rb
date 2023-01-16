@@ -11,6 +11,7 @@ module Fitting
         @step_key = code
         @next_steps = []
         value.group_by { |val| val['content-type'] }.each do |content_type, subvalue|
+          break if content_type == nil
           @next_steps.push(ContentType.new(content_type, subvalue))
         end
       end
