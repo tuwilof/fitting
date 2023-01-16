@@ -2,17 +2,19 @@ module Fitting
   class NoCov
     class NotFound < RuntimeError; end
 
-    def initialize(host, method, path, code)
+    def initialize(host, method, path, code, content_type, combination)
       @host = host
       @method = method
       @path = path
       @code = code
+      @content_type = content_type
+      @combination = combination
     end
 
     def self.all(yaml)
       return [] unless yaml['NoCovUsedActions']
       yaml['NoCovUsedActions'].map do |action|
-        new(action['host'], action['method'], action['path'], action['code'])
+        new(action['host'], action['method'], action['path'], action['code'], action['content-type'], action['combination'])
       end
     end
 
@@ -24,11 +26,29 @@ module Fitting
       if @code == nil
         return res if res.present?
         raise NotFound.new("host: #{@host}, method: #{@method}, path: #{@path}")
-      else
-        res_code = res.responses.find { |response| response.step_key == @code.to_s }
+      end
+
+      res_code = res.responses.find { |response| response.step_key == @code.to_s }
+
+      if @content_type == nil
         return res_code if res_code.present?
         raise NotFound.new("host: #{@host}, method: #{@method}, path: #{@path}, code: #{@code}")
       end
+
+      res_content_type = res_code.next_steps.find { |content_type| content_type.step_key == @content_type.to_s }
+
+      if @combination == nil
+        return res_content_type if res_content_type.present?
+        raise NotFound.new("host: #{@host}, method: #{@method}, path: #{@path}, code: #{@code}, content-type: #{@content_type}")
+      end
+
+      res_json_schema = res_content_type.next_steps[0]
+      res_combination = res_json_schema.next_steps.find do |combination|
+        combination.step_key == @combination.to_s
+      end
+
+      return res_combination if res_combination
+      raise NotFound.new("host: #{@host}, method: #{@method}, path: #{@path}, code: #{@code}, content-type: #{@content_type}, combination: #{@combination}")
     end
   end
 end

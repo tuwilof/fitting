@@ -7,28 +7,28 @@ module Fitting
 
       def initialize(json_schema, type, combination)
         @step_cover_size = 0
-        @step_key = json_schema
+        @json_schema = json_schema
         @next_steps = []
         @type = type
-        @combination = combination
+        @step_key = combination
       end
 
       def cover!(log)
-        if JSON::Validator.fully_validate(@step_key, log.body) == []
+        if JSON::Validator.fully_validate(@json_schema, log.body) == []
           @step_cover_size += 1
 =begin
         else
           raise NotFound.new "combination: #{@combination}\n"\
             "combination type: #{@type}\n"\
-            "combination json-schema: #{::JSON.pretty_generate(@step_key)}\n"\
-            "combination error #{::JSON.pretty_generate(JSON::Validator.fully_validate(@step_key, log.body))}\n"\
+            "combination json-schema: #{::JSON.pretty_generate(@json_schema)}\n"\
+            "combination error #{::JSON.pretty_generate(JSON::Validator.fully_validate(@json_schema, log.body))}\n"\
             "body: #{::JSON.pretty_generate(log.body)}"
 =end
         end
       end
 
       def index_offset
-        YAML.dump(@step_key['oneOf'][0]).split("\n").size - 1
+        YAML.dump(@json_schema['oneOf'][0]).split("\n").size - 1
       end
     end
   end
