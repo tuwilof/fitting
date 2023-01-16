@@ -8,6 +8,7 @@ module Fitting
       def initialize(json_schema, type, combination)
         @step_cover_size = 0
         @step_key = json_schema
+        @next_steps = []
         @type = type
         @combination = combination
       end
@@ -24,6 +25,11 @@ module Fitting
             "body: #{::JSON.pretty_generate(log.body)}"
 =end
         end
+      end
+
+      def report(res, index)
+        res[index] = @step_cover_size
+        [res, index]
       end
     end
   end

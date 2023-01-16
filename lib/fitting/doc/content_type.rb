@@ -20,7 +20,7 @@ module Fitting
             end
             sum
           end
-          if definitions
+          if definitions && definitions != {}
             @next_steps.push(JsonSchema.new(
               {
                 "$schema" => "http://json-schema.org/draft-04/schema#",
