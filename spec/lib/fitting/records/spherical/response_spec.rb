@@ -6,7 +6,7 @@ RSpec.describe Fitting::Records::Spherical::Response do
     subject { described_class.new(status: 200, body: '{"name": "noname"}') }
 
     it 'returns json' do
-      expect(subject.to_json).to eq('{"status":200,"body":{"name":"noname"}}')
+      expect(subject.to_json).to eq('{"status":200,"content_type":"application/json","body":{"name":"noname"}}')
     end
   end
 
@@ -14,7 +14,7 @@ RSpec.describe Fitting::Records::Spherical::Response do
     subject { described_class.new(status: 200, body: '{"name": "noname"}') }
 
     it 'returns hash' do
-      expect(subject.to_hash).to eq(status: 200, body: { 'name' => 'noname' })
+      expect(subject.to_hash).to eq(status: 200, "content_type": "application/json", body: { 'name' => 'noname' })
     end
   end
 

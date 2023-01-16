@@ -27,11 +27,11 @@ module Fitting
         apis.find do |api|
           if api.type == 'provided' && log.type == 'incoming'
             if log.host == api.host
-              api.prefix['name'].nil? || log.path[0..prefix['name'].size - 1] == api.prefix['name']
+              api.prefix.nil? || api.prefix == '' || log.path[0..api.prefix.size - 1] == api.prefix
             end
           elsif api.type == 'used' && log.type == 'outgoing'
             if log.host == api.host
-              api.prefix['name'].nil? || log.path[0..prefix['name'].size - 1] == api.prefix['name']
+              api.prefix.nil? || api.prefix == '' || log.path[0..api.prefix.size - 1] == api.prefix
             end
           end
         end

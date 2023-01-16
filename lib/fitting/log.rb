@@ -46,6 +46,10 @@ module Fitting
       @log['response']['body']
     end
 
+    def content_type
+      @log['response']['content_type']
+    end
+
     def host
       @log['host']
     end
