@@ -35,6 +35,12 @@ module Fitting
           (start_index..end_index).each do |i|
             res[i] = @step_cover_size
           end
+
+          @json_schema["oneOf"][0]["required"].each do |required|
+            required_index = YAML.dump(@json_schema["oneOf"][0]["properties"]).split("\n").index { |key| key == "#{required}:" }
+            res[index + required_index] = @step_cover_size
+            res[index + required_index + 1] = @step_cover_size
+          end
         else
           res[index] = @step_cover_size
         end
