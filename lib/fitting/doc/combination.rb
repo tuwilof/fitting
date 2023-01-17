@@ -27,6 +27,20 @@ module Fitting
         end
       end
 
+      def mark_range(index, res)
+        if @json_schema["oneOf"][0]["required"]
+          res[index] = @step_cover_size
+          start_index = index + YAML.dump(@json_schema["oneOf"][0]["properties"]).split("\n").size
+          end_index = start_index + YAML.dump(@json_schema["oneOf"][0]["required"]).split("\n").size - 1
+          (start_index..end_index).each do |i|
+            res[i] = @step_cover_size
+          end
+        else
+          res[index] = @step_cover_size
+        end
+
+      end
+
       def index_offset
         YAML.dump(@json_schema['oneOf'][0]).split("\n").size - 1
       end

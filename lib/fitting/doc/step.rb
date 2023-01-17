@@ -17,7 +17,7 @@ module Fitting
       end
 
       def report(res, index)
-        res[index] = @step_cover_size
+        mark_range(index, res)
 
         if @next_steps != []
           new_index = index + new_index_offset
@@ -28,6 +28,10 @@ module Fitting
 
         index += index_offset
         [res, index]
+      end
+
+      def mark_range(index, res)
+        res[index] = @step_cover_size
       end
 
       def new_index_offset
