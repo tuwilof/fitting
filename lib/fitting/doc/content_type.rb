@@ -24,19 +24,30 @@ module Fitting
             @next_steps.push(JsonSchema.new(
               {
                 "$schema" => "http://json-schema.org/draft-04/schema#",
-                "definitions" => definitions,
                 "type" => "object",
                 "oneOf" => subvalue.inject([]) do |sum, sv|
+                  res = sv['body']["properties"]
+                  definitions.each_pair do |key, value|
+                    while JSON.dump(res).include?("\"$ref\":\"#/definitions/#{key}\"") do
+                      new_res_array = JSON.dump(res).split('{')
+                      index = new_res_array.index {|js| js.include?("\"$ref\":\"#/definitions/#{key}\"")}
+                      if index != nil
+                        def_size = "\"$ref\":\"#/definitions/#{key}\"".size
+                        new_res_array[index] = JSON.dump(value)[1..-2] + new_res_array[index][def_size..-1]
+                        res = JSON.load(new_res_array.join("{"))
+                      end
+                    end
+                  end
                   if sv['body']["required"] == nil
                     sum.push(
                       {
-                        "properties" => sv['body']["properties"]
+                        "properties" => res
                       }
                     )
                   else
                     sum.push(
                       {
-                        "properties" => sv['body']["properties"],
+                        "properties" => res,
                         "required" => sv['body']["required"]
                       }
                     )
