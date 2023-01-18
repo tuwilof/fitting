@@ -33,22 +33,13 @@ module Fitting
       end
 
       def new_index_offset
-        if @step_key["definitions"]
-          YAML.dump(@step_key["definitions"]).split("\n").size + 3
-        else
-          3
-        end
+        3
       end
 
       def mark_range(index, res)
-        if @step_key["definitions"]
-          res[index] = @step_cover_size
-          start_index = index + YAML.dump(@step_key["definitions"]).split("\n").size + 1
-          end_index = start_index + 1
-        else
-          start_index = index
-          end_index = start_index + 2
-        end
+        start_index = index
+        end_index = start_index + 2
+
         (start_index..end_index).each do |i|
           res[i] = @step_cover_size
         end
