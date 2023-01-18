@@ -28,11 +28,9 @@ module Fitting
       end
 
       def mark_range(index, res)
+        res[index] = @step_cover_size
         if @json_schema["oneOf"][0]["required"]
-          res[index] = @step_cover_size
           mark_required(index, res, @json_schema["oneOf"][0])
-        else
-          res[index] = @step_cover_size
         end
       end
 
