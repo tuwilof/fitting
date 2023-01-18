@@ -29,13 +29,13 @@ module Fitting
 
       def mark_range(index, res)
         res[index] = @step_cover_size
-        if @json_schema["oneOf"][0]["required"]
-          mark_required(index, res, @json_schema["oneOf"][0])
+        if @json_schema["required"]
+          mark_required(index, res, @json_schema)
         end
       end
 
       def index_offset
-        YAML.dump(@json_schema['oneOf'][0]).split("\n").size - 1
+        YAML.dump(@json_schema).split("\n").size - 3
       end
     end
   end
