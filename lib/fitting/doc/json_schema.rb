@@ -43,6 +43,10 @@ module Fitting
         (start_index..end_index).each do |i|
           res[i] = @step_cover_size
         end
+
+        if @step_key["required"]
+          mark_required(end_index, res, @step_key)
+        end
       end
 
       def nocover!
