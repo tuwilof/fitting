@@ -37,21 +37,20 @@ module Fitting
             }
           }
         ).split("\n")
-        { @key => res }
+        { @key => res[1..-1] }
       end
 
       def to_hash
         res = [
-          nil,
           @host_cover,
           @prefix_cover,
           @path_cover,
           @method_cover
         ]
-        (to_hash_lock[@key].size - 5).times { res.push(nil) }
+        (to_hash_lock[@key].size - 4).times { res.push(nil) }
 
         if @method_cover != nil && @method_cover != 0
-          code_index = 5
+          code_index = 4
           @responses.each do |code|
             res, code_index = code.report(res, code_index)
           end
