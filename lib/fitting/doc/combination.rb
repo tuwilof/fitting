@@ -30,15 +30,33 @@ module Fitting
       def mark_range(index, res)
         if @json_schema["oneOf"][0]["required"]
           res[index] = @step_cover_size
-          start_index = index + YAML.dump(@json_schema["oneOf"][0]["properties"]).split("\n").size
-          end_index = start_index + YAML.dump(@json_schema["oneOf"][0]["required"]).split("\n").size - 1
-          (start_index..end_index).each do |i|
-            res[i] = @step_cover_size
-          end
+          mark_required(index, res, @json_schema["oneOf"][0])
         else
           res[index] = @step_cover_size
         end
 
+      end
+
+      def mark_required(index, res, schema)
+        start_index = index + YAML.dump(schema["properties"]).split("\n").size
+        end_index = start_index + YAML.dump(schema["required"]).split("\n").size - 1
+        (start_index..end_index).each do |i|
+          res[i] = @step_cover_size
+        end
+
+        return if schema["required"].nil?
+
+        schema["required"].each do |required|
+          required_index = YAML.dump(schema["properties"]).split("\n").index { |key| key == "#{required}:" }
+          break if required_index.nil?
+          res[index + required_index] = @step_cover_size
+          res[index + required_index + 1] = @step_cover_size
+          if schema["properties"][required]["type"] == "object"
+            res[index + required_index + 2] = @step_cover_size
+            new_index = index + required_index + 2
+            mark_required(new_index, res, schema["properties"][required])
+          end
+        end
       end
 
       def index_offset
