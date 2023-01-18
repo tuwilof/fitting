@@ -60,7 +60,17 @@ module Fitting
             res[index + required_index + 2] = @step_cover_size
             new_index = index + required_index + 2
             mark_required(new_index, res, schema["properties"][required])
+          elsif schema["properties"][required]["type"] == "string" && schema["properties"][required]["enum"]
+            new_index = index + required_index + 2
+            mark_enum(new_index, res, schema["properties"][required])
           end
+        end
+      end
+
+      def mark_enum(index, res, schema)
+        if schema["enum"].size == 1
+          res[index] = @step_cover_size
+          res[index + 1] = @step_cover_size
         end
       end
 
