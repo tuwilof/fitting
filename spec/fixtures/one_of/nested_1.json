@@ -4,17 +4,13 @@
   "properties": {
     "errors": {
       "type": "object",
-      "oneOf": [
-        {
-          "properties": {
-            "login": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "login"
-          ]
+      "properties": {
+        "login": {
+          "type": "string"
         }
+      },
+      "required": [
+        "login"
       ]
     }
   },
