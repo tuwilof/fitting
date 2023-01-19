@@ -45,13 +45,6 @@ module Fitting
         end
       end
 
-      def mark_range(index, res)
-        res[index] = @step_cover_size
-        if @json_schema["required"]
-          mark_required(index, res, @json_schema)
-        end
-      end
-
       def index_offset
         YAML.dump(@json_schema).split("\n").size - 3
       end
