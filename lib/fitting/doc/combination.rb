@@ -24,15 +24,24 @@ module Fitting
       def cover!(log)
         if JSON::Validator.fully_validate(@json_schema, log.body) == []
           @step_cover_size += 1
-          @next_steps.each { |combination| combination.cover!(log) }
-=begin
-        else
-          raise NotFound.new "combination: #{@combination}\n"\
-            "combination type: #{@type}\n"\
-            "combination json-schema: #{::JSON.pretty_generate(@json_schema)}\n"\
-            "combination error #{::JSON.pretty_generate(JSON::Validator.fully_validate(@json_schema, log.body))}\n"\
-            "body: #{::JSON.pretty_generate(log.body)}"
-=end
+          errors = @next_steps.inject([]) do |sum, combination|
+            sum.push(combination.cover!(log))
+          end.flatten.compact
+
+          return if @next_steps.size == 0
+          return unless @next_steps.size == errors.size
+
+          error_message = ""
+          errors.each do |error|
+            error_message += "combination: #{error[:combination]}\n"\
+            "combination type: #{error[:type]}\n"\
+            "combination json-schema: #{::JSON.pretty_generate(error[:json_schema])}\n"\
+            "combination error #{::JSON.pretty_generate(error[:error])}\n"\
+            "combination body #{::JSON.pretty_generate(error[:body])}\n"
+          end
+
+          #raise NotFound.new "#{error_message}\n"\
+          #  "source body: #{::JSON.pretty_generate(log.body)}"
         end
       end
 
