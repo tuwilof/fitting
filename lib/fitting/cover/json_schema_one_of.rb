@@ -10,7 +10,7 @@ module Fitting
 
       def combi
         inception(json_schema, combinations).each do |combination|
-          combination[0] = json_schema.merge(combination[0])
+          combination[0] = combination[0]
           combination[1] = ['one_of', combination[1]]
         end
       end
@@ -21,7 +21,9 @@ module Fitting
             schema = json_schema.dup
             one_of = schema.delete('oneOf')
             one_of.each_index do |index|
-              combinations.push([schema.merge('oneOf' => [one_of[index]]), "oneOf.#{index}"])
+              schema_new = json_schema.dup
+              schema_new.delete('oneOf')
+              combinations.push([schema_new.merge(one_of[index]), "oneOf.#{index}"])
             end
           elsif value.is_a?(Hash)
             com = inception(value, [])

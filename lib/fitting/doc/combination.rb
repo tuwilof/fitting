@@ -1,4 +1,6 @@
 require 'fitting/doc/step'
+require 'fitting/cover/json_schema_enum'
+require 'fitting/doc/combination_enum'
 
 module Fitting
   class Doc
@@ -11,31 +13,40 @@ module Fitting
         @next_steps = []
         @type = type
         @step_key = combination
+        combinations = Fitting::Cover::JSONSchemaEnum.new(@json_schema).combi
+        if combinations.size > 1
+          combinations.each do |comb|
+            @next_steps.push(CombinationEnum.new(comb[0], "#{type}.#{comb[1][0]}", "#{combination}.#{comb[1][1]}"))
+          end
+        end
       end
 
       def cover!(log)
         if JSON::Validator.fully_validate(@json_schema, log.body) == []
           @step_cover_size += 1
-=begin
-        else
-          raise NotFound.new "combination: #{@combination}\n"\
-            "combination type: #{@type}\n"\
-            "combination json-schema: #{::JSON.pretty_generate(@json_schema)}\n"\
-            "combination error #{::JSON.pretty_generate(JSON::Validator.fully_validate(@json_schema, log.body))}\n"\
-            "body: #{::JSON.pretty_generate(log.body)}"
-=end
-        end
-      end
+          errors = @next_steps.inject([]) do |sum, combination|
+            sum.push(combination.cover!(log))
+          end.flatten.compact
 
-      def mark_range(index, res)
-        res[index] = @step_cover_size
-        if @json_schema["oneOf"][0]["required"]
-          mark_required(index, res, @json_schema["oneOf"][0])
+          return if @next_steps.size == 0
+          return unless @next_steps.size == errors.size
+
+          error_message = ""
+          errors.each do |error|
+            error_message += "combination: #{error[:combination]}\n"\
+            "combination type: #{error[:type]}\n"\
+            "combination json-schema: #{::JSON.pretty_generate(error[:json_schema])}\n"\
+            "combination error #{::JSON.pretty_generate(error[:error])}\n"\
+            "combination body #{::JSON.pretty_generate(error[:body])}\n"
+          end
+
+          #raise NotFound.new "#{error_message}\n"\
+          #  "source body: #{::JSON.pretty_generate(log.body)}"
         end
       end
 
       def index_offset
-        YAML.dump(@json_schema['oneOf'][0]).split("\n").size - 1
+        YAML.dump(@json_schema).split("\n").size - 3
       end
     end
   end

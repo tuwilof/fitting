@@ -1,5 +1,8 @@
 require 'fitting/doc/step'
 require 'fitting/doc/combination'
+require 'fitting/cover/json_schema_one_of'
+require 'fitting/doc/combination_enum'
+require 'fitting/cover/json_schema_enum'
 
 module Fitting
   class Doc
@@ -12,6 +15,12 @@ module Fitting
         @next_steps = []
         Fitting::Cover::JSONSchemaOneOf.new(json_schema).combi.each do |combination|
           @next_steps.push(Combination.new(combination[0], combination[1][0], combination[1][1]))
+        end
+        combinations = Fitting::Cover::JSONSchemaEnum.new(json_schema).combi
+        if combinations.size > 1
+          combinations.each do |comb|
+            @next_steps.push(CombinationEnum.new(comb[0], comb[1][0], comb[1][1]))
+          end
         end
       end
 
@@ -28,8 +37,8 @@ module Fitting
         raise Fitting::Doc::JsonSchema::NotFound.new "json-schema: #{::JSON.pretty_generate(@step_key)}\n\n"\
             "body: #{::JSON.pretty_generate(log.body)}\n\n"\
             "error #{e.message}"
-        # rescue Fitting::Doc::Combination::NotFound => e
-        #  raise Fitting::Doc::JsonSchema::NotFound.new "#{e.message}\n\nsource json-schema: #{::JSON.pretty_generate(@step_key)}\n\n"\
+      rescue Fitting::Doc::Combination::NotFound => e
+        raise Fitting::Doc::JsonSchema::NotFound.new "#{e.message}\n\nsource json-schema: #{::JSON.pretty_generate(@step_key)}\n\n"
       end
 
       def new_index_offset

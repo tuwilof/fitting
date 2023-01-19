@@ -32,6 +32,9 @@ module Fitting
 
       def mark_range(index, res)
         res[index] = @step_cover_size
+        if @json_schema && @json_schema["required"]
+          mark_required(index, res, @json_schema)
+        end
       end
 
       def new_index_offset
@@ -56,11 +59,22 @@ module Fitting
           break if required_index.nil?
           res[index + required_index] = @step_cover_size
           res[index + required_index + 1] = @step_cover_size
+          res[index + required_index + 2] = @step_cover_size if schema["properties"][required]["type"] == "string" && schema["properties"][required]["enum"]
           if schema["properties"][required]["type"] == "object"
             res[index + required_index + 2] = @step_cover_size
             new_index = index + required_index + 2
             mark_required(new_index, res, schema["properties"][required])
+          elsif schema["properties"][required]["type"] == "string" && schema["properties"][required]["enum"]
+            new_index = index + required_index + 2
+            mark_enum(new_index, res, schema["properties"][required])
           end
+        end
+      end
+
+      def mark_enum(index, res, schema)
+        if schema["enum"].size == 1
+          res[index] = @step_cover_size
+          res[index + 1] = @step_cover_size
         end
       end
 
