@@ -1,5 +1,8 @@
 require 'fitting/doc/step'
 require 'fitting/doc/combination'
+require 'fitting/cover/json_schema_one_of'
+require 'fitting/doc/combination_enum'
+require 'fitting/cover/json_schema_enum'
 
 module Fitting
   class Doc
@@ -12,6 +15,12 @@ module Fitting
         @next_steps = []
         Fitting::Cover::JSONSchemaOneOf.new(json_schema).combi.each do |combination|
           @next_steps.push(Combination.new(combination[0], combination[1][0], combination[1][1]))
+        end
+        combinations = Fitting::Cover::JSONSchemaEnum.new(json_schema).combi
+        if combinations.size > 1
+          combinations.each do |comb|
+            @next_steps.push(CombinationEnum.new(comb[0], comb[1][0], comb[1][1]))
+          end
         end
       end
 
