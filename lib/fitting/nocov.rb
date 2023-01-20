@@ -2,19 +2,20 @@ module Fitting
   class NoCov
     class NotFound < RuntimeError; end
 
-    def initialize(host, method, path, code, content_type, combination)
+    def initialize(host, method, path, code, content_type, combination, combination_next)
       @host = host
       @method = method
       @path = path
       @code = code
       @content_type = content_type
       @combination = combination
+      @combination_next = combination_next
     end
 
     def self.all(yaml)
       return [] unless yaml['NoCovUsedActions']
       yaml['NoCovUsedActions'].map do |action|
-        new(action['host'], action['method'], action['path'], action['code'], action['content-type'], action['combination'])
+        new(action['host'], action['method'], action['path'], action['code'], action['content-type'], action['combination'], action['combination_next'])
       end
     end
 
@@ -47,8 +48,17 @@ module Fitting
         combination.step_key == @combination.to_s
       end
 
-      return res_combination if res_combination
-      raise NotFound.new("host: #{@host}, method: #{@method}, path: #{@path}, code: #{@code}, content-type: #{@content_type}, combination: #{@combination}")
+      if @combination_next == nil
+        return res_combination if res_combination
+        raise NotFound.new("host: #{@host}, method: #{@method}, path: #{@path}, code: #{@code}, content-type: #{@content_type}, combination: #{@combination}")
+      end
+
+      res_combination_next = res_combination.next_steps.find do |combination_next|
+        combination_next.step_key == @combination_next.to_s
+      end
+
+      return res_combination_next if res_combination_next
+      raise NotFound.new("host: #{@host}, method: #{@method}, path: #{@path}, code: #{@code}, content-type: #{@content_type}, combination: #{@combination}, combination_next: #{@combination_next}")
     end
   end
 end
