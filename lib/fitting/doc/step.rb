@@ -17,14 +17,14 @@ module Fitting
       end
 
       def report(res, index)
-        mark_range(index, res)
-
         if @next_steps != []
           new_index = index + new_index_offset
           @next_steps.each do |next_step|
             res, new_index = next_step.report(res, new_index)
           end
         end
+
+        mark_range(index, res)
 
         index += index_offset
         [res, index]

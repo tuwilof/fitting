@@ -1,6 +1,8 @@
 require 'fitting/doc/step'
 require 'fitting/cover/json_schema_enum'
 require 'fitting/doc/combination_enum'
+require 'fitting/cover/json_schema'
+require 'fitting/doc/combination_optional'
 
 module Fitting
   class Doc
@@ -18,6 +20,11 @@ module Fitting
           combinations.each do |comb|
             @next_steps.push(CombinationEnum.new(comb[0], "#{type}.#{comb[1][0]}", "#{combination}.#{comb[1][1]}"))
           end
+        end
+
+        combinations = Fitting::Cover::JSONSchema.new(@json_schema).combi
+        combinations.each do |comb|
+          @next_steps.push(CombinationOptional.new(comb[0], "#{type}.#{comb[1][0]}", "#{combination}.#{comb[1][1]}"))
         end
       end
 
@@ -40,7 +47,7 @@ module Fitting
             "combination body #{::JSON.pretty_generate(error[:body])}\n"
           end
 
-          #raise NotFound.new "#{error_message}\n"\
+          # raise NotFound.new "#{error_message}\n"\
           #  "source body: #{::JSON.pretty_generate(log.body)}"
         end
       end
