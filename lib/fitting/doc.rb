@@ -54,9 +54,9 @@ module Fitting
           end
         end
       end
-      res = cov/all * 100
+      res = (cov.to_f / all.to_f * 100).round(2)
       puts "Coverage: #{res}%"
-      if res == 100
+      if res == 100.00
         exit 0
       else
         exit 1

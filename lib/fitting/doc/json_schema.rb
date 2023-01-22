@@ -33,7 +33,7 @@ module Fitting
             "body: #{::JSON.pretty_generate(log.body)}\n\n"\
             "error #{::JSON.pretty_generate(JSON::Validator.fully_validate(@step_key, log.body))}"
         end
-      rescue JSON::Schema::SchemaError, NoMethodError => e
+      rescue JSON::Schema::SchemaError
         raise Fitting::Doc::JsonSchema::NotFound.new "json-schema: #{::JSON.pretty_generate(@step_key)}\n\n"\
             "body: #{::JSON.pretty_generate(log.body)}\n\n"\
             "error #{e.message}"
