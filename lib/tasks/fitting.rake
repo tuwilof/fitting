@@ -23,5 +23,6 @@ namespace :fitting do
       nocov.find(docs).nocover!
     end
     Fitting::Rep.new(docs).save!
+    Fitting::Doc.report(docs)
   end
 end

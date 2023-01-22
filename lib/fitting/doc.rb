@@ -26,5 +26,41 @@ module Fitting
       raise NotFound.new "log type: #{log.type}\n\n"\
           "#{e.message}"
     end
+
+    def self.report(docs)
+      all = 0
+      cov = 0
+      docs[:provided].each do |provid|
+        provid.to_hash.values.first.each do |prov|
+          if prov == nil
+            break
+          elsif prov == 0
+            all += 1
+          elsif prov > 0
+            all += 1
+            cov += 1
+          end
+        end
+      end
+      docs[:used].each do |provid|
+        provid.to_hash.values.first.each do |prov|
+          if prov == nil
+            break
+          elsif prov == 0
+            all += 1
+          elsif prov > 0
+            all += 1
+            cov += 1
+          end
+        end
+      end
+      res = cov/all * 100
+      puts "Coverage: #{res}%"
+      if res == 100
+        exit 0
+      else
+        exit 1
+      end
+    end
   end
 end
