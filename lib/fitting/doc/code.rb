@@ -38,9 +38,13 @@ module Fitting
           "#{e.message}"
       end
 
-      def debug(log, debug)
-        if @step_key == log.status && @step_key == debug.status
-          return log
+      def debug(debug)
+        if @step_key == debug.status
+          @next_steps.each do |content_type|
+            res = content_type.debug(debug)
+            return res if res
+          end
+          nil
         end
         nil
       end

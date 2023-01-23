@@ -7,6 +7,7 @@ module Fitting
       class NotFound < RuntimeError; end
 
       def initialize(content_type, subvalue)
+        @logs = []
         @step_key = content_type
         @next_steps = []
         @step_cover_size = 0
@@ -69,6 +70,7 @@ module Fitting
       def cover!(log)
         if @step_key == log.content_type && log.content_type == 'application/json'
           @step_cover_size += 1
+          @logs.push(log.body)
           @next_steps.each { |json_schema| json_schema.cover!(log) }
         elsif @step_key != 'application/json' && log.content_type != 'application/json'
           @step_cover_size += 1
@@ -76,6 +78,15 @@ module Fitting
       rescue Fitting::Doc::JsonSchema::NotFound => e
         raise NotFound.new "content-type: #{@step_key}\n\n"\
           "#{e.message}"
+      end
+
+      def debug(debug)
+        return self if @step_key == debug.content_type && debug.content_type == 'application/json'
+        nil
+      end
+
+      def logs
+        @logs
       end
 
       def merge_definitions(sv, definitions)

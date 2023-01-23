@@ -125,27 +125,28 @@ module Fitting
           "#{e.message}"
       end
 
-      def debug(log, debug)
-        unless log.host == host && debug.host == host
+      def debug(debug)
+        unless debug.host == host
           return nil
         end
 
-        unless prefix.size == 0 || (log.path[0..prefix.size - 1] == prefix && debug.path[0..prefix.size - 1] == prefix)
+        unless prefix.size == 0 || debug.path[0..prefix.size - 1] == prefix
           return nil
         end
 
-        unless path_match(log.path) && path_match(debug.path)
+        unless path_match(debug.path)
           return nil
         end
 
-        unless log.method == method && debug.method == method
+        unless debug.method == method
           return nil
         end
 
         @responses.each do |response|
-          return log.body if response.debug(log, debug)
+          res = response.debug(debug)
+          return res if res
         end
-        return nil
+        nil
       end
 
       def nocover!

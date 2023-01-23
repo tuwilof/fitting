@@ -27,23 +27,12 @@ module Fitting
           "#{e.message}"
     end
 
-    def self.debug(docs, log, debug)
-      if log.type == 'incoming'
-        docs[:provided].each do |doc|
-          res_log = doc.debug(log, debug)
-          if res_log
-            return doc, res_log
-          end
-        end
-      elsif log.type == 'outgoing'
-        docs[:used].each do |doc|
-          res_log = doc.debug(log, debug)
-          if res_log
-            return doc, res_log
-          end
-        end
+    def self.debug(docs, debug)
+      (docs[:provided] + docs[:used]).each do |doc|
+        res = doc.debug(debug)
+        return res if res
       end
-      [nil, nil]
+      raise NotFound
     end
 
     def self.report(docs)
