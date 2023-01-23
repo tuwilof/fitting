@@ -12,7 +12,28 @@ module Fitting
         @step_cover_size = 0
         return self if content_type != 'application/json'
         if subvalue.size == 1
-          @next_steps.push(JsonSchema.new(subvalue[0]['body']))
+          definitions = subvalue.inject({}) do |sum, sv|
+            if sv['body']["definitions"] != nil
+              sum.merge!(sv['body']["definitions"])
+            end
+            sum
+          end
+
+          if definitions && definitions != {}
+            res = merge_definitions(subvalue[0], definitions)
+            if res
+              @next_steps.push(JsonSchema.new(
+                {
+                  "$schema" => "http://json-schema.org/draft-04/schema#",
+                  "type" => "object"
+                }.merge(res)
+              ))
+            else
+              @next_steps.push(JsonSchema.new({}))
+            end
+          else
+            @next_steps.push(JsonSchema.new(subvalue[0]['body']))
+          end
         else
           definitions = subvalue.inject({}) do |sum, sv|
             if sv['body']["definitions"] != nil
@@ -26,32 +47,8 @@ module Fitting
                 "$schema" => "http://json-schema.org/draft-04/schema#",
                 "type" => "object",
                 "oneOf" => subvalue.inject([]) do |sum, sv|
-                  res = sv['body']["properties"]
-                  definitions.each_pair do |key, value|
-                    while JSON.dump(res).include?("\"$ref\":\"#/definitions/#{key}\"") do
-                      new_res_array = JSON.dump(res).split('{')
-                      index = new_res_array.index {|js| js.include?("\"$ref\":\"#/definitions/#{key}\"")}
-                      if index != nil
-                        def_size = "\"$ref\":\"#/definitions/#{key}\"".size
-                        new_res_array[index] = JSON.dump(value)[1..-2] + new_res_array[index][def_size..-1]
-                        res = JSON.load(new_res_array.join("{"))
-                      end
-                    end
-                  end
-                  if sv['body']["required"] == nil
-                    sum.push(
-                      {
-                        "properties" => res
-                      }
-                    )
-                  else
-                    sum.push(
-                      {
-                        "properties" => res,
-                        "required" => sv['body']["required"]
-                      }
-                    )
-                  end
+                  res = merge_definitions(sv, definitions)
+                  sum.push(res)
                 end
               }
             ))
@@ -61,20 +58,7 @@ module Fitting
                 "$schema" => "http://json-schema.org/draft-04/schema#",
                 "type" => "object",
                 "oneOf" => subvalue.inject([]) do |sum, sv|
-                  if sv['body']["required"] == nil
-                    sum.push(
-                      {
-                        "properties" => sv['body']["properties"]
-                      }
-                    )
-                  else
-                    sum.push(
-                      {
-                        "properties" => sv['body']["properties"],
-                        "required" => sv['body']["required"]
-                      }
-                    )
-                  end
+                  sum.push(check_body(sv['body']["properties"], sv))
                 end
               }
             ))
@@ -92,6 +76,39 @@ module Fitting
       rescue Fitting::Doc::JsonSchema::NotFound => e
         raise NotFound.new "content-type: #{@step_key}\n\n"\
           "#{e.message}"
+      end
+
+      def merge_definitions(sv, definitions)
+        res = sv['body']["properties"]
+        definitions.each_pair do |key, value|
+          while JSON.dump(res).include?("\"$ref\":\"#/definitions/#{key}\"") do
+            new_res_array = JSON.dump(res).split('{')
+            index = new_res_array.index { |js| js.include?("\"$ref\":\"#/definitions/#{key}\"") }
+            if index != nil
+              def_size = "\"$ref\":\"#/definitions/#{key}\"".size
+              new_res_array[index] = JSON.dump(value)[1..-2] + new_res_array[index][def_size..-1]
+              res = JSON.load(new_res_array.join("{"))
+            end
+          end
+        end
+        if res == nil
+          nil
+        else
+          check_body(res, sv)
+        end
+      end
+
+      def check_body(res, sv)
+        if sv['body']["required"] == nil
+          {
+            "properties" => res
+          }
+        else
+          {
+            "properties" => res,
+            "required" => sv['body']["required"]
+          }
+        end
       end
     end
   end
