@@ -37,6 +37,13 @@ module Fitting
         raise NotFound.new "code: #{@step_key}\n\n"\
           "#{e.message}"
       end
+
+      def debug(log, debug)
+        if @step_key == log.status && @step_key == debug.status
+          return log
+        end
+        nil
+      end
     end
   end
 end

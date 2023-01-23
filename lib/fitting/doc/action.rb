@@ -1,4 +1,5 @@
 require 'fitting/doc/code'
+require 'fitting/debug'
 
 module Fitting
   class Doc
@@ -122,6 +123,29 @@ module Fitting
           "method: #{@method}\n" \
           "path: #{@path}\n" \
           "#{e.message}"
+      end
+
+      def debug(log, debug)
+        unless log.host == host && debug.host == host
+          return nil
+        end
+
+        unless prefix.size == 0 || (log.path[0..prefix.size - 1] == prefix && debug.path[0..prefix.size - 1] == prefix)
+          return nil
+        end
+
+        unless path_match(log.path) && path_match(debug.path)
+          return nil
+        end
+
+        unless log.method == method && debug.method == method
+          return nil
+        end
+
+        @responses.each do |response|
+          return log.body if response.debug(log, debug)
+        end
+        return nil
       end
 
       def nocover!

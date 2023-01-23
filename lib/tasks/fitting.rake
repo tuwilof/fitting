@@ -3,6 +3,7 @@ require 'fitting/doc'
 require 'fitting/skip'
 require 'fitting/nocov'
 require 'fitting/rep'
+require 'fitting/debug'
 
 namespace :fitting do
   task :report do
@@ -23,6 +24,7 @@ namespace :fitting do
       nocov.find(docs).nocover!
     end
     Fitting::Rep.new(docs).save!
+    Fitting::Debug.save!(docs, logs, YAML.safe_load(File.read('.fitting.yml')))
     Fitting::Doc.report(docs)
   end
 end
