@@ -11,6 +11,7 @@ module Fitting
     end
 
     def self.save!(docs, yaml)
+      return unless yaml['Debug']
       yaml['Debug'].map do |action|
         debug = new(action['host'], action['method'], action['path'], action['code'], action['content-type'])
         res = Fitting::Doc.debug(docs, debug)
