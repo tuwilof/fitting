@@ -1,0 +1,360 @@
+---
+json_schema:
+  "$schema": http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    status:
+      type: string
+      enum:
+        - success
+        - error
+    fields: &9
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+          error_text:
+            type: string
+        required:
+          - name
+          - error_text
+    message: &10
+      type: string
+  required: &11
+    - status
+    - message
+jsons:
+  - &1
+    status: error
+    message: Неправильно заполнены параметры заявки
+    fields:
+      - name: service_id
+        error_text: Превышено допустимое количество символов в поле
+      - name: phone
+        error_text: Телефон должен быть указан в формате 79251112233
+      - name: firstname
+        error_text: Превышено допустимое количество символов в поле
+      - name: email
+        error_text: Превышено допустимое количество символов в поле
+      - name: inn
+        error_text: Превышено допустимое количество символов в поле
+      - name: region
+        error_text: Превышено допустимое количество символов в поле
+      - name: owner
+        error_text: Превышено допустимое количество символов в поле
+      - name: comment
+        error_text: Превышено допустимое количество символов в поле
+  - &2
+    status: success
+    message: Заявка успешно отправлена
+  - &3
+    status: success
+    message: Заявка успешно отправлена
+  - &4
+    status: success
+    message: Заявка успешно отправлена
+  - &5
+    status: error
+    message: Передан неиспользуемый или неразрешенный service_id
+  - &6
+    status: error
+    message: Неправильно заполнены параметры заявки
+    fields:
+      - name: service_id
+        error_text: Поле должно быть заполнено и содержать только цифры
+      - name: phone
+        error_text: Телефон должен быть указан в формате 79251112233
+  - &7
+    status: success
+    message: Заявка успешно отправлена
+  - &8
+    status: success
+    message: Заявка успешно отправлена
+valid_jsons:
+  - *1
+  - *2
+  - *3
+  - *4
+  - *5
+  - *6
+  - *7
+  - *8
+index_before: 0
+index_after: 3
+res_before:
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+res_medium:
+  - 8
+  - 8
+  - 8
+  - 8
+  - 8
+  - 8
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 8
+  - 8
+  - 8
+  - 8
+  - 8
+res_after:
+  - 8
+  - 8
+  - 8
+  - 8
+  - 8
+  - 8
+  - 5
+  - 3
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 8
+  - 8
+  - 8
+  - 8
+  - 8
+combinations:
+  - combination type: enum
+    combination: properties.status.enum.success
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+        fields: *9
+        message: *10
+      required: *11
+    valid_jsons:
+      - *2
+      - *3
+      - *4
+      - *7
+      - *8
+    index_before: 0
+    index_after: 6
+    res_before:
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+    res_medium:
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+    res_after:
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 5
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+  - combination type: enum
+    combination: properties.status.enum.error
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - error
+        fields: *9
+        message: *10
+      required: *11
+    valid_jsons:
+      - *1
+      - *5
+      - *6
+    index_before: 0
+    index_after: 7
+    res_before:
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 5
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+    res_medium:
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 5
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+    res_after:
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 5
+      - 3
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
