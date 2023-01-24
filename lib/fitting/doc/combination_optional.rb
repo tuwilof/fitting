@@ -45,7 +45,16 @@ module Fitting
         res[res_index + index] = @step_cover_size
         res[res_index + index + 1] = @step_cover_size
 
-        @index_after = res_index + index + 1
+        if @source_json_schema["properties"][combinations[-1]] && @source_json_schema["properties"][combinations[-1]]["type"] == "array"
+          res[res_index + index + 2] = @step_cover_size
+          res[res_index + index + 3] = @step_cover_size
+          res[res_index + index + 4] = @step_cover_size
+
+          schema = @source_json_schema["properties"][combinations[-1]]['items']
+          mark_required(res_index + index + 4, res, schema)
+        end
+
+        @index_after = res_index + index + 4
         @res_after = [] + res
         [res, index]
       end

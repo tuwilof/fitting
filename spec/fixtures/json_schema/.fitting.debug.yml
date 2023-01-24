@@ -225,16 +225,16 @@ res_after:
   - 9
   - 4
   - 4
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
+  - 4
+  - 4
+  - 4
+  - 4
+  - 4
+  - 4
+  - 4
+  - 4
+  - 4
+  - 4
   - 17
   - 17
   - 17
@@ -481,7 +481,7 @@ combinations:
       - *16
       - *17
     index_before: 0
-    index_after: 9
+    index_after: 12
     res_before:
       - 17
       - 17
@@ -582,7 +582,7 @@ combinations:
       - *8
       - *9
     index_before: 0
-    index_after: 11
+    index_after: 14
     res_before:
       - 17
       - 17
@@ -652,16 +652,16 @@ combinations:
       - 9
       - 4
       - 4
-      - 'null'
-      - 'null'
-      - 'null'
-      - 'null'
-      - 'null'
-      - 'null'
-      - 'null'
-      - 'null'
-      - 'null'
-      - 'null'
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
       - 17
       - 17
       - 17
