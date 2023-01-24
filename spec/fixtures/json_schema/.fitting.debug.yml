@@ -2,7 +2,7 @@
 json_schema:
   "$schema": http://json-schema.org/draft-04/schema#
   type: object
-  properties:
+  properties: &22
     status:
       type: string
       enum:
@@ -155,7 +155,7 @@ valid_jsons:
   - *16
   - *17
 index_before: 0
-index_after: 3
+index_after: 5
 res_before:
   - 'null'
   - 'null'
@@ -221,10 +221,10 @@ res_after:
   - 17
   - 9
   - 8
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
+  - 9
+  - 9
+  - 4
+  - 4
   - 'null'
   - 'null'
   - 'null'
@@ -445,6 +445,213 @@ combinations:
       - 'null'
       - 'null'
       - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+  - combination type: required
+    combination: required.order_id
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties: *22
+      required:
+        - status
+        - message
+        - order_id
+    valid_jsons:
+      - *1
+      - *2
+      - *7
+      - *12
+      - *13
+      - *14
+      - *15
+      - *16
+      - *17
+    index_before: 0
+    index_after: 9
+    res_before:
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 9
+      - 8
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+    res_medium:
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 9
+      - 8
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+    res_after:
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 9
+      - 8
+      - 9
+      - 9
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+  - combination type: required
+    combination: required.fields
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties: *22
+      required:
+        - status
+        - message
+        - fields
+    valid_jsons:
+      - *5
+      - *6
+      - *8
+      - *9
+    index_before: 0
+    index_after: 11
+    res_before:
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 9
+      - 8
+      - 9
+      - 9
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+    res_medium:
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 9
+      - 8
+      - 9
+      - 9
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+    res_after:
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 17
+      - 9
+      - 8
+      - 9
+      - 9
+      - 4
+      - 4
       - 'null'
       - 'null'
       - 'null'

@@ -8,13 +8,14 @@ module Fitting
 
       attr_accessor :json_schema, :type, :logs
 
-      def initialize(json_schema, type, combination)
+      def initialize(json_schema, type, combination, source_json_schema)
         @logs = []
         @step_cover_size = 0
         @json_schema = json_schema
         @next_steps = []
         @type = type
         @step_key = combination
+        @source_json_schema = source_json_schema
       end
 
       def cover!(log)
@@ -26,53 +27,27 @@ module Fitting
         end
       end
 
-      def mark_required(index, res, schema)
-        start_index = index + YAML.dump(schema["properties"]).split("\n").size - 1
-        end_index = start_index + YAML.dump(schema["required"]).split("\n").size - 1
-        (start_index..end_index).each do |i|
-          res[i] = @step_cover_size
-        end
+      def report(res, index)
+        @index_before = index
+        @res_before = [] + res
+        @res_medium = [] + res
 
-        return if schema["required"].nil?
-
-        schema["required"].each do |required|
-          required_index = YAML.dump(schema["properties"]).split("\n").index { |key| key == "#{required}:" }
-          break if required_index.nil?
-          required_index -= 1
-          res[index + required_index] = @step_cover_size
-          res[index + required_index + 1] = @step_cover_size
-          if schema["properties"][required]["type"] == "object"
-            res[index + required_index + 2] = @step_cover_size
-            new_index = index + required_index + 2
-            mark_required_inst(new_index, res, schema["properties"][required])
+        combinations = @step_key.split('.')
+        elements = YAML.dump(@source_json_schema).split("\n")[1..-1]
+        res_index = 0
+        elements.each_with_index do |element, i|
+          if element.include?(combinations[-1])
+            res_index = i
+            break
           end
         end
-      end
 
-      def mark_required_inst(index, res, schema)
-        start_index = index + YAML.dump(schema["properties"]).split("\n").size
-        end_index = start_index + YAML.dump(schema["required"]).split("\n").size
-        (start_index..end_index).each do |i|
-          res[i] = @step_cover_size
-        end
+        res[res_index + index] = @step_cover_size
+        res[res_index + index + 1] = @step_cover_size
 
-        return if schema["required"].nil?
-
-        schema["required"].each do |required|
-          required_index = YAML.dump(schema["properties"]).split("\n").index { |key| key == "#{required}:" }
-          break if required_index.nil?
-          res[index + required_index] = @step_cover_size
-          res[index + required_index + 1] = @step_cover_size
-          res[index + required_index + 2] = @step_cover_size if schema["properties"][required]["type"] == "string" && schema["properties"][required]["enum"]
-          if schema["properties"][required]["type"] == "object"
-            #res[index + required_index + 2] = @step_cover_size
-            new_index = index + required_index + 2
-            #mark_required(new_index, res, schema["properties"][required])
-          elsif schema["properties"][required]["type"] == "string" && schema["properties"][required]["enum"]
-            new_index = index + required_index + 2
-            mark_enum(new_index, res, schema["properties"][required])
-          end
-        end
+        @index_after = res_index + index + 1
+        @res_after = [] + res
+        [res, index]
       end
     end
   end
