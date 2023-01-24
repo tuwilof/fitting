@@ -2,7 +2,7 @@ require 'rspec'
 require 'fitting/doc/json_schema'
 
 describe Fitting::Doc::JsonSchema do
-  let(:fixture) { JSON.load(File.read('spec/fixtures/json_schema/json_schema.json')) }
+  let(:fixture) { YAML.safe_load(File.read('spec/fixtures/json_schema/.fitting.debug.yml')) }
 
   subject(:json_schema) { described_class.new(fixture["json_schema"]) }
 

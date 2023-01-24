@@ -17,11 +17,11 @@ module Fitting
         doc_to_hash_lock = []
         res.next_steps.first.report(doc_to_hash_lock, 0)
         res_debug = {
-          json_schema: res.next_steps.first.to_hash,
-          lock: doc_to_hash_lock,
-          logs: res.logs
+          "json_schema" => res.next_steps.first.to_hash,
+          "lock" => doc_to_hash_lock,
+          "logs" => res.logs
         }
-        File.open('coverage/.fitting.debug.json', 'w') { |file| file.write(::JSON.pretty_generate(res_debug)) }
+        File.open('coverage/.fitting.debug.yml', 'w') { |file| file.write(YAML.dump(res_debug)) }
       end
     end
   end

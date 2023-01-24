@@ -1,0 +1,153 @@
+---
+json_schema:
+  "$schema": http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    status:
+      type: string
+      enum:
+      - success
+      - error
+    order_id:
+      type: string
+    fields:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+          error_text:
+            type: string
+        required:
+        - name
+        - error_text
+    message:
+      type: string
+  required:
+  - status
+  - message
+lock:
+- 17
+- 17
+- 17
+- 17
+- 17
+- 17
+- 4
+- 4
+- 8
+- 
+- 9
+- 9
+- 
+- 4
+- 4
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 17
+- 17
+- 17
+- 17
+- 17
+- 4
+- 4
+- 4
+- 4
+logs:
+- status: success
+  order_id: b9a7cb54-04e9-4270-96c4-eb22941f6f35
+  message: Запрос обработан
+- status: success
+  order_id: a0cae8f7-8896-4d36-89b1-44142531a5ef
+  message: Запрос обработан
+- status: error
+  message: Превышено количество доступных отправок заявок
+- status: error
+  message: Превышено количество доступных отправок заявок
+- status: error
+  message: Неправильно заполнены параметры заявки
+  fields:
+  - name: service_id
+    error_text: Превышено допустимое количество символов в поле
+  - name: phone
+    error_text: Телефон должен быть указан в формате 79251112233
+  - name: firstname
+    error_text: Превышено допустимое количество символов в поле
+  - name: email
+    error_text: Превышено допустимое количество символов в поле
+  - name: inn
+    error_text: Превышено допустимое количество символов в поле
+  - name: region
+    error_text: Превышено допустимое количество символов в поле
+  - name: owner
+    error_text: Превышено допустимое количество символов в поле
+  - name: comment
+    error_text: Превышено допустимое количество символов в поле
+  - name: source
+    error_text: Превышено допустимое количество символов в поле
+  - name: source_url
+    error_text: Превышено допустимое количество символов в поле
+- status: error
+  message: Неправильно заполнены параметры заявки
+  fields:
+  - name: service_id
+    error_text: Превышено допустимое количество символов в поле
+  - name: phone
+    error_text: Телефон должен быть указан в формате 79251112233
+  - name: firstname
+    error_text: Превышено допустимое количество символов в поле
+  - name: email
+    error_text: Превышено допустимое количество символов в поле
+  - name: inn
+    error_text: Превышено допустимое количество символов в поле
+  - name: region
+    error_text: Превышено допустимое количество символов в поле
+  - name: owner
+    error_text: Превышено допустимое количество символов в поле
+  - name: comment
+    error_text: Превышено допустимое количество символов в поле
+  - name: source
+    error_text: Превышено допустимое количество символов в поле
+  - name: source_url
+    error_text: Превышено допустимое количество символов в поле
+- status: success
+  order_id: 525cc221-c312-4807-99e4-b76678fbd0ba
+  message: Запрос обработан
+- status: error
+  message: Неправильно заполнены параметры заявки
+  fields:
+  - name: service_id
+    error_text: Поле должно быть заполнено и содержать только цифры
+- status: error
+  message: Неправильно заполнены параметры заявки
+  fields:
+  - name: service_id
+    error_text: Поле должно быть заполнено и содержать только цифры
+- status: error
+  message: Передан неиспользуемый или неразрешенный service_id
+- status: error
+  message: Передан неиспользуемый или неразрешенный service_id
+- status: success
+  order_id: ed5d8e49-f3a6-46ef-be32-283e621ccd1c
+  message: Запрос обработан
+- status: success
+  order_id: f0ae6007-625a-433a-8e96-143ad70c303d
+  message: Запрос обработан
+- status: success
+  order_id: 31444821-8866-4973-9252-ae63398cde92
+  message: Запрос обработан
+- status: success
+  order_id: a9ab9668-f84d-45af-b7ec-c9cf07541326
+  message: Запрос обработан
+- status: success
+  order_id: 22f09bb6-8b80-4b7d-b2e4-ef08c71343c0
+  message: Запрос обработан
+- status: success
+  order_id: b50a52ed-5ae4-4afc-9b32-191d0a7bb3f1
+  message: Запрос обработан
