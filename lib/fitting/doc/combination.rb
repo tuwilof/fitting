@@ -9,7 +9,10 @@ module Fitting
     class Combination < Step
       class NotFound < RuntimeError; end
 
+      attr_accessor :json_schema, :type, :logs
+
       def initialize(json_schema, type, combination)
+        @logs = []
         @step_cover_size = 0
         @json_schema = json_schema
         @next_steps = []
@@ -31,6 +34,7 @@ module Fitting
       def cover!(log)
         if JSON::Validator.fully_validate(@json_schema, log.body) == []
           @step_cover_size += 1
+          @logs.push(log.body)
           errors = @next_steps.inject([]) do |sum, combination|
             sum.push(combination.cover!(log))
           end.flatten.compact

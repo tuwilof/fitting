@@ -6,7 +6,10 @@ module Fitting
     class CombinationEnum < Step
       class NotFound < RuntimeError; end
 
+      attr_accessor :json_schema, :type, :logs
+
       def initialize(json_schema, type, combination)
+        @logs = []
         @step_cover_size = 0
         @json_schema = json_schema
         @next_steps = []
@@ -18,6 +21,7 @@ module Fitting
         error = JSON::Validator.fully_validate(@json_schema, log.body)
         if error == []
           @step_cover_size += 1
+          @logs.push(log.body)
           nil
         else
           bodies = custom_body(log.body)
@@ -26,6 +30,7 @@ module Fitting
             error = JSON::Validator.fully_validate(@json_schema, body)
             if error == []
               @step_cover_size += 1
+              @logs.push(body)
               nil
             else
               errors.push(

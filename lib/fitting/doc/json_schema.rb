@@ -12,6 +12,7 @@ module Fitting
       class NotFound < RuntimeError; end
 
       def initialize(json_schema)
+        @logs = []
         @step_cover_size = 0
         @step_key = json_schema
         @next_steps = []
@@ -36,6 +37,7 @@ module Fitting
       def cover!(log)
         if JSON::Validator.fully_validate(@step_key, log.body) == []
           @step_cover_size += 1
+          @logs.push(log.body)
           @next_steps.each { |combination| combination.cover!(log) }
         else
           raise Fitting::Doc::JsonSchema::NotFound.new "json-schema: #{::JSON.pretty_generate(@step_key)}\n\n"\
@@ -48,6 +50,10 @@ module Fitting
             "error #{e.message}"
       rescue Fitting::Doc::Combination::NotFound => e
         raise Fitting::Doc::JsonSchema::NotFound.new "#{e.message}\n\nsource json-schema: #{::JSON.pretty_generate(@step_key)}\n\n"
+      end
+
+      def logs
+        @logs
       end
 
       def new_index_offset
