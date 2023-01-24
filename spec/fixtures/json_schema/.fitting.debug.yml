@@ -154,8 +154,8 @@ valid_jsons:
   - *15
   - *16
   - *17
-index_before: 7
-index_after: 12
+index_before: 0
+index_after: 5
 res_before:
   - 'null'
   - 'null'
@@ -273,8 +273,8 @@ combinations:
       - *15
       - *16
       - *17
-    index_before: 10
-    index_after: 11
+    index_before: 3
+    index_after: 4
     res_before:
       - 'null'
       - 'null'
@@ -382,8 +382,8 @@ combinations:
       - *9
       - *10
       - *11
-    index_before: 11
-    index_after: 12
+    index_before: 4
+    index_after: 5
     res_before:
       - 'null'
       - 'null'
@@ -488,8 +488,8 @@ combinations:
       - *15
       - *16
       - *17
-    index_before: 12
-    index_after: 13
+    index_before: 5
+    index_after: 6
     res_before:
       - 'null'
       - 'null'
@@ -592,8 +592,8 @@ combinations:
       - *6
       - *8
       - *9
-    index_before: 13
-    index_after: 14
+    index_before: 6
+    index_after: 7
     res_before:
       - 'null'
       - 'null'
