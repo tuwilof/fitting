@@ -19,15 +19,16 @@ module Fitting
       def report(res, index)
         @index_before = index
         @res_before = [] + res
+
+        mark_range(index, res)
+        @res_medium = [] + res
+
         if @next_steps != []
           new_index = index + new_index_offset
           @next_steps.each do |next_step|
             res, new_index = next_step.report(res, new_index)
           end
         end
-
-        @res_medium = [] + res
-        mark_range(index, res)
 
         index += index_offset
         @index_after = index

@@ -8,13 +8,14 @@ module Fitting
 
       attr_accessor :json_schema, :type, :logs
 
-      def initialize(json_schema, type, combination)
+      def initialize(json_schema, type, combination, source_json_schema)
         @logs = []
         @step_cover_size = 0
         @json_schema = json_schema
         @next_steps = []
         @type = type
         @step_key = combination
+        @source_json_schema = source_json_schema
       end
 
       def cover!(log)
@@ -94,7 +95,7 @@ module Fitting
       end
 
       def mark_range(index, res)
-        #res[index] = @step_cover_size
+        # res[index] = @step_cover_size
         if @json_schema && @json_schema["required"]
           mark_required(index, res, @json_schema)
         end
@@ -104,7 +105,7 @@ module Fitting
         start_index = index + YAML.dump(schema["properties"]).split("\n").size
         end_index = start_index + YAML.dump(schema["required"]).split("\n").size - 1
         (start_index..end_index).each do |i|
-          #res[i] = @step_cover_size
+          # res[i] = @step_cover_size
         end
 
         return if schema["required"].nil?
@@ -112,10 +113,10 @@ module Fitting
         schema["required"].each do |required|
           required_index = YAML.dump(schema["properties"]).split("\n").index { |key| key == "#{required}:" }
           break if required_index.nil?
-          #res[index + required_index] = @step_cover_size
-          #res[index + required_index + 1] = @step_cover_size
+          # res[index + required_index] = @step_cover_size
+          # res[index + required_index + 1] = @step_cover_size
           if schema["properties"][required]["type"] == "object"
-            #res[index + required_index + 2] = @step_cover_size
+            # res[index + required_index + 2] = @step_cover_size
             new_index = index + required_index + 2
             mark_required(new_index, res, schema["properties"][required])
           elsif schema["properties"][required]["type"] == "string" && schema["properties"][required]["enum"]
@@ -123,6 +124,31 @@ module Fitting
             mark_enum(new_index, res, schema["properties"][required])
           end
         end
+      end
+
+      def report(res, index)
+        @index_before = index
+        @res_before = [] + res
+        @res_medium = [] + res
+
+        combinations = @step_key.split('.')
+        elements = YAML.dump(@source_json_schema).split("\n")[1..-1]
+
+        res_index = 0
+        element_index = 0
+        elements.each_with_index do |element, i|
+          if element.include?(combinations[element_index])
+            element_index += 1
+          end
+          if combinations.size == element_index
+            res_index = i
+            break
+          end
+        end
+        res[res_index + index] = @step_cover_size
+        @index_after = res_index + index
+        @res_after = [] + res
+        [res, index]
       end
     end
   end

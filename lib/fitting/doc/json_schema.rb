@@ -22,16 +22,16 @@ module Fitting
         combinations = Fitting::Cover::JSONSchemaEnum.new(json_schema).combi
         if combinations.size > 1
           combinations.each do |comb|
-            @next_steps.push(CombinationEnum.new(comb[0], comb[1][0], comb[1][1]))
+            @next_steps.push(CombinationEnum.new(comb[0], comb[1][0], comb[1][1], json_schema))
           end
         end
-
-        combinations = Fitting::Cover::JSONSchema.new(json_schema).combi
-        if combinations.size > 1
-          combinations.each do |comb|
-            @next_steps.push(CombinationOptional.new(comb[0], comb[1][0], comb[1][1]))
-          end
-        end
+        #
+        # combinations = Fitting::Cover::JSONSchema.new(json_schema).combi
+        # if combinations.size > 1
+        #   combinations.each do |comb|
+        #     @next_steps.push(CombinationOptional.new(comb[0], comb[1][0], comb[1][1]))
+        #   end
+        # end
       end
 
       def cover!(log)
@@ -79,6 +79,26 @@ module Fitting
 
       def to_hash
         @step_key
+      end
+
+      def report(res, index)
+        @index_before = index
+        @res_before = [] + res
+
+        mark_range(index, res)
+        @res_medium = [] + res
+
+        if @next_steps != []
+          new_index = index + new_index_offset
+          @next_steps.each do |next_step|
+            res, new_index = next_step.report(res, @index_before)
+          end
+        end
+
+        index += index_offset
+        @index_after = index
+        @res_after = [] + res
+        [res, index]
       end
     end
   end
