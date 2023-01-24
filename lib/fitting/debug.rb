@@ -14,27 +14,32 @@ module Fitting
       yaml['Debug'].map do |action|
         debug = new(action['host'], action['method'], action['path'], action['code'], action['content-type'])
         res = Fitting::Doc.debug(docs, debug)
-        doc_to_hash_lock = []
-        res.next_steps.first.report(doc_to_hash_lock, 0)
         combinations = []
         res.next_steps.first.next_steps.each do |next_step|
-          doc_to_hash_lock = []
           combinations.push(
             {
               "combination type" => next_step.type,
               "combination" => next_step.step_key,
               "json_schema" => next_step.json_schema,
-              "lock" => next_step.report(doc_to_hash_lock, 0),
-              "valid_jsons" => next_step.logs
+              "valid_jsons" => next_step.logs,
+              "index_before" => next_step.index_before,
+              "index_after" => next_step.index_after,
+              "res_before" => next_step.res_before.map{|r| r ? r : "null"}[7..-1],
+              "res_medium" => next_step.res_medium.map{|r| r ? r : "null"}[7..-1],
+              "res_after" => next_step.res_after.map{|r| r ? r : "null"}[7..-1]
             }
           )
 
         end
         res_debug = {
           "json_schema" => res.next_steps.first.to_hash,
-          "lock" => doc_to_hash_lock,
           "jsons" => res.logs,
           "valid_jsons" => res.next_steps.first.logs,
+          "index_before" => res.next_steps.first.index_before,
+          "index_after" => res.next_steps.first.index_after,
+          "res_before" => res.next_steps.first.res_before.map{|r| r ? r : "null"}[7..-1],
+          "res_medium" => res.next_steps.first.res_medium.map{|r| r ? r : "null"}[7..-1],
+          "res_after" => res.next_steps.first.res_after.map{|r| r ? r : "null"}[7..-1],
           "combinations" => combinations
         }
         File.open('coverage/.fitting.debug.yml', 'w') { |file| file.write(YAML.dump(res_debug)) }

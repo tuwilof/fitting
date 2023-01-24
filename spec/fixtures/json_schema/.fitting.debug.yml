@@ -2,15 +2,15 @@
 json_schema:
   "$schema": http://json-schema.org/draft-04/schema#
   type: object
-  properties:
+  properties: &22
     status:
       type: string
       enum:
-      - success
-      - error
-    order_id:
+        - success
+        - error
+    order_id: &18
       type: string
-    fields:
+    fields: &19
       type: array
       items:
         type: object
@@ -20,134 +20,671 @@ json_schema:
           error_text:
             type: string
         required:
-        - name
-        - error_text
-    message:
+          - name
+          - error_text
+    message: &20
       type: string
-  required:
-  - status
-  - message
-lock:
-- 17
-- 17
-- 17
-- 17
-- 17
-- 17
-- 4
-- 4
-- 8
-- 
-- 9
-- 9
-- 
-- 4
-- 4
-- 
-- 
-- 
-- 
-- 
-- 
-- 
-- 17
-- 17
-- 17
-- 17
-- 17
-- 4
-- 4
-- 4
-- 4
-logs:
-- status: success
-  order_id: b9a7cb54-04e9-4270-96c4-eb22941f6f35
-  message: Запрос обработан
-- status: success
-  order_id: a0cae8f7-8896-4d36-89b1-44142531a5ef
-  message: Запрос обработан
-- status: error
-  message: Превышено количество доступных отправок заявок
-- status: error
-  message: Превышено количество доступных отправок заявок
-- status: error
-  message: Неправильно заполнены параметры заявки
-  fields:
-  - name: service_id
-    error_text: Превышено допустимое количество символов в поле
-  - name: phone
-    error_text: Телефон должен быть указан в формате 79251112233
-  - name: firstname
-    error_text: Превышено допустимое количество символов в поле
-  - name: email
-    error_text: Превышено допустимое количество символов в поле
-  - name: inn
-    error_text: Превышено допустимое количество символов в поле
-  - name: region
-    error_text: Превышено допустимое количество символов в поле
-  - name: owner
-    error_text: Превышено допустимое количество символов в поле
-  - name: comment
-    error_text: Превышено допустимое количество символов в поле
-  - name: source
-    error_text: Превышено допустимое количество символов в поле
-  - name: source_url
-    error_text: Превышено допустимое количество символов в поле
-- status: error
-  message: Неправильно заполнены параметры заявки
-  fields:
-  - name: service_id
-    error_text: Превышено допустимое количество символов в поле
-  - name: phone
-    error_text: Телефон должен быть указан в формате 79251112233
-  - name: firstname
-    error_text: Превышено допустимое количество символов в поле
-  - name: email
-    error_text: Превышено допустимое количество символов в поле
-  - name: inn
-    error_text: Превышено допустимое количество символов в поле
-  - name: region
-    error_text: Превышено допустимое количество символов в поле
-  - name: owner
-    error_text: Превышено допустимое количество символов в поле
-  - name: comment
-    error_text: Превышено допустимое количество символов в поле
-  - name: source
-    error_text: Превышено допустимое количество символов в поле
-  - name: source_url
-    error_text: Превышено допустимое количество символов в поле
-- status: success
-  order_id: 525cc221-c312-4807-99e4-b76678fbd0ba
-  message: Запрос обработан
-- status: error
-  message: Неправильно заполнены параметры заявки
-  fields:
-  - name: service_id
-    error_text: Поле должно быть заполнено и содержать только цифры
-- status: error
-  message: Неправильно заполнены параметры заявки
-  fields:
-  - name: service_id
-    error_text: Поле должно быть заполнено и содержать только цифры
-- status: error
-  message: Передан неиспользуемый или неразрешенный service_id
-- status: error
-  message: Передан неиспользуемый или неразрешенный service_id
-- status: success
-  order_id: ed5d8e49-f3a6-46ef-be32-283e621ccd1c
-  message: Запрос обработан
-- status: success
-  order_id: f0ae6007-625a-433a-8e96-143ad70c303d
-  message: Запрос обработан
-- status: success
-  order_id: 31444821-8866-4973-9252-ae63398cde92
-  message: Запрос обработан
-- status: success
-  order_id: a9ab9668-f84d-45af-b7ec-c9cf07541326
-  message: Запрос обработан
-- status: success
-  order_id: 22f09bb6-8b80-4b7d-b2e4-ef08c71343c0
-  message: Запрос обработан
-- status: success
-  order_id: b50a52ed-5ae4-4afc-9b32-191d0a7bb3f1
-  message: Запрос обработан
+  required: &21
+    - status
+    - message
+jsons:
+  - &1
+    status: success
+    order_id: b9a7cb54-04e9-4270-96c4-eb22941f6f35
+    message: Запрос обработан
+  - &2
+    status: success
+    order_id: a0cae8f7-8896-4d36-89b1-44142531a5ef
+    message: Запрос обработан
+  - &3
+    status: error
+    message: Превышено количество доступных отправок заявок
+  - &4
+    status: error
+    message: Превышено количество доступных отправок заявок
+  - &5
+    status: error
+    message: Неправильно заполнены параметры заявки
+    fields:
+      - name: service_id
+        error_text: Превышено допустимое количество символов в поле
+      - name: phone
+        error_text: Телефон должен быть указан в формате 79251112233
+      - name: firstname
+        error_text: Превышено допустимое количество символов в поле
+      - name: email
+        error_text: Превышено допустимое количество символов в поле
+      - name: inn
+        error_text: Превышено допустимое количество символов в поле
+      - name: region
+        error_text: Превышено допустимое количество символов в поле
+      - name: owner
+        error_text: Превышено допустимое количество символов в поле
+      - name: comment
+        error_text: Превышено допустимое количество символов в поле
+      - name: source
+        error_text: Превышено допустимое количество символов в поле
+      - name: source_url
+        error_text: Превышено допустимое количество символов в поле
+  - &6
+    status: error
+    message: Неправильно заполнены параметры заявки
+    fields:
+      - name: service_id
+        error_text: Превышено допустимое количество символов в поле
+      - name: phone
+        error_text: Телефон должен быть указан в формате 79251112233
+      - name: firstname
+        error_text: Превышено допустимое количество символов в поле
+      - name: email
+        error_text: Превышено допустимое количество символов в поле
+      - name: inn
+        error_text: Превышено допустимое количество символов в поле
+      - name: region
+        error_text: Превышено допустимое количество символов в поле
+      - name: owner
+        error_text: Превышено допустимое количество символов в поле
+      - name: comment
+        error_text: Превышено допустимое количество символов в поле
+      - name: source
+        error_text: Превышено допустимое количество символов в поле
+      - name: source_url
+        error_text: Превышено допустимое количество символов в поле
+  - &7
+    status: success
+    order_id: 525cc221-c312-4807-99e4-b76678fbd0ba
+    message: Запрос обработан
+  - &8
+    status: error
+    message: Неправильно заполнены параметры заявки
+    fields:
+      - name: service_id
+        error_text: Поле должно быть заполнено и содержать только цифры
+  - &9
+    status: error
+    message: Неправильно заполнены параметры заявки
+    fields:
+      - name: service_id
+        error_text: Поле должно быть заполнено и содержать только цифры
+  - &10
+    status: error
+    message: Передан неиспользуемый или неразрешенный service_id
+  - &11
+    status: error
+    message: Передан неиспользуемый или неразрешенный service_id
+  - &12
+    status: success
+    order_id: ed5d8e49-f3a6-46ef-be32-283e621ccd1c
+    message: Запрос обработан
+  - &13
+    status: success
+    order_id: f0ae6007-625a-433a-8e96-143ad70c303d
+    message: Запрос обработан
+  - &14
+    status: success
+    order_id: 31444821-8866-4973-9252-ae63398cde92
+    message: Запрос обработан
+  - &15
+    status: success
+    order_id: a9ab9668-f84d-45af-b7ec-c9cf07541326
+    message: Запрос обработан
+  - &16
+    status: success
+    order_id: 22f09bb6-8b80-4b7d-b2e4-ef08c71343c0
+    message: Запрос обработан
+  - &17
+    status: success
+    order_id: b50a52ed-5ae4-4afc-9b32-191d0a7bb3f1
+    message: Запрос обработан
+valid_jsons:
+  - *1
+  - *2
+  - *3
+  - *4
+  - *5
+  - *6
+  - *7
+  - *8
+  - *9
+  - *10
+  - *11
+  - *12
+  - *13
+  - *14
+  - *15
+  - *16
+  - *17
+index_before: 7
+index_after: 12
+res_before:
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+res_medium:
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 9
+  - 4
+  - 4
+  - 8
+  - 'null'
+  - 9
+  - 9
+  - 'null'
+  - 4
+  - 4
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 9
+  - 4
+  - 4
+  - 4
+  - 4
+  - 4
+  - 4
+res_after:
+  - 17
+  - 17
+  - 17
+  - 17
+  - 17
+  - 17
+  - 4
+  - 4
+  - 8
+  - 'null'
+  - 9
+  - 9
+  - 'null'
+  - 4
+  - 4
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 17
+  - 17
+  - 17
+  - 17
+  - 17
+  - 4
+  - 4
+  - 4
+  - 4
+combinations:
+  - combination type: enum
+    combination: properties.status.enum.success
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+        order_id: *18
+        fields: *19
+        message: *20
+      required: *21
+    valid_jsons:
+      - *1
+      - *2
+      - *7
+      - *12
+      - *13
+      - *14
+      - *15
+      - *16
+      - *17
+    index_before: 10
+    index_after: 11
+    res_before:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+    res_medium:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+    res_after:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 9
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+  - combination type: enum
+    combination: properties.status.enum.error
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - error
+        order_id: *18
+        fields: *19
+        message: *20
+      required: *21
+    valid_jsons:
+      - *3
+      - *4
+      - *5
+      - *6
+      - *8
+      - *9
+      - *10
+      - *11
+    index_before: 11
+    index_after: 12
+    res_before:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 9
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+    res_medium:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 9
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+    res_after:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 8
+      - 8
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+  - combination type: required
+    combination: required.order_id
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties: *22
+      required:
+        - status
+        - message
+        - order_id
+    valid_jsons:
+      - *1
+      - *2
+      - *7
+      - *12
+      - *13
+      - *14
+      - *15
+      - *16
+      - *17
+    index_before: 12
+    index_after: 13
+    res_before:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 8
+      - 8
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+    res_medium:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 8
+      - 8
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+    res_after:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 9
+      - 8
+      - 8
+      - 'null'
+      - 9
+      - 9
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 9
+      - 9
+      - 9
+      - 9
+      - 9
+  - combination type: required
+    combination: required.fields
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties: *22
+      required:
+        - status
+        - message
+        - fields
+    valid_jsons:
+      - *5
+      - *6
+      - *8
+      - *9
+    index_before: 13
+    index_after: 14
+    res_before:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 9
+      - 8
+      - 8
+      - 'null'
+      - 9
+      - 9
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 9
+      - 9
+      - 9
+      - 9
+      - 9
+    res_medium:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 9
+      - 8
+      - 8
+      - 'null'
+      - 9
+      - 9
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 9
+      - 9
+      - 9
+      - 9
+      - 9
+    res_after:
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 4
+      - 4
+      - 8
+      - 'null'
+      - 9
+      - 9
+      - 'null'
+      - 4
+      - 4
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 'null'
+      - 9
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
