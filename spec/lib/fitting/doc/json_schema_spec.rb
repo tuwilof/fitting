@@ -1,5 +1,7 @@
 require 'rspec'
 require 'fitting/doc/json_schema'
+require 'yaml'
+require 'byebug'
 
 describe Fitting::Doc::JsonSchema do
   subject(:json_schema) { described_class.new(fixture["json_schema"]) }

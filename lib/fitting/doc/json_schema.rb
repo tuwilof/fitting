@@ -5,6 +5,8 @@ require 'fitting/doc/combination_enum'
 require 'fitting/cover/json_schema_enum'
 require 'fitting/cover/json_schema'
 require 'fitting/doc/combination_optional'
+require 'json'
+require 'json-schema'
 
 module Fitting
   class Doc
@@ -27,7 +29,7 @@ module Fitting
         end
 
         combinations = Fitting::Cover::JSONSchema.new(json_schema).combi
-        if combinations.size > 1
+        if combinations.size > 0
           combinations.each do |comb|
             @next_steps.push(CombinationOptional.new(comb[0], comb[1][0], comb[1][1], json_schema))
           end
