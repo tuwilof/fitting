@@ -33,13 +33,13 @@ describe Fitting::Doc::JsonSchema do
   end
 
   context 'bug 3' do
-    let(:fixture) { YAML.load(File.read('spec/fixtures/bugs/bug2/.fitting.debug.yml')) }
+    let(:fixture) { YAML.load(File.read('spec/fixtures/bugs/bug3/.fitting.debug.yml')) }
 
-    it 'report eq res_after' do
+    it 'fixed' do
       fixture["jsons"].each do |log|
         json_schema.cover!(double(body: log))
       end
-      doc_to_hash_lock = []
+      doc_to_hash_lock = fixture["res_before"].map { |r| nil }
       res = json_schema.report(doc_to_hash_lock, 0)
       expect(res[0].map { |r| r ? r : "null" }).to eq(fixture["res_after"])
     end

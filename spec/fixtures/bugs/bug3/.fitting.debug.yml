@@ -43,7 +43,8 @@ valid_jsons:
   - *6
   - *7
 index_before: 0
-index_after: 6
+index_medium: 2
+index_after: 8
 res_before:
   - 'null'
   - 'null'
@@ -123,6 +124,7 @@ combinations:
       - *5
       - *6
     index_before: 0
+    index_medium: 0
     index_after: 9
     res_before:
       - 7
@@ -197,6 +199,7 @@ combinations:
     valid_jsons:
       - *7
     index_before: 0
+    index_medium: 0
     index_after: 7
     res_before:
       - 6

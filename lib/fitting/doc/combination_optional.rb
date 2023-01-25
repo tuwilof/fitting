@@ -30,6 +30,7 @@ module Fitting
       def report(res, index)
         @index_before = index
         @res_before = [] + res
+        @index_medium = index
         @res_medium = [] + res
 
         combinations = @step_key.split('.')

@@ -1,7 +1,7 @@
 module Fitting
   class Doc
     class Step
-      attr_accessor :step_cover_size, :step_key, :next_steps, :index_before, :index_after, :res_before, :res_medium, :res_after
+      attr_accessor :step_cover_size, :step_key, :next_steps, :index_before, :index_medium, :index_after, :res_before, :res_medium, :res_after
 
       def to_hash
         {
@@ -21,6 +21,7 @@ module Fitting
         @res_before = [] + res
 
         mark_range(index, res)
+        @index_medium = index
         @res_medium = [] + res
 
         if @next_steps != []

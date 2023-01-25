@@ -71,6 +71,7 @@ module Fitting
         if @step_key["required"]
           mark_required(end_index, res, @step_key)
         end
+        end_index
       end
 
       def nocover!
@@ -85,7 +86,8 @@ module Fitting
         @index_before = index
         @res_before = [] + res
 
-        mark_range(index, res)
+        index = mark_range(index, res)
+        @index_medium = index
         @res_medium = [] + res
 
         if @next_steps != []
