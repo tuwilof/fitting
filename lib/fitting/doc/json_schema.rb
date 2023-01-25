@@ -29,10 +29,8 @@ module Fitting
         end
 
         combinations = Fitting::Cover::JSONSchema.new(json_schema).combi
-        if combinations.size > 0
-          combinations.each do |comb|
-            @next_steps.push(CombinationOptional.new(comb[0], comb[1][0], comb[1][1], json_schema))
-          end
+        combinations.each do |comb|
+          @next_steps.push(CombinationOptional.new(comb[0], comb[1][0], comb[1][1], json_schema))
         end
       end
 
