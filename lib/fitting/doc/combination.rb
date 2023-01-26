@@ -55,10 +55,6 @@ module Fitting
           #  "source body: #{::JSON.pretty_generate(log.body)}"
         end
       end
-
-      def index_offset
-        YAML.dump(@json_schema).split("\n").size - 3
-      end
     end
   end
 end

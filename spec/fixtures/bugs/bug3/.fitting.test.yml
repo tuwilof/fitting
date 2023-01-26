@@ -118,7 +118,7 @@ combinations:
   - *9
   index_before: 2
   index_medium: 2
-  index_after: 11
+  index_after: 6
   res_before:
   - 7
   - 7
@@ -193,7 +193,7 @@ combinations:
   - *12
   index_before: 2
   index_medium: 2
-  index_after: 9
+  index_after: 3
   res_before:
   - 7
   - 7
