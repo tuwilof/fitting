@@ -2,13 +2,13 @@
 json_schema:
   "$schema": http://json-schema.org/draft-04/schema#
   type: object
-  properties: &12
+  properties: &13
     status:
       type: string
       enum:
         - success
         - error
-    fields: &9
+    fields: &2
       type: array
       items:
         type: object
@@ -20,13 +20,13 @@ json_schema:
         required:
           - name
           - error_text
-    message: &10
+    message: &3
       type: string
-  required: &11
+  required: &4
     - status
     - message
-jsons:
-  - &1
+jsons: &1
+  - &10
     status: error
     message: Неправильно заполнены параметры заявки
     fields:
@@ -46,19 +46,19 @@ jsons:
         error_text: Превышено допустимое количество символов в поле
       - name: comment
         error_text: Превышено допустимое количество символов в поле
-  - &2
-    status: success
-    message: Заявка успешно отправлена
-  - &3
-    status: success
-    message: Заявка успешно отправлена
-  - &4
-    status: success
-    message: Заявка успешно отправлена
   - &5
+    status: success
+    message: Заявка успешно отправлена
+  - &6
+    status: success
+    message: Заявка успешно отправлена
+  - &7
+    status: success
+    message: Заявка успешно отправлена
+  - &11
     status: error
     message: Передан неиспользуемый или неразрешенный service_id
-  - &6
+  - &12
     status: error
     message: Неправильно заполнены параметры заявки
     fields:
@@ -66,23 +66,16 @@ jsons:
         error_text: Поле должно быть заполнено и содержать только цифры
       - name: phone
         error_text: Телефон должен быть указан в формате 79251112233
-  - &7
-    status: success
-    message: Заявка успешно отправлена
   - &8
     status: success
     message: Заявка успешно отправлена
-valid_jsons:
-  - *1
-  - *2
-  - *3
-  - *4
-  - *5
-  - *6
-  - *7
-  - *8
+  - &9
+    status: success
+    message: Заявка успешно отправлена
+valid_jsons: *1
 index_before: 0
-index_after: 4
+index_medium: 2
+index_after: 6
 res_before:
   - 'null'
   - 'null'
@@ -172,16 +165,17 @@ combinations:
           type: string
           enum:
             - success
-        fields: *9
-        message: *10
-      required: *11
+        fields: *2
+        message: *3
+      required: *4
     valid_jsons:
-      - *2
-      - *3
-      - *4
+      - *5
+      - *6
       - *7
       - *8
+      - *9
     index_before: 0
+    index_medium: 0
     index_after: 6
     res_before:
       - 8
@@ -271,14 +265,15 @@ combinations:
           type: string
           enum:
             - error
-        fields: *9
-        message: *10
-      required: *11
+        fields: *2
+        message: *3
+      required: *4
     valid_jsons:
-      - *1
-      - *5
-      - *6
+      - *10
+      - *11
+      - *12
     index_before: 0
+    index_medium: 0
     index_after: 7
     res_before:
       - 8
@@ -363,15 +358,16 @@ combinations:
     json_schema:
       "$schema": http://json-schema.org/draft-04/schema#
       type: object
-      properties: *12
+      properties: *13
       required:
         - status
         - message
         - fields
     valid_jsons:
-      - *1
-      - *6
+      - *10
+      - *12
     index_before: 0
+    index_medium: 0
     index_after: 12
     res_before:
       - 8

@@ -88,6 +88,8 @@ res_medium:
   - 'null'
   - 'null'
 res_after:
+  - 7
+  - 7
   - 1
   - 1
   - 1
@@ -97,8 +99,6 @@ res_after:
   - 1
   - 6
   - 6
-  - 'null'
-  - 'null'
   - 'null'
   - 'null'
   - 'null'
@@ -123,9 +123,9 @@ combinations:
       - *4
       - *5
       - *6
-    index_before: 0
-    index_medium: 0
-    index_after: 9
+    index_before: 2
+    index_medium: 2
+    index_after: 11
     res_before:
       - 7
       - 7
@@ -148,6 +148,8 @@ combinations:
       - 'null'
       - 'null'
     res_medium:
+      - 7
+      - 7
       - 6
       - 6
       - 6
@@ -157,8 +159,6 @@ combinations:
       - 'null'
       - 6
       - 6
-      - 'null'
-      - 'null'
       - 'null'
       - 'null'
       - 'null'
@@ -169,6 +169,8 @@ combinations:
       - 'null'
       - 'null'
     res_after:
+      - 7
+      - 7
       - 6
       - 1
       - 6
@@ -178,8 +180,6 @@ combinations:
       - 'null'
       - 6
       - 6
-      - 'null'
-      - 'null'
       - 'null'
       - 'null'
       - 'null'
@@ -198,10 +198,12 @@ combinations:
       required: *11
     valid_jsons:
       - *7
-    index_before: 0
-    index_medium: 0
-    index_after: 7
+    index_before: 2
+    index_medium: 2
+    index_after: 9
     res_before:
+      - 7
+      - 7
       - 6
       - 1
       - 6
@@ -211,8 +213,6 @@ combinations:
       - 'null'
       - 6
       - 6
-      - 'null'
-      - 'null'
       - 'null'
       - 'null'
       - 'null'
@@ -223,6 +223,8 @@ combinations:
       - 'null'
       - 'null'
     res_medium:
+      - 7
+      - 7
       - 1
       - 1
       - 1
@@ -232,8 +234,6 @@ combinations:
       - 1
       - 6
       - 6
-      - 'null'
-      - 'null'
       - 'null'
       - 'null'
       - 'null'
@@ -244,6 +244,8 @@ combinations:
       - 'null'
       - 'null'
     res_after:
+      - 7
+      - 7
       - 1
       - 1
       - 1
@@ -253,8 +255,6 @@ combinations:
       - 1
       - 6
       - 6
-      - 'null'
-      - 'null'
       - 'null'
       - 'null'
       - 'null'

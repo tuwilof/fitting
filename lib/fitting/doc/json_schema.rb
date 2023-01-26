@@ -18,7 +18,9 @@ module Fitting
         @step_cover_size = 0
         @step_key = json_schema
         @next_steps = []
+        @oneOf = false
         Fitting::Cover::JSONSchemaOneOf.new(json_schema).combi.each do |combination|
+          @oneOf = true
           @next_steps.push(Combination.new(combination[0], combination[1][0], combination[1][1]))
         end
         combinations = Fitting::Cover::JSONSchemaEnum.new(json_schema).combi
@@ -93,7 +95,11 @@ module Fitting
         if @next_steps != []
           new_index = index + new_index_offset
           @next_steps.each do |next_step|
-            res, new_index = next_step.report(res, @index_before)
+            if @oneOf
+              res, new_index = next_step.report(res, @index_medium)
+            else
+              res, new_index = next_step.report(res, @index_before)
+            end
           end
         end
 
