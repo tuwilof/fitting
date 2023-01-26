@@ -55,6 +55,12 @@ module Fitting
           #  "source body: #{::JSON.pretty_generate(log.body)}"
         end
       end
+
+      def mark_range(index, res)
+        if @json_schema && @json_schema["required"]
+          mark_required(index, res, @json_schema)
+        end
+      end
     end
   end
 end
