@@ -3,14 +3,14 @@ json_schema:
   "$schema": http://json-schema.org/draft-04/schema#
   type: object
   oneOf:
-    - properties: &8
+    - properties: &2
         status:
           type: string
           enum:
             - unauthorized
             - notAvailable
             - accessDenied
-      required: &9
+      required: &3
         - status
     - properties: &10
         status:
@@ -19,29 +19,22 @@ json_schema:
             - subclientForbidden
       required: &11
         - status
-jsons:
-  - &1
-    status: unauthorized
-  - &2
-    status: unauthorized
-  - &3
-    status: unauthorized
+jsons: &1
   - &4
-    status: accessDenied
+    status: unauthorized
   - &5
     status: unauthorized
   - &6
-    status: notAvailable
+    status: unauthorized
   - &7
+    status: accessDenied
+  - &8
+    status: unauthorized
+  - &9
+    status: notAvailable
+  - &12
     status: subclientForbidden
-valid_jsons:
-  - *1
-  - *2
-  - *3
-  - *4
-  - *5
-  - *6
-  - *7
+valid_jsons: *1
 index_before: 0
 index_medium: 2
 index_after: 8
@@ -114,15 +107,15 @@ combinations:
     json_schema:
       "$schema": http://json-schema.org/draft-04/schema#
       type: object
-      properties: *8
-      required: *9
+      properties: *2
+      required: *3
     valid_jsons:
-      - *1
-      - *2
-      - *3
       - *4
       - *5
       - *6
+      - *7
+      - *8
+      - *9
     index_before: 2
     index_medium: 2
     index_after: 11
@@ -197,7 +190,7 @@ combinations:
       properties: *10
       required: *11
     valid_jsons:
-      - *7
+      - *12
     index_before: 2
     index_medium: 2
     index_after: 9

@@ -1,0 +1,259 @@
+---
+json_schema:
+  "$schema": http://json-schema.org/draft-04/schema#
+  type: object
+  oneOf:
+  - properties: &2
+      status:
+        type: string
+        enum:
+        - unauthorized
+        - notAvailable
+        - accessDenied
+    required: &3
+    - status
+  - properties: &10
+      status:
+        type: string
+        enum:
+        - subclientForbidden
+    required: &11
+    - status
+jsons: &1
+- &4
+  status: unauthorized
+- &5
+  status: unauthorized
+- &6
+  status: unauthorized
+- &7
+  status: accessDenied
+- &8
+  status: unauthorized
+- &9
+  status: notAvailable
+- &12
+  status: subclientForbidden
+valid_jsons: *1
+index_before: 0
+index_medium: 2
+index_after: 8
+res_before:
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+res_medium:
+- 7
+- 7
+- 7
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+res_after:
+- 7
+- 7
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 6
+- 6
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+combinations:
+- combination type: one_of
+  combination: oneOf.0
+  json_schema:
+    "$schema": http://json-schema.org/draft-04/schema#
+    type: object
+    properties: *2
+    required: *3
+  valid_jsons:
+  - *4
+  - *5
+  - *6
+  - *7
+  - *8
+  - *9
+  index_before: 2
+  index_medium: 2
+  index_after: 11
+  res_before:
+  - 7
+  - 7
+  - 7
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  res_medium:
+  - 7
+  - 7
+  - 6
+  - 6
+  - 6
+  - 6
+  - 'null'
+  - 'null'
+  - 'null'
+  - 6
+  - 6
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  res_after:
+  - 7
+  - 7
+  - 6
+  - 1
+  - 6
+  - 6
+  - 'null'
+  - 'null'
+  - 'null'
+  - 6
+  - 6
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+- combination type: one_of
+  combination: oneOf.1
+  json_schema:
+    "$schema": http://json-schema.org/draft-04/schema#
+    type: object
+    properties: *10
+    required: *11
+  valid_jsons:
+  - *12
+  index_before: 2
+  index_medium: 2
+  index_after: 9
+  res_before:
+  - 7
+  - 7
+  - 6
+  - 1
+  - 6
+  - 6
+  - 'null'
+  - 'null'
+  - 'null'
+  - 6
+  - 6
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  res_medium:
+  - 7
+  - 7
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 6
+  - 6
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  res_after:
+  - 7
+  - 7
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 6
+  - 6
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'

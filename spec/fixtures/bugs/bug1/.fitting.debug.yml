@@ -2,15 +2,15 @@
 json_schema:
   "$schema": http://json-schema.org/draft-04/schema#
   type: object
-  properties: &22
+  properties: &23
     status:
       type: string
       enum:
         - success
         - error
-    order_id: &18
+    order_id: &2
       type: string
-    fields: &19
+    fields: &3
       type: array
       items:
         type: object
@@ -22,27 +22,27 @@ json_schema:
         required:
           - name
           - error_text
-    message: &20
+    message: &4
       type: string
-  required: &21
+  required: &5
     - status
     - message
-jsons:
-  - &1
+jsons: &1
+  - &6
     status: success
     order_id: b9a7cb54-04e9-4270-96c4-eb22941f6f35
     message: Запрос обработан
-  - &2
+  - &7
     status: success
     order_id: a0cae8f7-8896-4d36-89b1-44142531a5ef
     message: Запрос обработан
-  - &3
+  - &15
     status: error
     message: Превышено количество доступных отправок заявок
-  - &4
+  - &16
     status: error
     message: Превышено количество доступных отправок заявок
-  - &5
+  - &17
     status: error
     message: Неправильно заполнены параметры заявки
     fields:
@@ -66,7 +66,7 @@ jsons:
         error_text: Превышено допустимое количество символов в поле
       - name: source_url
         error_text: Превышено допустимое количество символов в поле
-  - &6
+  - &18
     status: error
     message: Неправильно заполнены параметры заявки
     fields:
@@ -90,72 +90,56 @@ jsons:
         error_text: Превышено допустимое количество символов в поле
       - name: source_url
         error_text: Превышено допустимое количество символов в поле
-  - &7
+  - &8
     status: success
     order_id: 525cc221-c312-4807-99e4-b76678fbd0ba
     message: Запрос обработан
-  - &8
+  - &19
     status: error
     message: Неправильно заполнены параметры заявки
     fields:
       - name: service_id
         error_text: Поле должно быть заполнено и содержать только цифры
+  - &20
+    status: error
+    message: Неправильно заполнены параметры заявки
+    fields:
+      - name: service_id
+        error_text: Поле должно быть заполнено и содержать только цифры
+  - &21
+    status: error
+    message: Передан неиспользуемый или неразрешенный service_id
+  - &22
+    status: error
+    message: Передан неиспользуемый или неразрешенный service_id
   - &9
-    status: error
-    message: Неправильно заполнены параметры заявки
-    fields:
-      - name: service_id
-        error_text: Поле должно быть заполнено и содержать только цифры
-  - &10
-    status: error
-    message: Передан неиспользуемый или неразрешенный service_id
-  - &11
-    status: error
-    message: Передан неиспользуемый или неразрешенный service_id
-  - &12
     status: success
     order_id: ed5d8e49-f3a6-46ef-be32-283e621ccd1c
     message: Запрос обработан
-  - &13
+  - &10
     status: success
     order_id: f0ae6007-625a-433a-8e96-143ad70c303d
     message: Запрос обработан
-  - &14
+  - &11
     status: success
     order_id: 31444821-8866-4973-9252-ae63398cde92
     message: Запрос обработан
-  - &15
+  - &12
     status: success
     order_id: a9ab9668-f84d-45af-b7ec-c9cf07541326
     message: Запрос обработан
-  - &16
+  - &13
     status: success
     order_id: 22f09bb6-8b80-4b7d-b2e4-ef08c71343c0
     message: Запрос обработан
-  - &17
+  - &14
     status: success
     order_id: b50a52ed-5ae4-4afc-9b32-191d0a7bb3f1
     message: Запрос обработан
-valid_jsons:
-  - *1
-  - *2
-  - *3
-  - *4
-  - *5
-  - *6
-  - *7
-  - *8
-  - *9
-  - *10
-  - *11
-  - *12
-  - *13
-  - *14
-  - *15
-  - *16
-  - *17
+valid_jsons: *1
 index_before: 0
-index_after: 5
+index_medium: 2
+index_after: 7
 res_before:
   - 'null'
   - 'null'
@@ -251,21 +235,22 @@ combinations:
           type: string
           enum:
             - success
-        order_id: *18
-        fields: *19
-        message: *20
-      required: *21
+        order_id: *2
+        fields: *3
+        message: *4
+      required: *5
     valid_jsons:
-      - *1
-      - *2
+      - *6
       - *7
+      - *8
+      - *9
+      - *10
+      - *11
       - *12
       - *13
       - *14
-      - *15
-      - *16
-      - *17
     index_before: 0
+    index_medium: 0
     index_after: 6
     res_before:
       - 17
@@ -361,20 +346,21 @@ combinations:
           type: string
           enum:
             - error
-        order_id: *18
-        fields: *19
-        message: *20
-      required: *21
+        order_id: *2
+        fields: *3
+        message: *4
+      required: *5
     valid_jsons:
-      - *3
-      - *4
-      - *5
-      - *6
-      - *8
-      - *9
-      - *10
-      - *11
+      - *15
+      - *16
+      - *17
+      - *18
+      - *19
+      - *20
+      - *21
+      - *22
     index_before: 0
+    index_medium: 0
     index_after: 7
     res_before:
       - 17
@@ -465,22 +451,23 @@ combinations:
     json_schema:
       "$schema": http://json-schema.org/draft-04/schema#
       type: object
-      properties: *22
+      properties: *23
       required:
         - status
         - message
         - order_id
     valid_jsons:
-      - *1
-      - *2
+      - *6
       - *7
+      - *8
+      - *9
+      - *10
+      - *11
       - *12
       - *13
       - *14
-      - *15
-      - *16
-      - *17
     index_before: 0
+    index_medium: 0
     index_after: 12
     res_before:
       - 17
@@ -571,17 +558,18 @@ combinations:
     json_schema:
       "$schema": http://json-schema.org/draft-04/schema#
       type: object
-      properties: *22
+      properties: *23
       required:
         - status
         - message
         - fields
     valid_jsons:
-      - *5
-      - *6
-      - *8
-      - *9
+      - *17
+      - *18
+      - *19
+      - *20
     index_before: 0
+    index_medium: 0
     index_after: 14
     res_before:
       - 17
