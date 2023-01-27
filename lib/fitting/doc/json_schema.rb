@@ -58,10 +58,6 @@ module Fitting
         @logs
       end
 
-      def new_index_offset
-        3
-      end
-
       def mark_range(index, res)
         start_index = index
         end_index = start_index + 2
@@ -93,10 +89,10 @@ module Fitting
         @res_medium = [] + res
 
         if @next_steps != []
-          new_index = index + new_index_offset
+          new_index = index
           @next_steps.each do |next_step|
             if @oneOf
-              res, new_index = next_step.report(res, @index_medium)
+              res, new_index = next_step.report(res, new_index)
             else
               res, new_index = next_step.report(res, @index_before)
             end

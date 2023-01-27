@@ -84,22 +84,22 @@ res_after:
 - 7
 - 7
 - 7
-- 1
-- 1
-- 1
-- 1
-- 1
+- 6
+- 6
+- 6
+- 6
+- 4
 - 1
 - 1
 - 6
 - 6
-- 'null'
-- 'null'
-- 'null'
-- 'null'
-- 'null'
-- 'null'
-- 'null'
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
 - 'null'
 combinations:
 - combination type: one_of
@@ -118,7 +118,7 @@ combinations:
   - *9
   index_before: 2
   index_medium: 2
-  index_after: 6
+  index_after: 11
   res_before:
   - 7
   - 7
@@ -435,9 +435,9 @@ combinations:
     required: *11
   valid_jsons:
   - *12
-  index_before: 2
-  index_medium: 2
-  index_after: 3
+  index_before: 11
+  index_medium: 11
+  index_after: 18
   res_before:
   - 7
   - 7
@@ -463,42 +463,42 @@ combinations:
   - 7
   - 7
   - 7
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  - 6
+  - 6
+  - 6
+  - 6
+  - 4
   - 1
   - 1
   - 6
   - 6
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
   - 'null'
   res_after:
   - 7
   - 7
   - 7
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  - 6
+  - 6
+  - 6
+  - 6
+  - 4
   - 1
   - 1
   - 6
   - 6
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
-  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
   - 'null'
   combinations: []

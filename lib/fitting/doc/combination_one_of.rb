@@ -52,6 +52,10 @@ module Fitting
           mark_required(index + 1, res, @json_schema)
         end
       end
+
+      def index_offset
+        YAML.dump(@json_schema['properties']).split("\n").size +  YAML.dump(@json_schema['required']).split("\n").size
+      end
     end
   end
 end
