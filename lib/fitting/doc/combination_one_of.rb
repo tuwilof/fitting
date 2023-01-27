@@ -6,7 +6,7 @@ require 'fitting/doc/combination_optional'
 
 module Fitting
   class Doc
-    class Combination < CombinationStep
+    class CombinationOneOf < CombinationStep
       class NotFound < RuntimeError; end
 
       attr_accessor :json_schema, :type, :logs
