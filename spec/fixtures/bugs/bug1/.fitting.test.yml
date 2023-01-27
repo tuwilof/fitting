@@ -336,6 +336,7 @@ combinations:
   - 17
   - 17
   - 17
+  combinations: []
 - combination type: enum
   combination: properties.status.enum.error
   json_schema:
@@ -446,6 +447,7 @@ combinations:
   - 17
   - 17
   - 17
+  combinations: []
 - combination type: required
   combination: required.order_id
   json_schema:
@@ -553,6 +555,7 @@ combinations:
   - 17
   - 17
   - 17
+  combinations: []
 - combination type: required
   combination: required.fields
   json_schema:
@@ -655,3 +658,4 @@ combinations:
   - 17
   - 17
   - 17
+  combinations: []

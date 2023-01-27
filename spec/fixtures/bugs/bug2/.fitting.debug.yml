@@ -255,6 +255,7 @@ combinations:
       - 8
       - 8
       - 8
+    combinations: []
   - combination type: enum
     combination: properties.status.enum.error
     json_schema:
@@ -353,6 +354,7 @@ combinations:
       - 8
       - 8
       - 8
+    combinations: []
   - combination type: required
     combination: required.fields
     json_schema:
@@ -447,3 +449,4 @@ combinations:
       - 8
       - 8
       - 8
+    combinations: []

@@ -182,6 +182,250 @@ combinations:
   - 'null'
   - 'null'
   - 'null'
+  combinations:
+  - combination type: one_of.enum
+    combination: oneOf.0.properties.status.enum.unauthorized
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - unauthorized
+      required: *3
+    valid_jsons:
+    - *4
+    - *5
+    - *6
+    - *8
+    index_before: 3
+    index_medium: 3
+    index_after: 3
+    res_before:
+    - 7
+    - 7
+    - 7
+    - 6
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    res_medium:
+    - 7
+    - 7
+    - 7
+    - 6
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    res_after:
+    - 7
+    - 7
+    - 7
+    - 4
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    combinations: []
+  - combination type: one_of.enum
+    combination: oneOf.0.properties.status.enum.notAvailable
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - notAvailable
+      required: *3
+    valid_jsons:
+    - *9
+    index_before: 3
+    index_medium: 3
+    index_after: 3
+    res_before:
+    - 7
+    - 7
+    - 7
+    - 4
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    res_medium:
+    - 7
+    - 7
+    - 7
+    - 4
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    res_after:
+    - 7
+    - 7
+    - 7
+    - 1
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    combinations: []
+  - combination type: one_of.enum
+    combination: oneOf.0.properties.status.enum.accessDenied
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - accessDenied
+      required: *3
+    valid_jsons:
+    - *7
+    index_before: 3
+    index_medium: 3
+    index_after: 3
+    res_before:
+    - 7
+    - 7
+    - 7
+    - 1
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    res_medium:
+    - 7
+    - 7
+    - 7
+    - 1
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    res_after:
+    - 7
+    - 7
+    - 7
+    - 1
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 6
+    - 6
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    combinations: []
 - combination type: one_of
   combination: oneOf.1
   json_schema:
@@ -257,3 +501,4 @@ combinations:
   - 'null'
   - 'null'
   - 'null'
+  combinations: []
