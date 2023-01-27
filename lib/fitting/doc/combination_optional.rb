@@ -4,20 +4,6 @@ require 'fitting/cover/json_schema_enum'
 module Fitting
   class Doc
     class CombinationOptional < CombinationStep
-      class NotFound < RuntimeError; end
-
-      attr_accessor :json_schema, :type, :logs
-
-      def initialize(json_schema, type, combination, source_json_schema)
-        @logs = []
-        @step_cover_size = 0
-        @json_schema = json_schema
-        @next_steps = []
-        @type = type
-        @step_key = combination
-        @source_json_schema = source_json_schema
-      end
-
       def cover!(log)
         error = JSON::Validator.fully_validate(@json_schema, log.body)
         if error == []

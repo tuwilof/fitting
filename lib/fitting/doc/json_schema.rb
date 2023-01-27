@@ -21,7 +21,7 @@ module Fitting
         @oneOf = false
         Fitting::Cover::JSONSchemaOneOf.new(json_schema).combi.each do |combination|
           @oneOf = true
-          @next_steps.push(CombinationOneOf.new(combination[0], combination[1][0], combination[1][1]))
+          @next_steps.push(CombinationOneOf.new(combination[0], combination[1][0], combination[1][1], json_schema))
         end
         combinations = Fitting::Cover::JSONSchemaEnum.new(json_schema).combi
         if combinations.size > 1

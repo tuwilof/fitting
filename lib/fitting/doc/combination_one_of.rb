@@ -7,17 +7,7 @@ require 'fitting/doc/combination_optional'
 module Fitting
   class Doc
     class CombinationOneOf < CombinationStep
-      class NotFound < RuntimeError; end
-
-      attr_accessor :json_schema, :type, :logs
-
-      def initialize(json_schema, type, combination)
-        @logs = []
-        @step_cover_size = 0
-        @json_schema = json_schema
-        @next_steps = []
-        @type = type
-        @step_key = combination
+      def initialize_combinations(combination, json_schema)
         combinations = Fitting::Cover::JSONSchemaEnum.new(@json_schema).combi
         if combinations.size > 1
           combinations.each do |comb|
