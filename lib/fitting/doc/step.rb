@@ -53,8 +53,13 @@ module Fitting
       end
 
       def mark_required(index, res, schema)
-        start_index = index + YAML.dump(schema["properties"]).split("\n").size
-        end_index = start_index + YAML.dump(schema["required"]).split("\n").size - 1
+        if self.class == Fitting::Doc::CombinationOneOf
+          start_index = index + YAML.dump(schema["properties"]).split("\n").size + 1
+          end_index = start_index + YAML.dump(schema["required"]).split("\n").size - 1
+        else
+          start_index = index + YAML.dump(schema["properties"]).split("\n").size
+          end_index = start_index + YAML.dump(schema["required"]).split("\n").size - 1
+        end
         (start_index..end_index).each do |i|
           res[i] = @step_cover_size
         end
