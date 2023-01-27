@@ -1,9 +1,9 @@
-require 'fitting/doc/step'
+require 'fitting/doc/combination_step'
 require 'fitting/cover/json_schema_enum'
 
 module Fitting
   class Doc
-    class CombinationEnum < Step
+    class CombinationEnum < CombinationStep
       class NotFound < RuntimeError; end
 
       attr_accessor :json_schema, :type, :logs

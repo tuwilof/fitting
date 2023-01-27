@@ -26,18 +26,7 @@ module Fitting
       combinations = []
       next_steps_first.next_steps.each do |next_step|
         combinations.push(
-          {
-            "combination type" => next_step.type,
-            "combination" => next_step.step_key,
-            "json_schema" => next_step.json_schema,
-            "valid_jsons" => next_step.logs,
-            "index_before" => next_step.index_before - index,
-            "index_medium" => next_step.index_medium - index,
-            "index_after" => next_step.index_after - index,
-            "res_before" => next_step.res_before.map{|r| r ? r : "null"}[index..-1],
-            "res_medium" => next_step.res_medium.map{|r| r ? r : "null"}[index..-1],
-            "res_after" => next_step.res_after.map{|r| r ? r : "null"}[index..-1]
-          }
+          next_step.debug_report(index)
         )
       end
       res_debug = {
