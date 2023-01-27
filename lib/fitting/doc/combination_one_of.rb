@@ -11,7 +11,7 @@ module Fitting
         combinations = Fitting::Cover::JSONSchemaEnum.new(@json_schema).combi
         if combinations.size > 1
           combinations.each do |comb|
-            @next_steps.push(CombinationEnum.new(comb[0], "#{type}.#{comb[1][0]}", "#{combination}.#{comb[1][1]}", json_schema))
+            @next_steps.push(CombinationEnum.new(comb[0], "#{comb[1][0]}", "#{comb[1][1]}", json_schema))
           end
         end
 

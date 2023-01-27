@@ -165,13 +165,13 @@ combinations:
       - 7
       - 7
       - 7
+      - 6
+      - 6
+      - 6
+      - 6
+      - 4
       - 1
-      - 6
-      - 6
-      - 6
-      - 'null'
-      - 'null'
-      - 'null'
+      - 1
       - 6
       - 6
       - 'null'
@@ -183,8 +183,8 @@ combinations:
       - 'null'
       - 'null'
     combinations:
-      - combination type: one_of.enum
-        combination: oneOf.0.properties.status.enum.unauthorized
+      - combination type: enum
+        combination: properties.status.enum.unauthorized
         json_schema:
           "$schema": http://json-schema.org/draft-04/schema#
           type: object
@@ -199,9 +199,9 @@ combinations:
           - *5
           - *6
           - *8
-        index_before: 3
-        index_medium: 3
-        index_after: 3
+        index_before: 1
+        index_medium: 1
+        index_after: 7
         res_before:
           - 7
           - 7
@@ -248,11 +248,11 @@ combinations:
           - 7
           - 7
           - 7
+          - 6
+          - 6
+          - 6
+          - 6
           - 4
-          - 6
-          - 6
-          - 6
-          - 'null'
           - 'null'
           - 'null'
           - 6
@@ -266,8 +266,8 @@ combinations:
           - 'null'
           - 'null'
         combinations: []
-      - combination type: one_of.enum
-        combination: oneOf.0.properties.status.enum.notAvailable
+      - combination type: enum
+        combination: properties.status.enum.notAvailable
         json_schema:
           "$schema": http://json-schema.org/draft-04/schema#
           type: object
@@ -279,18 +279,18 @@ combinations:
           required: *3
         valid_jsons:
           - *9
-        index_before: 3
-        index_medium: 3
-        index_after: 3
+        index_before: 1
+        index_medium: 1
+        index_after: 8
         res_before:
           - 7
           - 7
           - 7
+          - 6
+          - 6
+          - 6
+          - 6
           - 4
-          - 6
-          - 6
-          - 6
-          - 'null'
           - 'null'
           - 'null'
           - 6
@@ -307,11 +307,11 @@ combinations:
           - 7
           - 7
           - 7
+          - 6
+          - 6
+          - 6
+          - 6
           - 4
-          - 6
-          - 6
-          - 6
-          - 'null'
           - 'null'
           - 'null'
           - 6
@@ -328,12 +328,12 @@ combinations:
           - 7
           - 7
           - 7
+          - 6
+          - 6
+          - 6
+          - 6
+          - 4
           - 1
-          - 6
-          - 6
-          - 6
-          - 'null'
-          - 'null'
           - 'null'
           - 6
           - 6
@@ -346,8 +346,8 @@ combinations:
           - 'null'
           - 'null'
         combinations: []
-      - combination type: one_of.enum
-        combination: oneOf.0.properties.status.enum.accessDenied
+      - combination type: enum
+        combination: properties.status.enum.accessDenied
         json_schema:
           "$schema": http://json-schema.org/draft-04/schema#
           type: object
@@ -359,19 +359,19 @@ combinations:
           required: *3
         valid_jsons:
           - *7
-        index_before: 3
-        index_medium: 3
-        index_after: 3
+        index_before: 1
+        index_medium: 1
+        index_after: 9
         res_before:
           - 7
           - 7
           - 7
+          - 6
+          - 6
+          - 6
+          - 6
+          - 4
           - 1
-          - 6
-          - 6
-          - 6
-          - 'null'
-          - 'null'
           - 'null'
           - 6
           - 6
@@ -387,12 +387,12 @@ combinations:
           - 7
           - 7
           - 7
+          - 6
+          - 6
+          - 6
+          - 6
+          - 4
           - 1
-          - 6
-          - 6
-          - 6
-          - 'null'
-          - 'null'
           - 'null'
           - 6
           - 6
@@ -408,13 +408,13 @@ combinations:
           - 7
           - 7
           - 7
+          - 6
+          - 6
+          - 6
+          - 6
+          - 4
           - 1
-          - 6
-          - 6
-          - 6
-          - 'null'
-          - 'null'
-          - 'null'
+          - 1
           - 6
           - 6
           - 'null'
@@ -442,13 +442,13 @@ combinations:
       - 7
       - 7
       - 7
+      - 6
+      - 6
+      - 6
+      - 6
+      - 4
       - 1
-      - 6
-      - 6
-      - 6
-      - 'null'
-      - 'null'
-      - 'null'
+      - 1
       - 6
       - 6
       - 'null'

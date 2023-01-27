@@ -27,7 +27,11 @@ module Fitting
         if @next_steps != []
           new_index = index + new_index_offset
           @next_steps.each do |next_step|
-            res, new_index = next_step.report(res, new_index)
+            if self.class == Fitting::Doc::CombinationOneOf
+              res, _new_index = next_step.report(res, new_index - 2)
+            else
+              res, new_index = next_step.report(res, new_index)
+            end
           end
         end
 
