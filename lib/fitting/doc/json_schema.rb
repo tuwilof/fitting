@@ -50,7 +50,7 @@ module Fitting
         raise Fitting::Doc::JsonSchema::NotFound.new "json-schema: #{::JSON.pretty_generate(@step_key)}\n\n"\
             "body: #{::JSON.pretty_generate(log.body)}\n\n"\
             "error #{e.message}"
-      rescue Fitting::Doc::Combination::NotFound => e
+      rescue Fitting::Doc::CombinationOneOf::NotFound => e
         raise Fitting::Doc::JsonSchema::NotFound.new "#{e.message}\n\nsource json-schema: #{::JSON.pretty_generate(@step_key)}\n\n"
       end
 
