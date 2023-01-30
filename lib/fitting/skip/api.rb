@@ -12,7 +12,7 @@ module Fitting
       def self.provided_all(apis)
         return [] unless apis
         apis.map do |api|
-          new('provided', YAML.safe_load(File.read('.fitting.yml'))['Host'], api['prefix'])
+          new('provided', 'www.example.com', api['prefix'])
         end
       end
 

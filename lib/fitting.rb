@@ -40,21 +40,8 @@ module Fitting
         config.after(:each) do
           WebMock::CallbackRegistry.reset
         end
-
-        config.before(:each, type: :request) do
-          host! YAML.safe_load(File.read('.fitting.yml'))['Host']
-        end
       end
       # :nocov:
-    end
-  end
-end
-
-module ActionDispatch
-  class TestRequest
-    # Override host, by default it is test.host
-    def host
-      YAML.safe_load(File.read('.fitting.yml'))['Host']
     end
   end
 end

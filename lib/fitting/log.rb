@@ -51,7 +51,7 @@ module Fitting
     end
 
     def host
-      @log['host']
+      @log['host'] || 'www.example.com'
     end
 
     def type

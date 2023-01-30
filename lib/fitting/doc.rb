@@ -21,7 +21,7 @@ module Fitting
           return if doc.cover!(log)
         end
       end
-      raise NotFound.new "log type: #{log.type}\n\n#{log.method} #{log.url} #{log.status} #{log.type}"
+      raise NotFound.new "log type: #{log.type}\n\n#{log.method} #{log.host} #{log.url} #{log.status} #{log.type}"
     rescue Fitting::Doc::Action::NotFound => e
       raise NotFound.new "log type: #{log.type}\n\n"\
           "#{e.message}"
