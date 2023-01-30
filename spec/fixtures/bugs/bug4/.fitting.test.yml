@@ -1,0 +1,1055 @@
+---
+json_schema:
+  "$schema": http://json-schema.org/draft-04/schema#
+  type: object
+  oneOf:
+  - properties: &2
+      status:
+        type: string
+        enum:
+        - ok
+      result:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          type:
+            type: string
+          external_id:
+            type: string
+          lead_group_id:
+            type:
+            - number
+            - 'null'
+          order_number:
+            type: number
+          allow_connection:
+            type: boolean
+          activation_text:
+            type:
+            - string
+            - 'null'
+          show_charges:
+            type: boolean
+          show_in_services:
+            type: boolean
+          partner_id:
+            type:
+            - string
+            - 'null'
+          emails:
+            type: array
+            items:
+              type: string
+          emails_cc:
+            type: array
+            items:
+              type: string
+          emails_bcc:
+            type: array
+            items:
+              type: string
+        required:
+        - id
+        - name
+        - type
+        - external_id
+        - lead_group_id
+        - order_number
+        - allow_connection
+        - activation_text
+        - show_charges
+        - show_in_services
+        - emails
+        - emails_cc
+        - emails_bcc
+    required: &3
+    - status
+  - properties: &5
+      status:
+        type: string
+        enum:
+        - error
+    required: &6
+    - status
+jsons: &1
+- &7
+  status: error
+- &4
+  status: ok
+  result:
+    id: 75f6efa4-c1e7-48af-bf9a-c56cde84acdb
+    name: service_name_106
+    type: ROService::Service
+    external_id: '350'
+    lead_group_id: 
+    order_number: 9999
+    allow_connection: false
+    activation_text: 
+    show_charges: false
+    show_in_services: false
+    partner_id: 
+    emails:
+    - my@localhost
+    emails_cc: []
+    emails_bcc: []
+valid_jsons: *1
+index_before: 0
+index_medium: 2
+index_after: 6
+res_before:
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+res_medium:
+- 2
+- 2
+- 2
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+res_after:
+- 2
+- 2
+- 2
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 'null'
+- 'null'
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 'null'
+- 'null'
+- 1
+- 1
+- 1
+- 1
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 1
+- 1
+- 'null'
+- 'null'
+- 1
+- 1
+- 'null'
+- 'null'
+- 1
+- 1
+- 'null'
+- 'null'
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 'null'
+combinations:
+- combination type: one_of
+  combination: oneOf.0
+  json_schema:
+    "$schema": http://json-schema.org/draft-04/schema#
+    type: object
+    properties: *2
+    required: *3
+  valid_jsons:
+  - *4
+  index_before: 2
+  index_medium: 2
+  index_after: 66
+  res_before:
+  - 2
+  - 2
+  - 2
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  res_medium:
+  - 2
+  - 2
+  - 2
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  res_after:
+  - 2
+  - 2
+  - 2
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  combinations:
+  - combination type: one_of.required
+    combination: oneOf.0.required.result
+    json_schema:
+      "$schema": http://json-schema.org/draft-04/schema#
+      type: object
+      properties: *2
+      required:
+      - status
+      - result
+    valid_jsons:
+    - *4
+    index_before: 1
+    index_medium: 1
+    index_after: 12
+    res_before:
+    - 2
+    - 2
+    - 2
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 1
+    - 1
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    res_medium:
+    - 2
+    - 2
+    - 2
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 1
+    - 1
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    res_after:
+    - 2
+    - 2
+    - 2
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 'null'
+    - 'null'
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 'null'
+    - 'null'
+    - 1
+    - 1
+    - 1
+    - 1
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 1
+    - 1
+    - 'null'
+    - 'null'
+    - 1
+    - 1
+    - 'null'
+    - 'null'
+    - 1
+    - 1
+    - 'null'
+    - 'null'
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    - 'null'
+    combinations: []
+- combination type: one_of
+  combination: oneOf.1
+  json_schema:
+    "$schema": http://json-schema.org/draft-04/schema#
+    type: object
+    properties: *5
+    required: *6
+  valid_jsons:
+  - *7
+  index_before: 66
+  index_medium: 66
+  index_after: 73
+  res_before:
+  - 2
+  - 2
+  - 2
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  res_medium:
+  - 2
+  - 2
+  - 2
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  res_after:
+  - 2
+  - 2
+  - 2
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 'null'
+  - 'null'
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 'null'
+  combinations: []

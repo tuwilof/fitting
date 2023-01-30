@@ -39,6 +39,10 @@ module Fitting
 
           schema = @source_json_schema["properties"][combinations[-1]]['items']
           mark_required(res_index + index + 4, res, schema)
+        elsif @source_json_schema["properties"][combinations[-1]] && @source_json_schema["properties"][combinations[-1]]["type"] == "object"
+          schema = @source_json_schema["properties"][combinations[-1]]
+          res[res_index + index + 2] = @step_cover_size
+          mark_required(res_index + index + 2, res, schema)
         end
 
         @index_after = res_index + index + 4
