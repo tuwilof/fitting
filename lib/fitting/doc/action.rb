@@ -14,6 +14,7 @@ module Fitting
         @prefix = prefix
         @method = method
         @path = path
+        @path.slice!(prefix)
         @responses = []
         responses.group_by { |response| response['status'] }.each do |code, value|
           @responses.push(Code.new(code, value))
@@ -163,7 +164,7 @@ module Fitting
       def regexp
         return @regexp if @regexp
 
-        str = Regexp.escape(path)
+        str = Regexp.escape(@prefix + path)
         str = str.gsub(/\\{\w+\\}/, '[^&=\/]+')
         str = "\\A#{str}\\z"
         @regexp = Regexp.new(str)

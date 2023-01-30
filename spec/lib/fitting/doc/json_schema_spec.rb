@@ -5,7 +5,7 @@ require 'yaml'
 require 'byebug'
 
 describe Fitting::Doc::JsonSchema do
-  subject(:json_schema) { described_class.new(fixture["json_schema"]) }
+  subject(:json_schema) { described_class.new(fixture["json_schema"], false) }
 
   context 'bug 1' do
     let(:fixture) { YAML.load(File.read('spec/fixtures/bugs/bug1/.fitting.debug.yml')) }

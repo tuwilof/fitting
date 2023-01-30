@@ -38,12 +38,6 @@ module Fitting
         def to_json(*_args)
           JSON.dump(to_hash)
         end
-
-        class << self
-          def load(hash)
-            new(status: hash['status'], body: hash['body'])
-          end
-        end
       end
     end
   end
