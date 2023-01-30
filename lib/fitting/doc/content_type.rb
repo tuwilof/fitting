@@ -12,14 +12,15 @@ module Fitting
         @next_steps = []
         @step_cover_size = 0
         return self if content_type != 'application/json'
-        if subvalue.size == 1
-          definitions = subvalue.inject({}) do |sum, sv|
-            if sv['body']["definitions"] != nil
-              sum.merge!(sv['body']["definitions"])
-            end
-            sum
-          end
 
+        definitions = subvalue.inject({}) do |sum, sv|
+          if sv['body']["definitions"] != nil
+            sum.merge!(sv['body']["definitions"])
+          end
+          sum
+        end
+
+        if subvalue.size == 1
           if definitions && definitions != {}
             res = merge_definitions(subvalue[0], definitions)
             if res
@@ -36,12 +37,6 @@ module Fitting
             @next_steps.push(JsonSchema.new(subvalue[0]['body']))
           end
         else
-          definitions = subvalue.inject({}) do |sum, sv|
-            if sv['body']["definitions"] != nil
-              sum.merge!(sv['body']["definitions"])
-            end
-            sum
-          end
           if definitions && definitions != {}
             @next_steps.push(JsonSchema.new(
               {
