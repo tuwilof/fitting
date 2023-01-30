@@ -37,6 +37,17 @@ module Fitting
         raise NotFound.new "code: #{@step_key}\n\n"\
           "#{e.message}"
       end
+
+      def debug(debug)
+        if @step_key == debug.status
+          @next_steps.each do |content_type|
+            res = content_type.debug(debug)
+            return res if res
+          end
+          nil
+        end
+        nil
+      end
     end
   end
 end

@@ -1,4 +1,5 @@
 require 'fitting/doc/code'
+require 'fitting/debug'
 
 module Fitting
   class Doc
@@ -13,6 +14,7 @@ module Fitting
         @prefix = prefix
         @method = method
         @path = path
+        @path.slice!(prefix)
         @responses = []
         responses.group_by { |response| response['status'] }.each do |code, value|
           @responses.push(Code.new(code, value))
@@ -124,6 +126,30 @@ module Fitting
           "#{e.message}"
       end
 
+      def debug(debug)
+        unless debug.host == host
+          return nil
+        end
+
+        unless prefix.size == 0 || debug.path[0..prefix.size - 1] == prefix
+          return nil
+        end
+
+        unless path_match(debug.path)
+          return nil
+        end
+
+        unless debug.method == method
+          return nil
+        end
+
+        @responses.each do |response|
+          res = response.debug(debug)
+          return res if res
+        end
+        nil
+      end
+
       def nocover!
         @host_cover = nil
         @prefix_cover = nil
@@ -138,7 +164,7 @@ module Fitting
       def regexp
         return @regexp if @regexp
 
-        str = Regexp.escape(path)
+        str = Regexp.escape(@prefix + path)
         str = str.gsub(/\\{\w+\\}/, '[^&=\/]+')
         str = "\\A#{str}\\z"
         @regexp = Regexp.new(str)

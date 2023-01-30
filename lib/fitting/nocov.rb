@@ -20,7 +20,7 @@ module Fitting
     end
 
     def find(docs)
-      res = docs[:used].find do |action|
+      res = (docs[:provided] + docs[:used]).find do |action|
         action.host == @host && action.method == @method && action.path_match(@path)
       end
 

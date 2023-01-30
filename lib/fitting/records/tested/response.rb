@@ -16,10 +16,15 @@ module Fitting
           @body ||= @response.body
         end
 
+        def content_type
+          @content_type ||= @response.content_type
+        end
+
         def to_spherical
           Fitting::Records::Spherical::Response.new(
             status: status,
-            body: body
+            body: body,
+            content_type: content_type
           )
         end
       end

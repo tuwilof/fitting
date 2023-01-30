@@ -27,6 +27,14 @@ module Fitting
           "#{e.message}"
     end
 
+    def self.debug(docs, debug)
+      (docs[:provided] + docs[:used]).each do |doc|
+        res = doc.debug(debug)
+        return res if res
+      end
+      raise NotFound
+    end
+
     def self.report(docs)
       all = 0
       cov = 0

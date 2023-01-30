@@ -1,7 +1,7 @@
 module Fitting
   class Doc
     class Step
-      attr_accessor :step_cover_size, :step_key, :next_steps
+      attr_accessor :step_cover_size, :step_key, :next_steps, :index_before, :index_medium, :index_after, :res_before, :res_medium, :res_after
 
       def to_hash
         {
@@ -17,16 +17,27 @@ module Fitting
       end
 
       def report(res, index)
+        @index_before = index
+        @res_before = [] + res
+
+        mark_range(index, res)
+        @index_medium = index
+        @res_medium = [] + res
+
         if @next_steps != []
           new_index = index + new_index_offset
           @next_steps.each do |next_step|
-            res, new_index = next_step.report(res, new_index)
+            if self.class == Fitting::Doc::CombinationOneOf
+              res, _new_index = next_step.report(res, new_index - 2)
+            else
+              res, new_index = next_step.report(res, new_index)
+            end
           end
         end
 
-        mark_range(index, res)
-
         index += index_offset
+        @index_after = index
+        @res_after = [] + res
         [res, index]
       end
 

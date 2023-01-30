@@ -1,4 +1,4 @@
-require 'fitting/doc/step'
+require 'fitting/doc/combination_step'
 require 'fitting/cover/json_schema_enum'
 require 'fitting/doc/combination_enum'
 require 'fitting/cover/json_schema'
@@ -6,31 +6,25 @@ require 'fitting/doc/combination_optional'
 
 module Fitting
   class Doc
-    class Combination < Step
-      class NotFound < RuntimeError; end
-
-      def initialize(json_schema, type, combination)
-        @step_cover_size = 0
-        @json_schema = json_schema
-        @next_steps = []
-        @type = type
-        @step_key = combination
+    class CombinationOneOf < CombinationStep
+      def initialize_combinations(combination, json_schema)
         combinations = Fitting::Cover::JSONSchemaEnum.new(@json_schema).combi
         if combinations.size > 1
           combinations.each do |comb|
-            @next_steps.push(CombinationEnum.new(comb[0], "#{type}.#{comb[1][0]}", "#{combination}.#{comb[1][1]}"))
+            @next_steps.push(CombinationEnum.new(comb[0], "#{comb[1][0]}", "#{comb[1][1]}", json_schema))
           end
         end
 
         combinations = Fitting::Cover::JSONSchema.new(@json_schema).combi
         combinations.each do |comb|
-          @next_steps.push(CombinationOptional.new(comb[0], "#{type}.#{comb[1][0]}", "#{combination}.#{comb[1][1]}"))
+          @next_steps.push(CombinationOptional.new(comb[0], "#{type}.#{comb[1][0]}", "#{combination}.#{comb[1][1]}", json_schema))
         end
       end
 
       def cover!(log)
         if JSON::Validator.fully_validate(@json_schema, log.body) == []
           @step_cover_size += 1
+          @logs.push(log.body)
           errors = @next_steps.inject([]) do |sum, combination|
             sum.push(combination.cover!(log))
           end.flatten.compact
@@ -52,8 +46,15 @@ module Fitting
         end
       end
 
+      def mark_range(index, res)
+        res[index + 1] = @step_cover_size
+        if @json_schema && @json_schema["required"]
+          mark_required(index + 1, res, @json_schema)
+        end
+      end
+
       def index_offset
-        YAML.dump(@json_schema).split("\n").size - 3
+        YAML.dump(@json_schema['properties']).split("\n").size +  YAML.dump(@json_schema['required']).split("\n").size
       end
     end
   end
