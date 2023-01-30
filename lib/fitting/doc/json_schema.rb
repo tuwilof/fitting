@@ -13,7 +13,8 @@ module Fitting
     class JsonSchema < Step
       class NotFound < RuntimeError; end
 
-      def initialize(json_schema)
+      def initialize(json_schema, super_schema)
+        @super_schema = super_schema
         @logs = []
         @step_cover_size = 0
         @step_key = json_schema
@@ -37,7 +38,11 @@ module Fitting
       end
 
       def cover!(log)
-        if JSON::Validator.fully_validate(@step_key, log.body) == []
+        if @super_schema
+          @step_cover_size += 1
+          @logs.push(log.body)
+          @next_steps.each { |combination| combination.cover!(log) }
+        elsif JSON::Validator.fully_validate(@step_key, log.body) == []
           @step_cover_size += 1
           @logs.push(log.body)
           @next_steps.each { |combination| combination.cover!(log) }

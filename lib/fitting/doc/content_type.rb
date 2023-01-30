@@ -28,13 +28,13 @@ module Fitting
                 {
                   "$schema" => "http://json-schema.org/draft-04/schema#",
                   "type" => "object"
-                }.merge(res)
+                }.merge(res), false
               ))
             else
-              @next_steps.push(JsonSchema.new({}))
+              @next_steps.push(JsonSchema.new({}, false))
             end
           else
-            @next_steps.push(JsonSchema.new(subvalue[0]['body']))
+            @next_steps.push(JsonSchema.new(subvalue[0]['body'], false))
           end
         else
           if definitions && definitions != {}
@@ -46,18 +46,39 @@ module Fitting
                   res = merge_definitions(sv, definitions)
                   sum.push(res)
                 end
-              }
+              }, false
             ))
           else
-            @next_steps.push(JsonSchema.new(
-              {
-                "$schema" => "http://json-schema.org/draft-04/schema#",
-                "type" => "object",
-                "oneOf" => subvalue.inject([]) do |sum, sv|
-                  sum.push(check_body(sv['body']["properties"], sv))
-                end
-              }
-            ))
+            super_schema = false
+            subvalue.each do |sv|
+              super_schema = true if sv['body']["properties"] == nil
+            end
+
+            if super_schema
+              @next_steps.push(JsonSchema.new(
+                {
+                  "$schema" => "http://json-schema.org/draft-04/schema#",
+                  "type" => "object",
+                  "oneOf" => subvalue.inject([]) do |sum, sv|
+                    if sv['body']["properties"]
+                      sum.push(check_body(sv['body']["properties"], sv))
+                    end
+                    sum
+                  end
+                }, super_schema
+              ))
+            else
+              @next_steps.push(JsonSchema.new(
+                {
+                  "$schema" => "http://json-schema.org/draft-04/schema#",
+                  "type" => "object",
+                  "oneOf" => subvalue.inject([]) do |sum, sv|
+                    sum.push(check_body(sv['body']["properties"], sv))
+                  end
+                }, super_schema
+              ))
+              super_schema
+            end
           end
         end
       end
