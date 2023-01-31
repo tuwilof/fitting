@@ -67,7 +67,7 @@ module Fitting
           Tomograph::Tomogram.new(prefix: api['prefix'], tomogram_json_path: api['path']).to_a.map do |action|
             new(
               'provided',
-              'www.example.com',
+              api['host'],
               api['prefix'],
               action.to_hash['method'],
               action.to_hash['path'].path,
