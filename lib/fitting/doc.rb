@@ -4,31 +4,33 @@ module Fitting
   class Doc
     class NotFound < RuntimeError; end
 
-    def self.all(yaml)
-      {
-        provided: Fitting::Doc::Action.provided_all(yaml['ProvidedAPIs']),
-        used: Fitting::Doc::Action.used_all(yaml['UsedAPIs'])
-      }
+    def self.all
+      apis = YAML.safe_load(File.read('.fitting.yml'))['APIs']
+      return [] unless apis
+      apis.map do |api|
+        Tomograph::Tomogram.new(prefix: api['prefix'], tomogram_json_path: api['path']).to_a.map do |action|
+          Fitting::Doc::Action.new(
+            api['host'],
+            api['prefix'] || '',
+            action.to_hash['method'],
+            action.to_hash['path'].path,
+            action.responses
+          )
+        end
+      end.flatten
     end
 
     def self.cover!(docs, log)
-      if log.type == 'incoming'
-        docs[:provided].each do |doc|
-          return if doc.cover!(log)
-        end
-      elsif log.type == 'outgoing'
-        docs[:used].each do |doc|
-          return if doc.cover!(log)
-        end
+      docs.each do |doc|
+        return if doc.cover!(log)
       end
-      raise NotFound.new "log type: #{log.type}\n\n#{log.method} #{log.host} #{log.url} #{log.status} #{log.type}"
+      raise NotFound.new "log: #{log.method} #{log.host} #{log.url} #{log.status}"
     rescue Fitting::Doc::Action::NotFound => e
-      raise NotFound.new "log type: #{log.type}\n\n"\
-          "#{e.message}"
+      raise NotFound.new "log error: #{e.message}"
     end
 
     def self.debug(docs, debug)
-      (docs[:provided] + docs[:used]).each do |doc|
+      docs.each do |doc|
         res = doc.debug(debug)
         return res if res
       end
@@ -38,19 +40,7 @@ module Fitting
     def self.report(docs)
       all = 0
       cov = 0
-      docs[:provided].each do |provid|
-        provid.to_hash.values.first.each do |prov|
-          if prov == nil
-            break
-          elsif prov == 0
-            all += 1
-          elsif prov > 0
-            all += 1
-            cov += 1
-          end
-        end
-      end
-      docs[:used].each do |provid|
+      docs.each do |provid|
         provid.to_hash.values.first.each do |prov|
           if prov == nil
             break

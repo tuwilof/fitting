@@ -4,12 +4,11 @@ require 'fitting/debug'
 module Fitting
   class Doc
     class Action
-      attr_accessor :type, :host, :prefix, :path, :method, :responses
+      attr_accessor :host, :prefix, :path, :method, :responses
 
       class NotFound < RuntimeError; end
 
-      def initialize(type, host, prefix, method, path, responses)
-        @type = type
+      def initialize(host, prefix, method, path, responses)
         @host = host
         @prefix = prefix
         @method = method
@@ -59,38 +58,6 @@ module Fitting
         end
 
         { @key => res }
-      end
-
-      def self.provided_all(apis)
-        return [] unless apis
-        apis.map do |api|
-          Tomograph::Tomogram.new(prefix: api['prefix'], tomogram_json_path: api['path']).to_a.map do |action|
-            new(
-              'provided',
-              api['host'],
-              api['prefix'],
-              action.to_hash['method'],
-              action.to_hash['path'].path,
-              action.responses
-            )
-          end
-        end.flatten
-      end
-
-      def self.used_all(apis)
-        return [] unless apis
-        apis.map do |api|
-          Tomograph::Tomogram.new(prefix: '', tomogram_json_path: api['path']).to_a.map do |action|
-            new(
-              'used',
-              api['host'],
-              '',
-              action.to_hash['method'],
-              action.to_hash['path'].path,
-              action.responses
-            )
-          end
-        end.flatten
       end
 
       def cover!(log)

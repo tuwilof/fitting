@@ -8,8 +8,8 @@ require 'fitting/debug'
 namespace :fitting do
   task :report do
     logs = Fitting::Log.all
-    docs = Fitting::Doc.all(YAML.safe_load(File.read('.fitting.yml')))
-    skips = Fitting::Skip.all(YAML.safe_load(File.read('.fitting.yml')))
+    docs = Fitting::Doc.all
+    skips = Fitting::Skip.all
 
     logs.each do |log|
       Fitting::Doc.cover!(docs, log)

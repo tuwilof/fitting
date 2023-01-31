@@ -3,7 +3,7 @@ require 'fitting/rep/html'
 module Fitting
   class Rep
     def initialize(apis)
-      @actions = apis[:provided] + apis[:used]
+      @actions = apis
     end
 
     def save!

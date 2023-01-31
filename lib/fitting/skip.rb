@@ -3,7 +3,8 @@ require 'fitting/skip/action'
 
 module Fitting
   class Skip
-    def self.all(yaml)
+    def self.all
+      yaml = YAML.safe_load(File.read('.fitting.yml'))
       {
         apis: Fitting::Skip::API.provided_all(yaml['SkipProvidedAPIs']) + Fitting::Skip::API.used_all(yaml['SkipUsedAPIs']),
         actions: Fitting::Skip::Action.all(yaml['SkipUsedActions'])
