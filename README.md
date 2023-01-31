@@ -95,11 +95,6 @@ Secondly, validate the logs to the documentation.
 Add this to your `.fitting.yml`:
 
 ```yaml
-prefixes:
-  - name: /api/v1
-    type: openapi2
-    schema_paths:
-      - doc.json
 ```
 
 Run 

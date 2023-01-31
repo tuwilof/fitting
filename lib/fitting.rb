@@ -10,6 +10,7 @@ module Fitting
   class << self
     def logger
       # :nocov:
+      responses = ""
       RSpec.configure do |config|
         if defined?(WebMock)
           config.before(:each) do |example|
@@ -22,23 +23,27 @@ module Fitting
               mock_response.instance_variable_set(:@request, mock_request)
 
               request = Fitting::Records::Tested::Request.new(mock_response, example)
-              Rails.logger.debug "FITTING outgoing request #{request.to_spherical.to_json}"
+              responses += "FITTING outgoing request #{request.to_spherical.to_json}\n"
             end
           end
         end
 
         config.after(:each, type: :request) do |example|
           request = Fitting::Records::Tested::Request.new(response, example)
-          Rails.logger.debug "FITTING incoming request #{request.to_spherical.to_json}"
+          responses += "FITTING incoming request #{request.to_spherical.to_json}\n"
         end
 
         config.after(:each, type: :controller) do |example|
           request = Fitting::Records::Tested::Request.new(response, example)
-          Rails.logger.debug "FITTING incoming request #{request.to_spherical.to_json}"
+          responses += "FITTING incoming request #{request.to_spherical.to_json}\n"
         end
 
         config.after(:each) do
           WebMock::CallbackRegistry.reset
+        end
+
+        config.after(:suite) do
+          File.open('log/fitting.log', 'w') { |file| file.write(responses) }
         end
       end
       # :nocov:

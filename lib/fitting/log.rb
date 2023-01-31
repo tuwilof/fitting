@@ -7,21 +7,13 @@ module Fitting
       @skip = false
     end
 
-    def self.all(testlog, log_format)
+    def self.all(testlog)
       logs = []
       testlog.split("\n").select { |f| f.include?('incoming request ') }.each do |test|
-        if log_format == 'text'
-          logs.push(new(JSON.load(test.split('incoming request ')[1]), 'incoming'))
-        elsif log_format == 'json'
-          logs.push(new(JSON.load(JSON.load(test)['message'].split('incoming request ')[1]), 'incoming'))
-        end
+        logs.push(new(JSON.load(test.split('incoming request ')[1]), 'incoming'))
       end
       testlog.split("\n").select { |f| f.include?('outgoing request ') }.each do |test|
-        if log_format == 'text'
-          logs.push(new(JSON.load(test.split('outgoing request ')[1]), 'outgoing'))
-        elsif log_format == 'json'
-          logs.push(new(JSON.load(JSON.load(test)['message'].split('outgoing request ')[1]), 'outgoing'))
-        end
+        logs.push(new(JSON.load(test.split('outgoing request ')[1]), 'outgoing'))
       end
       logs.sort { |a, b| b.path <=> a.path }
     end
