@@ -43,7 +43,7 @@ module Fitting
         end
 
         config.after(:suite) do
-          File.open('log/fitting.log', 'w') { |file| file.write(responses) }
+          File.open("log/fitting#{ENV['TEST_ENV_NUMBER']}.log", 'w') { |file| file.write(responses) }
         end
       end
       # :nocov:

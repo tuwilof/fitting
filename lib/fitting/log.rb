@@ -7,13 +7,16 @@ module Fitting
       @skip = false
     end
 
-    def self.all(testlog)
+    def self.all
       logs = []
-      testlog.split("\n").select { |f| f.include?('incoming request ') }.each do |test|
-        logs.push(new(JSON.load(test.split('incoming request ')[1]), 'incoming'))
-      end
-      testlog.split("\n").select { |f| f.include?('outgoing request ') }.each do |test|
-        logs.push(new(JSON.load(test.split('outgoing request ')[1]), 'outgoing'))
+      Dir["log/fitting*.log"].each do |file_path|
+        testlog = File.read(file_path)
+        testlog.split("\n").select { |f| f.include?('incoming request ') }.each do |test|
+          logs.push(new(JSON.load(test.split('incoming request ')[1]), 'incoming'))
+        end
+        testlog.split("\n").select { |f| f.include?('outgoing request ') }.each do |test|
+          logs.push(new(JSON.load(test.split('outgoing request ')[1]), 'outgoing'))
+        end
       end
       logs.sort { |a, b| b.path <=> a.path }
     end
