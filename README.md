@@ -45,7 +45,13 @@ Coverage 90%
 ```
 
 and cover
-![exmaple](images/example.png)
+![exmaple](images/b1.png)
+
+![exmaple](images/b2.png)
+
+![exmaple](images/w1.png)
+
+![exmaple](images/w2.png)
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -132,11 +138,15 @@ Coverage 90%
 ### Coverage
 And task will create HTML (`coverage/fitting.html`) reports.
 
-![exmaple](images/example.png)
+![exmaple](images/b1.png)
+
+![exmaple](images/w1.png)
 
 More information on action coverage
 
-![exmaple2](images/example2.png)
+![exmaple2](images/b2.png)
+
+![exmaple2](images/w2.png)
 
 ## type
 
