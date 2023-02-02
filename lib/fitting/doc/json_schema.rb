@@ -31,9 +31,11 @@ module Fitting
           end
         end
 
-        combinations = Fitting::Cover::JSONSchema.new(json_schema).combi
-        combinations.each do |comb|
-          @next_steps.push(CombinationOptional.new(comb[0], comb[1][0], comb[1][1], json_schema))
+        if json_schema['type'] != 'array'
+          combinations = Fitting::Cover::JSONSchema.new(json_schema).combi
+          combinations.each do |comb|
+            @next_steps.push(CombinationOptional.new(comb[0], comb[1][0], comb[1][1], json_schema))
+          end
         end
       end
 
