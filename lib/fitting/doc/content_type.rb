@@ -15,7 +15,7 @@ module Fitting
 
         definitions = subvalue.inject({}) do |sum, sv|
           if sv['body']["definitions"] != nil
-            sum.merge!(sv['body']["definitions"])
+            sum.merge!(sv['body'].delete('definitions'))
           end
           sum
         end
