@@ -106,7 +106,11 @@ module Fitting
       end
 
       def merge_definitions(sv, definitions)
-        res = sv['body']["properties"]
+        if sv['body']["properties"]
+          res = sv['body']["properties"]
+        else
+          res = sv['body']
+        end
         definitions.each_pair do |key, value|
           while JSON.dump(res).include?("\"$ref\":\"#/definitions/#{key}\"") do
             new_res_array = JSON.dump(res).split('{')
