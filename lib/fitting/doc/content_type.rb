@@ -108,7 +108,7 @@ module Fitting
       def merge_definitions(sv, definitions)
         if sv['body']["properties"]
           res = sv['body']["properties"]
-        else
+        elsif sv['body']['type'] != 'array'
           res = sv['body']
         end
         definitions.each_pair do |key, value|
