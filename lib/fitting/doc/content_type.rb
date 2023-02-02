@@ -23,7 +23,13 @@ module Fitting
         if subvalue.size == 1
           if definitions && definitions != {}
             res = merge_definitions(subvalue[0], definitions)
-            if res
+            if res && res['properties']['type'] == 'object'
+              @next_steps.push(JsonSchema.new(
+                {
+                  "$schema" => "http://json-schema.org/draft-04/schema#",
+                }.merge(res['properties']), false
+              ))
+            elsif res
               @next_steps.push(JsonSchema.new(
                 {
                   "$schema" => "http://json-schema.org/draft-04/schema#",
