@@ -75,15 +75,15 @@ require 'fitting'
 Fitting.logger
 ```
 
-Delete `log/test.log` and run rspec
+Delete all files `log/*.log` and run rspec
 
-You get more information about incoming and outgoing request in `log/test.log`.
+You get more information about incoming and outgoing request in `log/fitting*.log`.
 
 ```text
-2022-02-22T14:20:37.888049+04:00 - 59698 DEBUG - FITTING incoming request {"method":"POST","path":"/api/v1/profile",
+FITTING incoming request {"method":"POST","path":"/api/v1/profile",
 "body":{"ids":[]},"response":{"status":200,"body":{"status":"unauthorized"}},
 "title":"./spec/support/shared_examples/unauthorized.rb:8","group":"./spec/support/shared_examples/unauthorized.rb"}
-2022-02-22T14:20:37.883550+04:00 - 59696 DEBUG - FITTING outgoing request {"method":"POST",
+FITTING outgoing request {"method":"POST",
 "path":"/sso/oauth2/access_token","body":{},"response":{"status":404,"body":{
 "error":"Not found","error_description":"any error_description"}},"title":"./spec/jobs/sso_create_link_job_spec.rb:93",
 "group":"./spec/jobs/sso_create_link_job_spec.rb"}
@@ -95,6 +95,10 @@ Secondly, validate the logs to the documentation.
 Add this to your `.fitting.yml`:
 
 ```yaml
+APIs:
+  - host: www.example.com
+    type: openapi2
+    path: swagger/swagger.json
 ```
 
 Run 
@@ -126,7 +130,7 @@ Coverage 90%
 ```
 
 ### Coverage
-And task will create HTML (`fitting/index.html`) reports.
+And task will create HTML (`coverage/fitting.html`) reports.
 
 ![exmaple](images/example.png)
 

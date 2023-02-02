@@ -1,4 +1,5 @@
 require 'fitting/doc/action'
+require 'tomograph'
 
 module Fitting
   class Doc
@@ -8,14 +9,26 @@ module Fitting
       apis = YAML.safe_load(File.read('.fitting.yml'))['APIs']
       return [] unless apis
       apis.map do |api|
-        Tomograph::Tomogram.new(prefix: api['prefix'], tomogram_json_path: api['path']).to_a.map do |action|
-          Fitting::Doc::Action.new(
-            api['host'],
-            api['prefix'] || '',
-            action.to_hash['method'],
-            action.to_hash['path'].path,
-            action.responses
-          )
+        if api['type'] == 'openapi2'
+          Tomograph::Tomogram.new(prefix: api['prefix'] || '', openapi2_json_path: api['path']).to_a.map do |action|
+            Fitting::Doc::Action.new(
+              api['host'],
+              api['prefix'] || '',
+              action.to_hash['method'],
+              action.to_hash['path'].path,
+              action.responses
+            )
+          end
+        elsif api['type'] == 'tomogram'
+          Tomograph::Tomogram.new(prefix: api['prefix'] || '', tomogram_json_path: api['path']).to_a.map do |action|
+            Fitting::Doc::Action.new(
+              api['host'],
+              api['prefix'] || '',
+              action.to_hash['method'],
+              action.to_hash['path'].path,
+              action.responses
+            )
+          end
         end
       end.flatten
     end
