@@ -1,0 +1,103 @@
+---
+json_schema:
+  "$schema": http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    type: object
+    properties:
+      id:
+        type: number
+        description: Account ID
+      name:
+        type: string
+        description: Name of the account
+jsons: &1
+- id: 3658
+  name: Test Account
+  locale: en
+  domain: 
+  support_email: 
+  features:
+    ip_lookup: true
+    help_center: true
+    inbox_management: true
+  custom_attributes: {}
+  limits: {}
+  status: active
+- id: 3656
+  name: Test Account
+  locale: es
+  domain: 
+  support_email: 
+  features:
+    agent_management: true
+  custom_attributes: {}
+  limits: {}
+  status: active
+- id: 3654
+  name: Test Account
+  locale: en
+  domain: 
+  support_email: 
+  features: {}
+  custom_attributes: {}
+  limits: {}
+  status: active
+- id: 3660
+  name: Test Account
+  locale: en
+  domain: 
+  support_email: 
+  features: {}
+  custom_attributes: {}
+  limits:
+    agents: 5
+    inboxes: 10
+  status: active
+valid_jsons: *1
+index_before: 0
+index_medium: 2
+index_after: 3
+res_before:
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+res_medium:
+- 4
+- 4
+- 4
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+res_after:
+- 4
+- 4
+- 4
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+- 'null'
+combinations: []
