@@ -214,33 +214,33 @@ More information on action coverage
 
 ![exmaple2](images/w2.png)
 
-## type
+## Settings
 
-### OpenAPI 2.0
-Also Swagger
+### type
+
+#### OpenAPI 2.0
+Swagger
 
 ```yaml
-prefixes:
-  - name: /api/v1
+APIs:
+  - host: www.example.com
     type: openapi2
-    schema_paths:
-      - doc.json
+    path: doc/api.json
 ```
 
-### OpenAPI 3.0
+#### OpenAPI 3.0
 Also OpenAPI
 
 ```yaml
-prefixes:
-  - name: /api/v1
+APIs:
+  - host: www.example.com
     type: openapi3
-    schema_paths:
-      - doc.yaml
+    path: doc/api.json
 ```
 
-### API Blueprint
-First you need to install [drafter](https://github.com/apiaryio/drafter).
-Works after conversion from API Blueprint to API Elements (in YAML file) with Drafter.
+#### API Blueprint
+First you need to install [drafter](https://github.com/apiaryio/drafter) or [crafter](https://github.com/funbox/crafter).
+Works after conversion from API Blueprint to API Elements (in YAML file) with Drafter or Crafter.
 
 That is, I mean that you first need to do this
 
@@ -248,29 +248,50 @@ That is, I mean that you first need to do this
 drafter doc.apib -o doc.yaml
 ```
 
+or
+
+```bash
+node_modules/.bin/crafter doc.apib > doc.yaml
+```
+
 and then
 
 ```yaml
-prefixes:
-  - name: /api/v1
+APIs:
+  - host: www.example.com
     type: drafter
-    schema_paths:
-      - doc.yaml
+    path: doc/api.yaml
 ```
 
-### Tomograph
+or
+
+```yaml
+APIs:
+  - host: www.example.com
+    type: crafter
+    path: doc/api.yaml
+```
+
+#### Tomograph
 
 To use additional features of the pre-converted [tomograph](https://github.com/funbox/tomograph)
 
-```yaml
-prefixes:
-  - name: /api/v1
-    type: tomogram
-    schema_paths:
-      - doc.json
+example
+
+```bash
+bundle exec tomograph -d crafter --exclude-description doc/api.yml doc/api.json
 ```
 
-## prefix name
+and then
+
+```yaml
+APIs:
+  - host: www.example.com
+    type: tomogram
+    path: doc/api.json
+```
+
+### prefix name
 
 Setting the prefix name is optional. For example, you can do this:
 
@@ -281,7 +302,7 @@ prefixes:
       - doc.json
 ```
 
-## prefix skip
+### prefix skip
 
 It is not necessary to immediately describe each prefix in detail, you can only specify its name and skip it until you are ready to documented it
 ```yaml

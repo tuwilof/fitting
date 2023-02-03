@@ -19,6 +19,36 @@ module Fitting
               action.responses
             )
           end
+        elsif api['type'] == 'openapi3'
+          Tomograph::Tomogram.new(prefix: api['prefix'] || '', openapi3_yaml_path: api['path']).to_a.map do |action|
+            Fitting::Doc::Action.new(
+              api['host'],
+              api['prefix'] || '',
+              action.to_hash['method'],
+              action.to_hash['path'].path,
+              action.responses
+            )
+          end
+        elsif api['type'] == 'drafter'
+          Tomograph::Tomogram.new(prefix: api['prefix'] || '', drafter_yaml_path: api['path']).to_a.map do |action|
+            Fitting::Doc::Action.new(
+              api['host'],
+              api['prefix'] || '',
+              action.to_hash['method'],
+              action.to_hash['path'].path,
+              action.responses
+            )
+          end
+        elsif api['type'] == 'crafter'
+          Tomograph::Tomogram.new(prefix: api['prefix'] || '', crafter_yaml_path: api['path']).to_a.map do |action|
+            Fitting::Doc::Action.new(
+              api['host'],
+              api['prefix'] || '',
+              action.to_hash['method'],
+              action.to_hash['path'].path,
+              action.responses
+            )
+          end
         elsif api['type'] == 'tomogram'
           Tomograph::Tomogram.new(prefix: api['prefix'] || '', tomogram_json_path: api['path']).to_a.map do |action|
             Fitting::Doc::Action.new(
