@@ -13,8 +13,8 @@ module Fitting
     end
 
     def self.all(yaml)
-      return [] unless yaml['NoCovUsedActions']
-      yaml['NoCovUsedActions'].map do |action|
+      return [] unless yaml['NoCov']
+      yaml['NoCov'].map do |action|
         new(action['host'], action['method'], action['path'], action['code'], action['content-type'], action['combination'], action['combination_next'])
       end
     end

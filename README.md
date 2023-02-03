@@ -337,6 +337,17 @@ SkipAPIs:
     path: /api/v1/cars
 ```
 
+### NoCov
+
+It is not necessary to immediately test each doc in detail, you can only specify its name and skip it until you are ready to test it
+
+```yaml
+NoCov:
+  - host: ssi.test
+    method: GET
+    path: /users/{userId}
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [github.com/funbox/fitting](https://github.com/funbox/fitting).
