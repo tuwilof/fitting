@@ -1,9 +1,9 @@
 # Change log
 
-### 4.0.0 - 2022-04-13
+### 4.0.0 - 2023-02-03
 
 * features
-  * use test.log instead of new two dirs
+  * use fitting*.log instead of new two dirs
   * output validation details
   * new cover report
   * smart skip
