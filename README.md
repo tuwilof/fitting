@@ -291,15 +291,16 @@ APIs:
     path: doc/api.json
 ```
 
-### prefix name
+### prefix
 
 Setting the prefix name is optional. For example, you can do this:
 
 ```yaml
-prefixes:
-  - type: openapi2
-    schema_paths:
-      - doc.json
+APIs:
+  - host: www.example.com
+    prefix: /api/v3
+    type: openapi2
+    path: swagger/swagger.json
 ```
 
 ### prefix skip
