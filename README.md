@@ -70,6 +70,8 @@ error [
   "The property '#/email' of type null did not match the following type: string in schema e56b7e65-d70c-5f7a-a96c-982df5f8f2f7"
 ]
 
+...
+
 804 examples, 565 failure, 0 pending
 
 Coverage: 65.51%
@@ -117,13 +119,8 @@ Delete all files `log/*.log` and run rspec
 You get more information about incoming and outgoing request in `log/fitting*.log`.
 
 ```text
-FITTING incoming request {"method":"POST","path":"/api/v1/profile",
-"body":{"ids":[]},"response":{"status":200,"body":{"status":"unauthorized"}},
-"title":"./spec/support/shared_examples/unauthorized.rb:8","group":"./spec/support/shared_examples/unauthorized.rb"}
-FITTING outgoing request {"method":"POST",
-"path":"/sso/oauth2/access_token","body":{},"response":{"status":404,"body":{
-"error":"Not found","error_description":"any error_description"}},"title":"./spec/jobs/sso_create_link_job_spec.rb:93",
-"group":"./spec/jobs/sso_create_link_job_spec.rb"}
+FITTING incoming request {"method":"POST","path":"/public/api/v1/inboxes/tEX5JiZyceiwuKMi1oN9Sf8S/contacts","body":{},"response":{"status":200,"content_type":"application/json","body":{"source_id":"00dbf18d-879e-47cb-ac45-e9aece266eb1","pubsub_token":"ktn6YwPus57JDf4e59eFPom5","id":3291,"name":"shy-surf-401","email":null,"phone_number":null}},"title":"./spec/controllers/public/api/v1/inbox/contacts_controller_spec.rb:9","group":"./spec/controllers/public/api/v1/inbox/contacts_controller_spec.rb","host":"www.example.com"}
+FITTING outgoing request {"method":"POST","path":"/v1/organizations/org_id/meeting","body":{},"response":{"status":200,"content_type":"application/json","body":{"success":true,"data":{"meeting":{"id":"meeting_id","roomName":"room_name"}}}},"title":"./spec/controllers/api/v1/accounts/integrations/dyte_controller_spec.rb:50","group":"./spec/controllers/api/v1/accounts/integrations/dyte_controller_spec.rb","host":"api.cluster.dyte.in"}
 ```
 
 ### Validation
@@ -146,24 +143,62 @@ bundle e rake fitting:report
 Console output
 
 ```console
-..*.....F.
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF.FFF..FFFFFFFFFF....F.......F...FF.....F...F....F..............................FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF..FF.F..FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF..FF........FFF...FFFF......FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF........FFFFFFFFFFF..FFFFFF..FFFFFFFFFFFFFFFFF.......FFFFFF.............FFFFFFFFFFFF....F........FFF.F...FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF............FF........FFF......FFFFFFFFFFFFFFFFFFFFFF....FFFFFF......F............FFFF........FFFFFFFFFFFFFF.....FFFFFFFFFFFFFFFFFFFFFFF..FF.....FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF.....FF..........FFFFFFFFFFFFFFFFFF...FFFF...............F.F....FF..FFFFFFFF
 
-  1) Fitting::Report::Responses::NotFound method: GET, host: books.local, path: /api/v1/users, status: 200,
-  body: {"name"=>"test"}
+  1) Fitting::Doc::NotFound log error:
 
+host: www.example.com
+method: POST
+path: /public/api/v1/inboxes/{inbox_identifier}/contacts
+code: 200
 
-body: {"$schema"=>"http://json-schema.org/draft-04/schema#", "type"=>"enum"}
-validate: ["The property '#/' did not contain a required property of 'test' in schema
-5115a024-5312-540f-8666-3102097d8c17"]
+content-type: application/json
 
-status: 401
+json-schema: {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Id of the contact"
+    },
+    "source_id": {
+      "type": "string",
+      "description": "The session identifier of the contact"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the contact"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email of the contact"
+    },
+    "pubsub_token": {
+      "type": "string",
+      "description": "The token to be used to connect to chatwoot websocket"
+    }
+  }
+}
 
-status: 500
+body: {
+  "source_id": "c9e8c31f-06df-49b4-8fb9-4466457ae65b",
+  "pubsub_token": "Zgc7DEvaj5TkgZ1a4C7AvJXo",
+  "id": 3293,
+  "name": "restless-snowflake-670",
+  "email": null,
+  "phone_number": null
+}
 
+error [
+  "The property '#/email' of type null did not match the following type: string in schema e56b7e65-d70c-5f7a-a96c-982df5f8f2f7"
+]
 
-10 examples, 1 failure, 1 pending
+...
 
-Coverage 90%
+804 examples, 565 failure, 0 pending
+
+Coverage: 65.51%
 ```
 
 ### Coverage
@@ -171,11 +206,11 @@ And task will create HTML (`coverage/fitting.html`) reports.
 
 ![exmaple](images/b1.png)
 
-![exmaple](images/w1.png)
+![exmaple](images/b2.png)
 
 More information on action coverage
 
-![exmaple2](images/b2.png)
+![exmaple2](images/w1.png)
 
 ![exmaple2](images/w2.png)
 
