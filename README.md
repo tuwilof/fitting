@@ -19,7 +19,7 @@ FITTING outgoing request {"method":"POST","path":"/v1/organizations/org_id/meeti
 
 validation
 ```console
-..*.....F.
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF.FFF..FFFFFFFFFF....F.......F...FF.....F...F....F..............................FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF..FF.F..FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF..FF........FFF...FFFF......FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF........FFFFFFFFFFF..FFFFFF..FFFFFFFFFFFFFFFFF.......FFFFFF.............FFFFFFFFFFFF....F........FFF.F...FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF............FF........FFF......FFFFFFFFFFFFFFFFFFFFFF....FFFFFF......F............FFFF........FFFFFFFFFFFFFF.....FFFFFFFFFFFFFFFFFFFFFFF..FF.....FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF.....FF..........FFFFFFFFFFFFFFFFFF...FFFF...............F.F....FF..FFFFFFFF
 
   1) Fitting::Doc::NotFound log error:
 
@@ -70,10 +70,9 @@ error [
   "The property '#/email' of type null did not match the following type: string in schema e56b7e65-d70c-5f7a-a96c-982df5f8f2f7"
 ]
 
+804 examples, 565 failure, 0 pending
 
-10 examples, 1 failure, 1 pending
-
-Coverage 90%
+Coverage: 65.51%
 ```
 
 and cover
