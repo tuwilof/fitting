@@ -343,9 +343,22 @@ It is not necessary to immediately test each doc in detail, you can only specify
 
 ```yaml
 NoCov:
-  - host: ssi.test
+  - host: sso.test
     method: GET
     path: /users/{userId}
+```
+
+### Debug
+
+If you find bug, you can debug it or create task in this github project  with new file `coverage/fitting.debug.yml`
+
+```yaml
+Debug:
+  - host: www.example.com
+    method: GET
+    path: /api/v3/users
+    code: 200
+    content-type: application/json
 ```
 
 ## Contributing
