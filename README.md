@@ -314,6 +314,16 @@ SkipAPIs:
   - host: api.cluster.dyte.in
 ```
 
+##### prefix
+
+If you want to skip a specific prefix in the host
+
+```yaml
+SkipAPIs:
+  - host: api.cluster.dyte.in
+    prefix: /admin/api
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [github.com/funbox/fitting](https://github.com/funbox/fitting).

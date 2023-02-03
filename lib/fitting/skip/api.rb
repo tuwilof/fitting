@@ -9,17 +9,10 @@ module Fitting
         @prefix = prefix
       end
 
-      def self.provided_all(apis)
+      def self.all(apis)
         return [] unless apis
         apis.map do |api|
-          new('provided', 'www.example.com', api['prefix'])
-        end
-      end
-
-      def self.used_all(apis)
-        return [] unless apis
-        apis.map do |api|
-          new( 'used', api['host'], '')
+          new('provided', api['host'], api['prefix'])
         end
       end
 
