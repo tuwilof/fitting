@@ -12,20 +12,15 @@ module Fitting
       def self.all(apis)
         return [] unless apis
         apis.map do |api|
+          next if api['method'] || api['path']
           new('provided', api['host'], api['prefix'])
-        end
+        end.compact
       end
 
       def self.find(apis, log)
         apis.find do |api|
-          if api.type == 'provided' && log.type == 'incoming'
-            if log.host == api.host
-              api.prefix.nil? || api.prefix == '' || log.path[0..api.prefix.size - 1] == api.prefix
-            end
-          elsif api.type == 'used' && log.type == 'outgoing'
-            if log.host == api.host
-              api.prefix.nil? || api.prefix == '' || log.path[0..api.prefix.size - 1] == api.prefix
-            end
+          if log.host == api.host
+            api.prefix.nil? || api.prefix == '' || log.path[0..api.prefix.size - 1] == api.prefix
           end
         end
       end

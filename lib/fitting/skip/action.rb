@@ -13,8 +13,9 @@ module Fitting
       def self.all(actions)
         return [] unless actions
         actions.map do |action|
+          next if action['method'].nil? || action['path'].nil?
           new(action['host'], action['method'], action['path'], action['code'])
-        end
+        end.compact
       end
 
       def self.find(actions, log)
