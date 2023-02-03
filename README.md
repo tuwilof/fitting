@@ -137,7 +137,7 @@ APIs:
 
 Run 
 ```bash
-bundle e rake fitting:report
+bundle e rake fitting:validate
 ```
 
 Console output

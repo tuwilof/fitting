@@ -6,7 +6,7 @@ require 'fitting/rep'
 require 'fitting/debug'
 
 namespace :fitting do
-  task :report do
+  task :validate do
     logs = Fitting::Log.all
     docs = Fitting::Doc.all
     skips = Fitting::Skip.all
