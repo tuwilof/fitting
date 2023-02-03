@@ -216,9 +216,11 @@ More information on action coverage
 
 ## Settings
 
-### type
+### APIs
 
-#### OpenAPI 2.0
+#### type
+
+##### OpenAPI 2.0
 Swagger
 
 ```yaml
@@ -228,7 +230,7 @@ APIs:
     path: doc/api.json
 ```
 
-#### OpenAPI 3.0
+##### OpenAPI 3.0
 Also OpenAPI
 
 ```yaml
@@ -238,7 +240,7 @@ APIs:
     path: doc/api.json
 ```
 
-#### API Blueprint
+##### API Blueprint
 First you need to install [drafter](https://github.com/apiaryio/drafter) or [crafter](https://github.com/funbox/crafter).
 Works after conversion from API Blueprint to API Elements (in YAML file) with Drafter or Crafter.
 
@@ -272,7 +274,7 @@ APIs:
     path: doc/api.yaml
 ```
 
-#### Tomograph
+##### Tomograph
 
 To use additional features of the pre-converted [tomograph](https://github.com/funbox/tomograph)
 
@@ -291,7 +293,7 @@ APIs:
     path: doc/api.json
 ```
 
-### prefix
+#### prefix
 
 Setting the prefix name is optional. For example, you can do this:
 
@@ -303,7 +305,7 @@ APIs:
     path: swagger/swagger.json
 ```
 
-### SkipAPIs
+### SkipValidation
 
 #### host
 

@@ -6,8 +6,8 @@ module Fitting
     def self.all
       yaml = YAML.safe_load(File.read('.fitting.yml'))
       {
-        apis: Fitting::Skip::API.all(yaml['SkipAPIs']),
-        actions: Fitting::Skip::Action.all(yaml['SkipAPIs'])
+        apis: Fitting::Skip::API.all(yaml['SkipValidation']),
+        actions: Fitting::Skip::Action.all(yaml['SkipValidation'])
       }
     end
 
