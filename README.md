@@ -316,7 +316,7 @@ SkipAPIs:
   - host: api.cluster.dyte.in
 ```
 
-##### prefix
+#### prefix
 
 If you want to skip a specific prefix in the host
 
@@ -326,7 +326,7 @@ SkipAPIs:
     prefix: /admin/api
 ```
 
-##### method and path 
+#### method and path
 
 If you want to skip a specific request in the host
 
