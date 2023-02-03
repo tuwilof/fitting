@@ -303,40 +303,15 @@ APIs:
     path: swagger/swagger.json
 ```
 
-### prefix skip
+### SkipAPIs
 
-It is not necessary to immediately describe each prefix in detail, you can only specify its name and skip it until you are ready to documented it
-```yaml
-prefixes:
-- name: /api/v1
-  type: openapi2
-  schema_paths:
-    - doc.json
-- name: /api/v3
-  skip: true
-```
+#### host
 
-For work with WebMock outgoing request, you should set up outgoing prefixes
-```yaml
-outgoing_prefixes:
-- name: /api/v1
-  type: openapi2
-  schema_paths:
-    - doc.json
-- name: /api/v3
-  skip: true
-```
-
-You can choose location that must be teste
+It is not necessary to immediately describe each host in detail, you can only specify its name and skip it until you are ready to documented it
 
 ```yaml
-prefixes:
-  - type: openapi2
-    schema_paths:
-      - doc.json
-    only:
-      - POST /api/v1/users
-      - GET /api/v1/user/{id}
+SkipAPIs:
+  - host: api.cluster.dyte.in
 ```
 
 ## Contributing
