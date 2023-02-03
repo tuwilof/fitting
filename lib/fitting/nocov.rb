@@ -13,14 +13,14 @@ module Fitting
     end
 
     def self.all(yaml)
-      return [] unless yaml['NoCovUsedActions']
-      yaml['NoCovUsedActions'].map do |action|
+      return [] unless yaml['NoCov']
+      yaml['NoCov'].map do |action|
         new(action['host'], action['method'], action['path'], action['code'], action['content-type'], action['combination'], action['combination_next'])
       end
     end
 
     def find(docs)
-      res = (docs[:provided] + docs[:used]).find do |action|
+      res = docs.find do |action|
         action.host == @host && action.method == @method && action.path_match(@path)
       end
 

@@ -31,9 +31,11 @@ module Fitting
           end
         end
 
-        combinations = Fitting::Cover::JSONSchema.new(json_schema).combi
-        combinations.each do |comb|
-          @next_steps.push(CombinationOptional.new(comb[0], comb[1][0], comb[1][1], json_schema))
+        if json_schema['type'] != 'array'
+          combinations = Fitting::Cover::JSONSchema.new(json_schema).combi
+          combinations.each do |comb|
+            @next_steps.push(CombinationOptional.new(comb[0], comb[1][0], comb[1][1], json_schema))
+          end
         end
       end
 
@@ -51,7 +53,7 @@ module Fitting
             "body: #{::JSON.pretty_generate(log.body)}\n\n"\
             "error #{::JSON.pretty_generate(JSON::Validator.fully_validate(@step_key, log.body))}"
         end
-      rescue JSON::Schema::SchemaError
+      rescue JSON::Schema::SchemaError => e
         raise Fitting::Doc::JsonSchema::NotFound.new "json-schema: #{::JSON.pretty_generate(@step_key)}\n\n"\
             "body: #{::JSON.pretty_generate(log.body)}\n\n"\
             "error #{e.message}"

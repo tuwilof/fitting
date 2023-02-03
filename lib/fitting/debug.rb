@@ -23,6 +23,7 @@ module Fitting
     end
 
     def self.report(index, next_steps_first, res_logs)
+      return {} if index.nil?
       combinations = []
       next_steps_first.next_steps.each do |next_step|
         combinations.push(

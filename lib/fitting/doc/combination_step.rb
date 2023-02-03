@@ -28,6 +28,7 @@ module Fitting
             next_step.debug_report(index)
           )
         end
+        return {} if index.nil? || index_before.nil?
         {
           "combination type" => @type,
           "combination" => @step_key,

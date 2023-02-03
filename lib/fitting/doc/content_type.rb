@@ -15,7 +15,7 @@ module Fitting
 
         definitions = subvalue.inject({}) do |sum, sv|
           if sv['body']["definitions"] != nil
-            sum.merge!(sv['body']["definitions"])
+            sum.merge!(sv['body'].delete('definitions'))
           end
           sum
         end
@@ -23,7 +23,13 @@ module Fitting
         if subvalue.size == 1
           if definitions && definitions != {}
             res = merge_definitions(subvalue[0], definitions)
-            if res
+            if res && res['properties']['type'] == 'object'
+              @next_steps.push(JsonSchema.new(
+                {
+                  "$schema" => "http://json-schema.org/draft-04/schema#",
+                }.merge(res['properties']), false
+              ))
+            elsif res
               @next_steps.push(JsonSchema.new(
                 {
                   "$schema" => "http://json-schema.org/draft-04/schema#",
@@ -106,7 +112,11 @@ module Fitting
       end
 
       def merge_definitions(sv, definitions)
-        res = sv['body']["properties"]
+        if sv['body']["properties"]
+          res = sv['body']["properties"]
+        elsif sv['body']['type'] != 'array'
+          res = sv['body']
+        end
         definitions.each_pair do |key, value|
           while JSON.dump(res).include?("\"$ref\":\"#/definitions/#{key}\"") do
             new_res_array = JSON.dump(res).split('{')

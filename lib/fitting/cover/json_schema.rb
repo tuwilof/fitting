@@ -22,7 +22,7 @@ module Fitting
             one_of = schema.delete('required') || []
             schema['properties'].each_key do |property|
               next if one_of.include?(property)
-
+              next if property == 'type' || property == 'properties'
               combinations.push([schema.merge('required' => one_of + [property]), "required.#{property}"])
             end
           elsif value.is_a?(Hash)
