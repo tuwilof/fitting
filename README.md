@@ -341,11 +341,67 @@ SkipValidation:
 
 It is not necessary to immediately test each doc in detail, you can only specify its name and skip it until you are ready to test it
 
+#### host
+```yaml
+NoCov:
+  - host: sso.test
+```
+
+#### method
+```yaml
+NoCov:
+  - host: sso.test
+    method: GET
+```
+
+#### path
 ```yaml
 NoCov:
   - host: sso.test
     method: GET
     path: /users/{userId}
+```
+
+#### code
+```yaml
+NoCov:
+  - host: sso.test
+    method: GET
+    path: /users/{userId}
+    code: 200
+```
+
+#### content-type
+```yaml
+NoCov:
+  - host: sso.test
+    method: GET
+    path: /users/{userId}
+    code: 200
+    content-type: application/json
+```
+
+#### combination
+```yaml
+NoCov:
+  - host: sso.test
+    method: GET
+    path: /users/{userId}
+    code: 200
+    content-type: application/json
+    combination: oneOf.0
+```
+
+#### combination_next
+```yaml
+NoCov:
+  - host: sso.test
+    method: GET
+    path: /users/{userId}
+    code: 200
+    content-type: application/json
+    combination: oneOf.0
+    combination_next: oneOf.0.required.users
 ```
 
 ### Debug
