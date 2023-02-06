@@ -312,7 +312,7 @@ APIs:
 It is not necessary to immediately describe each host in detail, you can only specify its name and skip it until you are ready to documented it
 
 ```yaml
-SkipAPIs:
+SkipValidation:
   - host: api.cluster.dyte.in
 ```
 
@@ -321,7 +321,7 @@ SkipAPIs:
 If you want to skip a specific prefix in the host
 
 ```yaml
-SkipAPIs:
+SkipValidation:
   - host: api.cluster.dyte.in
     prefix: /admin/api
 ```
@@ -331,7 +331,7 @@ SkipAPIs:
 If you want to skip a specific request in the host
 
 ```yaml
-SkipAPIs:
+SkipValidation:
   - host: api.cluster.dyte.in
     method: GET
     path: /api/v1/cars
