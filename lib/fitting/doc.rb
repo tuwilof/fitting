@@ -80,16 +80,16 @@ module Fitting
       raise NotFound
     end
 
-    def self.report(docs)
+    def self.report(actions)
       all = 0
       cov = 0
-      docs.each do |provid|
-        provid.to_hash.values.first.each do |prov|
-          if prov == nil
-            break
-          elsif prov == 0
+      actions.each do |action|
+        action.to_hash.values.first.each do |cover_line|
+          if cover_line == nil
+            next
+          elsif cover_line == 0
             all += 1
-          elsif prov > 0
+          elsif cover_line > 0
             all += 1
             cov += 1
           end
