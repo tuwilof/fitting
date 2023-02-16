@@ -79,10 +79,6 @@ module Fitting
         end_index
       end
 
-      def nocover!
-        @step_cover_size = nil
-      end
-
       def to_hash
         @step_key
       end

@@ -1,5 +1,12 @@
 # Change log
 
+### 4.0.1 - 2023-02-16
+
+* patch
+  * fix more info error if not found nocov
+  * fix deep nocov
+  * fix deep check result coverage for console
+
 ### 4.0.0 - 2023-02-03
 
 * features
