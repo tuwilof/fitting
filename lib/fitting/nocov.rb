@@ -29,6 +29,10 @@ module Fitting
         raise NotFound.new("host: #{@host}, method: #{@method}, path: #{@path}")
       end
 
+      if res == nil
+        raise NotFound.new("host: #{@host}, method: #{@method}, path: #{@path}")
+      end
+
       res_code = res.responses.find { |response| response.step_key == @code.to_s }
 
       if @content_type == nil
