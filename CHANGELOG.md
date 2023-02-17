@@ -1,5 +1,10 @@
 # Change log
 
+### 4.0.2 - 2023-02-17
+
+* patch
+  * skip error if not request in request test
+
 ### 4.0.1 - 2023-02-16
 
 * patch
