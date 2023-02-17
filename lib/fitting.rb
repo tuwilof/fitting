@@ -29,13 +29,19 @@ module Fitting
         end
 
         config.after(:each, type: :request) do |example|
-          request = Fitting::Records::Tested::Request.new(response, example)
-          responses += "FITTING incoming request #{request.to_spherical.to_json}\n"
+          begin
+            request = Fitting::Records::Tested::Request.new(response, example)
+            responses += "FITTING incoming request #{request.to_spherical.to_json}\n"
+          rescue NoMethodError
+          end
         end
 
         config.after(:each, type: :controller) do |example|
-          request = Fitting::Records::Tested::Request.new(response, example)
-          responses += "FITTING incoming request #{request.to_spherical.to_json}\n"
+          begin
+            request = Fitting::Records::Tested::Request.new(response, example)
+            responses += "FITTING incoming request #{request.to_spherical.to_json}\n"
+          rescue NoMethodError
+          end
         end
 
         config.after(:each) do
