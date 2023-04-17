@@ -4,7 +4,7 @@
 alt="Fitting avatar: Documents with hangers"
 src="./images/logo.png">
 
-We set up test logs, validate them according to your API documentation and show the documentation coverage with logs.
+Library add improve test logs, validate its according to your API documentation and show the documentation coverage with logs.
 
 Test logs setting supports RSpec test (and WebMock stubbing) for Ruby On Rails application and API documentation supports API Blueprint,
 Swagger and OpenAPI.
