@@ -4,9 +4,9 @@
 alt="Fitting avatar: Documents with hangers"
 src="./images/logo.png">
 
-Library add improve test logs, validate its according to your API documentation and show the documentation coverage with logs.
+Library add improve test log, validate its according to your API documentation and show the documentation coverage with log.
 
-Test logs setting supports RSpec test (and WebMock stubbing) for Ruby On Rails application and API documentation supports API Blueprint,
+Test log setting supports RSpec test (and WebMock stubbing) for Ruby On Rails application and API documentation supports API Blueprint,
 Swagger and OpenAPI.
 
 This reduces the costs of support, testers and analysts.
@@ -124,7 +124,7 @@ FITTING outgoing request {"method":"POST","path":"/v1/organizations/org_id/meeti
 ```
 
 ### Validation
-Secondly, validate the logs to the documentation.
+Secondly, validate the log to the documentation.
 
 Add this to your `.fitting.yml`:
 
