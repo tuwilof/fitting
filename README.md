@@ -4,10 +4,9 @@
 alt="Fitting avatar: Documents with hangers"
 src="./images/logo.png">
 
-Library add improve test log, validate its according to your API documentation and show the documentation coverage with log.
+Library add improve test log, validate its according to your API documentation, show the documentation coverage with log.
 
-Test log setting supports RSpec test (and WebMock stubbing) for Ruby On Rails application and API documentation supports API Blueprint,
-Swagger and OpenAPI.
+Test log setting supports RSpec test and WebMock stubbing for Ruby On Rails application, API documentation supports API Blueprint and OpenAPI.
 
 This reduces the costs of support, testers and analysts.
 
