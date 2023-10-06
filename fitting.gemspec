@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Coverage API Blueprint, Swagger and OpenAPI with RSpec'
   spec.description   = 'Coverage API Blueprint, Swagger and OpenAPI with RSpec for easily make high-quality API and documenatiton'
-  spec.homepage      = 'https://github.com/funbox/fitting'
+  spec.homepage      = 'https://github.com/matchtechnologies/fitting'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
