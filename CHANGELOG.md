@@ -1,5 +1,10 @@
 # Change log
 
+### 4.1.0 - 2023-10-16
+
+* features
+  * add exit for invalid case
+
 ### 4.0.4 - 2023-10-06
 
 * patch

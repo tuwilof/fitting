@@ -1,3 +1,3 @@
 module Fitting
-  VERSION = '4.0.4'.freeze
+  VERSION = '4.1.0'.freeze
 end
