@@ -97,6 +97,9 @@ module Fitting
         puts "\e[31m  #{index + 1}) #{log.error.class} #{log.error.message}\n\n\e[0m"
       end
       print "\e[31m#{logs.size} examples, #{Fitting::Log.failure(logs).size} failure, #{Fitting::Log.pending(logs).size} pending\e[0m\n"
+      unless Fitting::Log.failure(logs).size <= 0
+        exit 1
+      end
     end
   end
 end
