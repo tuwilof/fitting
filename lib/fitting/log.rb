@@ -96,7 +96,11 @@ module Fitting
       Fitting::Log.failure(logs).each_with_index do |log, index|
         puts "\e[31m  #{index + 1}) #{log.error.class} #{log.error.message}\n\n\e[0m"
       end
-      print "\e[31m#{logs.size} examples, #{Fitting::Log.failure(logs).size} failure, #{Fitting::Log.pending(logs).size} pending\e[0m\n"
+
+      failure_count = Fitting::Log.failure(logs).size
+      color_code = failure_count > 0 ? 31 : 32
+      print "\e[#{color_code}m#{logs.size} examples, #{failure_count} failure, #{Fitting::Log.pending(logs).size} pending\e[0m\n"
+
       unless Fitting::Log.failure(logs).size <= 0
         exit 1
       end
