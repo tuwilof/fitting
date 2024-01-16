@@ -1,5 +1,10 @@
 # Change log
 
+### 4.2.0 - 2024-01-17
+
+* features
+  * print report green if no failures
+
 ### 4.1.0 - 2023-10-16
 
 * features
