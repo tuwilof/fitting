@@ -275,7 +275,7 @@ APIs:
 
 ##### Tomograph
 
-To use additional features of the pre-converted [tomograph](https://github.com/funbox/tomograph)
+To use additional features of the pre-converted [tomograph](https://github.com/tuwilof/tomograph)
 
 example
 
@@ -418,7 +418,7 @@ Debug:
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at [github.com/funbox/fitting](https://github.com/funbox/fitting).
+Bug reports and pull requests are welcome on GitHub at [github.com/tuwilof/fitting](https://github.com/tuwilof/fitting).
 This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
