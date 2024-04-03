@@ -425,4 +425,4 @@ This project is intended to be a safe, welcoming space for collaboration, and co
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
-[![Sponsored by FunBox](https://funbox.ru/badges/sponsored_by_funbox_centered.svg)](https://funbox.ru)
+[Sponsored by FunBox](https://funbox.ru)
