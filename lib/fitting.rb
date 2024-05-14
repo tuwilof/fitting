@@ -45,7 +45,7 @@ module Fitting
         end
 
         config.after(:each) do
-          WebMock::CallbackRegistry.reset
+          WebMock::CallbackRegistry.reset if Object.const_defined?('WebMock')
         end
 
         config.after(:suite) do
