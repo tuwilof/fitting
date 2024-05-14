@@ -1,5 +1,10 @@
 # Change log
 
+### 4.2.2 - 2024-05-14
+
+* fixes
+  * not fail if webmock not used
+
 ### 4.2.1 - 2024-04-04
 
 * patch
