@@ -4,11 +4,15 @@
 alt="Fitting avatar: Documents with hangers"
 src="./images/logo.png">
 
+
+
 Library add improve test log, validate its according to your API documentation, show the documentation coverage with log.
 
 Test log setting supports RSpec test and WebMock stubbing for Ruby On Rails application, API documentation supports API Blueprint and OpenAPI.
 
 This reduces the costs of support, testers and analysts.
+
+[Telegram community for any Fitting related questions](https://t.me/+NFojMTCFJ-1iNDYy)
 
 Log
 ```text
@@ -415,6 +419,10 @@ Debug:
     code: 200
     content-type: application/json
 ```
+
+## Community
+
+Join us on [Telegram](https://t.me/+NFojMTCFJ-1iNDYy).
 
 ## Contributing
 
